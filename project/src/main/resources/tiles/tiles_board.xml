@@ -12,7 +12,7 @@
 
    <definition name="*.tiles" extends="baseLayout">
       <put-attribute name="title" value="메인페이지" />
-      <put-attribute name="header" value="/WEB-INF/views/common/header2.jsp" />
+      <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
       <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
    </definition>
 

@@ -9,16 +9,15 @@
   <head>
     <meta charset="UTF-8">
     <style>
-      #container {
+
+      #contain {
         width: 100%;
-        margin: 0px auto;
           text-align:center;
         border: 0px solid #bcbcbc;
       }
       #header {
         margin-bottom: 5px;
         border: 0px solid #bcbcbc;
-         background-color: lightblue;
       }
       #sidebar-left {
         width: 15%;
@@ -49,7 +48,7 @@
     <title><tiles:insertAttribute name="title" /></title>
   </head>
     <body>
-    <div id="container">
+    <div id="contain">
       <div id="header">
          <tiles:insertAttribute name="header"/>
       </div>

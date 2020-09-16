@@ -37,7 +37,7 @@ public class Hmp001_d003ControllerImpl implements Hmp001_d003Controller {
 	@Override 
 	@RequestMapping(value = "/hm/hmp001_d003/searchInit.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView searchInit(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("hello.tiles");//
+		ModelAndView mav = new ModelAndView("c001_002.tiles");//
 		return mav;
 	}
 	
