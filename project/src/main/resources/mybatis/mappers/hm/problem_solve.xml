@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pr.problem_solve">
+	<resultMap id="problem_solve_result" type="problem_VO">
+		<result property="pro_num" column="pro_num" />
+		<result property="pro_content" column="pro_content" />
+		<result property="pro_category" column="pro_category" />
+		<result property="pro_tag" column="pro_tag" />
+	</resultMap>
+
+	<select id="searchList" resultMap="problem_solve_result" parameterType="java.util.Map"> 
+      <![CDATA[
+         select pro_num,pro_content,pro_category,pro_tag
+         from   PROBLEM
+      ]]>
+	</select>
+	
+</mapper>

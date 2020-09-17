@@ -31,9 +31,9 @@
         font-size:10px;
       }
       #content {
-        width: 75%;
+        width: 100%;
         padding: 5px;
-        margin-right: 5px;
+        margin:auto;
         float: left;
         border: 0px solid #bcbcbc;
       }

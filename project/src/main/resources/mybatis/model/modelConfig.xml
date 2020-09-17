@@ -9,5 +9,6 @@
 		<typeAlias type="project.hm.hmp001_d002.vo.Hmp001_d002VO"  alias="hmp001_d002VO" />
 		<typeAlias type="project.hm.hmp001_d003.vo.Hmp001_d003VO"  alias="hmp001_d003VO" />
 		<typeAlias type="project.hm.hmp002_d001.vo.Hmp002_d001VO"  alias="hmp002_d001VO" />
+		<typeAlias type="project.sungho.problem_solve_module.vo.Problem_VO"  alias="problem_VO" />
 	</typeAliases> 
 </configuration>
