@@ -5,8 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<style type="text/css">
+.menu {
+margin-top: 50px;
+}
+</style>
+
 </head>
 <body>
+<div class="menu">
 <form action="test.to" method="post">
 <select>
 <option value="test1"> test1</option>
@@ -22,5 +30,6 @@
 </select> 랜덤 기출
 <input type="submit" value="확인">
 </form>
+</div>
 </body>
 </html>

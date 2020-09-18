@@ -19,8 +19,10 @@ public class MainControllerImpl implements MainController {
 	@RequestMapping(value = "**/*.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = request.getRequestURI().substring(7).split("\\.")[0];
+		String category = request.getParameter("category");
 		
 		ModelAndView mav = new ModelAndView(url+".tiles");
+		mav.addObject("category", category);
 		return mav;
 	}
 	

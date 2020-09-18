@@ -25,4 +25,16 @@ public class Problem_ServiceImpl implements Problem_Service {
 		List<Problem_VO> list = probem_DAO.searchList(searchMap);
 		return list;
 	}
+
+	@Override
+	public List<Problem_VO> searchListCategory(Map<String, Object> searchMap) throws DataAccessException {
+		List<Problem_VO> list = probem_DAO.searchListCategory(searchMap);
+		return list;
+	}
+
+	@Override
+	public List<Problem_VO> searchProblem(Map<String, Object> searchMap) throws DataAccessException {
+		List<Problem_VO> list = probem_DAO.searchProblem(searchMap);
+		return list;
+	}
 }

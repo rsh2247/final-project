@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,23 +10,25 @@
 <body>
 
 <table style="margin: auto;">
+<c:forEach var="problem" items="${list}">
 <tr>
-<td>문제명</td>
+<td>문제자료</td>
 </tr>
 <tr>
-<td>문제내용</td>
+<td>${problem.pro_name}</td>
 </tr>
 <tr>
-<td>보기
+<td>${problem.pro_content}</td>
+</tr>
+<tr>
+<td>${problem.pro_example}</td>
+<td>
 <form action="" method="post">
-<input type="radio" value="1">1 
-<input type="radio" value="2">2 
-<input type="radio" value="3">3 
-<input type="radio" value="4">4 
 <input type="submit" value="확인">
 </form>
 </td>
 </tr>
+</c:forEach>
 </table>
 
 

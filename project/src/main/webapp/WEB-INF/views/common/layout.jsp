@@ -9,39 +9,28 @@
   <head>
     <meta charset="UTF-8">
     <style>
-
+    *{
+    margin: 0;
+    padding: 0;
+    }
       #contain {
         width: 100%;
-          text-align:center;
-        border: 0px solid #bcbcbc;
+        text-align:center;
       }
       #header {
-        margin-bottom: 5px;
         border: 0px solid #bcbcbc;
-      }
-      #sidebar-left {
-        width: 15%;
-        height:700px;
-        padding: 5px;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        float: left;
-         background-color: yellow;
-        border: 0px solid #bcbcbc;
-        font-size:10px;
       }
       #content {
         width: 100%;
-        padding: 5px;
+        height:750px;
         margin:auto;
         float: left;
-        border: 0px solid #bcbcbc;
       }
       #footer {
         clear: both;
         padding: 5px;
         border: 0px solid #bcbcbc;
-         background-color: lightblue;
+         background-color: #ddd;
       }
       
     </style>

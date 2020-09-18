@@ -26,17 +26,54 @@ public class PS_ControllerImpl implements PS_Controller {
 	Problem_VO problem_VO;
 
 	@Override
-	@RequestMapping(value = "**/*.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = request.getRequestURI().substring(7).split("\\.")[0];
-		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		List<Problem_VO> list = problem_Service.searchList(searchMap);
 		
-		ModelAndView mav = new ModelAndView(url+".tiles");
+		ModelAndView mav = new ModelAndView("problem_solve/c001_003.tiles");
 		mav.addObject("list", list);
 		
 		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "**/c001_003.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView searchCategory(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String category = request.getParameter("category");
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("category", category);
+		List<Problem_VO> list = problem_Service.searchListCategory(searchMap);
+		
+		ModelAndView mav = new ModelAndView("problem_solve/c001_003.tiles");
+		mav.addObject("list", list);
+		
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "**/problem_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView searchProblem(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String pro_num = request.getParameter("pro_num");
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("pro_num", pro_num);
+		List<Problem_VO> list = problem_Service.searchProblem(searchMap);
+		
+		ModelAndView mav = new ModelAndView("problem_solve/pro_page.tiles");
+		mav.addObject("list", list);
+		
+		return mav;
+	}
+
+	
+	@Override
+	@RequestMapping(value = "**/check_answer.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView checkAnswer(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

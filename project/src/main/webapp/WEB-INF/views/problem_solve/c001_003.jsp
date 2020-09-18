@@ -7,33 +7,52 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+.menu{
+margin-top: 50px;
+}
+
 .p_table {
 	border-collapse: collapse;
-	border: 1px solid black;
+	border: 0px solid black;
+	margin: auto;
 }
+
+.p_table th{
+	border-bottom: 1px solid black;
+	height: 40px;
+}
+
+.p_table td{
+	border-bottom: 1px solid #ccc;
+	height: 25px;
+
+}
+
+.p_table a{
+	text-decoration: none;
+	color: black;
+}
+
 </style>
 </head>
 <body>
-	<table>
-		<tr>
-			<td>전체</td>
-			<td>난이도</td>
-			<td>태그</td>
-			<td>평점</td>
-		</tr>
-	</table>
-	검색
+	<div class="menu">
 	<table class="p_table">
 		<tr>
 			<th width="100px">문제 번호</th>
-			<th width="200px">문제명</th>
-			<th>정보</th>
+			<th width="500px" >문제명</th>
+			<th width="100px">정보</th>
+			<th width="100px">난이도</th>
 		</tr>
+		<c:forEach var="problem" items="${list}">
 		<tr>
-			<td>000</td>
-			<td><a href="test.to">문제1</a></td>
-			<td>000</td>
+		<td>${problem.pro_num}</td>
+		<td style="text-align: left; padding-left: 10px;"><a href="problem_page.pro?pro_num=${problem.pro_num}">${problem.pro_name}</a></td>
+		<td><a href="">${problem.pro_tag}</a> </td>
+		<td> </td>
 		</tr>
+		</c:forEach>
 	</table>
+	</div>
 </body>
 </html>
