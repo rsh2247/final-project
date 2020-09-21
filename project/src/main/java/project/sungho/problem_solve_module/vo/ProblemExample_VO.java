@@ -1,17 +1,20 @@
 package project.sungho.problem_solve_module.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component("problemExample_VO")
 public class ProblemExample_VO {
-	private String pro_num,ex_num,ex_content;
+	private String pro_num,cho_num,cho_content;
 	
 	public ProblemExample_VO() {
 		super();
 	}
 
-	public ProblemExample_VO(String pro_num, String ex_num, String ex_content) {
+	public ProblemExample_VO(String pro_num, String cho_num, String cho_content) {
 		super();
 		this.pro_num = pro_num;
-		this.ex_num = ex_num;
-		this.ex_content = ex_content;
+		this.cho_num = cho_num;
+		this.cho_content = cho_content;
 	}
 
 	public String getPro_num() {
@@ -22,21 +25,20 @@ public class ProblemExample_VO {
 		this.pro_num = pro_num;
 	}
 
-	public String getEx_num() {
-		return ex_num;
+	public String getCho_num() {
+		return cho_num;
 	}
 
-	public void setEx_num(String ex_num) {
-		this.ex_num = ex_num;
+	public void setCho_num(String cho_num) {
+		this.cho_num = cho_num;
 	}
 
-	public String getEx_content() {
-		return ex_content;
+	public String getCho_content() {
+		return cho_content;
 	}
 
-	public void setEx_content(String ex_content) {
-		this.ex_content = ex_content;
+	public void setCho_content(String cho_content) {
+		this.cho_content = cho_content;
 	}
-	
 
 }

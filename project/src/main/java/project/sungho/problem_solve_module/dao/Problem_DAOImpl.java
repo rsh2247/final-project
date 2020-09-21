@@ -37,11 +37,14 @@ public class Problem_DAOImpl implements Problem_DAO {
 
 	@Override
 	public List<ProblemExample_VO> searchExample(Map<String, Object> searchMap) throws DataAccessException {
-		
-		List<Problem_VO> list = sqlSession.selectList("pr.problem_solve.searchProblem", searchMap);
-		
-		return null;
+		List<ProblemExample_VO> list = sqlSession.selectList("pr.problem_solve.searchExample", searchMap);
+		return list;
+	}
+
+	@Override
+	public List<Problem_VO> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
+		List<Problem_VO> list = sqlSession.selectList("pr.problem_solve.selectProByCol_num", searchMap);
+		return list;
 	}
 	
-
 }

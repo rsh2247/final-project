@@ -4,13 +4,13 @@ import org.springframework.stereotype.Component;
 
 @Component("problem_VO")
 public class Problem_VO {
-	private String pro_num,pro_tag,pro_category,pro_content,pro_name,pro_answer,pro_example;
+	private String pro_num,pro_tag,pro_category,pro_content,pro_name,pro_answer,pro_comment;
 
 	public Problem_VO() {
 		super();
 	}
 	public Problem_VO(String pro_num, String pro_tag, String pro_category, String pro_content, String pro_name,
-			String pro_answer, String pro_example) {
+			String pro_answer, String pro_comment) {
 		super();
 		this.pro_num = pro_num;
 		this.pro_tag = pro_tag;
@@ -18,7 +18,7 @@ public class Problem_VO {
 		this.pro_content = pro_content;
 		this.pro_name = pro_name;
 		this.pro_answer = pro_answer;
-		this.pro_example = pro_example;
+		this.pro_comment = pro_comment;
 	}
 	public String getPro_num() {
 		return pro_num;
@@ -63,11 +63,11 @@ public class Problem_VO {
 	public void setPro_answer(String pro_answer) {
 		this.pro_answer = pro_answer;
 	}
-	public String getPro_example() {
-		return pro_example;
+	public String getPro_comment() {
+		return pro_comment;
 	}
-	public void setPro_example(String pro_example) {
-		this.pro_example = pro_example;
+	public void setPro_comment(String pro_comment) {
+		this.pro_comment = pro_comment;
 	}
 
 }

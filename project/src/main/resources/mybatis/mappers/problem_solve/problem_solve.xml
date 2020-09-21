@@ -10,6 +10,15 @@
 		<result property="pro_category" column="pro_category" />
 		<result property="pro_tag" column="pro_tag" />
 	</resultMap>
+	
+	<resultMap id="problem_example_result" type="problemExample_VO">
+		<result property="pro_num" column="pro_num" />
+		<result property="cho_num" column="cho_num" />
+		<result property="cho_content" column="cho_content" />
+	</resultMap>
+	<resultMap id="pro_collection_result" type="proCollection_VO">
+		<result property="pro_num" column="pro_num" />
+	</resultMap>
 
 	<select id="searchList" resultMap="problem_solve_result" parameterType="java.util.Map"> 
       <![CDATA[
@@ -41,5 +50,31 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="searchExample" resultMap="problem_example_result" parameterType="java.util.Map"> 
+      <![CDATA[
+         select *
+         from   pro_choice
+      ]]>
+      	<where>
+			<if test=" pro_num != ''  and  pro_num != null">
+				pro_num = #{pro_num}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectProByCol_num" resultMap="problem_solve_result" parameterType="java.util.Map">
+		<![CDATA[
+			select *
+			from problem p, pro_collection c
+		]]>
+		<where>
+			p.pro_num = c.pro_num
+			<if test=" pro_num != ''  and  pro_num != null">
+				p.pro_num = ${pro_num}
+			</if>
+		</where>
+	</select>
+	
 	
 </mapper>

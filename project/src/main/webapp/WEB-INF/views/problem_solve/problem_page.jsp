@@ -10,7 +10,7 @@
 <body>
 
 <table style="margin: auto;">
-<c:forEach var="problem" items="${list}">
+<c:forEach var="problem" items="${list1}">
 <tr>
 <td>문제자료</td>
 </tr>
@@ -20,16 +20,20 @@
 <tr>
 <td>${problem.pro_content}</td>
 </tr>
-<tr>
-<td>${problem.pro_example}</td>
-<td>
-<form action="" method="post">
-<input type="submit" value="확인">
-</form>
-</td>
-</tr>
 </c:forEach>
+
 </table>
+<form action="check_answer.pro" method="post">
+<ul>
+<c:forEach var="example" items="${list2}">
+<li>
+<input type="radio" value="${example.cho_content}" name="answer">
+${example.cho_num}</li>
+<li>${example.cho_content}</li>
+</c:forEach>
+<li><input type="submit"></li>
+</ul>
+</form>
 
 
 
