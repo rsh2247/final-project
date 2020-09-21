@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pr.pro_collection">
+	<resultMap id="pro_collection_result" type="proCollection_VO">
+		<result property="pro_num" column="pro_num" />
+	</resultMap>
+
+	<select id="searchWholeList" resultMap="pro_collection_result" parameterType="java.util.Map"> 
+      <![CDATA[
+         select *
+         from   pro_collection
+      ]]>
+	</select>
+	
+	<select id="searchCategoryList" resultMap="pro_collection_result" parameterType="java.util.Map"> 
+      <![CDATA[
+         select *
+         from   pro_collection
+      ]]>
+      <where>
+      	 <if test=" category != ''  and  category != null">
+				col_category = #{category}
+		 </if>
+      </where>
+	</select>
+	
+	<select id="searchList" resultMap="pro_collection_result" parameterType="java.util.Map"> 
+      <![CDATA[
+         select *
+         from   pro_collection
+      ]]>
+      <where>
+      	 <if test=" col_num != ''  and  col_num != null">
+				col_num = #{col_num}
+		 </if>
+      </where>
+	</select>
+</mapper>

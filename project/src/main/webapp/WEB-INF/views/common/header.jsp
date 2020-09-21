@@ -12,11 +12,9 @@
 <title>Insert title here</title>
 <style type="text/css">
 .container {
-	width: 1170px;
-	height: 0px;
-	padding: 10px 15px 10px 15px;
-	margin-right: auto;
-	margin-left: auto;
+	height: 75px;
+	padding: 0 15px 0 15px;
+	border-bottom: 2px solid #ccc;
 }
 
 .loginbar {
@@ -45,11 +43,9 @@
 
 #navi {
 	height: 30px; /* 메인 메뉴의 높이 */
-	margin: 15px auto;
 	display: inline-block;
 	position: relative;
-	top: -60px;
-	left: -100px;
+	top: -38px;
 }
 
 .one, .two, .three { /* 메인 메뉴 안의 ul을 설정함: 상위메뉴의 ul+하위 메뉴의 ul */
@@ -68,14 +64,7 @@
 
 .one {
 	float: left;
-}
-
-.one>li:hover {
-	background: black;
-}
-
-.one>li:hover .link {
-	color: white;
+	width: 100%;
 }
 
 .one>li {
@@ -84,6 +73,14 @@
 	margin: 15px auto;
 	height: 30px;
 	width: 120px;
+	border-bottom: 2px solid #ccc;
+}
+
+.one>li:hover {
+	border-bottom: 2px solid black;
+}
+
+.one>li:hover .link {
 }
 
 .one ul {
@@ -95,12 +92,13 @@
 .two {
 	position: absolute;
 	left: 0px;
-	top: 30px;
+	top: 32px;
 }
 
 .two>li {
 	position: relative;
-	background-color: #4d4d4d; height : 30px;
+	background-color: #4d4d4d;
+	height: 30px;
 	width: 120px;
 	height: 30px;
 }
@@ -123,37 +121,53 @@
 </style>
 </head>
 <body>
+
 	<div class="container">
-		<table class="loginbar">
-			<tr>
-				<td>로그인</td>
-				<td>회원가입</td>
-			</tr>
-		</table>
-	</div>
-	<p style="clear: both;"></p>
-	<div class="container">
-		<img src="${contextPath}/resources/image/duke_swing.gif" style="position: relative; top: -70px; left: -250px;" />
+		<img src="${contextPath}/resources/image/duke_swing.gif" 
+		onclick="location.href='${contextPath}/mainPage/mainPage001.do'"
+		style="position: relative; top: -25px; left: -250px;" />
 		<nav id="navi">
 			<ul class="one">
 				<li><a href="#" class="link">문제풀기</a>
 					<ul class="two">
 						<li><a href="#" class="link">공인어학시험</a>
 							<ul class="three">
-								<li><a href="${contextPath}/pr/c001_002.do" class="link">TOEIC</a></li>
-								<li><a href="${contextPath}/pr/c001_002.do" class="link">TOEFL</a></li>
-								<li><a href="${contextPath}/pr/c001_002.do" class="link">JLPT</a></li>
-								<li><a href="${contextPath}/pr/c001_002.do" class="link">HSK</a></li>
+								<li><h3>영어</h3></li>
+								<li><a href="${contextPath}/problem_solve/c001_002.do?category=TOEIC" class="link">TOEIC</a></li>
+								<li><a href="${contextPath}/problem_solve/c001_002.do?category=TOEFL" class="link">TOEFL</a></li>
+								<li><a href="${contextPath}/problem_solve/c001_002.do?category=TEPS" class="link">TEPS</a></li>
+								<li><a href="" class="link"> </a></li>
+							</ul>
+							<ul class="three" style="left: 240px;">
+								<li><h3>중국어</h3></li>
+								<li><a href="${contextPath}/problem_solve/c001_002.do?category=HSK" class="link">HSK</a></li>
+								<li><a href="" class="link"></a></li>
+								<li><a href="" class="link"></a></li>
+								<li><a href="" class="link"></a></li>
+							</ul>
+							<ul class="three" style="left: 360px;">
+								<li><h3>일본어</h3></li>
+								<li><a href="${contextPath}/problem_solve/c001_002.do?category=JLPT" class="link">JLPT</a></li>
+								<li><a href="" class="link"></a></li>
+								<li><a href="${contextPath}/pr/c001_002.do" class="link"></a></li>
+								<li><a href="${contextPath}/pr/c001_002.do" class="link">#</a></li>
 							</ul></li>
-						<li><a href="#" class="link">국가자격시험</a></li>
-						<li><a href="#" class="link">sub3</a>
+						<li><a href="#" class="link">자격시험</a>
 							<ul class="three">
-								<li><a href="#" class="link">sub3-1</a></li>
-								<li><a href="#" class="link">sub3-2</a></li>
-								<li><a href="#" class="link">sub3-3</a></li>
+								<li><h3>국가기술자격</h3></li>
+								<li><a href="#" class="link">기능사</a></li>
+								<li><a href="#" class="link">산업기사</a></li>
+								<li><a href="#" class="link">기사</a></li>
+							</ul>
+							<ul class="three" style="left: 240px;">
+								<li><h3>민간자격</h3></li>
+								<li><a href="#" class="link">한국사능력검정시험</a></li>
+								<li><a href="#" class="link"></a></li>
+								<li><a href="#" class="link"></a></li>
 							</ul></li>
+						<li><a href="#" class="link">sub3</a></li>
 					</ul></li>
-				<li><a href="#" class="link">menu2</a>
+				<li><a href="#" class="link">문제만들기</a>
 					<ul class="two">
 						<li><a href="#" class="link">sub1</a></li>
 						<li><a href="#" class="link">sub2</a></li>
@@ -167,6 +181,8 @@
 				<li><a href="#" class="link">menu3</a></li>
 				<li><a href="#" class="link">menu4</a></li>
 				<li><a href="#" class="link">menu5</a></li>
+				<li><a href="#" class="link">menu6</a></li>
+				<li><a href="#" class="link">menu7</a></li>
 			</ul>
 		</nav>
 	</div>
