@@ -12,5 +12,9 @@ public interface PS_Controller {
 	public ModelAndView colSelectPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView userColSelectPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView collectionPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	
+	//제작 페이지
+	public ModelAndView problemMakePage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 }

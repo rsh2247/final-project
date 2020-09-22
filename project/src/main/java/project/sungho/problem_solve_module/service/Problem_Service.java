@@ -12,5 +12,8 @@ public interface Problem_Service {
 	 public List<Problem_VO> searchListCategory(Map<String, Object> searchMap) throws DataAccessException;
 	 public List<Problem_VO> searchProblem(Map<String, Object> searchMap) throws DataAccessException;
 	 public List searchExample(Map<String, Object> searchMap) throws DataAccessException;
-	 public List<Problem_VO> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
+	 public List<Map<String, String>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
+	 public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException;
+	 public List<Map<String, String>> selectTag(Map<String, Object> searchMap) throws DataAccessException;
+
 }

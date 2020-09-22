@@ -12,13 +12,12 @@
 	</resultMap>
 	
 	<resultMap id="problem_example_result" type="problemExample_VO">
-		<result property="pro_num" column="pro_num" />
-		<result property="cho_num" column="cho_num" />
-		<result property="cho_content" column="cho_content" />
 	</resultMap>
 	<resultMap id="pro_collection_result" type="proCollection_VO">
-		<result property="pro_num" column="pro_num" />
 	</resultMap>
+	<resultMap id="userResult" type="java.util.HashMap">
+	</resultMap>
+
 
 	<select id="searchList" resultMap="problem_solve_result" parameterType="java.util.Map"> 
       <![CDATA[
@@ -63,18 +62,17 @@
 		</where>
 	</select>
 	
-	<select id="selectProByCol_num" resultMap="problem_solve_result" parameterType="java.util.Map">
+	<select id="selectProByCol_num" resultMap="userResult" parameterType="java.util.Map">
 		<![CDATA[
 			select *
-			from problem p, pro_collection c
+			from problem p, pro_collection c, col_list l
 		]]>
 		<where>
-			p.pro_num = c.pro_num
-			<if test=" pro_num != ''  and  pro_num != null">
-				p.pro_num = ${pro_num}
+			p.pro_num = l.pro_num and l.col_num = c.col_num
+			<if test=" col_num != ''  and  col_num != null">
+				and <![CDATA[c.col_num]]> = #{col_num}
 			</if>
 		</where>
+		order by col_list_num asc
 	</select>
-	
-	
 </mapper>

@@ -169,6 +169,12 @@
 					</ul></li>
 				<li><a href="#" class="link">문제만들기</a>
 					<ul class="two">
+						<li><a href="${contextPath}/problem_make/proMake_mainPage.do" class="link">문제만들기</a></li>
+						<li><a href="${contextPath}/problem_make/colMake_mainPage.do" class="link">문제집만들기</a></li>
+					</ul>
+				</li>
+				<li><a href="#" class="link">menu3</a>
+					<ul class="two">
 						<li><a href="#" class="link">sub1</a></li>
 						<li><a href="#" class="link">sub2</a></li>
 						<li><a href="#" class="link">sub3</a>
@@ -178,7 +184,6 @@
 								<li><a href="#" class="link">sub3-3</a></li>
 							</ul></li>
 					</ul></li>
-				<li><a href="#" class="link">menu3</a></li>
 				<li><a href="#" class="link">menu4</a></li>
 				<li><a href="#" class="link">menu5</a></li>
 				<li><a href="#" class="link">menu6</a></li>

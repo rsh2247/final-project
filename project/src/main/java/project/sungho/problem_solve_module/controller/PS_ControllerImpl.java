@@ -7,12 +7,16 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.sungho.mainController.MainControllerImpl;
 import project.sungho.pro_collection_module.service.ProCollection_Service;
 import project.sungho.pro_collection_module.vo.ProCollection_VO;
 import project.sungho.problem_solve_module.service.Problem_Service;
@@ -21,6 +25,7 @@ import project.sungho.problem_solve_module.vo.Problem_VO;
 
 @Controller
 public class PS_ControllerImpl implements PS_Controller {
+	private static final Logger logger = LoggerFactory.getLogger(PS_ControllerImpl.class);
 	
 	@Autowired
 	Problem_Service problem_Service;
@@ -111,8 +116,47 @@ public class PS_ControllerImpl implements PS_Controller {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("col_num", col_num);
 		
-		List<Problem_VO> list = problem_Service.selectProByCol(searchMap);
+		List<Map<String, String>> list = problem_Service.selectProByCol(searchMap);
 		ModelAndView mav = new ModelAndView("problem_solve/pro_collection_page.tiles");
+		mav.addObject("list", list);
+		System.out.println(list);
+		return mav;
+	}
+
+	
+	
+	@Override
+	public ModelAndView problemMakePage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "**/makeProAjax001.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public List<Map<String, String>> makeProAjax001(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String input = request.getParameter("string");
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("category", input);
+		
+		List<Map<String, String>> list = problem_Service.selectCategory(searchMap);
+		
+		return list;
+	}
+	
+	@RequestMapping(value = "**/makePro001.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView makePro001(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		String categoryId = request.getParameter("category3").split("/")[0];
+		String categoryName = request.getParameter("category3").split("/")[1];
+		System.out.println(categoryId);
+		searchMap.put("category_id", categoryId);
+		
+		List<Map<String, String>> list = problem_Service.selectTag(searchMap);
+		
+		ModelAndView mav = new ModelAndView("problem_make/proMake_001Page.tiles");
+		mav.addObject("categoryId",categoryId);
+		mav.addObject("categoryName",categoryName);
 		mav.addObject("list", list);
 		return mav;
 	}

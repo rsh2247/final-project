@@ -18,5 +18,9 @@ public interface Problem_DAO {
 
 	public List<ProblemExample_VO> searchExample(Map<String, Object> searchMap) throws DataAccessException;
 	
-	public List<Problem_VO> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
+	public List<Map<String, String>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
+	
+	public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException;
+	
+	public List<Map<String, String>> selectTag(Map<String, Object> searchMap) throws DataAccessException;
 }

@@ -42,8 +42,18 @@ public class Problem_DAOImpl implements Problem_DAO {
 	}
 
 	@Override
-	public List<Problem_VO> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
-		List<Problem_VO> list = sqlSession.selectList("pr.problem_solve.selectProByCol_num", searchMap);
+	public List<Map<String, String>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, String>> list = sqlSession.selectList("pr.problem_solve.selectProByCol_num", searchMap);
+		return list;
+	}
+	
+	public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, String>> list = sqlSession.selectList("problem_make.selectCategory", searchMap);
+		return list;
+	}
+	
+	public List<Map<String, String>> selectTag(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, String>> list = sqlSession.selectList("problem_make.selectTag", searchMap);
 		return list;
 	}
 	

@@ -45,8 +45,20 @@ public class Problem_ServiceImpl implements Problem_Service {
 	}
 
 	@Override
-	public List<Problem_VO> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
-		List<Problem_VO> list = probem_DAO.selectProByCol(searchMap);
+	public List<Map<String, String>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, String>> list = probem_DAO.selectProByCol(searchMap);
+		return list;
+	}
+	
+	@Override
+	public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, String>> list = probem_DAO.selectCategory(searchMap);
+		return list;
+	}
+	
+	@Override
+	public List<Map<String, String>> selectTag(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, String>> list = probem_DAO.selectTag(searchMap);
 		return list;
 	}
 
