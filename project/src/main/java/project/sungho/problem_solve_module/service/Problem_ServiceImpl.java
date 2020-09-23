@@ -61,6 +61,8 @@ public class Problem_ServiceImpl implements Problem_Service {
 		List<Map<String, String>> list = probem_DAO.selectTag(searchMap);
 		return list;
 	}
-
 	
+	public void insertProblem(Map<String, String> inputMap) throws DataAccessException {
+		probem_DAO.insertProblem(inputMap);
+	}
 }

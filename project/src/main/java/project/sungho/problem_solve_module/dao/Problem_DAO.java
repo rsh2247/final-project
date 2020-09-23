@@ -23,4 +23,6 @@ public interface Problem_DAO {
 	public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException;
 	
 	public List<Map<String, String>> selectTag(Map<String, Object> searchMap) throws DataAccessException;
+	
+	public void insertProblem(Map<String, String> inputMap) throws DataAccessException;
 }

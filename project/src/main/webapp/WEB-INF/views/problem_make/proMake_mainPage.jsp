@@ -24,7 +24,6 @@
 				data : "string="+category1,
 				success : function(data,textStatus) {
 					list = data;
-					console.log(data);
 					changeForm();
 				},
 				error:function(data, textSatus){
@@ -108,7 +107,7 @@
 			<select name="category3" id="cate3" disabled="disabled">
 			</select>
 			</li>
-			<li><input type="submit">확인</li>
+			<li><input type="submit" value="확인"></li>
 		</ul>
 	</form>
 </body>

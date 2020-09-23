@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -143,13 +144,13 @@ public class PS_ControllerImpl implements PS_Controller {
 		return list;
 	}
 	
+	//카테고리 선택후 문제출제창으로
 	@RequestMapping(value = "**/makePro001.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView makePro001(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		String categoryId = request.getParameter("category3").split("/")[0];
 		String categoryName = request.getParameter("category3").split("/")[1];
-		System.out.println(categoryId);
 		searchMap.put("category_id", categoryId);
 		
 		List<Map<String, String>> list = problem_Service.selectTag(searchMap);
@@ -159,6 +160,18 @@ public class PS_ControllerImpl implements PS_Controller {
 		mav.addObject("categoryName",categoryName);
 		mav.addObject("list", list);
 		return mav;
+	}
+	
+	//문제 데이터 insert
+	@RequestMapping(value = "**/makePro002.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView makePro002(@RequestParam HashMap<String, String> paramMap) throws Exception {
+		
+		String tag = paramMap.get("tag");
+		paramMap.put("tag_id", tag.split("/")[0]);
+		paramMap.put("tag_name", tag.split("/")[1]);
+		problem_Service.insertProblem(paramMap);
+		System.out.println(paramMap);
+		return null;
 	}
 	
 	

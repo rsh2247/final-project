@@ -6,8 +6,9 @@
 <mapper namespace="problem_make">
 	<resultMap id="result" type="java.util.HashMap">
 	</resultMap>
-	
-	<select id="selectCategory" resultMap="result" parameterType="java.util.Map">
+
+	<select id="selectCategory" resultMap="result"
+		parameterType="java.util.Map">
 		<![CDATA[
 			select *
 			from pro_category
@@ -19,8 +20,9 @@
 		</where>
 		order by category_name asc
 	</select>
-	
-	<select id="selectTag" resultMap="result" parameterType="java.util.Map">
+
+	<select id="selectTag" resultMap="result"
+		parameterType="java.util.Map">
 		<![CDATA[
 			select *
 			from pro_tag
@@ -32,8 +34,13 @@
 		</where>
 	</select>
 
+	<insert id="insertProblem" parameterType="java.util.Map">
+		<selectKey resultType="string" keyProperty="pro_num"
+			order="BEFORE">
+			SELECT COUNT(pro_num)+1 FROM problem
+		</selectKey>
+		INSERT INTO problem values (#{pro_num}, 0, #{name}, #{content},
+		#{answer}, #{comment},
+		#{categoryId}, #{categoryName}, #{tag_id}, #{tag_name}, 0)
+	</insert>
 </mapper>
-
-
-
-

@@ -57,4 +57,9 @@ public class Problem_DAOImpl implements Problem_DAO {
 		return list;
 	}
 	
+	@Override
+	public void insertProblem(Map<String, String> inputMap) throws DataAccessException {
+		sqlSession.update("problem_make.insertProblem", inputMap);
+	}
+	
 }
