@@ -48,8 +48,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		String category = request.getParameter("category");
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("category", category);
-		List<Problem_VO> list = problem_Service.searchListCategory(searchMap);
-		
+		List<Map<String, Object>> list = problem_Service.searchListCategory(searchMap);
 		ModelAndView mav = new ModelAndView("problem_solve/c001_003.tiles");
 		mav.addObject("list", list);
 		
@@ -63,10 +62,10 @@ public class PS_ControllerImpl implements PS_Controller {
 		String pro_num = request.getParameter("pro_num");
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("pro_num", pro_num);
-		List<Problem_VO> list1 = problem_Service.searchProblem(searchMap);
-		List<ProblemExample_VO> list2 = problem_Service.searchExample(searchMap);
+		List<Map<String, Object>> list = problem_Service.searchProblem(searchMap);
+		List<Map<String, Object>> list2 = problem_Service.searchExample(searchMap);
 		ModelAndView mav = new ModelAndView("problem_solve/problem_page.tiles");
-		mav.addObject("list1", list1);
+		mav.addObject("list", list);
 		mav.addObject("list2", list2);
 		
 		return mav;
@@ -79,7 +78,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		String answer = (String)request.getParameter("answer");
 		String correct = "";
 		Map<String, Object> searchMap = new HashMap<String, Object>();
-		List<Problem_VO> list = problem_Service.searchProblem(searchMap);
+		List<Map<String, Object>> list = problem_Service.searchProblem(searchMap);
 		String proanswer = ((Problem_VO) list.get(0)).getPro_answer();
 		if(answer.equals(proanswer)) correct = "정답입니다.";
 		else correct = "틀렸습니다 다시한번 확인하세요.";
@@ -169,9 +168,12 @@ public class PS_ControllerImpl implements PS_Controller {
 		String tag = paramMap.get("tag");
 		paramMap.put("tag_id", tag.split("/")[0]);
 		paramMap.put("tag_name", tag.split("/")[1]);
-		problem_Service.insertProblem(paramMap);
+		paramMap.put("tag_ischoice", tag.split("/")[2]);
 		System.out.println(paramMap);
-		return null;
+		problem_Service.insertProblem(paramMap);
+		
+		ModelAndView mav = new ModelAndView("problem_make/proMake_002Page.tiles");
+		return mav;
 	}
 	
 	

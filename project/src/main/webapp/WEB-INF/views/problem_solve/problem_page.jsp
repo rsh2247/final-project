@@ -10,15 +10,15 @@
 <body>
 
 <table style="margin: auto;">
-<c:forEach var="problem" items="${list1}">
+<c:forEach var="problem" items="${list}">
 <tr>
 <td>문제자료</td>
 </tr>
 <tr>
-<td>${problem.pro_name}</td>
+<td>${problem.PRO_NAME}</td>
 </tr>
 <tr>
-<td>${problem.pro_content}</td>
+<td>${problem.PRO_CONTENT}</td>
 </tr>
 </c:forEach>
 
@@ -27,9 +27,9 @@
 <ul>
 <c:forEach var="example" items="${list2}">
 <li>
-<input type="radio" value="${example.cho_content}" name="answer">
-${example.cho_num}</li>
-<li>${example.cho_content}</li>
+<input type="radio" value="${example.CHO_NUM}" name="answer">
+${example.CHO_NUM}</li>
+<li>${example.CHO_CONTENT}</li>
 </c:forEach>
 <li><input type="submit"></li>
 </ul>

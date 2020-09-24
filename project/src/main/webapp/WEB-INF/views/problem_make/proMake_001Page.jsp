@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -18,6 +19,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
 	
 </script>
+<script type="text/javascript" src="${contextPath}/resources/ckeditor/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -35,12 +37,11 @@
 							$('#example').empty();
 							$('#answer').empty();
 							for (var i = 0; i < choiceNum; i++) {
-								var option = $('<td id="' + 'choice' + (i + 1)
-										+ '"><input type="text"> </td>')
+								var option = $('<td id="' + 'choice' + (i + 1) + '"><input type="text" name = "choice/'+ (i + 1)+'"> </td>')
 								$('#example').append(option);
 							}
 							if (choiceNum > 1) {
-								var answer = $('<td><select id=selectNum name="answer"></select></td>');
+								var answer = $('<td colspan="5"><select id=selectNum name="answer"></select></td>');
 								$('#answer').append(answer);
 								for (var i = 0; i < choiceNum; i++) {
 									var choices = $('<option value="' + (i + 1)
@@ -48,7 +49,7 @@
 									$('#selectNum').append(choices);
 								}
 							} else {
-								var answer = $('<td><input type="text" name="answer"></td>');
+								var answer = $('<td>정답 : <input type="text" name="answer"></td>');
 								$('#answer').append(answer);
 							}
 						}
@@ -74,22 +75,22 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="5"><textarea name="content" ></textarea></td>
+				<td colspan="5"><textarea id="editor" name="content"></textarea></td>
 			</tr>
 			<tr id="example">
 			</tr>
 			<tr id="answer">
 			</tr>
 			<tr>
-				<td colspan="5"><input type="text" name="comment"></td>
+				<td colspan="5">해설 : <input type="text" name="comment"></td>
 			</tr>
 			<tr>
-				<td colspan="5">
-				<input type="hidden" value="${categoryId}" name="categoryId">
-				<input type="hidden" value="${categoryName}" name="categoryName">
-				<input type="submit" value="확인"></td>
+				<td colspan="5"><input type="hidden" value="${categoryId}" name="categoryId"> <input type="hidden" value="${categoryName}" name="categoryName"> <input type="submit" value="확인"></td>
 			</tr>
 		</table>
 	</form>
+	<script>
+		CKEDITOR.replace('editor');
+	</script>
 </body>
 </html>

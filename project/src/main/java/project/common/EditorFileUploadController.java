@@ -20,16 +20,16 @@ public class EditorFileUploadController {
 	@Value("${filePath}")
 	private String filePath;
 	
-    // ´ÙÁßÆÄÀÏ¾÷·Îµå
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Îµï¿½
     @RequestMapping(value = "/file_uploader_html5.do", method = RequestMethod.POST)
     @ResponseBody
     public String multiplePhotoUpload(HttpServletRequest request) {
-        // ÆÄÀÏÁ¤º¸
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         StringBuffer sb = new StringBuffer();
         try {
-            // ÆÄÀÏ¸íÀ» ¹Þ´Â´Ù - ÀÏ¹Ý ¿øº»ÆÄÀÏ¸í
+            // ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ ï¿½Þ´Â´ï¿½ - ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
             String oldName = request.getHeader("file-name");
-            // ÆÄÀÏ ±âº»°æ·Î _ »ó¼¼°æ·Î
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ _ ï¿½ó¼¼°ï¿½ï¿½
             //String filePath = "C:/MyProject/workspace/devFw/src/main/webapp/resources/photoUpload/";
             //String filePath = "C:/Tomcat 9.0/webapps/devFw/resources/photoUpload/";
             
@@ -48,11 +48,12 @@ public class EditorFileUploadController {
             }
             os.flush();
             os.close();
-            // Á¤º¸ Ãâ·Â
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             sb = new StringBuffer();
             sb.append("&bNewLine=true")
               .append("&sFileName=").append(oldName)
-              .append("&sFileURL=").append("http://localhost:8090/devFw/resources/photoUpload/")
+              //.append("&sFileURL=").append("http://localhost:8090/devFw/resources/photoUpload/test/")
+              .append("&sFileURL=").append("C:/file_repo/")
               .append(saveName);
         } catch (Exception e) {
             e.printStackTrace();

@@ -15,42 +15,42 @@
 	</resultMap>
 	<resultMap id="pro_collection_result" type="proCollection_VO">
 	</resultMap>
-	<resultMap id="userResult" type="java.util.HashMap">
+	<resultMap id="result" type="java.util.HashMap">
 	</resultMap>
 
 
-	<select id="searchList" resultMap="problem_solve_result" parameterType="java.util.Map"> 
+	<select id="searchList" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
-         select pro_num,pro_content,pro_category,pro_tag,pro_name
+         select *
          from   PROBLEM
       ]]>
 	</select>
 	
-	<select id="searchListCategory" resultMap="problem_solve_result" parameterType="java.util.Map"> 
-      <![CDATA[
-         select pro_num,pro_content,pro_category,pro_tag,pro_name
-         from   PROBLEM
-      ]]>
-      	<where>
-			<if test=" category != ''  and  category != null">
-				pro_category = #{category}
-			</if>
-		</where>
-	</select>
-	
-	<select id="searchProblem" resultMap="problem_solve_result" parameterType="java.util.Map"> 
+	<select id="searchListCategory" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
          select *
          from   PROBLEM
       ]]>
       	<where>
-			<if test=" pro_num != ''  and  pro_num != null">
-				pro_num = #{pro_num}
+			<if test=" category != ''  and  category != null">
+				category_name = #{category}
 			</if>
 		</where>
 	</select>
 	
-	<select id="searchExample" resultMap="problem_example_result" parameterType="java.util.Map"> 
+	<select id="searchProblem" resultMap="result" parameterType="java.util.Map"> 
+      <![CDATA[
+         select *
+         from PROBLEM 
+      ]]>
+      	<where>
+			<if test=" pro_num != ''  and  pro_num != null">
+				and pro_num = #{pro_num}
+			</if>
+		</where>
+	</select>
+	
+	<select id="searchExample" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
          select *
          from   pro_choice
@@ -62,7 +62,7 @@
 		</where>
 	</select>
 	
-	<select id="selectProByCol_num" resultMap="userResult" parameterType="java.util.Map">
+	<select id="selectProByCol_num" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
 			select *
 			from problem p, pro_collection c, col_list l

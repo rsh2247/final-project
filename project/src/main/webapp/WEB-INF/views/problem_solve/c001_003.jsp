@@ -46,9 +46,9 @@ margin-top: 50px;
 		</tr>
 		<c:forEach var="problem" items="${list}">
 		<tr>
-		<td>${problem.pro_num}</td>
-		<td style="text-align: left; padding-left: 10px;"><a href="problem_page.pro?pro_num=${problem.pro_num}">${problem.pro_name}</a></td>
-		<td><a href="">${problem.pro_tag}</a> </td>
+		<td>${problem.PRO_NUM}</td>
+		<td style="text-align: left; padding-left: 10px;"><a href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
+		<td><a href="">${problem.TAG_NAME}</a> </td>
 		<td> </td>
 		</tr>
 		</c:forEach>

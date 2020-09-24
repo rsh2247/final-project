@@ -18,26 +18,26 @@ public class Problem_DAOImpl implements Problem_DAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<Problem_VO> searchList(Map<String, Object> searchMap) throws DataAccessException {
-		List<Problem_VO> list = sqlSession.selectList("pr.problem_solve.searchList", searchMap);
+	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList("pr.problem_solve.searchList", searchMap);
 		return list;
 	}
 
 	@Override
-	public List<Problem_VO> searchListCategory(Map<String, Object> searchMap) throws DataAccessException {
-		List<Problem_VO> list = sqlSession.selectList("pr.problem_solve.searchListCategory", searchMap);
+	public List<Map<String, Object>> searchListCategory(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList("pr.problem_solve.searchListCategory", searchMap);
 		return list;
 	}
 
 	@Override
-	public List<Problem_VO> searchProblem(Map<String, Object> searchMap) throws DataAccessException {
-		List<Problem_VO> list = sqlSession.selectList("pr.problem_solve.searchProblem", searchMap);
+	public List<Map<String, Object>> searchProblem(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList("pr.problem_solve.searchProblem", searchMap);
 		return list;
 	}
 
 	@Override
-	public List<ProblemExample_VO> searchExample(Map<String, Object> searchMap) throws DataAccessException {
-		List<ProblemExample_VO> list = sqlSession.selectList("pr.problem_solve.searchExample", searchMap);
+	public List<Map<String, Object>> searchExample(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList("pr.problem_solve.searchExample", searchMap);
 		return list;
 	}
 
@@ -60,6 +60,11 @@ public class Problem_DAOImpl implements Problem_DAO {
 	@Override
 	public void insertProblem(Map<String, String> inputMap) throws DataAccessException {
 		sqlSession.update("problem_make.insertProblem", inputMap);
+	}
+
+	@Override
+	public void insertChoice(Map<String, String> inputMap) throws DataAccessException {
+		sqlSession.update("problem_make.insertChoice", inputMap);
 	}
 	
 }

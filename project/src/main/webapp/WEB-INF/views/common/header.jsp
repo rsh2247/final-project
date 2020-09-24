@@ -165,7 +165,7 @@
 								<li><a href="#" class="link"></a></li>
 								<li><a href="#" class="link"></a></li>
 							</ul></li>
-						<li><a href="#" class="link">sub3</a></li>
+						<li><a href="${contextPath}/editor/SmartEditor2.do" class="link">sub3</a></li>
 					</ul></li>
 				<li><a href="#" class="link">문제만들기</a>
 					<ul class="two">

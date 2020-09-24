@@ -21,26 +21,26 @@ public class Problem_ServiceImpl implements Problem_Service {
 	private Problem_DAO probem_DAO;
 
 	@Override
-	public List<Problem_VO> searchList(Map<String, Object> searchMap) throws DataAccessException {
-		List<Problem_VO> list = probem_DAO.searchList(searchMap);
+	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = probem_DAO.searchList(searchMap);
 		return list;
 	}
 
 	@Override
-	public List<Problem_VO> searchListCategory(Map<String, Object> searchMap) throws DataAccessException {
-		List<Problem_VO> list = probem_DAO.searchListCategory(searchMap);
+	public List<Map<String, Object>> searchListCategory(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = probem_DAO.searchListCategory(searchMap);
 		return list;
 	}
 
 	@Override
-	public List<Problem_VO> searchProblem(Map<String, Object> searchMap) throws DataAccessException {
-		List<Problem_VO> list = probem_DAO.searchProblem(searchMap);
+	public List<Map<String, Object>> searchProblem(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = probem_DAO.searchProblem(searchMap);
 		return list;
 	}
 
 	@Override
 	public List searchExample(Map<String, Object> searchMap) throws DataAccessException {
-		List<ProblemExample_VO> list = probem_DAO.searchExample(searchMap);
+		List<Map<String, Object>> list = probem_DAO.searchExample(searchMap);
 		return list;
 	}
 
@@ -64,5 +64,6 @@ public class Problem_ServiceImpl implements Problem_Service {
 	
 	public void insertProblem(Map<String, String> inputMap) throws DataAccessException {
 		probem_DAO.insertProblem(inputMap);
+		probem_DAO.insertChoice(inputMap);
 	}
 }

@@ -10,13 +10,13 @@ import project.sungho.problem_solve_module.vo.Problem_VO;
 
 public interface Problem_DAO {
 	
-	public List<Problem_VO> searchList(Map<String, Object> searchMap) throws DataAccessException;
+	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException;
 	
-	public List<Problem_VO> searchListCategory(Map<String, Object> searchMap) throws DataAccessException;
+	public List<Map<String, Object>> searchListCategory(Map<String, Object> searchMap) throws DataAccessException;
 
-	public List<Problem_VO> searchProblem(Map<String, Object> searchMap) throws DataAccessException;
+	public List<Map<String, Object>> searchProblem(Map<String, Object> searchMap) throws DataAccessException;
 
-	public List<ProblemExample_VO> searchExample(Map<String, Object> searchMap) throws DataAccessException;
+	public List<Map<String, Object>> searchExample(Map<String, Object> searchMap) throws DataAccessException;
 	
 	public List<Map<String, String>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
 	
@@ -25,4 +25,5 @@ public interface Problem_DAO {
 	public List<Map<String, String>> selectTag(Map<String, Object> searchMap) throws DataAccessException;
 	
 	public void insertProblem(Map<String, String> inputMap) throws DataAccessException;
+	public void insertChoice(Map<String, String> inputMap) throws DataAccessException;
 }
