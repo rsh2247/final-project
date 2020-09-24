@@ -12,5 +12,9 @@
 		<typeAlias type="project.sungho.problem_solve_module.vo.Problem_VO"  alias="problem_VO" />
 		<typeAlias type="project.sungho.problem_solve_module.vo.ProblemExample_VO"  alias="problemExample_VO" />
 		<typeAlias type="project.sungho.pro_collection_module.vo.ProCollection_VO"  alias="proCollection_VO" />
+		<typeAlias type="project.bumsik.payment_kakao.vo.AmountVO"  alias="AmountVO" />
+		<typeAlias type="project.bumsik.payment_kakao.vo.CardVO"  alias="CardVO" />
+		<typeAlias type="project.bumsik.payment_kakao.vo.KakaoPayApprovalVO"  alias="KakaoPayApprovalVO" />
+		<typeAlias type="project.bumsik.payment_kakao.vo.KakaoPayReadyVO"  alias="KakaoPayReadyVO" />
 	</typeAliases> 
 </configuration>
