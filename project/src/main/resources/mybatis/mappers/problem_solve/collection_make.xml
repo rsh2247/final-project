@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="collection_make">
+	<resultMap id="result" type="java.util.HashMap">
+	</resultMap>
+
+	<insert id="insertCollection" parameterType="java.util.Map">
+		<selectKey resultType="string" keyProperty="col_num"
+			order="BEFORE">
+			SELECT MAX(col_num)+1 FROM pro_collection
+		</selectKey>
+		INSERT INTO pro_collection values (#{col_num}, "test_userID", #{col_name}, #{col_category}, #{col_tag})
+	</insert>
+	
+	<insert id="insertColList">
+		INSERT INTO col_list values(#{pro_num}, #{col_num}, #{col_list_num}, #{col_list_point})
+	</insert>
+</mapper>

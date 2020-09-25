@@ -13,7 +13,6 @@ public class Hmp001_d003VO {
 	private String vend_name;
 	
 	public Hmp001_d003VO() {
-		System.out.println("ProductVO 생성자 호출");
 	}
 
 	public String getProd_id() {

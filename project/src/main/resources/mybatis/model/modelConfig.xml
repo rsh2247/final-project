@@ -16,6 +16,19 @@
 		<typeAlias type="project.bumsik.payment_kakao.vo.CardVO"  alias="CardVO" />
 		<typeAlias type="project.bumsik.payment_kakao.vo.KakaoPayApprovalVO"  alias="KakaoPayApprovalVO" />
 		<typeAlias type="project.bumsik.payment_kakao.vo.KakaoPayReadyVO"  alias="KakaoPayReadyVO" />
+<<<<<<< HEAD
 		<typeAlias type="project.bumsik.payment_point.vo.PaymentPoint_VO"  alias="payPointVO" />
+=======
+		<typeAlias type="project.bumsik.payment_point.vo.PaymentPoint_VO"  alias="PaymentPoint_VO" />
+		
+		<!-- 이윤주 추가 -->
+		<typeAlias type="project.yoonju.member.vo.MemberVO"  alias="memberVO" />
+		<typeAlias type="project.yoonju.H.H_P001.vo.H_p001_d001VO"  alias="articleVO" />
+		<typeAlias type="project.yoonju.H.H_P001.vo.ImageVO"  alias="imageVO" />
+		
+>>>>>>> refs/remotes/origin/master
 	</typeAliases> 
+	
+	
+	
 </configuration>

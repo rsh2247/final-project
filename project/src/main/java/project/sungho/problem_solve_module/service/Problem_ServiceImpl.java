@@ -1,5 +1,6 @@
 package project.sungho.problem_solve_module.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,8 +63,18 @@ public class Problem_ServiceImpl implements Problem_Service {
 		return list;
 	}
 	
+	@Override
 	public void insertProblem(Map<String, String> inputMap) throws DataAccessException {
 		probem_DAO.insertProblem(inputMap);
-		probem_DAO.insertChoice(inputMap);
+		
+		Map<String,String> choiceMap = new HashMap<String, String>();
+		choiceMap.put("pro_num", inputMap.get("pro_num"));
+		for(int i=1; i<10; i++) {
+			if(inputMap.get("choice"+i) != null) {
+				choiceMap.put("cho_content", inputMap.get("choice"+i));
+				choiceMap.put("cho_num", i+"");
+				probem_DAO.insertChoice(choiceMap);
+			}
+		}
 	}
 }

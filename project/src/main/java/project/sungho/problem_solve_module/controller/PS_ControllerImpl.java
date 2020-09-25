@@ -49,7 +49,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("category", category);
 		List<Map<String, Object>> list = problem_Service.searchListCategory(searchMap);
-		ModelAndView mav = new ModelAndView("problem_solve/c001_003.tiles");
+		ModelAndView mav = new ModelAndView("problem_solve/pro_listPage.tiles");
 		mav.addObject("list", list);
 		
 		return mav;
@@ -151,7 +151,6 @@ public class PS_ControllerImpl implements PS_Controller {
 		String categoryId = request.getParameter("category3").split("/")[0];
 		String categoryName = request.getParameter("category3").split("/")[1];
 		searchMap.put("category_id", categoryId);
-		
 		List<Map<String, String>> list = problem_Service.selectTag(searchMap);
 		
 		ModelAndView mav = new ModelAndView("problem_make/proMake_001Page.tiles");
@@ -169,13 +168,29 @@ public class PS_ControllerImpl implements PS_Controller {
 		paramMap.put("tag_id", tag.split("/")[0]);
 		paramMap.put("tag_name", tag.split("/")[1]);
 		paramMap.put("tag_ischoice", tag.split("/")[2]);
-		System.out.println(paramMap);
 		problem_Service.insertProblem(paramMap);
 		
 		ModelAndView mav = new ModelAndView("problem_make/proMake_002Page.tiles");
 		return mav;
 	}
 	
+	//카테고리 선택후 문제집출제창
+	@RequestMapping(value = "**/makeCol001.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView makeCol001(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		String categoryId = request.getParameter("category3").split("/")[0];
+		String categoryName = request.getParameter("category3").split("/")[1];
+		searchMap.put("category_id", categoryId);
+		List<Map<String, Object>> list = problem_Service.searchListCategory(searchMap);
+		System.out.println(list);
+
+		ModelAndView mav = new ModelAndView("problem_make/colMake_001Page.tiles");
+		mav.addObject("categoryId",categoryId);
+		mav.addObject("categoryName",categoryName);
+		mav.addObject("list", list);
+		return mav;
+	}
 	
 
 }

@@ -43,12 +43,14 @@ margin-top: 50px;
 			<th width="500px" >문제명</th>
 			<th width="100px">정보</th>
 			<th width="100px">난이도</th>
+			<th width="100px">평점</th>
 		</tr>
 		<c:forEach var="problem" items="${list}">
 		<tr>
 		<td>${problem.PRO_NUM}</td>
 		<td style="text-align: left; padding-left: 10px;"><a href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
-		<td><a href="">${problem.TAG_NAME}</a> </td>
+		<td>${problem.TAG_NAME} </td>
+		<td> </td>
 		<td> </td>
 		</tr>
 		</c:forEach>
