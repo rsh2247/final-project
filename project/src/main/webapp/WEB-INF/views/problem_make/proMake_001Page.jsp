@@ -37,7 +37,7 @@
 							$('#example').empty();
 							$('#answer').empty();
 							for (var i = 0; i < choiceNum; i++) {
-								var option = $('<td id="' + 'choice' + (i + 1) + '"><input type="text" name = "choice/'+ (i + 1)+'"> </td>')
+								var option = $('<td id="' + 'choice' + (i + 1) + '"><input type="text" name = "choice'+ (i + 1)+'"> </td>')
 								$('#example').append(option);
 							}
 							if (choiceNum > 1) {

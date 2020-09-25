@@ -37,14 +37,14 @@
 	<insert id="insertProblem" parameterType="java.util.Map">
 		<selectKey resultType="string" keyProperty="pro_num"
 			order="BEFORE">
-			SELECT COUNT(pro_num)+1 FROM problem
+			SELECT MAX(pro_num)+1 FROM problem
 		</selectKey>
 		INSERT INTO problem values (#{pro_num}, 0, #{name}, #{content},
 		#{answer}, #{comment},
 		#{categoryId}, #{categoryName}, #{tag_id}, #{tag_name}, #{tag_ischoice})
 	</insert>
 	
-	<insert id="insertExample" parameterType="java.util.Map">
+	<insert id="insertChoice" parameterType="java.util.Map">
 		INSERT INTO pro_choice values(#{cho_content}, #{pro_num}, #{cho_num})
 	</insert>
 	
