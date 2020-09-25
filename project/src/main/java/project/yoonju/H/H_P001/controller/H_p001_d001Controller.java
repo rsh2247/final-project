@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-public interface H_p001_d001Controller {
+public interface H_p001_d001Controller { 
 	
 	public ModelAndView listArticles(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
