@@ -38,7 +38,13 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
+		
+		<!-- Bcrypy -->
+		<dependency> 
+			<groupId>org.mindrot</groupId> 
+			<artifactId>jbcrypt</artifactId> 
+			<version>0.3m</version> 
+		</dependency>
 
 		<!-- AspectJ -->
 		<dependency>

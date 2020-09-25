@@ -51,7 +51,7 @@ input {
                 $('#payId').click(function(){
                     var data = $('input[name="payment"]:checked').val();
                     if(data=="point"){
-                        $('#pay').attr("action","${contextPath}/kakaoPay").submit();;                  
+                        $('#pay').attr("action","${contextPath}/payment/pointPay.do").submit();;                  
                     }else if(data="kakao"){
                         $('#pay').attr("action","${contextPath}/kakaoPay").submit();                   
                     }
