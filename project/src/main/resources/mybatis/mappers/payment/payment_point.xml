@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="payment.point">
+	<resultMap id="payment_pointResult01" type="java.util.HashMap">
+		<result property="point_date" column="point_date"  />
+		<result property="point_change" column="point_change" />
+		<result property="point_rest" column="point_rest" />
+		<result property="user_id" column="user_id" />
+		<result property="point_content" column="point_content" />
+	</resultMap>
+
+	<select id="searchList" resultMap="payment_pointResult01" parameterType="java.util.Map"> 
+      <![CDATA[
+         select point_date, point_change, point_rest, user_id, point_content
+         from   point
+      ]]>
+		<where>
+			<if test=" p_id != ''  and  p_id != null">
+				user_id = #{p_id}
+			</if>
+		</where>
+	</select>
+
+</mapper>
