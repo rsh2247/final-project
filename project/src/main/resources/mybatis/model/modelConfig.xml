@@ -12,21 +12,20 @@
 		<typeAlias type="project.sungho.problem_solve_module.vo.Problem_VO"  alias="problem_VO" />
 		<typeAlias type="project.sungho.problem_solve_module.vo.ProblemExample_VO"  alias="problemExample_VO" />
 		<typeAlias type="project.sungho.pro_collection_module.vo.ProCollection_VO"  alias="proCollection_VO" />
+
 		<typeAlias type="project.bumsik.payment_kakao.vo.AmountVO"  alias="AmountVO" />
 		<typeAlias type="project.bumsik.payment_kakao.vo.CardVO"  alias="CardVO" />
 		<typeAlias type="project.bumsik.payment_kakao.vo.KakaoPayApprovalVO"  alias="KakaoPayApprovalVO" />
 		<typeAlias type="project.bumsik.payment_kakao.vo.KakaoPayReadyVO"  alias="KakaoPayReadyVO" />
-<<<<<<< HEAD
 		<typeAlias type="project.bumsik.payment_point.vo.PaymentPoint_VO"  alias="payPointVO" />
-=======
-		<typeAlias type="project.bumsik.payment_point.vo.PaymentPoint_VO"  alias="PaymentPoint_VO" />
+
 		
 		<!-- 이윤주 추가 -->
 		<typeAlias type="project.yoonju.member.vo.MemberVO"  alias="memberVO" />
 		<typeAlias type="project.yoonju.H.H_P001.vo.H_p001_d001VO"  alias="articleVO" />
 		<typeAlias type="project.yoonju.H.H_P001.vo.ImageVO"  alias="imageVO" />
 		
->>>>>>> refs/remotes/origin/master
+
 	</typeAliases> 
 	
 	

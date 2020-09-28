@@ -19,8 +19,8 @@ public class PaymentPoint_DAOImpl implements PaymentPoint_DAO{
 	private static String namespace = "payment.point";
 	
 	@Override
-	public List<PaymentPoint_VO> searchList(Map<String, Object> searchMap) throws DataAccessException {
-		List<PaymentPoint_VO> list = sqlSession.selectList(namespace+"searchList",searchMap);
+	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchList",searchMap);
 		return list;
 	}
 	

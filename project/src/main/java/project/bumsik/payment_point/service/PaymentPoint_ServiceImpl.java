@@ -19,8 +19,8 @@ public class PaymentPoint_ServiceImpl implements PaymentPoint_Service{
 	private PaymentPoint_DAO paymentPoint_DAO;
 
 	@Override
-	public List<PaymentPoint_VO> searchList(Map<String, Object> searchMap) throws DataAccessException {
-		List<PaymentPoint_VO> list = paymentPoint_DAO.searchList(searchMap);
+	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentPoint_DAO.searchList(searchMap);
 		return list;
 	}
 
