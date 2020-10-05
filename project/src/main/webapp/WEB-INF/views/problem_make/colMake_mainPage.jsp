@@ -96,6 +96,7 @@ $(document).ready(function() {
 		<ul>
 			<li>문제집 분류</li>
 			<li><select name="category" id="cate1">
+					<option>분류선택</option>
 					<option value="10">어학시험</option>
 					<option value="20">국가자격시험</option>
 			</select></li>

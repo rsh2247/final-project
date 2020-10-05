@@ -15,7 +15,6 @@ public class Hmp001_d002VO {
 	private Date joinDate;
 	
 	public Hmp001_d002VO() {
-		System.out.println("MemberVO 생성자");
 	}
 
 	public String getId() {

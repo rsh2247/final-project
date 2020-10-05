@@ -5,16 +5,29 @@
 <mapper namespace="collection_make">
 	<resultMap id="result" type="java.util.HashMap">
 	</resultMap>
+	
+	<select id="countCollection" resultMap="result" parameterType="java.util.Map">
+         SELECT max(col_num)
+         FROM   pro_collection
+	</select>
 
 	<insert id="insertCollection" parameterType="java.util.Map">
 		<selectKey resultType="string" keyProperty="col_num"
 			order="BEFORE">
-			SELECT MAX(col_num)+1 FROM pro_collection
+			SELECT CASE WHEN MAX(col_num)+1 IS NOT NULL THEN MAX(col_num)+1
+			ELSE 1
+			end as col_num
+			from pro_collection
 		</selectKey>
-		INSERT INTO pro_collection values (#{col_num}, "test_userID", #{col_name}, #{col_category}, #{col_tag})
+		INSERT INTO pro_collection values(#{col_num}, 'testID', #{col_name}, #{col_tag}, #{categoryId}, #{categoryName})
 	</insert>
 	
 	<insert id="insertColList">
+		<selectKey resultType="string" keyProperty="col_num"
+			order="BEFORE">
+			SELECT MAX(col_num) col_num
+			from pro_collection
+		</selectKey>
 		INSERT INTO col_list values(#{pro_num}, #{col_num}, #{col_list_num}, #{col_list_point})
 	</insert>
 </mapper>

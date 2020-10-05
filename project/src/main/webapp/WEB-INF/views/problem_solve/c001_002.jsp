@@ -6,11 +6,11 @@
 <title>Insert title here</title>
 <style type="text/css">
 .menu {
-margin-top: 50px;
+	margin-top: 50px;
 }
 
-.menu_table{
-margin: 50px auto 0 auto;
+.menu_table {
+	margin: 50px auto 0 auto;
 }
 </style>
 </head>
@@ -20,14 +20,13 @@ margin: 50px auto 0 auto;
 		<table class="menu_table">
 			<tr>
 				<td><a href="c001_003.pro?category=${category}">유저 제출문제</a></td>
-				
 				<td>유저가 심혈을 다해 만든 문제들입니다.</td>
 			</tr>
 			<tr>
 				<td><a href="colselect_page.pro?category=${category}">기출문제 문제집</a></td>
 			</tr>
 			<tr>
-				<td><a href="user_colselect_page.pro?category=${category}">유저 제출문제 문제집</a></td>
+				<td><a href="userColselect_page.pro?category=${category}">유저 제출문제 문제집</a></td>
 			</tr>
 			<tr>
 				<td>오답 문제집</td>

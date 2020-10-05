@@ -17,6 +17,8 @@ public interface Problem_DAO {
 	public List<Map<String, Object>> searchProblem(Map<String, Object> searchMap) throws DataAccessException;
 
 	public List<Map<String, Object>> searchExample(Map<String, Object> searchMap) throws DataAccessException;
+
+	public List<Map<String, Object>> selectCollection(Map<String, Object> searchMap) throws DataAccessException;
 	
 	public List<Map<String, String>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
 	
@@ -26,4 +28,7 @@ public interface Problem_DAO {
 	
 	public void insertProblem(Map<String, String> inputMap) throws DataAccessException;
 	public void insertChoice(Map<String, String> inputMap) throws DataAccessException;
+	public String countCollection(Map<String, String> inputMap) throws DataAccessException;
+	public void insertCollection(Map<String, String> inputMap) throws DataAccessException;
+	public void insertColList(Map<String, Object> inputMap) throws DataAccessException;
 }

@@ -3,7 +3,7 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="pr.problem_solve">
+<mapper namespace="problem_solve">
 	<resultMap id="problem_solve_result" type="problem_VO">
 		<result property="pro_num" column="pro_num" />
 		<result property="pro_content" column="pro_content" />
@@ -62,10 +62,24 @@
 		</where>
 	</select>
 	
+	
+	<select id="selectCollection" resultMap="result" parameterType="java.util.Map"> 
+      <![CDATA[
+         select *
+         from   pro_collection
+      ]]>
+      <where>
+      		<if test=" category != ''  and  category != null">
+				category_name = #{category} and col_tag = '창작'
+			</if>
+      </where>
+	</select>
+	
+	
 	<select id="selectProByCol_num" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
 			select *
-			from problem p, pro_collection c, col_list l
+			from problem p, col_list l
 		]]>
 		<where>
 			p.pro_num = l.pro_num and l.col_num = c.col_num

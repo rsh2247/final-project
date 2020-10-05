@@ -26,7 +26,7 @@
 			}
 			list.push(sel);
 		}
-		
+
 	}
 	function add() {
 		var preorder
@@ -36,7 +36,7 @@
 			preorder = 0 * 1;
 		}
 		for ( var i in selectedList) {
-			var score = $('<input type="text" name="score'+i+'" class="scorebox"></input>')
+			var score = $('<input type="text" name="score'+(i*1+1*1)+'" class="scorebox"></input>')
 			var selected = selectedList[i].childNodes[5];
 			$(selected).append(score);
 			selectedList[i].childNodes[3].appendChild(document
@@ -96,11 +96,11 @@
 	}
 
 	function listSort(order) {
-		selectedList2.sort(function(a, b) {
-			return (a.childNodes[3].childNodes[0].nodeValue
-					- b.childNodes[3].childNodes[0].nodeValue)*order;
-		})
-
+		selectedList2
+				.sort(function(a, b) {
+					return (a.childNodes[3].childNodes[0].nodeValue - b.childNodes[3].childNodes[0].nodeValue)
+							* order;
+				})
 	}
 
 	function selectReset(selectedList) {
@@ -109,6 +109,29 @@
 		}
 		selectedList = [];
 	}
+	
+	function naming(){
+		var list = $('#list').children();
+		list = list.splice(1, list.length -1);
+		for(var i in list){
+			var tdList = list[i].childNodes;
+			for(var j in tdList){
+				if(tdList[j].nodeName == 'TD' && j<=3){
+					var value = 0;
+					var name;
+					if(j==1) name='pro_num';
+					else name = 'col_list_num';
+					try{
+						value = tdList[j].childNodes[0].nodeValue;
+					}catch (e) {
+					}
+					var hiddenInput = $('<input type="hidden" name="'+name+(i*1+1*1)+'"'+' value ="'+value+'"></input>');
+					$(tdList[j]).append(hiddenInput);
+				}
+			}
+		}
+	}
+	
 </script>
 <style type="text/css">
 .colList {
@@ -150,56 +173,60 @@
 </style>
 </head>
 <body>
-	<table>
-		<tr>
-			<td>문제집 제목 <input type="text"></td>
-		</tr>
-		<tr>
-			<td>문제집 리스트
-				<table class="colList" id="list" onclick="select(selected2, selectedList2)">
-					<tr>
-						<th>문제번호</th>
-						<th>문제순서</th>
-						<th>배점</th>
-						<th width="400px">제목</th>
-						<th>분류</th>
-						<th>난이도</th>
-						<th>평점</th>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td><button onclick="add();">추가</button>
-				<button onclick="del();">제거</button>
-				<button onclick="up();">위</button>
-				<button onclick="down();">아래</button></td>
-		</tr>
-	</table>
-	<table id="selectable" onclick="select(selected, selectedList)">
-		<tr>
-			<th>문제번호</th>
-			<th></th>
-			<th></th>
-			<th width="300px">제목</th>
-			<th>분류</th>
-			<th>난이도</th>
-			<th>평점</th>
-		</tr>
-		<c:forEach var="list" items="${list}">
+	<form action="makeCol002.pro">
+		<table>
 			<tr>
-				<td>${list.PRO_NUM}</td>
-				<td></td>
-				<td></td>
-				<td>${list.PRO_NAME}</td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>문제집 제목 <input name="col_name" type="text">
+				<input type="hidden" name="categoryId" value="${categoryId}">
+				<input type="hidden" name="categoryName" value="${categoryName}">
+				</td>
 			</tr>
-		</c:forEach>
-	</table>
-	<form action="">
-	<input type="submit" value="확인">
+			<tr>
+				<td>문제집 리스트
+					<table class="colList" id="list" onclick="select(selected2, selectedList2)">
+						<tr>
+							<th>문제번호</th>
+							<th>문제순서</th>
+							<th>배점</th>
+							<th width="400px">제목</th>
+							<th>분류</th>
+							<th>난이도</th>
+							<th>평점</th>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td><button onclick="add();" type="button">추가</button>
+					<button onclick="del();" type="button">제거</button>
+					<button onclick="up();" type="button">위</button>
+					<button onclick="down();" type="button">아래</button>
+					<button onclick="naming();" type="button">debug</button></td>
+			</tr>
+		</table>
+		<table id="selectable" onclick="select(selected, selectedList)">
+			<tr>
+				<th>문제번호</th>
+				<th></th>
+				<th></th>
+				<th width="300px">제목</th>
+				<th>분류</th>
+				<th>난이도</th>
+				<th>평점</th>
+			</tr>
+			<c:forEach var="list" items="${list}">
+				<tr>
+					<td>${list.PRO_NUM}</td>
+					<td></td>
+					<td></td>
+					<td>${list.PRO_NAME}</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</c:forEach>
+		</table>
+		<input onclick="naming();" type="submit" value="확인">
 	</form>
 </body>
 </html>

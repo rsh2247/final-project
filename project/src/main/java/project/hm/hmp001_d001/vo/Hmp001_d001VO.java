@@ -22,7 +22,6 @@ public class Hmp001_d001VO {
 	}
 
 	public Hmp001_d001VO() {
-		System.out.println("MemberVO 생성자 호출");
 	}
 
 	public String getId() {
