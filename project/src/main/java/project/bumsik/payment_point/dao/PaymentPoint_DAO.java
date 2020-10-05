@@ -8,5 +8,5 @@ import org.springframework.dao.DataAccessException;
 import project.bumsik.payment_point.vo.PaymentPoint_VO;
 
 public interface PaymentPoint_DAO {
-	public List<PaymentPoint_VO> searchList(Map<String, Object> searchMap) throws DataAccessException;
+	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException;
 }
