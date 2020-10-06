@@ -22,7 +22,7 @@
       }
       #content {
         width: 100%;
-        height:750px;
+        min-height:800px;
         margin:auto;
         float: left;
       }
@@ -30,7 +30,8 @@
         clear: both;
         padding: 5px;
         border: 0px solid #bcbcbc;
-         background-color: #ddd;
+        background-color: #252525;
+        height: 200px;
       }
       
     </style>

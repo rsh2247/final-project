@@ -75,17 +75,19 @@ public class PS_ControllerImpl implements PS_Controller {
 	@Override
 	@RequestMapping(value = "**/check_answer.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView checkAnswer(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String correct = "false";
 		String answer = (String)request.getParameter("answer");
-		String correct = "";
-		Map<String, Object> searchMap = new HashMap<String, Object>();
+		String proNum = request.getParameter("proNum");
+		Map<String, Object> searchMap = new HashMap<String, Object>(); searchMap.put("pro_num", proNum);
 		List<Map<String, Object>> list = problem_Service.searchProblem(searchMap);
-		String proanswer = ((Problem_VO) list.get(0)).getPro_answer();
-		if(answer.equals(proanswer)) correct = "정답입니다.";
-		else correct = "틀렸습니다 다시한번 확인하세요.";
-		
+		searchMap.clear();searchMap.putAll(list.get(0));
+		try {
+			if(answer.equals(searchMap.get("PRO_ANSWER"))) correct = "true";
+		}catch (Exception e) {
+		}
 		ModelAndView mav = new ModelAndView("problem_solve/answer_page.tiles");
 		mav.addObject("correct", correct);
-		mav.addObject("list", list);
+		mav.addObject("problem", searchMap);
 		return mav;
 	}
 	
@@ -110,19 +112,22 @@ public class PS_ControllerImpl implements PS_Controller {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("col_num", col_num);
 		
-		List<Map<String, String>> list = problem_Service.selectProByCol(searchMap);
+		List<Map<String, Object>> list = problem_Service.selectCollection(searchMap);
 		ModelAndView mav = new ModelAndView("problem_solve/pro_collection_page.tiles");
 		mav.addObject("list", list);
-		System.out.println(list);
 		return mav;
 	}
 	
 	@RequestMapping(value = "**/col_problemPage.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView collection(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
-		ModelAndView mav = new ModelAndView("problem_solve/col_problemPage");
-		return null;
+		String col_num = request.getParameter("colNum");
+		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", col_num);
+		List<Map<String, Object>> list = problem_Service.selectProByCol(searchMap);
+		System.out.println(list);
+		ModelAndView mav = new ModelAndView("problem_solve/col_problemPage.tiles");
+		mav.addObject("list",list);
+		return mav;
 	}
 	
 	

@@ -52,8 +52,8 @@ public class Problem_ServiceImpl implements Problem_Service {
 	}
 
 	@Override
-	public List<Map<String, String>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
-		List<Map<String, String>> list = problem_DAO.selectProByCol(searchMap);
+	public List<Map<String, Object>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = problem_DAO.selectProByCol(searchMap);
 		return list;
 	}
 

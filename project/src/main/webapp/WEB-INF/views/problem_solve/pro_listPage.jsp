@@ -18,13 +18,15 @@
 }
 
 .p_table th {
-	border-bottom: 1px solid black;
-	height: 40px;
+	border-bottom: 2px solid black;
+	height: 50px;
+	font-size: 18px;
 }
 
 .p_table td {
 	border-bottom: 1px solid #ccc;
 	height: 25px;
+	padding: 2px 0 2px 0;
 }
 
 .p_table a {
@@ -46,7 +48,7 @@
 			<c:forEach var="problem" items="${list}">
 				<tr>
 					<td>${problem.PRO_NUM}</td>
-					<td style="text-align: left; padding-left: 10px;"><a href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
+					<td style="text-align: left; padding-left: 15px;"><a href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
 					<td>${problem.TAG_NAME}</td>
 					<td></td>
 					<td></td>

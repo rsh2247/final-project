@@ -20,7 +20,7 @@ public interface Problem_DAO {
 
 	public List<Map<String, Object>> selectCollection(Map<String, Object> searchMap) throws DataAccessException;
 	
-	public List<Map<String, String>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
+	public List<Map<String, Object>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
 	
 	public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException;
 	
