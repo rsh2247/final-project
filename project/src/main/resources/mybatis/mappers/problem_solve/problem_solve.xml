@@ -39,10 +39,10 @@
 				category_name = #{category}
 			</if>
 		</where>
+		ORDER BY pro_num DESC
 	</select>
 
-	<select id="searchProblem" resultMap="result"
-		parameterType="java.util.Map"> 
+	<select id="searchProblem" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
          select *
          from PROBLEM 
@@ -52,6 +52,7 @@
 				and pro_num = #{pro_num}
 			</if>
 		</where>
+		
 	</select>
 
 	<select id="searchExample" resultMap="result" parameterType="java.util.Map"> 
@@ -82,29 +83,14 @@
 
 
 	<select id="selectProByCol" resultMap="result" parameterType="java.util.Map">
-		<![CDATA[
-			SELECT *
-			FROM problem p, col_list l
-		]]>
-		<where>
-			p.pro_num = l.pro_num
-			<if test=" col_num != ''  and  col_num != null">
-				and <![CDATA[l.col_num]]>
-				= #{col_num}
-			</if>
-		</where>
-		ORDER BY col_list_num ASC
-	</select>
-	
-	<select id="test" resultMap="result" parameterType="java.util.Map">
-		SELECT col_num ,col_list_num, p.pro_num, pro_content, cho_num
+		SELECT col_num ,col_list_num, p.pro_num, pro_content, pro_answer, pro_comment, cho_num, cho_content
 		FROM col_list l, problem p, pro_choice c
 		WHERE l.pro_num = p.pro_num and l.pro_num = c.pro_num and l.col_num = #{col_num}
 		union all
-		select col_num ,col_list_num, p.pro_num, pro_content, p.pro_num
+		select col_num ,col_list_num, p.pro_num, pro_content, pro_answer, pro_comment, p.pro_num, p.pro_num
 		from col_list l, problem p
 		where l.pro_num = p.pro_num and l.col_num = #{col_num} and p.tag_ischoice = 'N'
-		order by col_list_num asc
+		order by col_list_num asc, cho_num asc
 	</select>
 	
 

@@ -1,5 +1,6 @@
 package project.sungho.problem_solve_module.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,9 +55,52 @@ public class Problem_ServiceImpl implements Problem_Service {
 	@Override
 	public List<Map<String, Object>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
 		List<Map<String, Object>> list = problem_DAO.selectProByCol(searchMap);
+		for(int i=0; i<list.size()-1; i++) {
+			if(list.get(i).get("PRO_NUM").equals(list.get(i+1).get("PRO_NUM"))) {
+				if(!list.get(i).containsKey("ordList")) {
+					List<Map<String,Object>> ordList = new ArrayList<Map<String,Object>>();
+					Map<String,Object> map = new HashMap<String, Object>();
+					Map<String,Object> map2 = new HashMap<String, Object>();
+					map.put("cho_num",list.get(i).get("CHO_NUM"));
+					map.put("cho_content",list.get(i).get("CHO_CONTENT"));
+					map2.put("cho_num",list.get(i+1).get("CHO_NUM"));
+					map2.put("cho_content",list.get(i+1).get("CHO_CONTENT"));
+					ordList.add(map);
+					ordList.add(map2);
+					list.get(i).put("ordList", ordList);
+				}else {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("cho_num",list.get(i+1).get("CHO_NUM"));
+					map.put("cho_content",list.get(i+1).get("CHO_CONTENT"));
+					((List<Map<String,Object>>)list.get(i).get("ordList")).add(map);
+				}
+				list.remove(i+1);
+				i--;
+			}
+		}
 		return list;
 	}
+	
+	
+	@Override
+	public List<Map<String, Object>> checkColAnswer(List<Map<String, Object>> list, Map<String,Object> answerMap) throws DataAccessException {
+		System.out.println(">>>>>>>>>>>>list<<<<<<<<<<");
+		System.out.println(list);
+		System.out.println(">>>>>>>>>>>>answerMap<<<<<<<<<<");
+		System.out.println(answerMap);
+		for(String key:answerMap.keySet()) {
+			if(key.contains("answer")) {
+				String num = key.split("answer")[1];
+				System.out.println(num);
+				String answer = ((String) answerMap.get(key));
+				
+			}
+		}
+		
+		return null;
+	}
 
+	
 	@Override
 	public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException {
 		List<Map<String, String>> list = problem_DAO.selectCategory(searchMap);
@@ -87,7 +131,6 @@ public class Problem_ServiceImpl implements Problem_Service {
 	@Override
 	public void insertCollection(Map<String, String> inputMap) throws DataAccessException {
 		inputMap.put("col_tag", "창작");
-		System.out.println(inputMap);
 		problem_DAO.insertCollection(inputMap);
 		int i = 1;
 		while (inputMap.containsKey("pro_num" + i)) {
@@ -95,7 +138,6 @@ public class Problem_ServiceImpl implements Problem_Service {
 			listMap.put("pro_num", inputMap.get("pro_num" + i));
 			listMap.put("col_list_num", i);
 			listMap.put("col_list_point", Integer.parseInt(inputMap.get("score" + i)));
-			System.out.println(i + "번째 >>>" + listMap);
 			problem_DAO.insertColList(listMap);
 			i++;
 		}

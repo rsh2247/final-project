@@ -99,7 +99,6 @@ public class PS_ControllerImpl implements PS_Controller {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("category", category);
 		List<Map<String, Object>> list = problem_Service.selectCollection(searchMap);
-		System.out.println(list);
 		ModelAndView mav = new ModelAndView("problem_solve/col_listPage.tiles");
 		mav.addObject("list", list);
 		return mav;
@@ -124,10 +123,18 @@ public class PS_ControllerImpl implements PS_Controller {
 		String col_num = request.getParameter("colNum");
 		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", col_num);
 		List<Map<String, Object>> list = problem_Service.selectProByCol(searchMap);
-		System.out.println(list);
 		ModelAndView mav = new ModelAndView("problem_solve/col_problemPage.tiles");
 		mav.addObject("list",list);
 		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = "**/check_colAnswer.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView check_colAnswer(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", paramMap.get("col_num"));
+		List<Map<String, Object>> list = problem_Service.selectProByCol(searchMap);
+		problem_Service.checkColAnswer(list, paramMap);
+		return null;
 	}
 	
 	

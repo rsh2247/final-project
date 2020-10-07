@@ -37,7 +37,10 @@
 	<insert id="insertProblem" parameterType="java.util.Map">
 		<selectKey resultType="string" keyProperty="pro_num"
 			order="BEFORE">
-			SELECT MAX(pro_num)+1 FROM problem
+			SELECT CASE WHEN MAX(pro_num)+1 IS NOT NULL THEN MAX(pro_num)+1 
+			ELSE 1
+			end as pro_num
+			FROM problem
 		</selectKey>
 		INSERT INTO problem values (#{pro_num}, 0, #{name}, #{content},
 		#{answer}, #{comment},
