@@ -12,7 +12,11 @@
 		and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/action-mybatis.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/action-mybatis.xml
+			/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/security-context.xml
+		</param-value>
 	</context-param>
 
 	<!-- encodingFilter -->
@@ -59,7 +63,6 @@
 		<init-param>
 
 			<param-name>XMLConfig</param-name>
-
 			<param-value>/WEB-INF/config.xml</param-value>
 
 		</init-param>
@@ -69,7 +72,6 @@
 		<init-param>
 
 			<param-name>debug</param-name>
-
 			<param-value>false</param-value>
 
 		</init-param>
@@ -77,14 +79,22 @@
 		<load-on-startup>1</load-on-startup>
 
 	</servlet>
-
+	
+	<!-- 스프링필터 -->
+	
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 
 	<servlet-mapping>
-
 		<servlet-name>ConnectorServlet</servlet-name>
-
 		<url-pattern>/ckfinder/core/connector/java/connector.java</url-pattern>
-
 	</servlet-mapping>
 </web-app>

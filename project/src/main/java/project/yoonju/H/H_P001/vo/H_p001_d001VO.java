@@ -92,7 +92,6 @@ public class H_p001_d001VO {
 	
 	
 	public H_p001_d001VO() {
-		System.out.println("ArticleVO ������");
 	}
 
 	public String getImageFileName() {

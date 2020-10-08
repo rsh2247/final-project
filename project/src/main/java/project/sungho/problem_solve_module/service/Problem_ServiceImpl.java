@@ -83,21 +83,20 @@ public class Problem_ServiceImpl implements Problem_Service {
 	
 	
 	@Override
-	public List<Map<String, Object>> checkColAnswer(List<Map<String, Object>> list, Map<String,Object> answerMap) throws DataAccessException {
-		System.out.println(">>>>>>>>>>>>list<<<<<<<<<<");
-		System.out.println(list);
-		System.out.println(">>>>>>>>>>>>answerMap<<<<<<<<<<");
-		System.out.println(answerMap);
+	public List checkColAnswer(List<Map<String, Object>> list, Map<String,Object> answerMap) throws DataAccessException {
+		List<String> answerList = new ArrayList<String>();
 		for(String key:answerMap.keySet()) {
 			if(key.contains("answer")) {
-				String num = key.split("answer")[1];
-				System.out.println(num);
+				int num = Integer.parseInt(key.split("answer")[1]);
 				String answer = ((String) answerMap.get(key));
-				
+				if(answer.equals(list.get(num-1).get("PRO_ANSWER"))) {
+					answerList.add("O");
+				}else {
+					answerList.add("X");
+				}
 			}
 		}
-		
-		return null;
+		return answerList;
 	}
 
 	

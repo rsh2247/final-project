@@ -133,8 +133,11 @@ public class PS_ControllerImpl implements PS_Controller {
 	public ModelAndView check_colAnswer(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", paramMap.get("col_num"));
 		List<Map<String, Object>> list = problem_Service.selectProByCol(searchMap);
-		problem_Service.checkColAnswer(list, paramMap);
-		return null;
+		List answerList = problem_Service.checkColAnswer(list, paramMap);
+		
+		ModelAndView mav = new ModelAndView("problem_solve/col_answerPage.tiles");
+		mav.addObject("list", answerList);
+		return mav;
 	}
 	
 	

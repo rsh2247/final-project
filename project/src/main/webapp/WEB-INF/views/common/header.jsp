@@ -125,7 +125,7 @@
 	<div class="container">
 		<img src="${contextPath}/resources/image/duke_swing.gif" 
 		onclick="location.href='${contextPath}/mainPage/mainPage001.do'"
-		style="position: relative; top: -25px; left: -250px;" />
+		style="position: relative; top: -25px; left: -250px; cursor: pointer;" />
 		<nav id="navi">
 			<ul class="one">
 				<li><a href="#" class="link">문제풀기</a>
