@@ -47,23 +47,66 @@ input {
 
 </style>
     <script>
+	
+            	
             $(document).ready(function(){
+            	
                 $('#payId').click(function(){
                     var data = $('input[name="payment"]:checked').val();
                     if(data=="point"){
-                        $('#pay').attr("action","${contextPath}/payment/pointPay.do").submit();;                  
+                    //    $('#pay').attr("action","${contextPath}/payment/pointPay.do").submit();                  
+                        $('#pay').attr("action","${contextPath}/payment/pointPay.do").submit();                  
                     }else if(data="kakao"){
-                        $('#pay').attr("action","${contextPath}/kakaoPay").submit();                   
+                    	
+                    	var url = "${contextPath}/kakaoPay";
+                    	var name = "pay";
+                    	var option = "width = 500, height = 500, top = 100, left = 100, location = no";
+                    	
+                       window.open("",pay,option);
+                       $('#pay').attr("target",pay);
+                       $('#pay').attr("action",url).submit();
+                        
                     }
                 });
             });
+            
     </script>
 </head>
 <body>
 
 	<div id="payment_wrapper">
+		
+		
+				<form id = "order_amount" method="post" action="{contextPath}/order_amount">
+				<h2> 주문정보</h2>               
+                <table>
+					<tr>
+						<th scope="row">강의번호</th>
+						<td>${orderlist[0].lecture_id}</td>
+					</tr>
+					<tr>
+						<th scope="row">강의분야</th>
+						<td>${orderlist[0].lecture_category}</td>
+					</tr>
+						<tr>
+						<th scope="row">강의명</th>
+						<td>${orderlist[0].lecture_name}</td>
+					</tr>
+					<tr>
+						<th scope="row">강사아이디</th>
+						<td>${orderlist[0].user_id}</td>
+					</tr>
+					<tr>
+						<th scope="row">수강료</th>
+						<td>${orderlist[0].lecture_tuition}</td>
+					</tr>
+				</table>
+				</form>
+	
+	
+	
         <h2> 결제 수단 선택</h2>
-        <form name="pay" id="pay" method="post" action="">             
+        <form name="pay" id="pay" method="post">             
                 <div>
                     <input type="radio" name="payment" id="op1" value="point" checked>
                     <label for="point">포인트 결제</label>

@@ -23,5 +23,15 @@
 			</if>
 		</where>
 	</select>
-
+	
+	<update id="usePoint" parameterType="java.util.Map">
+		update point
+		set  point_date = sysdate
+		   , point_change = #{point_change}
+		   , point_rest = #{point_rest}
+		   , user_id = #{p_id}
+		   , point_content = null
+		where user_id = #{p_id}
+	</update>
+	
 </mapper>

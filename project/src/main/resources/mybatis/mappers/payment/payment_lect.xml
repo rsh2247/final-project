@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="payment.lect">
+	<resultMap id="payment_lectResult01" type="java.util.HashMap">
+		<result property="lecture_id" column="lecture_id"  />
+		<result property="lecture_category" column="lecture_category" />
+		<result property="lecture_name" column="lecture_name" />
+		<result property="user_id" column="user_id" />
+		<result property="lecture_tuition" column="lecture_tuition" />
+	</resultMap>
+
+	<select id="order_amount" resultMap="payment_lectResult01" parameterType="java.util.Map"> 
+      <![CDATA[
+         select lecture_id, lecture_category, lecture_name, user_id, lecture_tuition
+         from   lecture
+      ]]>
+		<where>
+			<if test=" l_id != ''  and  l_id != null">
+				lecture_id = #{l_id}
+			</if>
+		</where>
+	</select>
+	
+</mapper>

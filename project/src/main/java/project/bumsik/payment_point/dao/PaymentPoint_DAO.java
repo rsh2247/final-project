@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import project.bumsik.payment_main.vo.Lecture_VO;
 import project.bumsik.payment_point.vo.PaymentPoint_VO;
 
 public interface PaymentPoint_DAO {
 	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException;
+
+	public void updatePoint(Map<String, Object> resultMap) throws DataAccessException;
 }

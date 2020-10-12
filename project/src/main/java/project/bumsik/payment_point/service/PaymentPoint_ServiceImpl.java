@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import project.bumsik.payment_main.vo.Lecture_VO;
 import project.bumsik.payment_point.dao.PaymentPoint_DAO;
 import project.bumsik.payment_point.vo.PaymentPoint_VO;
 
@@ -24,4 +25,12 @@ public class PaymentPoint_ServiceImpl implements PaymentPoint_Service{
 		return list;
 	}
 
+	@Override
+	public void updatePoint(Map<String, Object> resultMap) throws DataAccessException {
+		paymentPoint_DAO.updatePoint(resultMap);
+	}
+
+	
+	
+	
 }

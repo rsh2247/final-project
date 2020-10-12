@@ -45,9 +45,9 @@ public class KakaoPay {
         params.add("total_amount", "100000");  //상품 총액
         params.add("tax_free_amount", "10000");//면세
       //params.add("approval_url", "http://localhost:8090/devFw/kakao/kakaoPaySuccess"); //성공, 실제 호출 url
-        params.add("approval_url", "http://localhost:8090/devFw/kakao/kakaoPaySuccess"); //성공, 실제 호출 url
-        params.add("cancel_url", "http://localhost:8090/devFw/kakao/kakaoPayCancel");    //취소
-        params.add("fail_url", "http://localhost:8090/devFw/kakao/kakaoPaySuccessFail"); //실패
+        params.add("approval_url", "http://localhost:8090/devFw/payment/kakaoPaySuccess"); //성공, 실제 호출 url
+        params.add("cancel_url", "http://localhost:8090/devFw/payment/kakaoPayCancel");    //취소
+        params.add("fail_url", "http://localhost:8090/devFw/payment/kakaoPayFail"); //실패
         System.out.println("add complete");
         
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);

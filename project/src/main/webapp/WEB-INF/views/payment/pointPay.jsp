@@ -43,7 +43,11 @@
             padding: 3px;
         }
         input{
+        	text-align:right;
             padding: 5px;
+        }
+        table{
+        	padding-bottom: 10px;
         }
 
     </style>  
@@ -53,89 +57,91 @@
    	<script type="text/javascript">
    	
    	$(document).ready(function(){
-        var list;
-        var p_id;
+        var list, list2;
+        var p_id = $('#result').val();
+        var point_rest;
         
         $('#search').click(function(){
             	$.ajax({
-             	url: "${contextPath}/pointPays",
+             	url: "${contextPath}/searchPoint",
                 type: "post",
-                data: "p_id="+$('#text').val(),
+                data: "p_id="+$('#result').val(),
                 success: function(data, textStatus){
 					list = data;
-                	console.log(data);
-                	console.log(list);
+					console.log(list);
+					console.log(list[0].point_rest);
+					/* $('#result').empty(); */
+					point_rest = $('#result').val(list[0].point_rest);
 					
-                	alert("success"); 
+					
                 },
                 error: function(data, textStatus){
                     alert("error");
                 },
-                complete:function(data, textSatus){
-    				alert("complete")
+                complete:function(data, textSatus){  				
                 }
             });    
         });
-    });
-   	
-   	function output() {
-   		alert("output");
-   		for(var i=0;i<list.length;i++){
-   			var k = list[i].point_rest;
-   			confole.log(k);
-   			$('#result3').text(k);
-   		}
-   		
-   		console.log(list);
-   		console.log(list[0]);
-   		$('#text').text(list[0].point_rest);
-		$('#result1').text(list[0].point_rest);
-		$('#result2').text(list.point_rest);
-		$('#result4').append("abcde");
-	}
-   	
-/*    	
-   	$(document).ready(function(){
-        $('#search').click(function(){
-            var list;
-        	var p_id = $('#text').val();
-   		    alert(p_id); 
+		
         
+
+        $('#update').click(function(){
+        	
+            	var sendData={
+                	"p_id" : "abcd",	
+                	"usePoint" : $('#result2').val()	
+                };
+            
             	$.ajax({
-             	url: "${contextPath}/pointPays",
+             	url: "${contextPath}/updatePoint",
                 type: "post",
-                data: p_id,
+                data: sendData,
                 success: function(data, textStatus){
-                	 var jsonInfo = JSON.parse(data);
-                	 console.log(jsonInfo);
-					$('#text').text(jsonInfo.point_rest);
+					list2 = data;
+					console.log(list2);
+					console.log(list2.point_rest);
+					
+					$('#result3').val(list2.point_rest);					
                 },
                 error: function(data, textStatus){
                     alert("error");
                 },
-                complete:function(data, textSatus){
-    				alert("complete")
+                complete:function(data, textSatus){  				
                 }
             });    
         });
+        
+        
     });
- */  	
+   	 	
    	</script>
 </head>
 <body>
     <div id="point_wrapper">
-        <h2> 포인트 결제</h2>
+        		<h2> 포인트 결제</h2>
+        		
                 <div>
                     <h5>포인트 조회</h5>
                 </div>
                 <div>
-                    <input type="text" id="text" name="p_id">
+                    <input type="text" id="result" name="p_id">
                     <button id="search">조회</button><br>
-                    <input type="text" id="result1"><br>
-                    <input type="text" id="result2"><br>
-                    <input type="text" id="result3"><br>
-                    <div id="result4"></div><br>
-
+                </div>
+                
+                <div>
+                    <h5>포인트 사용</h5>
+                </div>
+                <div>
+                    <input type="text" id="result2" name="p_id2">
+                    <button id="update">사용</button><br>
+                </div>
+                
+                <div>
+                    <h5>잔여 포인트</h5>
+                </div>
+                <div>
+                    <input type="text" id="result3">
+                    <button id="balance">사용</button><br>
                 </div>
     </div>     
 	
