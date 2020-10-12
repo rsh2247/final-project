@@ -12,36 +12,46 @@
 
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/loginModule/loginPage.do" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/problem_solve/*.pro" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/problem_make/*.pro" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/loginModule/loginPage.do"
+			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/problem_solve/*.pro"
+			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/problem_make/*.pro"
+			access="hasRole('ROLE_USER')" />
 		<csrf disabled="true" />
-		
+
 		<form-login login-page="/loginPage.login"
-			default-target-url="/mainPage/mainPage001.do" 
-			username-parameter="loginId"
-			password-parameter="loginPw" 
+			default-target-url="/mainPage/mainPage001.do"
+			username-parameter="loginId" password-parameter="loginPw"
 			authentication-failure-url="/loginPage.login" />
 		<!-- 권한없을때 페이지 -->
 		<access-denied-handler
 			error-page="/access_error.login" />
-			
-		<logout
-			logout-success-url="/mainPage/mainPage001.do"
-		/>
+
+		<logout logout-success-url="/mainPage/mainPage001.do" />
 
 	</http>
 
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="user" password="1234"
-					authorities="ROLE_USER, ROLE_GUEST" />
+		<authentication-provider user-service-ref="userService">
+			<!--  <user-service>
+				<user name="user" password="userPw" authorities="ROLE_USER" />
 				<user name="guest" password="guest" authorities="ROLE_GUEST" />
 			</user-service>
+			-->
+			<!--  
+			<jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="SELECT USER_ID as username, user_pw as password, 1 as enabled FROM user_table WHERE user_id=?"
+			authorities-by-username-query="
+			SELECT user_id as username, CASE user_type WHEN 'user' THEN 'ROLE_USER' ELSE 'ROLE_ADMIN' END authority FROM user_table WHERE user_id=?"
+			/>
+			-->
 		</authentication-provider>
 	</authentication-manager>
-
+	
+	<beans:bean id="userService" class="project.sungho.security.member.UserAuthenticationService">
+		<beans:constructor-arg name="sqlSession" ref="sqlSession"></beans:constructor-arg>
+	</beans:bean>
 
 </beans:beans>
 
