@@ -28,16 +28,7 @@ public class MainControllerImpl implements MainController {
 		return mav;
 	}
 	
-	@RequestMapping(value ="/loginPage")
-	public String loginPage() {
-		//ModelAndView mav = new ModelAndView("loginModule/signIn.tiles");
-		return "loginModule/signIn.tiles";
-	}
 	
-	@GetMapping("/access_error")
-	public ModelAndView errorPage(Authentication auth) {
-		ModelAndView mav = new ModelAndView("");
-		return null;
-	}
+
 
 }

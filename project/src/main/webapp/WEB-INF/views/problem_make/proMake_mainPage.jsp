@@ -20,7 +20,7 @@
 			
 			$.ajax({
 				type : "post",
-				url : "makeProAjax001.pro",
+				url : "ajax/makeProAjax001.pro",
 				data : "string="+category1,
 				success : function(data,textStatus) {
 					list = data;
@@ -40,7 +40,7 @@
 			
 			$.ajax({
 				type : "post",
-				url : "makeProAjax001.pro",
+				url : "ajax/makeProAjax001.pro",
 				data : "string="+category2,
 				success : function(data,textStatus) {
 					list = data;

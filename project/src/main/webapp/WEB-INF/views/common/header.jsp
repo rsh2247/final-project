@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -10,21 +11,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	function tagPost() {
+		var form = document.getElementById('logoutForm');
+		form.submit();
+	}
+</script>
 <style type="text/css">
 .container {
 	height: 75px;
 	padding: 0 15px 0 15px;
-	border-bottom: 2px solid #ccc;
+	border-bottom: 2px solid #eee;
 }
 
-.loginbar {
+#loginbar {
+	position: absolute;
 	float: right;
-	border-collapse: collapse;
+	width: 100%;
 }
 
-.loginbar td {
-	width: 75px;
-	border: 1px solid #ccc;
+.login {
+	float: right;
+	margin: 10px;
+	color: #666;
+	font-size: 14px;
+}
+
+.login a {
+	text-decoration: none;
+	color: #666;
+}
+
+.login a:hover {
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .navigator {
@@ -42,9 +62,11 @@
 }
 
 #navi {
-	height: 30px; /* 메인 메뉴의 높이 */
+	width: 1000px;
+	height: 60px; /* 메인 메뉴의 높이 */
 	display: inline-block;
 	position: relative;
+	margin: 0 auto 0 auto;
 	top: -38px;
 }
 
@@ -65,6 +87,7 @@
 .one {
 	float: left;
 	width: 100%;
+	margin-top: 30px;
 }
 
 .one>li {
@@ -73,7 +96,7 @@
 	margin: 15px auto;
 	height: 30px;
 	width: 120px;
-	border-bottom: 2px solid #ccc;
+	border-bottom: 2px solid #eee;
 }
 
 .one>li:hover {
@@ -81,6 +104,7 @@
 }
 
 .one>li:hover .link {
+	
 }
 
 .one ul {
@@ -121,12 +145,26 @@
 </style>
 </head>
 <body>
-
 	<div class="container">
-		<img src="${contextPath}/resources/image/duke_swing.gif" 
-		onclick="location.href='${contextPath}/mainPage/mainPage001.do'"
-		style="position: relative; top: -25px; left: -250px; cursor: pointer;" />
+		<img src="${contextPath}/resources/image/duke_swing.gif" onclick="location.href='${contextPath}/mainPage/mainPage001.do'" style="position: relative; top: -25px; left: -250px; cursor: pointer;" />
 		<nav id="navi">
+			<sec:authorize access="isAnonymous()">
+				<div id='loginbar'>
+					<p class="login">
+						<a href="${contextPath}/loginModule/loginPage.do">로그인</a> | <a href="">회원가입</a>
+					</p>
+				</div>
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_USER')">
+				<div id='loginbar'>
+					<form id="logoutForm" action="/logout.logout" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<p class="login">
+							<a><sec:authentication property="principal.username"/></a> | <a href="${contextPath}/logout">로그아웃</a>
+						</p>
+					</form>
+				</div>
+			</sec:authorize>
 			<ul class="one">
 				<li><a href="#" class="link">문제풀기</a>
 					<ul class="two">
@@ -171,8 +209,7 @@
 					<ul class="two">
 						<li><a href="${contextPath}/problem_make/proMake_mainPage.do" class="link">문제만들기</a></li>
 						<li><a href="${contextPath}/problem_make/colMake_mainPage.do" class="link">문제집만들기</a></li>
-					</ul>
-				</li>
+					</ul></li>
 				<li><a href="#" class="link">menu3</a>
 					<ul class="two">
 						<li><a href="#" class="link">sub1</a></li>

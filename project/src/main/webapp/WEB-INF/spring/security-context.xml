@@ -8,32 +8,40 @@
                                  http://www.springframework.org/schema/security
                                  http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<http auto-config="true" use-expressions="false">
-		<intercept-url pattern="/mainPage/mainPage001.do" access="ROLE_USER"/>
 
+
+
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/loginModule/loginPage.do" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/problem_solve/*.pro" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/problem_make/*.pro" access="hasRole('ROLE_USER')"/>
+		<csrf disabled="true" />
 		
-		<form-login 
-			login-page="/loginPage"
-			default-target-url="/test.jsp"
+		<form-login login-page="/loginPage.login"
+			default-target-url="/mainPage/mainPage001.do" 
 			username-parameter="loginId"
-			password-parameter="loginPw"
-			authentication-failure-url="/mainPage/mainPage001.do"
-		/>
+			password-parameter="loginPw" 
+			authentication-failure-url="/loginPage.login" />
 		<!-- 권한없을때 페이지 -->
-		<access-denied-handler error-page="/access_error"/>
-
+		<access-denied-handler
+			error-page="/access_error.login" />
+			
+		<logout
+			logout-success-url="/mainPage/mainPage001.do"
+		/>
 
 	</http>
 
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="user" password="userPw" authorities="ROLE_USER, ROLE_GUEST" />
+				<user name="user" password="1234"
+					authorities="ROLE_USER, ROLE_GUEST" />
 				<user name="guest" password="guest" authorities="ROLE_GUEST" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>
-	
+
 
 </beans:beans>
 
