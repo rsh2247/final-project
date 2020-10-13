@@ -19,7 +19,8 @@ public interface Problem_Service {
 	 public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException;
 	 public List<Map<String, String>> selectTag(Map<String, Object> searchMap) throws DataAccessException;
 	 
+	 public void insertUserColHistory(Map<String, Object> inputMap) throws DataAccessException;
 	 public void insertProblem(Map<String, String> paramMap) throws DataAccessException;
-
 	 public void insertCollection(Map<String, String> inputMap) throws DataAccessException;
+	 public void insertUserAnswer(Map<String, Object> inputMap) throws DataAccessException;
 }

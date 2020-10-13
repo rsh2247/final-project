@@ -30,7 +30,7 @@
         clear: both;
         padding: 5px;
         border: 0px solid #bcbcbc;
-        background-color: #252525;
+        background-color: #353E5C;
         height: 200px;
       }
       

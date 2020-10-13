@@ -68,6 +68,7 @@
 	position: relative;
 	margin: 0 auto 0 auto;
 	top: -38px;
+	z-index: 1;
 }
 
 .one, .two, .three { /* 메인 메뉴 안의 ul을 설정함: 상위메뉴의 ul+하위 메뉴의 ul */
@@ -82,6 +83,7 @@
 	display: block;
 	width: 120px;
 	height: 30px;
+	z-index: 2;
 }
 
 .one {
@@ -100,11 +102,11 @@
 }
 
 .one>li:hover {
-	border-bottom: 2px solid black;
+	border-bottom: 2px solid #3E60DB;
 }
 
-.one>li:hover .link {
-	
+.one>li:hover>.link {
+	color: #3E60DB;
 }
 
 .one ul {
@@ -121,18 +123,18 @@
 
 .two>li {
 	position: relative;
-	background-color: #4d4d4d;
+	background-color: #fff;
 	height: 30px;
 	width: 120px;
 	height: 30px;
 }
 
 .two>li:hover {
-	background-color: white;
+	background-color: #687074;
 }
 
 .two>li:hover .link {
-	color: black;
+	color: white;
 }
 
 .three {
@@ -141,6 +143,7 @@
 	top: 0px;
 	position: absolute;
 	background: white;
+	color: black;
 }
 </style>
 </head>
@@ -151,7 +154,7 @@
 			<sec:authorize access="isAnonymous()">
 				<div id='loginbar'>
 					<p class="login">
-						<a href="${contextPath}/loginModule/loginPage.do">로그인</a> | <a href="${contextPath}/loginModule/signUp.do">회원가입</a>
+						<a href="${contextPath}/user/loginPage.do">로그인</a> | <a href="${contextPath}/user/signUp.do">회원가입</a>
 					</p>
 				</div>
 			</sec:authorize>
@@ -160,7 +163,7 @@
 					<form id="logoutForm" action="/logout.logout" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<p class="login">
-							<a><sec:authentication property="principal.username"/></a> | <a href="${contextPath}/logout">로그아웃</a>
+							<a href="${contextPath}/user/userPage.do"><sec:authentication property="principal.username"/></a> | <a href="${contextPath}/logout">로그아웃</a>
 						</p>
 					</form>
 				</div>

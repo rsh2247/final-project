@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project.sungho.problem_solve_module.dao.Problem_DAO;
 import project.sungho.problem_solve_module.vo.ProblemExample_VO;
 import project.sungho.problem_solve_module.vo.Problem_VO;
+import project.sungho.security.member.CustomUser;
 
 @Service("problem_Service")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -98,8 +100,13 @@ public class Problem_ServiceImpl implements Problem_Service {
 		}
 		return answerList;
 	}
-
 	
+	public void insertUserColHistory(Map<String, Object> inputMap) throws DataAccessException{
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		inputMap.put("user_id", user.getUsername());
+		problem_DAO.insertUserColHistory(inputMap);
+	}
+
 	@Override
 	public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException {
 		List<Map<String, String>> list = problem_DAO.selectCategory(searchMap);
@@ -114,8 +121,9 @@ public class Problem_ServiceImpl implements Problem_Service {
 
 	@Override
 	public void insertProblem(Map<String, String> inputMap) throws DataAccessException {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		inputMap.put("user_id",user.getUsername());
 		problem_DAO.insertProblem(inputMap);
-
 		Map<String, String> choiceMap = new HashMap<String, String>();
 		choiceMap.put("pro_num", inputMap.get("pro_num"));
 		for (int i = 1; i < 10; i++) {
@@ -129,6 +137,8 @@ public class Problem_ServiceImpl implements Problem_Service {
 
 	@Override
 	public void insertCollection(Map<String, String> inputMap) throws DataAccessException {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		inputMap.put("user_id", user.getUsername());
 		inputMap.put("col_tag", "창작");
 		problem_DAO.insertCollection(inputMap);
 		int i = 1;
@@ -141,7 +151,13 @@ public class Problem_ServiceImpl implements Problem_Service {
 			i++;
 		}
 	}
-
+	
+	public void insertUserAnswer(Map<String, Object> inputMap) throws DataAccessException {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		inputMap.put("user_id", user.getUsername());
+		System.out.println(inputMap);
+		problem_DAO.insertUserAnswer(inputMap);
+	}
 	
 
 }

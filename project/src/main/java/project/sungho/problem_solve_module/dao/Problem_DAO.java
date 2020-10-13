@@ -31,4 +31,6 @@ public interface Problem_DAO {
 	public String countCollection(Map<String, String> inputMap) throws DataAccessException;
 	public void insertCollection(Map<String, String> inputMap) throws DataAccessException;
 	public void insertColList(Map<String, Object> inputMap) throws DataAccessException;
+	public void insertUserAnswer(Map<String, Object> inputMap) throws DataAccessException;
+	public void insertUserColHistory(Map<String, Object> inputMap) throws DataAccessException;
 }

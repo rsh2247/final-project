@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +25,7 @@ import project.sungho.pro_collection_module.vo.ProCollection_VO;
 import project.sungho.problem_solve_module.service.Problem_Service;
 import project.sungho.problem_solve_module.vo.ProblemExample_VO;
 import project.sungho.problem_solve_module.vo.Problem_VO;
+import project.sungho.security.member.CustomUser;
 
 @Controller
 public class PS_ControllerImpl implements PS_Controller {
@@ -76,7 +79,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	@RequestMapping(value = "**/check_answer.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView checkAnswer(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String correct = "false";
-		String answer = (String)request.getParameter("answer");
+		String answer = request.getParameter("answer");
 		String proNum = request.getParameter("proNum");
 		Map<String, Object> searchMap = new HashMap<String, Object>(); searchMap.put("pro_num", proNum);
 		List<Map<String, Object>> list = problem_Service.searchProblem(searchMap);
@@ -85,6 +88,9 @@ public class PS_ControllerImpl implements PS_Controller {
 			if(answer.equals(searchMap.get("PRO_ANSWER"))) correct = "true";
 		}catch (Exception e) {
 		}
+		searchMap.put("user_answer", answer);
+		searchMap.put("answer_ox", correct);
+		problem_Service.insertUserAnswer(searchMap);
 		ModelAndView mav = new ModelAndView("problem_solve/answer_page.tiles");
 		mav.addObject("correct", correct);
 		mav.addObject("problem", searchMap);
@@ -134,7 +140,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", paramMap.get("col_num"));
 		List<Map<String, Object>> list = problem_Service.selectProByCol(searchMap);
 		List answerList = problem_Service.checkColAnswer(list, paramMap);
-		
+		problem_Service.insertUserColHistory(paramMap);
 		ModelAndView mav = new ModelAndView("problem_solve/col_answerPage.tiles");
 		mav.addObject("list", answerList);
 		return mav;
@@ -185,7 +191,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		paramMap.put("tag_name", tag.split("/")[1]);
 		paramMap.put("tag_ischoice", tag.split("/")[2]);
 		problem_Service.insertProblem(paramMap);
-		
+
 		ModelAndView mav = new ModelAndView("problem_make/proMake_002Page.tiles");
 		return mav;
 	}
@@ -210,7 +216,6 @@ public class PS_ControllerImpl implements PS_Controller {
 	@RequestMapping(value = "**/makeCol002.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView makeCol002(@RequestParam HashMap<String, String> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		problem_Service.insertCollection(paramMap);
-		System.out.println("완료");
 		return null;
 	}
 	

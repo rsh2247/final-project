@@ -41,7 +41,7 @@
 	outline: 0;
 	font-size: 24px;
 	color: #fff;
-	background-color: #312E41;
+	background-color: #3E60DB;
 	cursor: pointer;
 }
 

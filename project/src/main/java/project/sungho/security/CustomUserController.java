@@ -25,7 +25,7 @@ public class CustomUserController {
 	
 	@RequestMapping(value = "**/loginPage.login", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("/loginModule/signIn.tiles");
+		ModelAndView mav = new ModelAndView("/user/signIn.tiles");
 		return mav;
 	}
 	
@@ -43,8 +43,8 @@ public class CustomUserController {
 	@RequestMapping(value = "**/user.signUp", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView signUp(@RequestParam HashMap<String, Object> inputMap ,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		customUser_Service.signUp(inputMap);
-		ModelAndView mav = new ModelAndView("");
-		return null;
+		ModelAndView mav = new ModelAndView("/user/signIn.tiles");
+		return mav;
 	}
 
 }

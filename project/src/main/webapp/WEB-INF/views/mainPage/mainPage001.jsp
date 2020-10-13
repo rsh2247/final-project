@@ -11,10 +11,9 @@ ul, li {
 }
 
 #slide {
-	height: 300px;
+	height: 500px;
 	position: relative;
 	overflow: hidden;
-	margin-top: 150px;
 }
 
 #slide ul {

@@ -38,4 +38,22 @@
 		 </if>
       </where>
 	</select>
+	
+	<insert id="insertUserColHistory">
+		INSERT INTO COL_HISTORY(col_solvedate,user_id,col_num) 
+		VALUES(to_char(systimestamp, 'YYYY-MM-DD HH:MI:SS:FF2'),#{user_id},#{col_num})
+		
+	</insert>
+	
+	<select id="selectRecentHistory">
+		SELECT MAX(col_solvedate)
+		FROM COL_HISTORY
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<insert id="insertUserColAnswer">
+		INSERT INTO COL_ANSWER(col_wrongnum,user_id,col_num,col_solvedate,col_wrongcontent)
+		VALUES(#{col_wrongnum},#{user_id},#{col_num},#{col_solvedate},#{col_wrongcontent})
+	</insert>
+	
 </mapper>

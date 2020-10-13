@@ -86,6 +86,14 @@ public class Problem_DAOImpl implements Problem_DAO {
 	public void insertColList(Map<String, Object> inputMap) throws DataAccessException {
 		sqlSession.update("collection_make.insertColList", inputMap);
 	}
+	
+	public void insertUserAnswer(Map<String, Object> inputMap) throws DataAccessException{
+		sqlSession.update("problem_solve.insertUserAnswer", inputMap);
+	}
+	
+	public void insertUserColHistory(Map<String, Object> inputMap) throws DataAccessException{
+		sqlSession.update("pr.pro_collection.insertUserColHistory", inputMap);
+	}
 
 	
 }

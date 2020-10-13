@@ -93,5 +93,21 @@
 		order by col_list_num asc, cho_num asc
 	</select>
 	
+	<insert id="insertUserAnswer" parameterType="java.util.Map">
+		INSERT INTO USER_PRO_HISTORY(user_id,pro_num,history_answer,history_ox,HISTORY_DATE) 
+		VALUES(#{user_id},#{PRO_NUM},#{user_answer},#{answer_ox},to_char(systimestamp,'yyyy.mm.dd hh24:mi:ss:ff2'))
+	</insert>
+	
+	<select id="selectUserAnswer" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[SELECT *
+		FROM USER_PRO_HISTORY]]>
+		<where>
+			<if test="pro_num != null">
+				pro_num = #{pro_num} and user_id = #{user_id}
+			</if>
+		</where>
+		order by desc
+	</select>
+	
 
 </mapper>

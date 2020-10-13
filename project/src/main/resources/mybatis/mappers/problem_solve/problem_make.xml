@@ -44,7 +44,7 @@
 		</selectKey>
 		INSERT INTO problem values (#{pro_num}, 0, #{name}, #{content},
 		#{answer}, #{comment},
-		#{categoryId}, #{categoryName}, #{tag_id}, #{tag_name}, #{tag_ischoice})
+		#{categoryId}, #{categoryName}, #{tag_id}, #{tag_name}, #{tag_ischoice}, #{user_id})
 	</insert>
 	
 	<insert id="insertChoice" parameterType="java.util.Map">

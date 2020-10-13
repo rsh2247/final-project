@@ -23,7 +23,7 @@
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	font-size: 16px;
-	background-color: #312E41;
+	background-color: #3E60DB;
 	color: #fff;
 	cursor: pointer;
 	

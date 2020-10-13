@@ -12,7 +12,7 @@
 
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/loginModule/loginPage.do"
+		<intercept-url pattern="/user/loginPage.do"
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/problem_solve/*.pro"
 			access="hasRole('ROLE_USER')" />
@@ -23,7 +23,7 @@
 		<form-login login-page="/loginPage.login"
 			default-target-url="/mainPage/mainPage001.do"
 			username-parameter="loginId" password-parameter="loginPw"
-			authentication-failure-url="/loginPage.login" />
+			authentication-failure-url="/loginPage.login"/>
 		<!-- 권한없을때 페이지 -->
 		<access-denied-handler
 			error-page="/access_error.login" />
