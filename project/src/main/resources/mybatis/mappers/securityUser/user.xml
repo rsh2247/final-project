@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
-	<insert id="insertUser">
+
+	<insert id="insertUser" parameterType="java.util.Map">
 		INSERT INTO user_table
-		VALUES(#{email},#{passwd},1,#{authority})
+		VALUES(#{id},#{pw},'ROLE_USER',#{email},'test_phonenum',#{nickName},SYSTIMESTAMP)
 	</insert>
 
 	<select id="selectUser" resultType="map">
@@ -12,8 +13,8 @@
 		user_pw as password,
 		1 as enabled,
 		user_type as authority,
-		user_email as email,
-		user_nickname as nickName
+		user_email,
+		user_nickname
 		FROM user_table
 		WHERE user_id = #{username}
 	</select>

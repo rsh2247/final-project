@@ -151,7 +151,7 @@
 			<sec:authorize access="isAnonymous()">
 				<div id='loginbar'>
 					<p class="login">
-						<a href="${contextPath}/loginModule/loginPage.do">로그인</a> | <a href="">회원가입</a>
+						<a href="${contextPath}/loginModule/loginPage.do">로그인</a> | <a href="${contextPath}/loginModule/signUp.do">회원가입</a>
 					</p>
 				</div>
 			</sec:authorize>
