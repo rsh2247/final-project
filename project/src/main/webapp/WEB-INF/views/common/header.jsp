@@ -75,6 +75,7 @@
 	list-style-type: none; /* 메인 메뉴 안의 ul 내부의 목록 표시를 없애줌 */
 	margin: 0px; /* 메인 메뉴 안의 ul의 margin을 없앰 */
 	padding: 0px; /* 메인 메뉴 안의 ul의 padding을 없앰 */
+	
 }
 
 .link {
@@ -83,7 +84,9 @@
 	display: block;
 	width: 120px;
 	height: 30px;
-	z-index: 2;
+}
+.link:hover{
+	color: white;
 }
 
 .one {
@@ -119,6 +122,7 @@
 	position: absolute;
 	left: 0px;
 	top: 32px;
+	box-shadow: -5px 0px 8px -5px #ddd,5px 0px 8px -5px #ddd;
 }
 
 .two>li {
@@ -130,10 +134,10 @@
 }
 
 .two>li:hover {
-	background-color: #687074;
+	background-color: #3E60DB;
 }
 
-.two>li:hover .link {
+.two>li:hover>.link {
 	color: white;
 }
 
@@ -144,6 +148,17 @@
 	position: absolute;
 	background: white;
 	color: black;
+	z-index: 2;
+}
+.three>li:first-child{
+	border-top: 2px solid #3E60DB;
+}
+.three>li:hover {
+	background-color: #3E60DB;
+}
+
+.subtitle{
+	background-color: #fff;
 }
 </style>
 </head>
@@ -172,21 +187,21 @@
 				<li><a href="#" class="link">문제풀기</a>
 					<ul class="two">
 						<li><a href="#" class="link">공인어학시험</a>
-							<ul class="three">
-								<li><h3>영어</h3></li>
+							<ul class="three" style="top: -2px;">
+								<li class="subtitle"><h3>영어</h3></li>
 								<li><a href="${contextPath}/problem_solve/c001_002.do?category=TOEIC" class="link">TOEIC</a></li>
 								<li><a href="${contextPath}/problem_solve/c001_002.do?category=TOEFL" class="link">TOEFL</a></li>
 								<li><a href="${contextPath}/problem_solve/c001_002.do?category=TEPS" class="link">TEPS</a></li>
 								<li><a href="" class="link"> </a></li>
 							</ul>
-							<ul class="three" style="left: 240px;">
-								<li><h3>중국어</h3></li>
+							<ul class="three" style="left: 240px; top: -2px;">
+								<li class="subtitle"><h3>중국어</h3></li>
 								<li><a href="${contextPath}/problem_solve/c001_002.do?category=HSK" class="link">HSK</a></li>
 								<li><a href="" class="link"></a></li>
 								<li><a href="" class="link"></a></li>
 								<li><a href="" class="link"></a></li>
 							</ul>
-							<ul class="three" style="left: 360px;">
+							<ul class="three" style="left: 360px; top: -2px;">
 								<li><h3>일본어</h3></li>
 								<li><a href="${contextPath}/problem_solve/c001_002.do?category=JLPT" class="link">JLPT</a></li>
 								<li><a href="" class="link"></a></li>

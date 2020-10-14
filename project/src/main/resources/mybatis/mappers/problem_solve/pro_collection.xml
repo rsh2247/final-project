@@ -7,6 +7,9 @@
 	<resultMap id="pro_collection_result" type="proCollection_VO">
 		<result property="pro_num" column="pro_num" />
 	</resultMap>
+	
+	<resultMap id="result" type="java.util.HashMap">
+	</resultMap>
 
 	<select id="searchWholeList" resultMap="pro_collection_result" parameterType="java.util.Map"> 
       <![CDATA[
@@ -39,21 +42,46 @@
       </where>
 	</select>
 	
+	<select id="selectColmaxscoreByColNum" resultMap="result"
+		parameterType="java.util.Map"> 
+      	SELECT col_maxscore as "maxscore" 
+      	FROM pro_collection 
+      	WHERE col_num = #{col_num}
+	</select>
+	
 	<insert id="insertUserColHistory">
 		INSERT INTO COL_HISTORY(col_solvedate,user_id,col_num) 
-		VALUES(to_char(systimestamp, 'YYYY-MM-DD HH:MI:SS:FF2'),#{user_id},#{col_num})
-		
+		VALUES(to_char(systimestamp, 'YYYY-MM-DD HH24:MI:SS:FF2'),#{user_id},#{col_num})
 	</insert>
 	
-	<select id="selectRecentHistory">
-		SELECT MAX(col_solvedate)
+	<select id="selectRecentHistory" resultMap="result" parameterType="java.util.Map">
+		SELECT MAX(col_solvedate) "date" 
 		FROM COL_HISTORY
 		WHERE user_id = #{user_id}
 	</select>
 	
 	<insert id="insertUserColAnswer">
-		INSERT INTO COL_ANSWER(col_wrongnum,user_id,col_num,col_solvedate,col_wrongcontent)
-		VALUES(#{col_wrongnum},#{user_id},#{col_num},#{col_solvedate},#{col_wrongcontent})
+		INSERT INTO COL_ANSWER(user_id,col_num,col_solvedate,col_wrongcontent,COL_REALANSWER,pro_num,col_list_num)
+		VALUES(#{user_id},#{col_num},#{col_solvedate},#{col_wrongcontent},#{col_realanswer},#{pro_num},#{col_list_num})
 	</insert>
+	
+	<select id="selectColPoint" resultMap="result" parameterType="java.util.Map">
+		SELECT a.col_list_num, col_list_point 
+		FROM col_answer a, col_history h, col_list l 
+		WHERE a.col_num = h.col_num and h.col_num = l.col_num and a.user_id = h.user_id and a.col_solvedate = h.col_solvedate and a.pro_num = l.pro_num 
+		and a.col_num = #{col_num} and a.user_id = #{user_id} and a.col_solvedate = #{col_solvedate} 
+		ORDER BY a.col_list_num asc
+	</select>
+	
+	<update id="updateColScore" parameterType="java.util.Map">
+		UPDATE col_history SET col_score = #{score} 
+		WHERE user_id = #{user_id} and col_num = #{col_num} and col_solvedate = #{col_solvedate}
+	</update>
+	
+	<select id="selectUserColHistory">
+		SELECT 
+		FROM COL_HISTORY
+		WHERE user_id = #{user_id}
+	</select>
 	
 </mapper>
