@@ -1,208 +1,5 @@
 @charset "UTF-8";
 
-
-#container_wrap{z-index:10;}
-
-.payment_wrap {position:relative;}
-.payment_wrap .box {padding-top:30px;}
-.payment_wrap h2 {position:relative; width:800px; text-align:left}
-.payment_wrap h2 a {position:absolute; right:0;}
-.payment_wrap .board_list {margin:15px 0 0;}
-.payment_wrap th {padding-bottom:23px;}
-.payment_wrap th.last {background:url(../img/board/th_bgX107.gif) right top no-repeat;}
-.payment_wrap .board_list td.title {padding-left:10px; text-align:left}
-.payment_wrap > p.total_price {width:800px; margin:15px 0 37px 0; font-weight:bold; text-align:right; font-size:14px; color:#2b2b2b; display:inline-block;}
-.payment_wrap > p.total_price em {color:#cc0000;}
-
-.payment_wrap .sale_pay {width:794px; margin:20px 0 0; border:3px solid #dae0e4; background:url(../img/payment/order_bg.gif) 516px top no-repeat;}
-.payment_wrap .sale_pay:after {display:block; clear:both; content:""}
-.payment_wrap .sale_pay dt ul {float:left; width:794px;}
-.payment_wrap .sale_pay dt li {float:left; padding:12px 0; margin:0; font-size:14px; font-weight:bold; text-align:center; color:#2a2a2a;}
-.payment_wrap .sale_pay dt li.total_order {width:260px; border-right:1px solid #cdcdcd; background:#eceff1;}
-.payment_wrap .sale_pay dt li.sale_price {width:260px; border-right:1px solid #cdcdcd; background:#eceff1;}
-.payment_wrap .sale_pay dt li.total_price {width:260px; color:#fff; background:#cc0000;}
-
-.payment_wrap .sale_pay dd ul {display:inline; float:left; margin:0 0 0 0; background:url(../img/payment/sum_bg.gif) no-repeat;}
-.payment_wrap .sale_pay dd li {float:left; padding:13px 0; color:#2a2a2a; text-align:center; border-bottom:1px solid #cdcdcd;}
-.payment_wrap .sale_pay dd li em {font-size:25px; font-weight:bold}
-.payment_wrap .sale_pay dd li.total_order {width:264px;}
-.payment_wrap .sale_pay dd li.sale_price {width:254px; margin:0 0 0 0; }
-.payment_wrap .sale_pay dd li.total_price  {width:275px; margin:0 0 0 0; color:#cc0000;}
-.payment_wrap .sale_pay dd li.total_price  em {color:#cc0000;}
-
-.payment_wrap div.total_order {float:left; width:496px; margin:28px 0 0 20px; _margin-left:10px; display:inline-block;}
-.payment_wrap div.total_order .point_coupon {width:472px; height:29px; margin:13px 0 5px; text-align:center; background:#f9f9f9; border:1px solid #dae0e4;display:inline-block;}
-.payment_wrap div.total_order .point_coupon span {display:inline-block; margin:8px 13px 0 0; padding:0 0 0 8px; color:#597b97; font-weight:bold; background:url(../img/bullet/triangle03.gif) 0 3px no-repeat;}
-.payment_wrap div.total_order .point_coupon span em {color:#2a2a2a;}
-.payment_wrap div.total_order table.board_list {width:474px; display:inline-block;}
-.payment_wrap div.total_order th {padding-bottom:15px;}
-.payment_wrap div.total_order th.last {background:url(/img/board/th_bgX133.gif) right top no-repeat;}
-.payment_wrap div.total_order td.title {padding-left:11px; text-align:left;}
-.payment_wrap div.total_order td {color:#2b2b2b;}
-.payment_wrap div.total_order td img {_position:none; vertical-align:middle;}
-.payment_wrap div.total_order input {width:56px; height:17px; margin:0 4px 0 0; border:1px solid #ccc; vertical-align:middle;}
-
-.payment_wrap .text {float:left; padding:17px 0 24px 8px; color:#939292; line-height:16px; font-size:11px; text-align:left; display:inline-block;}
-.payment_wrap div.total_price {float:left; width:220px; text-align:left; margin:40px 0 0; padding-left:40px; color:#2a2a2a; font-size:12px; background:url(../img/payment/order_arrow.gif) left 90px no-repeat; display:inline-block;}
-.payment_wrap div.total_price dl {width:200px;}
-.payment_wrap div.total_price dl dt {padding:0 0 7px; font-weight:bold;}
-.payment_wrap div.total_price dl dd {float:left; width:200px; padding:6px 0 5px 8px;  font-weight:normal; border-top:1px solid #dcdcdc; background:url(../img/bullet/triangle04.gif) 0 10px no-repeat;}
-.payment_wrap div.total_price dl dd span { float:right; text-align:right; margin-right:3px; *margin-top:-14px; }
-.payment_wrap div.total_price dl dd.point {height:25px; padding:6px 0 5px 8px;  background:none; }
-.payment_wrap div.total_price dl dd.point span {margin-top:6px; color:#cc0000; font-weight:bold;  float:right; text-align:right;}
-.payment_wrap div.total_price dl.benefit {margin:60px 0 0; float:left; }
-
-.payment_wrap .order_info {float:left; width:800px;}
-.payment_wrap .order_info .delivery_info{z-index:10000;}
-.payment_wrap .order_info .delivery_info #layer_pop{right:-108px !important;top:5px !important;}
-.payment_wrap .order_info h3 {position:relative; margin:40px 0 20px;}
-.payment_wrap .order_info h3 span {position:absolute; top:16px; right:0; font-weight:bold; color:#636363;}
-.payment_wrap .order_info h3 label {margin:0 0 0 24px; font-size:12px;}
-.payment_wrap .order_info label.agree {margin:0 0 0 30px; font-weight:bold;}
-.payment_wrap .order_info label.agree input {border:none;}
-.payment_wrap .order_info label input {position:relative; top:-2px; *top:0; width:12px; height:12px; vertical-align:middle; border:none;}
-.payment_wrap .order_info td input { height:19px; color:#636363; border:1px solid #ccc; vertical-align:middle;}
-.payment_wrap .order_info input.zip_01 {width:73px; margin:0 0 5px;}
-.payment_wrap .order_info input.zip_02 {width:273px; margin:0 10px 0 0;}
-.payment_wrap .order_info input.zip_03 {width:193px;}
-.payment_wrap .order_info input.name {width:143px;}
-.payment_wrap .order_info input.phone,
-.payment_wrap .order_info select {width:73px; color:#636363;}
-.payment_wrap .order_info input.delivery {width:423px; background:url(../img/payment/delivery_bg.gif) center top no-repeat;}
-.payment_wrap .order_info input.delivery_on {width:423px; background:#fff;}
-.payment_wrap .order_info td img {vertical-align:top;}
-.payment_wrap .order_info table {width:798px; border-top:1px solid #9d9d9d;}
-.payment_wrap .order_info th,
-.payment_wrap .order_info td {padding:10px 0 9px; *padding:8px 0 7px; border-bottom:1px solid #dedede}
-.payment_wrap .order_info th {width:134px; border-right:1px solid #dedede; color:#363636; background:#fff7f4;}
-.payment_wrap .order_info th.phone {border-left:1px solid #dedede;}
-.payment_wrap .order_info td {padding-left:24px; color:#636363; text-align:left; }
-
-.payment_wrap p.btn {margin:34px 0 50px; text-align:center;}
-.payment_wrap p.btn img {padding:0 10px;}
-
-/* 팝업 */
-.sale_coupon {width:732px; top:35%; left:0px; padding:0 0 0 24px; text-align:left;}
-.sale_coupon table {text-align:center;}
-.sale_coupon h3 {position:relative; margin:15px 0 26px;}
-.sale_coupon h3 a {position:absolute; top:-10px; right:5px;}
-.sale_coupon p.own_coupon {padding:0 0 7px 8px; color:#597b97; font-weight:bold; background:url(../img/bullet/triangle03.gif) 0 7px no-repeat;}
-.sale_coupon p.own_coupon em {color:#2b2b2b;}
-.sale_coupon p.own_coupon img {position:relative; top:-3px; left:16px; vertical-align:middle;}
-.sale_coupon table.board_list {width:700px; margin:0 23px 0 0;} 
-.sale_coupon table.board_list th {padding-bottom:12px;}
-.sale_coupon table.board_list th img {margin:0}
-.sale_coupon table.board_list th.last {width:58px; *width:61px;}
-.sale_coupon th.last {background:url(../img/board/th_bg03.gif) right top no-repeat;}
-.payment_wrap .sale_coupon .btn {float:left; width:100%; text-align:center; margin:0; padding:0 0 20px; }
-.payment_wrap .sale_coupon .btn img {padding:0 8px;}
-
-.payment_wrap .coupon {top:42%; left:145px; width:438px; padding:0 0 0 24px; overflow:hidden; z-index:100}
-.payment_wrap .coupon h3 {position:relative; margin:15px 0 17px;}
-.payment_wrap .coupon h3 a {position:absolute; top:-10px; right:5px;}
-.payment_wrap .coupon .text {float:left; display:block; margin:0 0 14px; padding:0;font-weight:bold; font-size:12px; color:#2b2b2b;}
-.payment_wrap .coupon fieldset {float:left; width:414px; margin:0 22px 0 0; background:#f9f9f9; color:#597b97; font-weight:bold;}
-.payment_wrap .coupon fieldset p {padding:10px 0 9px 27px;}
-.payment_wrap .coupon fieldset input {width:261px; height:19px; margin:0 39px 0 11px; font-size:12px; border:1px solid #dedede;}
-.payment_wrap .coupon .btn {float:left; display:block; width:100%; margin:0; padding:15px 0; text-align:center;}
-
-/* 결제완료 */
-.payment_finish .deposit_box {position:relative; float:left; width:100%; margin:10px 0 0; background:url(../img/payment/bank_finishBg.gif) no-repeat;}
-.deposit_box .deadline {margin:99px 0 0 189px; font-weight:bold; color:#000; text-align:left;}
-.deposit_box .deadline em {color:#cc0000;}
-.deposit_box .bankbook_info {margin:20px 0 0 0px;}
-.deposit_box .bankbook_info dt {width:723px; padding:6px 0 4px; background:#fff; font-size:14px; color:#597b97; font-weight:bold; text-align:center; border:3px solid #dae0e4;}
-.deposit_box .bankbook_info dd {width:723px; margin:4px 0 0; background:#fff; border:3px solid #e7ecf0; padding: 0px 0px; }
-.deposit_box .bankbook_info dd span {display:inline-block; margin:20px 40px 20px 40px; padding:0 0 0 8px; color:#597b97; font-weight:bold; background:url(../img/bullet/triangle03.gif) 0 50% no-repeat;}
-/* .deposit_box .bankbook_info dd span.first {margin-left:78px;} */
-.deposit_box .bankbook_info dd span em {color:#71757a;}
-.deposit_box p.text {margin:0 0 0 40px; padding:8px 0 0 0;}
-
-.payment_finish table.board_list {float:left; margin-bottom:0;}
-.payment_finish table.board_list td.title {text-align:left; padding-left:33px;}
-.payment_finish table.board_list td.title a {font-size:13px;}
-.payment_finish table.board_list td.last {text-align:right; padding-right:32px;}
-.payment_finish table.board_list td.title em {color:#597b97; font-weight:bold;}
-.payment_finish th.last {background:url(../img/board/th_bgX160.gif) right top no-repeat;}
-.payment_finish table.total_price {float:left; margin:0; width:798px; border-top:1px solid #eaeaea;}
-.payment_finish table.total_price th,
-.payment_finish table.total_price td {padding:10px 0 8px; text-align:right; border-bottom:1px solid #eaeaea;}
-.payment_finish table.total_price tr.total_order th,
-.payment_finish table.total_price tr.total_order td {padding-top:19px;}
-.payment_finish table.total_price td {padding-right:32px;}
-.payment_finish tr.total th, .payment_finish tr.point th,
-.payment_finish tr.total td, .payment_finish tr.point td {background:#fff7f4;}
-.payment_finish tr.total td {padding-top:5px; padding-bottom:3px;}
-.payment_finish tr.total * {color:#cc0000;}
-.payment_finish tr.total em {font-size:25px; letter-spacing:-1px;}
-.payment_finish tr.method th,
-.payment_finish tr.method td {background:#fffbf9;}
-
-.payment_finish .lectrue_start {float:left; margin:40px 0 34px; width:100%; border:1px solid #cc0000; text-align:left;}
-.payment_finish .lectrue_start h3 {margin:17px 0 16px 24px;}
-.payment_finish .lectrue_start p {margin:0 0 15px 25px; color:#2b2b2b; line-height:20px;}
-
-.payment_finish .finish {float:left; margin:10px 0 0;}
-
-div.orderWrap {clear:both; text-align:left;}
-div.orderWrap h2 {padding:25px 0 10px;}
-div.orderWay {border:3px solid #dae0e4;}
-div.waySelect {width:100%; height:31px; padding-top:11px; background:#eceff1; text-align:center;}
-div.waySelect label {padding:0 50px; font-size:14px; color:#323232;}
-div.waySelect input {vertical-align:middle;}
-ul.orderEtc {padding:0 0 19px 36px;}
-ul.orderEtc li {position:relative; margin-top:15px; padding:0 0 0 17px; color:#939292; width:735px;line-height:16px;}
-ul.orderEtc li span {position:absolute; top:-1px; left:0;}
-
-.chkbox ul.orderEtc li{padding:0;}
-.chkbox .pay_agree{display:block;margin:5px 0;} 
-
-.confirm_btn {padding:2px;background-color:#CC0000;color:#ffffff;font-size:12px;}
-
-/* 결제/배송 안내 */
-.guideWay {border:3px solid #dae0e4; margin-bottom: 20px; padding:17px 24px 17px 35px;}
-.guideWay p {color: #939292; text-align: left; line-height: 16px;}
-.guideEtc {margin: 0 0 0 16px;}
-.guideEtc li {padding-top:9px; list-style-type: circle; text-align: left; color: #939292; line-height: 16px;}
-
-/* 상품 유의사항 */
-.payment_wrap .order_info .useguide_btn{display: block; margin: 0 0 10px 0; line-height: 40px; font-size: 13px; font-weight: bold;  background: #eceff1; text-align: center; border: 3px solid #dae0e4; box-sizing: border-box; cursor: pointer;}
-.color_red {color: #ff0000;}
-.stxt {display:block;font-size:12px;padding-left:15px;color:#777;}
-
-/* 매일경제 결재완료 테이블 */
-/* 딤팝업 */
-.layer_pop{position:fixed;left:50%;top:50%;z-index:9990;margin-left:-530px;display:none;}
-.layer_pop .bg{position:fixed;left:0;top:0;width:100%;height:100%;opacity:0.8;background-color:#000;}
-.layer_pop .pop_cont{position:absolute;top:50%;left:50%;margin-top:-250px;margin-left:-530px;width:800px;height:auto;background-color:#fff;text-align:center;border:2px solid #af9a71;padding:40px 20px;}
-
-.mk_payment {}
-.mk_payment .mk_title {font-size:21px;color:#08a0fa;font-weight:bold;margin:20px 0;}
-.mk_payment .mk_title span {font-size:14px;color:#505050;margin-left:18px;display:inline-block;}
-.mk_table {width:100%;border-top:1px solid #9d9d9d;}
-.mk_table th {border-bottom:1px solid #dedede;background-color:#e8f6ff;text-align:center;padding:12px;color:#323232;font-size:14px;font-weight:bold;}
-.mk_table td {border-bottom:1px solid #dedede;padding:12px 15px;text-align:left;}
-.mk_table tr:nth-child(1) td {padding:0 15px;border-bottom:0;}
-.mk_table tr:last-child th,
-.mk_table tr:last-child td {border-bottom:1px solid #9d9d9d;}
-.mk_table .inbox{float:left;}
-.mk_table  a.link_btn{float:left;margin-left:9px;}
-.mk_table input[type="text"], .mk_table input[type="tel"], .mk_table input[type="number"] {border:1px solid #ccc;height:21px;line-height:19px;font-size:14px;}
-.mk_table .add1{}
-.mk_table .add2{width:200px;margin-right:9px;}
-.mk_table .name{width:160px;float:left;}
-.mk_table select.tel {border:1px solid #ccc;height:23px;line-height:19px;}
-.mk_table .tel{width:75px;vertical-align:top;}
-.mk_table .etc{width:480px;}
-.mk_btn {text-align:right;margin-top:19px;}
-.mk_btn a {display:block;}
-.mk_btn a button {width:139px;height:33px;text-align:center;background-color:#03a0fa;color:#fff;}
-
-
-
-/* bookstore */
-@charset "UTF-8";
-
 /*****************************
 Á¦¸ñ :  sub CSS
 ÀÛ¼ºÀÏ : 2012.09.18
@@ -353,6 +150,17 @@ ul.orderEtc li span {position:absolute; top:-1px; left:0;}
 #sub_main .main_visual .visual_tab { height:37px; overflow:hidden;}
 #sub_main .main_visual .visual_tab li {float:left; height:37px; }
 
+/*
+#sub_main .main_visual .visual_tab a {width:143px; height:37px; display:block;}
+#sub_main .main_visual .visual_tab a span {display:none;}
+#sub_main .main_visual .visual_tab a.tab01 {background:url(../../img/sub_main/bg_tab_visual01_n1.gif) no-repeat; margin:0 0 0 1px;}
+#sub_main .main_visual .visual_tab a.tab01_1 {background:url(../../img/sub_main/bg_tab_visual01_1.gif) no-repeat; margin:0 0 0 1px;}
+#sub_main .main_visual .visual_tab a.tab02 {background:url(../../img/sub_main/bg_tab_visual01.gif) no-repeat;}
+#sub_main .main_visual .visual_tab a.tab03 {background:url(../../img/sub_main/bg_tab_visual03.gif) no-repeat;}
+#sub_main .main_visual .visual_tab a.tab04 {background:url(../../img/sub_main/bg_tab_visual04.gif) 1px 1px no-repeat; margin:0 -1px 0 1px;}
+
+#sub_main .main_visual .visual_tab li.on a {background-position:bottom;}
+#sub_main .main_visual .visual_tab a:hover {background-position:bottom;} */
 
 /*ÀÌº¥Æ® - ¸ÞÀÎ_½Ã½ºÅÛÆùÆ®·Î ¼öÁ¤ Á¤¹Ì·Ê_121123*/
 #sub_main .main_visual .visual_tab a {width:142px; height:37px; display:block; border-top:1px #d0d0d0 solid;}
@@ -530,8 +338,3 @@ ul.orderEtc li span {position:absolute; top:-1px; left:0;}
 .pop_ongoing_info .content .info li dl dt{font-size:15px;color:#000;font-weight:bold;margin-bottom:5px;}
 .pop_ongoing_info .content .info li dl dd{font-size:13px;color:#000;}
 .pop_ongoing_info .content .txt {line-height:18px;text-align:center;color:#444;}
-
-
-
-
-

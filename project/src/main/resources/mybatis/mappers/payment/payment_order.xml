@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="payment.order">
+	<resultMap id="payment_order01" type="java.util.HashMap">
+		<result property="order_id" column="order_id"  />
+		<result property="user_id" column="user_id" />
+		<result property="lecture_id" column="lecture_id" />
+		<result property="order_date" column="order_date" />
+		<result property="order_price" column="order_price" />
+		<result property="discount_point" column="discount_point" />
+		<result property="total_price" column="total_price" />
+		<result property="point_over" column="point_over" />
+	</resultMap>
+	
+	<!-- order sequence -->
+	<select id="seq_order" resultType="_int">
+   			 select seq_order_id.NEXTVAL FROM dual
+	</select>
+	
+	<!-- orders -->
+	<select id="searchOrder" resultMap="payment_order01" parameterType="java.util.Map"> 
+      <![CDATA[
+         select order_id, user_id, lecture_id, order_date, order_price, discount_point, total_price, point_over
+         from   orders
+      ]]>
+		<where>
+			<if test=" trade_key != ''  and  trade_key != null">
+				order_id = #{trade_key}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertOrder1" parameterType="java.util.Map">
+		insert into orders(order_id, user_id, lecture_id, order_date, order_price)
+		values(#{trade_key}, #{p_id}, #{l_id}, sysdate, #{order_price})
+	</insert>
+	<insert id="insertOrder2" parameterType="java.util.Map">
+		insert into orders(order_id, user_id, lecture_id, order_date, order_price, discount_point, total_price, point_over)
+		values(#{trade_key}, #{p_id}, #{l_id}, sysdate, #{order_price}, #{discount_point}, #{total_price}, #{point_over})
+	</insert>
+	
+	<update id="updateOrder" parameterType="java.util.Map">
+		update orders
+		set  discount_point = #{discount_point}
+		   , total_price = #{total_price}
+		   , point_over = #{point_over}
+		where order_id = #{trade_key}
+	</update>
+	
+	
+</mapper>

@@ -9,17 +9,51 @@ import org.springframework.stereotype.Service;
 
 import project.bumsik.payment_main.dao.PaymentMain_DAO;
 import project.bumsik.payment_main.vo.Lecture_VO;
+import project.bumsik.payment_point.dao.PaymentPoint_DAO;
 
 @Service("paymentMain_Service")
 public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	
 	@Autowired
 	private PaymentMain_DAO paymentMain_DAO;
+	@Autowired
+	private PaymentPoint_DAO paymentPoint_DAO;
 	
 	@Override
-	public List<Map<String, Object>> order_amount(Map<String, Object> searchMap) throws DataAccessException {
-		List<Map<String, Object>> list = paymentMain_DAO.order_amount(searchMap);
+	public List<Map<String, Object>> order_amount(Map<String, Object> lectMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentMain_DAO.order_amount(lectMap);
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentPoint_DAO.searchList(searchMap);
 		return list;
 	}
 	
+		
+	@Override
+	public void insertOrderInfo1(Map<String, Object> orderMap) throws DataAccessException {
+		paymentMain_DAO.insertOrderInfo1(orderMap);
+	}
+	@Override
+	public void insertOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
+		paymentMain_DAO.insertOrderInfo2(orderMap);
+	}
+	@Override
+	public List<Map<String, Object>> searchOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentMain_DAO.searchOrderInfo(orderMap);
+		return list;
+	}
+	@Override
+	public void updateOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
+		paymentMain_DAO.updateOrderInfo(orderMap);	
+	}
+
+	
+	public int seq_order_id() throws DataAccessException{
+		int order_key =  paymentMain_DAO.seq_order_id();
+		return order_key;
+	}
+
 }

@@ -39,6 +39,7 @@ public class PaymentPoint_ControllerImpl implements PaymentPoint_Controller{
 	@RequestMapping(value="/searchPoint", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public List<Map<String, Object>> searchPoint(@RequestParam(value="p_id",required = false) String p_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		p_id = "abcd";
 		System.out.println("searchPoint진입");
 		Map<String, Object> searchMap = new HashMap<String,Object>();
 		searchMap.put("p_id", p_id);

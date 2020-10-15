@@ -1,3 +1,5 @@
+
+
 $(function () {
 
     $(".check_btn").click(function(){
@@ -19,6 +21,14 @@ $(function () {
     });
 });
 
+
+
+function getContextPath() {
+	  var hostIndex = location.href.indexOf(location.host) + location.host.length;
+	  return location.href.substring(hostIndex,location.href.indexOf('/', hostIndex + 1));
+};
+
+//매개변수 no 주문번호, tp = total_price
 var point_check = function (no) {
     if (timecheck()) {
         alert('결제가 진행중입니다.');
@@ -27,30 +37,50 @@ var point_check = function (no) {
 
     var pt = new Array();
     var ptcnt = $("input[name=dispt]").size();
-    var total_pt = 0;
-    var usepoint = '';
+    var total_pt = 0;		//입력받을 포인트
+    var usepoint='';   	//가지고 있는 포인트
 
-    $.ajax({
-        url: "./payment/point_load.php",
-        type: "POST",
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            usepoint = data.point;
+	$.ajax({
+     	url: getContextPath()+"/searchPoint",
+        type: "post",
+        data: "p_id="+"abcd",
+        async: false,		//default : true, true일때 usepoint가 ''으로 유지됨
+        success: function(data, textStatus){
+			list = data;
+			/* $('#result').empty(); */
+			usepoint = list[0].point_rest;
+			console.log(usepoint);
+        },
+        error: function(data, textStatus){
+            alert("error");
+        },
+        complete:function(data, textSatus){  				
         }
-    });
+    }); 
+    
     for (i = 0; i < ptcnt; i++) {
         pt[i] = $("input[name=dispt]").eq(i).val();
         if (!pt[i]) pt[i] = 0;
         total_pt += parseInt(pt[i], 10);
+/*      console.log(i);
+        console.log(ptcnt);
+        console.log(pt);
+        console.log(total_pt);
+*/
     }
 
-    var usedpoint = $("#ptsale").html().replace(' P', '').replace(/,/g, '');
-    var targe_point = $('#dispt' + no).val();
-
+    var usedpoint = $("#ptsale").html().replace(' P', '').replace(/,/g, '');	//총 할인 내역에 적용된 point
+    var targe_point = $('#dispt' + no).val();    //입력 받은 포인트    
+/*
+    console.log(parseInt(usedpoint));
+    console.log(parseInt(targe_point));
+    console.log(usepoint);
+*/
+    //입력 받은 포인트 > 보유 포인트 || 적용한 포인트 + 입력받은 포인트 > 보유포인트
     if (total_pt > usepoint || parseInt(usedpoint) + parseInt(targe_point) > usepoint) {
         alert('보유포인트를 초과하였습니다.');
         $('#dispt' + no).val('');
+        console.log(no);
     }
 }
 
@@ -69,37 +99,70 @@ var point_apply = function (no) {
     }
 
     //order_num = {'point_over','re',rp,dp,tp,}
+//    $.ajax({
+//        url: "./payment/pay_process.php",
+//        type: "POST",
+//        dataType: "json",
+//        data: {type: 'ptdis', no: no, tp: tp},
+//        beforeSend: function () {
+//            //loadingfn('load');
+//        },
+//        success: function (data) {
+//            if (data.order_num == 'point_over') {
+//                alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
+//                location.reload();
+//            } else if (data.order_num == 're') {
+//                alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
+//            } else {
+//                $("#total_order_total em").text(data.rp);   // 총 주문금액
+//                $("#sale_price_total em").text(data.dp);    // 할인 금액
+//                $("#total_price_total em").text(data.tp);   // 할인 적용된 price
+//                $("#ptsale").text(data.pdis);               // 총할인내역-point  
+//                $("#cpsale").text(decodeURIComponent(data.cdis));  //쿠폰/할인 혜택 span
+//                $("#pt" + no).html(decodeURIComponent(data.dis));   //point 입력 td
+//                if (parseInt(data.preusept) < 0) {
+//                    var pre_pt = 0;
+//                } else {
+//                    var pre_pt = data.preusept;
+//                }
+//                $("#preusept").text(pre_pt);  //예상 적립포인트
+//
+//            }
+//        }
+//    });
+//    
+    
     $.ajax({
-        url: "./payment/pay_process.php",
+    	url: getContextPath()+"/orderinfo",
         type: "POST",
         dataType: "json",
-        data: {type: 'ptdis', no: no, tp: tp},
+        data: {no: no, tp: tp},
         beforeSend: function () {
             //loadingfn('load');
         },
         success: function (data) {
-            if (data.order_num == 'point_over') {
+        	
+        	console.log(data);
+            if (data[0].point_over == '0') {
                 alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
                 location.reload();
-            } else if (data.order_num == 're') {
+            } else if (data[0].point_over == '0') {
                 alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
             } else {
-                $("#total_order_total em").text(data.rp);   // 총 주문금액
-                $("#sale_price_total em").text(data.dp);    // 할인 금액
-                $("#total_price_total em").text(data.tp);   // 할인 적용된 price
-                $("#ptsale").text(data.pdis);               //총할인내역-point
-                $("#cpsale").text(decodeURIComponent(data.cdis));  //쿠폰
-                $("#pt" + no).html(decodeURIComponent(data.dis));   //
-                if (parseInt(data.preusept) < 0) {
-                    var pre_pt = 0;
-                } else {
-                    var pre_pt = data.preusept;
-                }
-                $("#preusept").text(pre_pt);  //예상 적립포인트
+            	
+                $("#sale_price_total em").text(data[0].discount_point);    // 할인 금액, discount_point
+                $("#total_price_total em").text(data[0].total_price);   // 할인 적용된 total_price
+                $("#ptsale").text(data[0].discount_point);               	// 총할인내역-point  
 
             }
+        },
+        error: function(data){
+            alert("error");
+        },
+        complete:function(data){  				
         }
     });
+    
 }
 
 var timecheck = function () {
@@ -219,4 +282,6 @@ var ie_version_chk = function() {
         return false;
     }
 }
+
+
 
