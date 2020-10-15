@@ -13,4 +13,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface User_Service {
 	
 	public List<Map<String,Object>> selectUserCol() throws DataAccessException;
+	public List<Map<String,Object>> selectselectUserAnwser(Map<String,Object> inputMap) throws DataAccessException;
 }

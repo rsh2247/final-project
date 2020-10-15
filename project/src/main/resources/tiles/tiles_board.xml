@@ -9,6 +9,12 @@
       <put-attribute name="body" value="" />
       <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
    </definition>
+   <definition name="Layout"  template="/WEB-INF/views/common/layout_base.jsp">
+      <put-attribute name="title" value="" />
+      <put-attribute name="header" value="" />
+      <put-attribute name="body" value="" />
+      <put-attribute name="footer" value="" />
+   </definition>
 
    <definition name="*.tiles" extends="baseLayout">
       <put-attribute name="title" value="메인페이지" />
@@ -49,12 +55,12 @@
       <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
    </definition>
    
-   <definition name="*.jsp" extends="baseLayout">
+   <definition name="*.jsp" extends="Layout">
       <put-attribute name="title" value="메인페이지" />
       <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
    </definition>
    
-   <definition name="*/*.jsp" extends="baseLayout">
+   <definition name="*/*.jsp" extends="Layout">
       <put-attribute name="title" value="메인페이지" />
       <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
    </definition>
@@ -90,12 +96,6 @@
    </definition>    
    
    <!-- 노말폼 -->
-   <definition name="*.jsp">
-   
-   
-   
-   
-   </definition>
    
 <!-- 
    <definition name="/member/memberForm" extends="baseLayout">

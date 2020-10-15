@@ -25,16 +25,18 @@
       }
       #content {
         width: 100%;
-        min-height:1200px;
+        min-height: 1200px;
         margin:auto;
         float: left;
       }
       #footer {
+      
         clear: both;
         padding: 5px;
         border: 0px solid #bcbcbc;
         background-color: #353E5C;
         height: 200px;
+        margin-top: 400px;
       }
       
     </style>

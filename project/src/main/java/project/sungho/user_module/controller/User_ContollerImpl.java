@@ -32,13 +32,21 @@ public class User_ContollerImpl implements User_Contoller {
 	
 	@Autowired
 	Problem_Service problem_Service;
+	
+	@RequestMapping(value = "**/userPage_pro.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView userPage_pro(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		return null;
+		
+	}
 
 	@RequestMapping(value = "**/userPage_col.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userPage_col(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		List<Map<String,Object>> list = user_Service.selectUserCol();
 		System.out.println(list);
-		ModelAndView mav = new ModelAndView("user/userPage.tiles");
+		ModelAndView mav = new ModelAndView("user/userPage_col.tiles");
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -47,12 +55,14 @@ public class User_ContollerImpl implements User_Contoller {
 	public ModelAndView userPage_col_correctsheet(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		String col_num = request.getParameter("number");
-		Map<String, Object> searchMap = new HashMap<String, Object>();
-		searchMap.put("col_num", col_num);
-		List<Map<String, Object>> list = problem_Service.selectCollection(searchMap);
-		System.out.println(list);
-		
-		return null;	
+		String time = request.getParameter("time");
+		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", col_num); searchMap.put("col_solvedate", time);
+		List<Map<String, Object>> proList = problem_Service.selectProByCol(searchMap);
+		List<Map<String, Object>> answerlist = user_Service.selectselectUserAnwser(searchMap);
+		ModelAndView mav = new ModelAndView("user/userPage_col_correctsheet.tiles");
+		mav.addObject("proList",proList);
+		mav.addObject("answerList", answerlist);
+		return mav;	
 	}
 
 }
