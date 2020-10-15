@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group">
+	<resultMap id="result" type="java.util.HashMap">
+	</resultMap>
+
+	<insert id="insertGroup" parameterType="java.util.Map">
+		<selectKey resultType="string" keyProperty="group_num"
+			order="BEFORE">
+			SELECT CASE WHEN MAX(GROUP_NUM)+1 IS NOT NULL THEN MAX(GROUP_NUM)+1 
+			ELSE 1 
+			end as group_num 
+			FROM group_table 
+		</selectKey>
+		INSERT INTO group_table(group_num, group_name, group_leader, group_category, group_date, group_desc)
+		VALUES (#{group_num} , #{group_name}, #{user_id}, #{group_category}, sysdate, #{group_desc})
+	</insert>
+
+	<insert id="insertMember">
+
+	</insert>
+
+	<select id="selectUserGroup" resultMap="result"
+		parameterType="java.util.Map">
+		<![CDATA[
+			select *
+			from group_table g, join_group_list l 
+		]]>
+		<where>
+			<if test=" user_id != ''  and  user_id != null">
+				user_id = #{user_id}
+			</if>
+		</where>
+		order by category_name asc
+	</select>
+	
+	<select id="selectWholeGroup" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+			select *
+			from group_table 
+		]]>
+		ORDER BY group_num desc
+	</select>
+
+
+
+</mapper>

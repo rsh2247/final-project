@@ -22,10 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.sungho.mainController.MainControllerImpl;
 import project.sungho.pro_collection_module.service.ProCollection_Service;
-import project.sungho.pro_collection_module.vo.ProCollection_VO;
 import project.sungho.problem_solve_module.service.Problem_Service;
-import project.sungho.problem_solve_module.vo.ProblemExample_VO;
-import project.sungho.problem_solve_module.vo.Problem_VO;
 import project.sungho.security.member.CustomUser;
 
 @Controller
@@ -37,13 +34,6 @@ public class PS_ControllerImpl implements PS_Controller {
 	@Autowired
 	ProCollection_Service proCollection_Service;
 	
-	@Autowired
-	Problem_VO problem_VO;
-	@Autowired
-	ProblemExample_VO problemExample_VO;
-	@Autowired
-	ProCollection_VO proCollection_VO;
-
 
 	@Override
 	@RequestMapping(value = "**/c001_003.pro", method = { RequestMethod.GET, RequestMethod.POST })
