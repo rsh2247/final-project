@@ -58,6 +58,7 @@ public class Problem_ServiceImpl implements Problem_Service {
 		return list;
 	}
 
+	//collection_num 이용해서 각각 probelm의 choice 전부 불러옴.
 	@Override
 	public List<Map<String, Object>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException {
 		List<Map<String, Object>> list = problem_DAO.selectProByCol(searchMap);

@@ -178,7 +178,7 @@
 					<form id="logoutForm" action="/logout.logout" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<p class="login">
-							<a href="${contextPath}/user/userPage.do"><sec:authentication property="principal.username"/></a> | <a href="${contextPath}/logout">로그아웃</a>
+							<a href="userPage_col.user"><sec:authentication property="principal.username"/></a> | <a href="${contextPath}/logout">로그아웃</a>
 						</p>
 					</form>
 				</div>
@@ -221,7 +221,6 @@
 								<li><a href="#" class="link"></a></li>
 								<li><a href="#" class="link"></a></li>
 							</ul></li>
-						<li><a href="${contextPath}/editor/SmartEditor2.do" class="link">sub3</a></li>
 					</ul></li>
 				<li><a href="#" class="link">문제만들기</a>
 					<ul class="two">
