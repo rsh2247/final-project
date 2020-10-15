@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,6 +108,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		List<Map<String, Object>> list = problem_Service.selectCollection(searchMap);
 		ModelAndView mav = new ModelAndView("problem_solve/col_listPage.tiles");
 		mav.addObject("list", list);
+		request.getSession().setAttribute("category", category);
 		return mav;
 	}
 
@@ -138,11 +140,12 @@ public class PS_ControllerImpl implements PS_Controller {
 	@RequestMapping(value = "**/check_colAnswer.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView check_colAnswer(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", paramMap.get("col_num"));
-		List<Map<String, Object>> list = problem_Service.selectProByCol(searchMap);
-		List answerList = problem_Service.checkColAnswer(list, paramMap);
-		problem_Service.insertUserColHistory(paramMap);
+		List<Map<String, Object>> answerList = problem_Service.selectProByCol(searchMap);
+		
+		paramMap = (HashMap<String, Object>) problem_Service.insertUserColHistory(paramMap, answerList);
 		ModelAndView mav = new ModelAndView("problem_solve/col_answerPage.tiles");
-		mav.addObject("list", answerList);
+		mav.addObject("result", paramMap);
+		System.out.println(paramMap);
 		return mav;
 	}
 	
@@ -214,7 +217,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	}
 	
 	@RequestMapping(value = "**/makeCol002.pro", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView makeCol002(@RequestParam HashMap<String, String> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView makeCol002(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		problem_Service.insertCollection(paramMap);
 		return null;
 	}

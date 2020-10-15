@@ -72,6 +72,7 @@ public class Problem_DAOImpl implements Problem_DAO {
 	public void insertChoice(Map<String, String> inputMap) throws DataAccessException {
 		sqlSession.update("problem_make.insertChoice", inputMap);
 	}
+	
 	@Override
 	public String countCollection(Map<String, String> inputMap) throws DataAccessException {
 		String answer = sqlSession.selectOne("problem_make.countCollection", inputMap);
@@ -79,7 +80,7 @@ public class Problem_DAOImpl implements Problem_DAO {
 	}
 	
 	@Override
-	public void insertCollection(Map<String, String> inputMap) throws DataAccessException {
+	public void insertCollection(Map<String, Object> inputMap) throws DataAccessException {
 		sqlSession.update("collection_make.insertCollection", inputMap);
 	}
 	@Override

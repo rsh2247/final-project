@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +90,7 @@
 			</tr>
 			<tr>
 				<td style="padding: 15px 0 20px 10px"><a href="" class="alink">ID 찾기</a>
-					<p class="alink" style="margin-left: 5px;">|</p> <a href="" class="alink" style="margin-left: 5px;">Password 찾기</a> <a href="" class="alink" style="float: right;">회원가입</a></td>
+					<p class="alink" style="margin-left: 5px;">|</p> <a href="" class="alink" style="margin-left: 5px;">Password 찾기</a> <a href="${contextPath}/user/signUp.do" class="alink" style="float: right;">회원가입</a></td>
 			</tr>
 		</table>
 		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">

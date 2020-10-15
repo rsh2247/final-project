@@ -28,6 +28,27 @@
       <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
    </definition>
    
+   <definition name="*.userpage" extends="baseLayout">
+      <put-attribute name="title" value="메인페이지" />
+      <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+      <put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
+      <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+   </definition>
+   
+   <definition name="*/*.userpage" extends="baseLayout">
+      <put-attribute name="title" value="메인페이지" />
+      <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+      <put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
+      <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+   </definition>
+   
+   <definition name="*/*/*.userpage" extends="baseLayout">
+      <put-attribute name="title" value="메인페이지" />
+      <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+      <put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
+      <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+   </definition>
+   
    <definition name="*.jsp" extends="baseLayout">
       <put-attribute name="title" value="메인페이지" />
       <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />

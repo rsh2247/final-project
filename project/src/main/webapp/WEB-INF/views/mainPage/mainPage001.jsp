@@ -1,4 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +14,7 @@ ul, li {
 }
 
 #slide {
-	height: 500px;
+	height: 600px;
 	position: relative;
 	overflow: hidden;
 }
@@ -106,24 +109,23 @@ ul, li {
 #pos4:checked ~.pos>label:nth-child(4) {
 	background: #666;
 }
+
+.img {
+	top: -400px;
+	position: relative;
+}
 </style>
 <body>
 	<div id="slide">
-		<input type="radio" name="pos" id="pos1" checked> 
-		<input type="radio" name="pos" id="pos2"> 
-		<input type="radio" name="pos" id="pos3"> 
-		<input type="radio" name="pos" id="pos4">
+		<input type="radio" name="pos" id="pos1" checked> <input type="radio" name="pos" id="pos2"> <input type="radio" name="pos" id="pos3"> <input type="radio" name="pos" id="pos4">
 		<ul>
-			<li></li>
-			<li></li>
+			<li><img class="img" alt="" src="${contextPath}/resources/image/55EF69943A51DD001B.jpg"></li>
+			<li><img class="img" style="top: -50px" alt="" src="${contextPath}/resources/image/1920_1080_20150212120938978419.jpg"></li>
 			<li></li>
 			<li></li>
 		</ul>
 		<p class="pos">
-			<label for="pos1"></label> 
-			<label for="pos2"></label> 
-			<label for="pos3"></label> 
-			<label for="pos4"></label>
+			<label for="pos1"></label> <label for="pos2"></label> <label for="pos3"></label> <label for="pos4"></label>
 		</p>
 	</div>
 </body>
