@@ -4,11 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-
+<%-- 
 <c:set var="article"  value="${articleMap.article}"  />
 <c:set var="imageFileList"  value="${articleMap.imageFileList}"  />
 
-
+ --%>
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
@@ -27,12 +27,12 @@
    </style>
    <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
    <script type="text/javascript" >
-     function backToList(obj){								/* 뒤로가기 */
+     function backToList(obj){
 	    obj.action="${contextPath}/yoonju/H/H_P001/listArticles.do";
 	    obj.submit();
      }
  
-	 function fn_enable(obj){								/* 수정한 데이터 */
+	 function fn_enable(obj){
 		 document.getElementById("i_post_title").disabled=false;
 		 document.getElementById("i_post_content").disabled=false;
 		 document.getElementById("i_imageFileName").disabled=false;
@@ -41,36 +41,36 @@
 		 document.getElementById("tr_btn").style.display="none";
 	 }
 	 
-	 function fn_modify_article(obj){						/* 수정하기 제출 */
+	 function fn_modify_article(obj){
 		 obj.action="${contextPath}/yoonju/H/H_P001/modArticle.do";
 		 obj.submit();
 	 }
 	 
-	 function fn_remove_article(url,post_num){				/* 글 삭제하기 */
+	 function fn_remove_article(url,post_num){
 		 var form = document.createElement("form");
 		 form.setAttribute("method", "post");
 		 form.setAttribute("action", url);
-	     var articleNOInput = document.createElement("input");
-	     articleNOInput.setAttribute("type","hidden");
-	     articleNOInput.setAttribute("name","psot_num");
-	     articleNOInput.setAttribute("value", post_num);
+	     var post_numInput = document.createElement("input");
+	     post_numInput.setAttribute("type","hidden");
+	     post_numInput.setAttribute("name","post_num");
+	     post_numInput.setAttribute("value", post_num);
 		 
-	     form.appendChild(articleNOInput);
+	     form.appendChild(post_numInput);
 	     document.body.appendChild(form);
 	     form.submit();
 	 
 	 }
 	 
-	 function fn_reply_form(url, post_parent){			/* 댓글달기? */
+	 function fn_reply_form(url, post_parent){
 		 var form = document.createElement("form");
 		 form.setAttribute("method", "post");
 		 form.setAttribute("action", url);
-	     var parentNOInput = document.createElement("input");
-	     parentNOInput.setAttribute("type","hidden");
-	     parentNOInput.setAttribute("name","post_parent");
-	     parentNOInput.setAttribute("value", post_parent);
+	     var post_parentInput = document.createElement("input");
+	     post_parentInput.setAttribute("type","hidden");
+	     post_parentInput.setAttribute("name","post_parent");
+	     post_parentInput.setAttribute("value", post_parent);
 		 
-	     form.appendChild(parentNOInput);
+	     form.appendChild(post_parentInput);
 	     document.body.appendChild(form);
 		 form.submit();
 	 }
@@ -94,8 +94,8 @@
       글번호
    </td>
    <td >
-    <input type="text"  value="${article2.post_num}"  disabled />
-    <input type="hidden" name="post_num" value="${article.post_num}"  />
+    <input type="text"  value="${article.post_num }"  disabled />
+    <input type="hidden" name="articleNO" value="${article.post_num}"  />
    </td>
   </tr>
   <tr>
@@ -103,15 +103,15 @@
       작성자 아이디
    </td>
    <td >
-    <input type=text value="${article2.user_id}" name="writer"  disabled />
+    <input type=text value="${article.user_id }" name="writer"  disabled />
    </td>
   </tr>
   <tr>
-    <td width="150" align="center" bgcolor="#FF9933" >
-      제목
+    <td width="150" align="center" bgcolor="#FF9933">
+      제목 
    </td>
    <td>
-    <input type=text value="${article2.post_title}"  name="post_title"  id="i_post_title" disabled />
+    <input type=text value="${article.post_title }"  name="title"  id="i_title" disabled />
    </td>   
   </tr>
   <tr>
@@ -119,20 +119,39 @@
       내용
    </td>
    <td>
-    <textarea rows="20" cols="60"  name="post_content"  id="i_post_content"  disabled />${article2.post_content}</textarea>
+    <textarea rows="20" cols="60"  name="content"  id="i_content"  disabled />${article.psot_content }</textarea>
    </td>  
   </tr>
-
- 	
+ <%-- 
+ <c:if test="${not empty imageFileList && imageFileList!='null' }">
+	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
+		    <tr>
+			    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+			      이미지${status.count }
+			   </td>
+			   <td>
+			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />
+			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="preview"  /><br>
+			   </td>   
+			  </tr>  
+			  <tr>
+			    <td>
+			       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+			    </td>
+			 </tr>
+		</c:forEach>
+ </c:if>
+ 	 --%>    
+ 	 
   <c:choose> 
-	  <c:when test="${not empty article2.imageFileName && article2.imageFileName!='null' }">
+	  <c:when test="${not empty article.imageFileName && article.imageFileName!='null' }">
 	   	<tr>
 		    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
 		      이미지
 		   </td>
 		   <td>
-		     <input  type= "hidden"   name="originalFileName" value="${article2.imageFileName }" />
-		    <img src="${contextPath}/download.do?post_num=${article2.post_num}&imageFileName=${article2.imageFileName}" id="preview"  /><br>
+		     <input  type= "hidden"   name="originalFileName" value="${article.imageFileName }" />
+		    <img src="${contextPath}/download.do?articleNO=${article.post_num}&imageFileName=${article.imageFileName}" id="preview"  /><br>
 		   </td>   
 		  </tr>  
 		  <tr>
@@ -148,7 +167,7 @@
 				      이미지
 				    </td>
 				    <td>
-				      <input  type= "hidden"   name="originalFileName" value="${article2.imageFileName }" />
+				      <input  type= "hidden"   name="originalFileName" value="${article.imageFileName }" />
 				    </td>
 			    </tr>
 			    <tr>
@@ -165,9 +184,24 @@
 	      등록일자
 	   </td>
 	   <td>
-	    <input type=text value="<fmt:formatDate value="${article2.post_date}" />" disabled />
+	    <input type=text value="<fmt:formatDate value="${article.post_Date}" />" disabled />
 	   </td>   
   </tr>
+  
+  
+  
+<%--   <tr>
+    <td width="150" align="center" bgcolor="#FF9933">
+      답글
+   </td>
+   <td>
+    <textarea rows="20" cols="60"  name="reContent"  id="reContent"  />${article.content }</textarea>
+   </td>  
+  </tr> --%>
+  
+  
+  
+  
   <tr   id="tr_btn_modify"  align="center"  >
 	   <td colspan="2"   >
 	       <input type=button value="수정반영하기"   onClick="fn_modify_article(frmArticle)"  >
@@ -177,12 +211,12 @@
     
   <tr  id="tr_btn"    >
    <td colspan="2" align="center">
-       <c:if test="${member.user_id == article2.user_id }">
+       <c:if test="${member.id == article.user_id }">
 	      <input type=button value="수정하기" onClick="fn_enable(this.form)">
-	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/yoonju/H/H_P001/removeArticle.do', ${article2.post_num})">
+	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/yoonju/H/H_P001/removeArticle.do', ${article.post_num})">
 	    </c:if>
 	    <input type=button value="리스트로 돌아가기"  onClick="backToList(this.form)">
-	     <input type=button value="답글쓰기"  onClick="fn_reply_form('${contextPath}/yoonju/H/H_P001/replyForm.do', ${article2.post_num})">
+	     <input type=button value="답글쓰기"  onClick="fn_reply_form('${contextPath}/yoonju/H/H_P001/writeReplay.do', ${article.post_num})">
    </td>
   </tr>
  </table>

@@ -2,7 +2,6 @@ package project.yoonju.member.Service;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import project.yoonju.member.dao.MemberDAO;
 import project.yoonju.member.vo.MemberVO;
 
+
+
+/*import com.myspring.pro30.member.dao.MemberDAO;
+import com.myspring.pro30.member.vo.MemberVO;*/
 
 
 
@@ -34,8 +37,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int removeMember(String id) throws DataAccessException {
-		return memberDAO.deleteMember(id);
+	public int removeMember(String user_id) throws DataAccessException {
+		return memberDAO.deleteMember(user_id);
 	}
 	
 	@Override

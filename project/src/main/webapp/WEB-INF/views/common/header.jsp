@@ -226,7 +226,12 @@
 					</ul></li>
 				<li><a href="#" class="link">menu4</a></li>
 				<li><a href="#" class="link">menu5</a></li>
-				<li><a href="#" class="link">menu6</a></li>
+				
+				<li><a href="#" class="link">게시판</a>
+					<ul class="two">
+						<li><a href="${contextPath}/H_P001/listArticles.page" class="link">자유게시판</a></li>
+					</ul>
+				</li>
 				<li><a href="#" class="link">menu7</a></li>
 			</ul>
 		</nav>

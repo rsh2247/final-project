@@ -8,7 +8,7 @@ public class ImageVO {
 	private int imageFileNO;
 	private String imageFileName;
 	private Date regDate;
-	private String post_num;
+	private int articleNO;
 	
 	public int getImageFileNO() {
 		return imageFileNO;
@@ -35,11 +35,11 @@ public class ImageVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	public String getPost_num() {
-		return post_num;
+	public int getArticleNO() {
+		return articleNO;
 	}
-	public void setPost_num(String post_num) {
-		this.post_num = post_num;
+	public void setArticleNO(int articleNO) {
+		this.articleNO = articleNO;
 	}
 	
 	

@@ -2,7 +2,6 @@ package project.yoonju.member.controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,6 +20,8 @@ import project.yoonju.member.Service.MemberService;
 import project.yoonju.member.vo.MemberVO;
 
 
+/*import com.myspring.pro30.member.service.MemberService;
+import com.myspring.pro30.member.vo.MemberVO;*/
 
 
 
@@ -33,8 +34,8 @@ public class MemberControllerImpl   implements MemberController {
 	@Autowired
 	MemberVO memberVO ;
 	
-	@RequestMapping(value = { "/","/post.do"}, method = RequestMethod.GET)
-	private ModelAndView post(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = { "/","/main.do"}, method = RequestMethod.GET)
+	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
@@ -64,10 +65,10 @@ public class MemberControllerImpl   implements MemberController {
 	
 	@Override
 	@RequestMapping(value="/member/removeMember.do" ,method = RequestMethod.GET)
-	public ModelAndView removeMember(@RequestParam("id") String id, 
+	public ModelAndView removeMember(@RequestParam("user_id") String user_id, 
 			           HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("utf-8");
-		memberService.removeMember(id);
+		memberService.removeMember(user_id);
 		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
 		return mav;
 	}

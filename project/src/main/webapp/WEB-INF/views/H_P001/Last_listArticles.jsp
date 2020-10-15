@@ -28,16 +28,15 @@
 	}
 </script>
 <body>
-<table align="center" border="1"  width="80%" style="border-left: none; border-right: none; 
-border-bottom: none; border-top: none; " >
-  <tr height="10" align="center"  bgcolor="#FFBBC">
+<table align="center" border="1"  width="80%"  >
+  <tr height="10" align="center"  bgcolor="lightgreen">
      <td >글번호</td>
      <td >작성자</td>              
      <td >제목</td>
      <td >작성일</td>
   </tr>
 <c:choose>
-  <c:when test="${articlesList ==null }" >
+  <c:when test="${empty articlesList }" >
     <tr  height="10">
       <td colspan="4">
          <p align="center">
@@ -47,22 +46,33 @@ border-bottom: none; border-top: none; " >
     </tr>
   </c:when>
   <c:when test="${articlesList !=null }" >
-    <c:forEach  var="article" items="${articlesList }" varStatus="articleNum" >
+    <c:forEach  var="article" items="${articlesList }" varStatus="postNum" >
      <tr align="center">
-	<td width="5%">${articleNum.count}</td>			<!-- 글번호 카운팅? 글번호는 post_num인데..?? -->
-	<td width="10%">${article.user_id }</td>		<!-- 아이디겠지..? -->
+	<td width="5%">${postNum.count}</td>
+	<td width="10%">${article.user_id }</td>
 	<td align='left'  width="35%">
 	  <span style="padding-right:30px"></span>
- 		<a class='cls1' href="${contextPath}/yoonju/H/H_P001/viewArticle.do?post_num=${article.post_num}">${article.post_title}</a>
+	   <c:choose>
+	      <c:when test='${article.level > 1 }'>  
+	         <c:forEach begin="1" end="${article.level }" step="1">
+	              <span style="padding-left:20px"></span>    
+	         </c:forEach>
+	         <span style="font-size:12px;">[답변]</span>
+                   <a class='cls1' href="${contextPath}/yoonju/H/H_P001/viewArticle.do?articleNO=${article.post_num}">${article.post_title}</a>
+	          </c:when>
+	          <c:otherwise>
+	            <a class='cls1' href="${contextPath}/yoonju/H/H_P001/viewArticle.do?articleNO=${article.post_num}">${article.post_title }</a>
+	          </c:otherwise>
+	        </c:choose>
 	  </td>
-	  <td  width="10%">${article.post_date}</td> 	<!-- 작성일이겠지..? -->
+	  <td  width="10%">${article.post_Date}</td> 
 	</tr>
     </c:forEach>
      </c:when>
     </c:choose>
 </table>
 <!-- <a  class="cls1"  href="#"><p class="cls2">글쓰기</p></a> -->
-<a  class="cls1"  href="javascript:fn_articleForm('${isLogOn}','${contextPath}/yoonju/H/H_P001/articleForm.pro', 
-                                                    '${contextPath}/user/loginPage.do')"><p class="cls2">글쓰기</p></a>
+<a  class="cls1"  href="javascript:fn_articleForm('${isLogOn}','${contextPath}/yoonju/H/H_P001/articleForm.do', 
+                                                    '${contextPath}/member/loginForm.do')"><p class="cls2">글쓰기</p></a>
 </body>
 </html>

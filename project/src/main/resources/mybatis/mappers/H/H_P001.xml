@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   
-<mapper namespace = "mapper.H.H_P001">
 
+<mapper namespace="yoonju.H.H_P001.H_p001_d001DAO">
 <resultMap id="articlesResult" type="articleVO">
-    <result property="level" column="level" />
-    <result property="articleNO" column="articleNO" />
-    <result property="parentNO" column="parentNO" />
-    <result property="title" column="title" />
-    <result property="content" column="content" />
-    <result property="writeDate" column="writeDate" />
+<!--     <result property="level" column="level" /> -->
+    <result property="post_num" column="post_num" />
+    <result property="post_parent" column="post_parent" />
+    <result property="post_title" column="post_title" />
+    <result property="post_content" column="post_content" />
+    <result property="post_date" column="post_date" />
     <result property="imageFileName" column="imageFileName" />
+    <result property="board_num" column="board_num" /> 
   </resultMap> 
   
   <resultMap id="imgResult" type="imageVO">
@@ -21,90 +21,69 @@
 	  <result property="imageFileName" column="imageFileName" />
  </resultMap>
 
-  <select id="selectAllArticlesList" resultMap="articlesResult"   >
+  <select id="selectAllArticlesList" resultMap="articlesResult"   >		<!-- 글목록 보기 -->
     <![CDATA[
-      SELECT level, articleNO, parentNO, title, content, writeDate, imageFileName, id
-      from t_board
-      START WITH  parentNO=0
-      CONNECT BY PRIOR articleNO=parentNO 
-      ORDER SIBLINGS BY articleNO DESC		
+      SELECT post_num, post_parent, post_title, post_content, post_date, imageFileName, user_id, board_num
+      from post
     ]]>
   </select>
   
 	<!--단일이미지 추가  -->
 	 
-  <insert id="insertNewArticle"  parameterType="java.util.Map">
+  <insert id="insertNewArticle"  parameterType="java.util.Map">					<!-- SQL에 글추가 -->
 		<![CDATA[
-			INSERT into t_board(articleNO,  title, content, imageFileName, id, writeDate , PARENTNO)
-			VALUES(#{articleNO},#{title},	#{content}, #{imageFileName},	#{id}, SYSDATE , 0)
+			INSERT into post(post_num, post_title, post_content, imageFileName, user_id, post_date, post_parent, board_num)
+			VALUES(#{post_num},#{post_title}, #{post_content}, #{imageFileName}, #{user_id}, SYSDATE, 0, 0)
 		]]>      
 	</insert>
 	
-  <select id="selectNewArticleNO" resultType="int"  >
+  <select id="selectNewArticleNO" resultType="String"  > 						<!-- 글번호 자동 부여 -->
 		<![CDATA[
-			SELECT  max(articleNO)+1 from t_board		
+			SELECT max(TO_NUMBER(post_num)) +1
+			FROM post
 		]]>
 	</select>
 	
-  <select id="selectArticle" resultType="articleVO"   parameterType="int">
+  <select id="selectArticle" resultType="articleVO"   parameterType="String"> 	<!-- 한 개 글정보 조회 -->
     <![CDATA[
-      SELECT * from t_board
-      where articleNO = #{articleNO}		
+      SELECT * from post
+      where post_num = #{post_num}		
     ]]>
   </select>
   
   <update id="updateArticle"  parameterType="java.util.Map">
-			update t_board
-			set title=#{title},	 
-			content=#{content}
+			update post
+			set post_title=#{post_title},	 
+			post_content=#{post_content}
 			 <if test="imageFileName!='' and imageFileName!=null">
 			  , imageFileName=#{imageFileName}
 			</if>
-			where articleNO=#{articleNO}
+			where post_num=#{post_num}
 	</update>
 	
-	<delete id="deleteArticle"  parameterType="int">
+	<delete id="deleteArticle"  parameterType="String"> <!-- 여기 인트를 스트링으로 바꿈 -->
     <![CDATA[
-      delete from t_board
-      where articleNO in (
-         SELECT articleNO FROM  t_board
-         START WITH articleNO = #{articleNO}
-         CONNECT BY PRIOR  articleNO = parentNO )
+      delete from post
+      where post_num in (
+         SELECT psot_num FROM  psot
+         START WITH post_num = #{post_num}
+         CONNECT BY PRIOR  post_num = post_parent )
     ]]>      
   </delete>
 
- <!--다중 이미지 추가 SQL문 -->   
-  <!--
-    <insert id="insertNewArticle"  parameterType="java.util.Map">
-    <![CDATA[
-      insert into t_board(articleNO, id, title, content, imageFileName)
-      values(#{articleNO}, #{id}, #{title}, #{content}, null)
-    ]]>      
-  </insert>
-
  
-   <insert id="insertNewImage"  parameterType="java.util.Map">
-    <foreach item="item"  collection="list"   open="INSERT ALL" 
-                  separator=" " close="SELECT * FROM DUAL" >
-      INTO t_imageFile(imageFileNO, imageFileName, articleNO, regDate)
-      VALUES (#{item.imageFileNO}, #{item.imageFileName}, #{item.articleNO}, sysdate)
-    </foreach>
-  </insert>
- -->
- 
-  <select id="selectNewImageFileNO" resultType="int"  >
+  <select id="selectNewImageFileNO" resultType="String"  > <!-- 여기 인트를 스트링으로 바꿈 -->
     <![CDATA[
       SELECT  nvl(max(imageFileNO),0) from t_imageFile		
     ]]>
   </select>
 	
 
-  <select  id="selectImageFileList" resultMap="imgResult" parameterType="int">
+  <select  id="selectImageFileList" resultMap="imgResult" parameterType="String"> <!-- 여기 인트를 스트링으로 바꿈 -->
     <![CDATA[
       SELECT * from t_imageFile
-      where articleNO=#{articleNO}	
+      where post_num=#{post_num}	
     ]]>
   </select> 
-
-
+  
 </mapper>
