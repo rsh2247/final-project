@@ -19,16 +19,18 @@
 </head>
 <script>
 	function fn_articleForm(isLogOn,articleForm,loginForm){
-	  if(isLogOn != '' && isLogOn != 'false'){
+	  /* if(isLogOn != '' && isLogOn != 'false'){ */
 	    location.href=articleForm;
-	  }else{
+	  /* }else{
 	    alert("로그인 후 글쓰기가 가능합니다.")
 	    location.href=loginForm+'?action=/yoonju/H/H_P001/articleForm.do';
-	  }
+	  } */
 	}
 </script>
+	<h1>자유 게시판</h1>
+	<br>
 <body>
-<table align="center" border="1"  width="80%" style="border-left: none; border-right: none; 
+<table align="center" border="1"  width="70%" style="border-left: none; border-right: none; 
 border-bottom: none; border-top: none; " >
   <tr height="10" align="center"  bgcolor="#FFBBC">
      <td >글번호</td>
@@ -53,7 +55,7 @@ border-bottom: none; border-top: none; " >
 	<td width="10%">${article.user_id }</td>		<!-- 아이디겠지..? -->
 	<td align='left'  width="35%">
 	  <span style="padding-right:30px"></span>
- 		<a class='cls1' href="${contextPath}/yoonju/H/H_P001/viewArticle.do?post_num=${article.post_num}">${article.post_title}</a>
+ 		<a class='cls1' href="${contextPath}/**/viewArticle.page?post_num=${article.post_num}">${article.post_title}</a>
 	  </td>
 	  <td  width="10%">${article.post_date}</td> 	<!-- 작성일이겠지..? -->
 	</tr>
@@ -62,7 +64,7 @@ border-bottom: none; border-top: none; " >
     </c:choose>
 </table>
 <!-- <a  class="cls1"  href="#"><p class="cls2">글쓰기</p></a> -->
-<a  class="cls1"  href="javascript:fn_articleForm('${isLogOn}','${contextPath}/yoonju/H/H_P001/articleForm.pro', 
-                                                    '${contextPath}/user/loginPage.do')"><p class="cls2">글쓰기</p></a>
+<a  class="cls1"  href="<%-- javascript:fn_articleForm('${isLogOn}', --%>'${contextPath}/yoonju/H/H_P001/articleForm.pro' 
+                                                    <%-- '${contextPath}/user/loginPage.do' --%>)"><p class="cls2">글쓰기</p></a>
 </body>
 </html>

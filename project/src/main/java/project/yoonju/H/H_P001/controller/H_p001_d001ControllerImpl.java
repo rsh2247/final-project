@@ -44,6 +44,11 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 	private static final String ARTICLE_IMAGE_REPO = "C:\\board\\article_image";
 	@Autowired
 	H_p001_d001Service boardService;
+	
+	/*
+	 * @Autowired H_p001_d001VO articleVO;
+	 */
+	
 
 	@Override
 	@RequestMapping(value = "**/listArticles.page", method = { RequestMethod.GET, RequestMethod.POST })				//글목록보기
@@ -62,7 +67,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 
 
 	@Override
-	@RequestMapping(value = "/addNewArticle.do", method = RequestMethod.POST)										//글쓰기
+	@RequestMapping(value = "**/addNewArticle.page", method = RequestMethod.POST)										//글쓰기
 	@ResponseBody
 	public ResponseEntity addNewArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
@@ -98,7 +103,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 
 			message = "<script>";
 			message += " alert('새글을 추가했습니다.');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/board/listArticles.do'; ";
+			message += " location.href='" + multipartRequest.getContextPath() + "/H_P001/listArticles.page'; ";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -107,7 +112,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 
 			message = " <script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해 주세요');');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/board/articleForm.do'; ";
+			message += " location.href='" + multipartRequest.getContextPath() + "/H_P001/articleForm.page'; ";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			e.printStackTrace();
@@ -116,22 +121,24 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 	}
 
 
-	@RequestMapping(value = "/H_P001/viewArticle.tiles", method = RequestMethod.GET)									//한 개 글보기
+	@RequestMapping(value = "**/viewArticle.page", method = RequestMethod.GET)									//한 개 글보기
 	public ModelAndView viewArticle(@RequestParam("post_num") String post_num, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		H_p001_d001VO articleVO = boardService.viewArticle(post_num);
+		//String viewName = (String) request.getAttribute("viewName");
+		String viewName = "/H_P001/viewArticle.tiles";
+		System.out.println("뷰네임에 담긴 것-------->" + viewName);
+		H_p001_d001VO articleVO = boardService.viewArticle(post_num); //여기서 에러가 난당
+		System.out.println("4시 25분, 35분 뒤에 담배피러 가야지");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("article2", articleVO);
-		System.out.println("article을 보여줘=========>>>>");
-		System.out.println("article.post_num");
+		System.out.println("articleVO를 보여줘=========>>>>" + articleVO);
+		System.out.println("mav에 담긴 것------------->" + mav);
 
 		return mav;
 	}
 
-	
-	@RequestMapping(value = "/modArticle.do", method = RequestMethod.POST)									//글 수정하기
+	@RequestMapping(value = "**/modArticle.page", method = RequestMethod.POST)									//글 수정하기
 	@ResponseBody
 	public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
@@ -190,7 +197,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 	}
 
 	@Override
-	@RequestMapping(value = "/removeArticle.do", method = RequestMethod.POST)										//글삭제하기
+	@RequestMapping(value = "**/removeArticle.page", method = RequestMethod.POST)										//글삭제하기
 	@ResponseBody
 	public ResponseEntity removeArticle(@RequestParam("post_num") String post_num, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -221,9 +228,10 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		return resEnt;
 	}
 
-	@RequestMapping(value = "/*Form.do", method = RequestMethod.GET)
+	@RequestMapping(value = "**/articleForm.page", method = RequestMethod.GET)
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
+		//String viewName = (String) request.getAttribute("viewName");
+		String viewName = "/H_P001/articleForm.tiles";
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;

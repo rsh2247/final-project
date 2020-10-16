@@ -37,40 +37,40 @@ public class H_p001_d001DAOImpl implements H_p001_d001DAO {
 	public String insertNewArticle(Map articleMap) throws DataAccessException {
 		String post_num = selectNewArticleNO();
 		articleMap.put("post_num", post_num);
-		sqlSession.insert("mapper.board.insertNewArticle",articleMap);
+		sqlSession.insert("yoonju.H.H_P001.H_p001_d001DAO.insertNewArticle",articleMap);
 		return post_num;
 	}
     
 	
 	@Override
 	public H_p001_d001VO selectArticle(String post_num) throws DataAccessException {
-		return sqlSession.selectOne("mapper.board.selectArticle", post_num);
+		return sqlSession.selectOne("yoonju.H.H_P001.H_p001_d001DAO.selectArticle", post_num);
 	}
 
 	@Override
 	public void updateArticle(Map articleMap) throws DataAccessException {
-		sqlSession.update("mapper.board.updateArticle", articleMap);
+		sqlSession.update("yoonju.H.H_P001.H_p001_d001DAO.updateArticle", articleMap);
 	}
 
 	@Override
 	public void deleteArticle(String post_num) throws DataAccessException {
-		sqlSession.delete("mapper.board.deleteArticle", post_num);
+		sqlSession.delete("yoonju.H.H_P001.H_p001_d001DAO.deleteArticle", post_num);
 		
 	}
 	
 	@Override
 	public List selectImageFileList(String post_num) throws DataAccessException {
 		List<ImageVO> imageFileList = null;
-		imageFileList = sqlSession.selectList("mapper.board.selectImageFileList",post_num);
+		imageFileList = sqlSession.selectList("yoonju.H.H_P001.H_p001_d001DAO.selectImageFileList",post_num);
 		return imageFileList;
 	}
 	
 	private String selectNewArticleNO() throws DataAccessException {
-		return sqlSession.selectOne("mapper.board.selectNewArticleNO");
+		return sqlSession.selectOne("yoonju.H.H_P001.H_p001_d001DAO.selectNewArticleNO");
 	}
 	
 	private String selectNewImageFileNO() throws DataAccessException {
-		return sqlSession.selectOne("mapper.board.selectNewImageFileNO");
+		return sqlSession.selectOne("yoonju.H.H_P001.H_p001_d001DAO.selectNewImageFileNO");
 	}
 
 }
