@@ -66,7 +66,7 @@
 </style>
 </head>
 <body>
-	<form action="login" method="post">
+	<form action="${contextPath}/login" method="post">
 		<table id="loginTable">
 			<tr>
 				<td colspan="2"><p style="text-align: center; font-size: 24px;">로그인</p></td>

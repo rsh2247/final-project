@@ -18,41 +18,103 @@
 }
 
 .btn {
-	width: 200px;
+	width: 250px;
+	height: 100px;
 	padding: 5px 12px 5px 12px;
-	border: 2px solid #ccc;
-	background-color: #fff;
-	font-size: 16px;
+	border: 0px;
+	border-bottom: 5px solid #3E60DB;
+	background-color: #3E60DB;
+	color: #ccddff;
+	margin: 0 5px 0 5px;
+	transition: width 2s, height 2s, background-color 500ms, transform 2s;
 }
 
 .btn:hover {
+	border-bottom: 5px solid #fff;
 	cursor: pointer;
-	border: 2px solid #000;
+	color: #fff;
+}
+
+.btn:before {
+	
+}
+
+#title {
+	width: 100%;
+	font-size: 2rem;
+	font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+#bar_001 {
+	max-width: 3.25rem;
+	border: 2px solid #3E60DB;
+	margin: 20px auto 20px auto;
+}
+
+#listbox {
+	margin-top: 10px;
+	width: 100%;
+	background-color: #3E60DB;
+}
+
+.vertical_bar{
+	width: 2px;
+	height: 50px;
+	display:inline-block;
+	position:relative;
+	top:25px;
+	border: 0px;
+	margin: 5px 0 auto 0;
+	background-color: #ccddff;
+	user-select:none;
+}
+
+.btnName {
+	font-size: 24px;
+	margin-bottom: 4px;
+}
+
+.desc {
+	font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue', 'Helvetica',
+		'Arial', sans-serif !important;
+	font-size: 12px;
+	color: #b3cdff;
+	margin-top: 5px;
 }
 </style>
 </head>
 <body>
 	<div class="menu">
-		${category}
-		<table class="menu_table" style="border-collapse: collapse;">
-			<tr>
-				<td><button class="btn" onclick="location.href='c001_003.pro?category=${category}'">유저 제출문제</button></td>
-				<td>유저가 심혈을 다해 만든 문제들입니다.</td>
-			</tr>
-			<tr>
-				<td>
-					<button class="btn" onclick="location.href='colselect_page.pro?category=${category}'">기출문제 문제집</button>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<button class="btn" onclick="location.href='userColselect_page.pro?category=${category}'">유저 제출문제 문제집</button>
-				</td>
-			</tr>
-			<tr>
-				<td><button class="btn">오답 문제집</button></td>
-			</tr>
-		</table>
+		<div id="title">
+			<h2 style="font-weight: 500; font-size: 2.4rem;">${category}</h2>
+		</div>
+		<hr id="bar_001">
+		<div id="listbox">
+			<ul>
+				<li>
+					<button class="btn" onclick="location.href='c001_003.pro?category=${category}'">
+						<p class="btnName">커스텀 문제</p>
+						<p class="desc">사이트 회원들이 만든 문제들입니다.</p>
+					</button>
+					<hr class="vertical_bar"></hr>
+					<button class="btn" onclick="location.href='userColselect_page.pro?category=${category}'">
+						<p class="btnName">커스텀 문제집</p>
+						<p class="desc">회원들이 만든 문제들로 만든 문제집입니다.</p>
+					</button>
+					<hr class="vertical_bar"></hr>
+					<button class="btn" onclick="location.href='colselect_page.pro?category=${category}'">
+						<p class="btnName">기출 문제집</p>
+						<p class="desc">회원들이 만든 문제들로 만든 문제집입니다.</p>
+					</button>
+					<hr class="vertical_bar"></hr>
+					<button class="btn">
+						<p class="btnName">오답 문제집</p>
+						<p class="desc">회원들이 만든 문제들로 만든 문제집입니다.</p>
+					</button>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

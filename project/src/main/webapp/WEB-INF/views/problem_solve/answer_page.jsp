@@ -54,6 +54,7 @@
 			<p style="margin-bottom: 50px">정답입니다.</p>
 			<p>
 				<button class="ansbutton" onclick="location.href='c001_003.pro?category=${problem.CATEGORY_NAME}'">다른문제 보러가기</button>
+				<button class="ansbutton">문제 평가하기</button>
 			</p>
 		</c:if>
 		<c:if test="${correct eq 'false'}">

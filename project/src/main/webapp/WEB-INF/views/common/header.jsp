@@ -13,11 +13,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	function tagPost() {
 		var form = document.getElementById('logoutForm');
 		form.submit();
 	}
+	$(".two li").hover(function () {
+		$(this).children("ul").slideToggle(500);
+	})
 </script>
 <style type="text/css">
 .container {
@@ -134,7 +138,7 @@
 	position: absolute;
 	left: 0px;
 	top: 32px;
-	box-shadow: -5px 0px 8px -5px #ddd, 5px 0px 8px -5px #ddd;
+	box-shadow: -5px 5px 8px -5px rgba(0, 0, 0, 0.15), 5px 5px 8px -5px rgba(0, 0, 0, 0.15);;
 }
 
 .two>li {
@@ -153,6 +157,10 @@
 	color: white;
 }
 
+.two>li:last-child{
+	border-bottom: 2px solid #3E60DB;
+}
+
 .three {
 	margin: 0px;
 	left: 120px;
@@ -160,18 +168,30 @@
 	position: absolute;
 	background: white;
 	color: black;
+	
 }
 
 .three>li:first-child {
 	border-top: 2px solid #3E60DB;
 }
+.three li{
+	z-index: 2;
+}
 
-.three>li:hover {
+.three>li a:hover {
 	background-color: #3E60DB;
+}
+
+.three>li:last-child{
+	border-bottom: 2px solid #3E60DB;
 }
 
 .subtitle {
 	background-color: #fff;
+}
+h3 {
+	height: 30px;
+	cursor: default;
 }
 </style>
 </head>
@@ -260,15 +280,15 @@
 							class="link">문제집만들기</a></li>
 					</ul></li>
 				<li><a href="groupmain.group" class="link">그룹</a></li>
-				<li><a href="#" class="link">menu4</a></li>
-				<li><a href="#" class="link">menu5</a></li>
+				<li><a href="#" class="link">랭킹</a></li>
+				<li><a href="#" class="link">일정관리</a></li>
 
 				<li><a href="#" class="link">게시판</a>
 					<ul class="two">
 						<li><a href="${contextPath}/H_P001/listArticles.page"
 							class="link">자유게시판</a></li>
 					</ul></li>
-				<li><a href="#" class="link">menu7</a></li>
+				<li><a href="${contextPath}/order" class="link">강의</a></li>
 			</ul>
 		</nav>
 	</div>
