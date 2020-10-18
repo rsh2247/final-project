@@ -14,19 +14,43 @@
 	text-align: left;
 }
 
+#contentbox {
+	width: 1000px;
+	margin: 50px auto 0 auto;
+}
+
 .btn {
-	width: 150px;
-	height: 30px;
+	width: 100px;
+	height: 60px;
+	border: 0px;
+	border-bottom : 2px solid #fff;
 	background-color: #fff;
+	cursor: pointer;
+	font-family: Inter, "Noto Sans KR", "Noto Sans JP", "Malgun Gothic", "맑은 고딕", sans-serif;
+	transition: background-color 0.3s ease 0s, border-color 0.3s ease 0s;
+}
+
+.selectedbtn{
+	width: 120px;
+	height: 50px;
+	border: 0px;
+	border-bottom : 2px solid #ccc;
+	color : #3E60DB;
+	background-color: #fff;
+	cursor: pointer;
+	font-family: Inter, "Noto Sans KR", "Noto Sans JP", "Malgun Gothic", "맑은 고딕", sans-serif;
+}
+
+.btn:hover {
+	background-color: #f7f8f9;
 }
 </style>
 </head>
 <body>
 	<div id="index">
-		<button class="btn">전체 그룹보기</button>
-		<button class="btn" onclick="location.href='groupmaking.pro'">그룹만들기</button>
+		<button class="btn" onclick="location.href='groupmain.group'">전체 그룹</button>
+		<button class="btn" onclick="location.href='groupmaking.pro'">그룹 만들기</button>
 		<button class="btn">내 그룹</button>
-
 	</div>
 </body>
 </html>

@@ -18,7 +18,8 @@
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/problem_make/*.pro"
 			access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/*.user" />
+		<intercept-url pattern="/user/**"
+			access="hasRole('ROLE_USER')" />
 		<csrf disabled="true" />
 
 		<form-login login-page="/loginPage.login"

@@ -25,7 +25,7 @@ public class Group_ControllerImpl {
 
 	@RequestMapping(value = "**/groupmain.group", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView groupmain(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("group/groupMain.tiles");
+		ModelAndView mav = new ModelAndView("group/groupWholeList.tiles");
 		mav.addObject("list", group_Service.selectWholeGroup());
 		return mav;
 	}

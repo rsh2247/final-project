@@ -7,29 +7,43 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#contentbox {
-	width: 1000px;
-	margin: 50px auto 0 auto;
+* {
+	
+}
+
+.btn:nth-child(1) {
+	font-weight: bold;
+	color: #3E60DB;
+	border-bottom: 2px solid #3E60DB;
+	color: #3E60DB;
 }
 
 #groupTable {
-	width: 900px;
-	margin: 20px 0 0 0;
+	width: 1000px;
+	margin: 20px auto 0 auto;
 	border-collapse: collapse;
+	position: absolute;
 }
 
 #groupTable tr {
-	border-bottom: 1px solid #ccc;
-	height: 30px;
+	height: 40px;
+	font-family: Inter, "Noto Sans KR", "Noto Sans JP", "Malgun Gothic",
+		"맑은 고딕", sans-serif;
+}
+
+#groupTable tr:nth-child(2n) {
+	background-color: #f7f8f9
 }
 </style>
 </head>
 
 <body>
+	<jsp:include page="groupPreview.jsp" />
 	<div id="contentbox">
 		<jsp:include page="groupIndex.jsp" />
 		<table id="groupTable">
-			<tr style="border-top: 1px solid #ccc">
+			<tr
+				style="background-color: #3E60DB; color: #FFF; font-weight: bold;">
 				<th width="600px">그룹명</th>
 				<th>그룹장</th>
 				<th>카테고리</th>
@@ -37,7 +51,7 @@
 			</tr>
 			<c:forEach var="list" items="${list}">
 				<tr>
-					<td>${list.GROUP_NAME}</td>
+					<td style="padding-left: 20px; text-align: left;">${list.GROUP_NAME}</td>
 					<td>${list.GROUP_LEADER }</td>
 					<td>${list.GROUP_CATEGORY}</td>
 					<td></td>
@@ -45,5 +59,6 @@
 			</c:forEach>
 		</table>
 	</div>
+
 </body>
 </html>

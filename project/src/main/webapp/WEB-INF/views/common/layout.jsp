@@ -34,9 +34,9 @@
         clear: both;
         padding: 5px;
         border: 0px solid #bcbcbc;
-        background-color: #353E5C;
-        height: 200px;
-        margin-top: 400px;
+        background-color: #252525;
+        height: 300px;
+        margin-top: 200px;
       }
       
     </style>
