@@ -69,7 +69,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 
 
 	@Override
-	@RequestMapping(value = "**/addNewArticle.page", method = RequestMethod.POST)										//글쓰기
+	@RequestMapping(value = "**/addNewArticle.user", method = RequestMethod.POST)										//글쓰기
 	@ResponseBody
 	public ResponseEntity addNewArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
@@ -136,7 +136,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		return mav;
 	}
 
-	@RequestMapping(value = "**/modArticle.page", method = RequestMethod.POST)									//글 수정하기
+	@RequestMapping(value = "**/modArticle.user", method = RequestMethod.POST)									//글 수정하기
 	@ResponseBody
 	public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
@@ -195,7 +195,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 	}
 
 	@Override
-	@RequestMapping(value = "**/removeArticle.page", method = RequestMethod.POST)										//글삭제하기
+	@RequestMapping(value = "**/removeArticle.user", method = RequestMethod.POST)										//글삭제하기
 	@ResponseBody
 	public ResponseEntity removeArticle(@RequestParam("post_num") String post_num, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -226,7 +226,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		return resEnt;
 	}
 
-	@RequestMapping(value = "**/articleForm.page", method = RequestMethod.GET) //경로 절대경로로 바꾸기
+	@RequestMapping(value = "**/articleForm.user", method = RequestMethod.GET) //경로 절대경로로 바꾸기
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//String viewName = (String) request.getAttribute("viewName");
 		String viewName = "/H_P001/articleForm.tiles";
