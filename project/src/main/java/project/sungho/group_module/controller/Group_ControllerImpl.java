@@ -55,7 +55,15 @@ public class Group_ControllerImpl {
 	public ModelAndView groupPage(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String,Object> resultMap = group_Service.checkMemberState(paramMap);
 		ModelAndView mav = new ModelAndView("group/groupPage_main.tiles");
+		System.out.println("그룹메인 - "+resultMap);
 		mav.addObject("result", resultMap);
+		return mav;
+	}
+	
+	@RequestMapping(value = "group/groupPage_managing.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView groupManaging(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("group/groupPage_managing.tiles");
+		System.out.println("그룹관리 - "+paramMap);
 		return mav;
 	}
 }

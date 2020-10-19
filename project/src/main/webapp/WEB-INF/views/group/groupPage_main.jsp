@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,9 @@
 			<div></div>
 			<div id="article">
 				<ul style="text-align: left;">
-					<li style="border-bottom: 1px solid #555; padding: 10px 0 10px 5px; font-size: large;">전체 글 보기</li>
+					<li
+						style="border-bottom: 1px solid #555; padding: 10px 0 10px 5px; font-size: large;">전체
+						글 보기</li>
 					<li><table id="board">
 							<tr>
 								<th width="400px;"></th>

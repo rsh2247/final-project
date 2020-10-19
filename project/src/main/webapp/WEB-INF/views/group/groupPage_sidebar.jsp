@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,20 +62,25 @@
 	text-align: left;
 	padding: 10px 0 10px 15px;
 }
-.btn{
+
+.btn {
 	width: 100%;
 	height: 40px;
 	border: 1px solid #aaa;
 	cursor: pointer;
 }
-.btn:hover{
+
+.btn:hover {
+	
 }
+
 #writebtn {
 	margin: 15px auto 15px auto;
 	display: inline-block;
 	position: relative;
 }
-#managebtn{
+
+#managebtn {
 	margin: 0 0 15px 0;
 }
 </style>
@@ -98,7 +105,10 @@
 			<button id="writebtn" class="btn">카페 글쓰기</button>
 			<sec:authorize access="hasAnyRole('ROLE_USER')">
 				<c:if test="${result.STATE eq 'manager'}">
-					<button id="managebtn" class="btn">게시판 관리</button>
+					<form action="groupPage_managing.user" method="post">
+					<input type="hidden" name="groupNum" value="">
+						<button id="managebtn" class="btn">게시판 관리</button>
+					</form>
 				</c:if>
 			</sec:authorize>
 		</div>
