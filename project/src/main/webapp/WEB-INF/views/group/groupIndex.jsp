@@ -48,8 +48,8 @@
 </head>
 <body>
 	<div id="index">
-		<button class="btn" onclick="location.href='groupmain.group'">전체 그룹</button>
-		<button class="btn" onclick="location.href='groupmaking.pro'">그룹 만들기</button>
+		<button class="btn" onclick="location.href='groupmain'">전체 그룹</button>
+		<button class="btn" onclick="location.href='groupmaking.user'">그룹 만들기</button>
 		<button class="btn">내 그룹</button>
 	</div>
 </body>

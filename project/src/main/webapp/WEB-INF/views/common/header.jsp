@@ -279,9 +279,9 @@ h3 {
 						<li><a href="${contextPath}/problem_make/colMake_mainPage.do"
 							class="link">문제집만들기</a></li>
 					</ul></li>
-				<li><a href="groupmain.group" class="link">그룹</a></li>
+				<li><a href="${contextPath}/group/groupmain.group" class="link">그룹</a></li>
 				<li><a href="#" class="link">랭킹</a></li>
-				<li><a href="#" class="link">일정관리</a></li>
+				<li><a class="link">일정관리</a></li>
 
 				<li><a href="#" class="link">게시판</a>
 					<ul class="two">

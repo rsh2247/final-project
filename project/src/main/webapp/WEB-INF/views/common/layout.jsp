@@ -29,6 +29,10 @@
         margin:auto;
         float: left;
       }
+      #contentbox{
+      	width: 1100px;
+      	margin: auto;
+      }
       #footer {
       
         clear: both;

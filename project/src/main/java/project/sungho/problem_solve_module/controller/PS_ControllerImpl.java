@@ -36,7 +36,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	
 
 	@Override
-	@RequestMapping(value = "**/c001_003.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "problem_solve/c001_003.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView searchCategory(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String category = request.getParameter("category");
@@ -50,7 +50,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	}
 
 	@Override
-	@RequestMapping(value = "**/problem_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "problem_solve/problem_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView searchProblem(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String pro_num = request.getParameter("pro_num");
@@ -90,7 +90,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	
 
 	@Override
-	@RequestMapping(value = "**/userColselect_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "problem_solve/userColselect_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userColSelectPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String category = request.getParameter("category");
 		Map<String, Object> searchMap = new HashMap<String, Object>();
@@ -103,7 +103,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	}
 
 	@Override
-	@RequestMapping(value = "**/collection_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "problem_solve/collection_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView collectionPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String col_num = request.getParameter("number");
 		Map<String, Object> searchMap = new HashMap<String, Object>();
@@ -115,7 +115,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		return mav;
 	}
 	
-	@RequestMapping(value = "**/col_problemPage.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "problem_solve/col_problemPage.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView collection(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String col_num = request.getParameter("colNum");
@@ -135,7 +135,6 @@ public class PS_ControllerImpl implements PS_Controller {
 		paramMap = (HashMap<String, Object>) problem_Service.insertUserColHistory(paramMap, answerList);
 		ModelAndView mav = new ModelAndView("problem_solve/col_answerPage.tiles");
 		mav.addObject("result", paramMap);
-		System.out.println(paramMap);
 		return mav;
 	}
 	
@@ -149,13 +148,9 @@ public class PS_ControllerImpl implements PS_Controller {
 	@ResponseBody
 	@RequestMapping(value = "**/makeProAjax001.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public List<Map<String, String>> makeProAjax001(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String input = request.getParameter("string");
 		Map<String, Object> searchMap = new HashMap<String, Object>();
-		searchMap.put("category", input);
-		
-		List<Map<String, String>> list = problem_Service.selectCategory(searchMap);
-		
-		return list;
+		searchMap.put("category", request.getParameter("string"));
+		return problem_Service.selectCategory(searchMap);
 	}
 	
 	//카테고리 선택후 문제출제창으로

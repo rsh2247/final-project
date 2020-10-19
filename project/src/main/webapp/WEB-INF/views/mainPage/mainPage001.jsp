@@ -14,10 +14,9 @@
 	$(document).ready(function() {
 		var images = [ "woman-working-office.jpg," ];
 		$('#startbtn').click(function() {
-			$("#contentbox").css('display', 'block');
 			$("#wholebox").fadeOut(1000);
+			$("#contentbox").css('display', 'flex');
 			$("#contentbox").fadeIn("slow");
-
 		})
 
 		$('.dropdown-toggle').click(function() {
@@ -200,7 +199,7 @@ ul, li {
 	height: 892px;
 	background-color: #eee;
 	text-align: left;
-	display: flex;
+	display: none;
 }
 
 #contentinnerbox {
