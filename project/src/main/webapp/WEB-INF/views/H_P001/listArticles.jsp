@@ -3,6 +3,7 @@
     isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <%
   request.setCharacterEncoding("UTF-8");
@@ -17,16 +18,17 @@
   <meta charset="UTF-8">
   <title>글목록창</title>
 </head>
-<script>
-	function fn_articleForm(isLogOn,articleForm,loginForm){
-	  /* if(isLogOn != '' && isLogOn != 'false'){ */
+<!-- <script>
+	function fn_articleForm(list,articleForm,loginForm){
+	   if(list.user_id != '' && list.user_id != 'false'){
 	    location.href=articleForm;
-	  /* }else{
+	  }else{
 	    alert("로그인 후 글쓰기가 가능합니다.")
-	    location.href=loginForm+'?action=/yoonju/H/H_P001/articleForm.do';
-	  } */
+	    location.href=loginForm+'?action=/devFw/user/loginPage.do';
+	    
+	  }
 	}
-</script>
+</script> -->
 	<h1>자유 게시판</h1>
 	<br>
 <body>
@@ -55,7 +57,7 @@ border-bottom: none; border-top: none; " >
 	<td width="10%">${article.user_id }</td>		<!-- 아이디겠지..? -->
 	<td align='left'  width="35%">
 	  <span style="padding-right:30px"></span>
- 		<a class='cls1' href="${contextPath}/**/viewArticle.page?post_num=${article.post_num}">${article.post_title}</a>
+ 		<a class='cls1' href="${contextPath}/viewArticle.page?post_num=${article.post_num}">${article.post_title}</a>
 	  </td>
 	  <td  width="10%">${article.post_date}</td> 	<!-- 작성일이겠지..? -->
 	</tr>
@@ -63,8 +65,8 @@ border-bottom: none; border-top: none; " >
      </c:when>
     </c:choose>
 </table>
-<!-- <a  class="cls1"  href="#"><p class="cls2">글쓰기</p></a> -->
-<a  class="cls1"  href="<%-- javascript:fn_articleForm('${isLogOn}', --%>'${contextPath}/yoonju/H/H_P001/articleForm.pro' 
-                                                    <%-- '${contextPath}/user/loginPage.do' --%>)"><p class="cls2">글쓰기</p></a>
+		<sec:authorize access="hasAnyRole('ROLE_USER')">
+			<a class="cls2" href="${contextPath}/H_P001/articleForm.page">글쓰기</a>
+		</sec:authorize>
 </body>
 </html>

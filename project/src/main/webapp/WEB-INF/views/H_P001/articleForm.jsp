@@ -3,6 +3,8 @@
     isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  /> 
 <%
   request.setCharacterEncoding("UTF-8");
@@ -38,12 +40,20 @@
 </head>
 <body>
 <h1 style="text-align:center">글쓰기</h1>
-  <form name="articleForm" method="post"   action="${contextPath}/yoonju/H/H_P001/addNewArticle.do"   enctype="multipart/form-data">
+  <form name="articleForm" method="post"   action="${contextPath}/addNewArticle.page"   enctype="multipart/form-data">
     <table border="0" align="center">
       <tr>
 					<td align="right"> 작성자</td>
-					<td colspan=2  align="left"><input type="text" size="20" maxlength="100"  value="${member.user_nickname }" readonly/> </td>
+					<td colspan=2  align="left"><input type="text" size="20" maxlength="100" value="${pageContext.request.userPrincipal.name}" readonly/> </td>
 			</tr>
+<%-- 		<tr>	
+			<td><sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal.user_nickname" var="user_nickname" />
+                    <div id="user_nickname">${user_nickname }</div>
+                </sec:authorize>
+            </td>   
+		</tr> --%>
+		
 	     <tr>
 			   <td align="right">글제목: </td>
 			   <td colspan="2"><input type="text" size="67"  maxlength="500" name="post_title" /></td>

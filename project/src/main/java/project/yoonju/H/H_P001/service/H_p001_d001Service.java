@@ -14,6 +14,7 @@ public interface H_p001_d001Service {
 	public String addNewArticle(Map articleMap) throws Exception;
 	public H_p001_d001VO viewArticle(String post_num) throws Exception;
 	//public Map viewArticle(int articleNO) throws Exception;
+	//private String loginCheck(String user_id) throws Exception;
 	public void modArticle(Map articleMap) throws Exception;
 	public void removeArticle(String post_num) throws Exception;
 }

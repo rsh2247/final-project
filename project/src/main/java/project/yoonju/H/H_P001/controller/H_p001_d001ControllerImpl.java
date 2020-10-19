@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project.yoonju.H.H_P001.service.H_p001_d001Service;
 import project.yoonju.H.H_P001.vo.H_p001_d001VO;
@@ -79,16 +81,13 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 			String value = multipartRequest.getParameter(name);
 			articleMap.put(name, value);
 		}
-
 		String imageFileName = upload(multipartRequest);
-		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		
-		String user_id = memberVO.getUser_id();
+		HttpSession session = multipartRequest.getSession();				
+		String user_id = multipartRequest.getParameter("user_id");
 		articleMap.put("post_parent", 0);
 		articleMap.put("user_id", user_id);
 		articleMap.put("imageFileName", imageFileName);
-
+ 
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -100,7 +99,6 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + post_num);
 				FileUtils.moveFileToDirectory(srcFile, destDir, true);
 			}
-
 			message = "<script>";
 			message += " alert('새글을 추가했습니다.');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/H_P001/listArticles.page'; ";
@@ -228,7 +226,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		return resEnt;
 	}
 
-	@RequestMapping(value = "**/articleForm.page", method = RequestMethod.GET)
+	@RequestMapping(value = "**/articleForm.page", method = RequestMethod.GET) //경로 절대경로로 바꾸기
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//String viewName = (String) request.getAttribute("viewName");
 		String viewName = "/H_P001/articleForm.tiles";
@@ -237,6 +235,15 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		return mav;
 	}
 
+	
+/*	@RequestMapping(value = "loginCheck.page", method = RequestMethod.POST)
+	private ModelAndView loginCheck (@ModelAttribute("CustomUser") H_p001_d001VO articleVO, 
+			RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+	}
+*/
+	
 	// 한개 이미지 업로드하기
 	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception {
 		String imageFileName = null;
