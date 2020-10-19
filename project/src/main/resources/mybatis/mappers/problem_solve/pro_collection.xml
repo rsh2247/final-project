@@ -79,15 +79,20 @@
 	</update>
 	
 	<select id="selectUserColHistory" resultMap="result" parameterType="java.util.Map">
-		SELECT h.col_num,col_score, SUBSTR(col_solvedate,0,19) as "COL_SOLVEDATE", col_maxscore, category_name, col_name
+		SELECT h.col_num,col_score, col_solvedate, col_maxscore, category_name, col_name
 		FROM COL_HISTORY h, PRO_COLLECTION p 
 		WHERE h.user_id = #{user_id} and h.col_num = p.col_num 
 		ORDER BY col_solvedate DESC
 	</select>
 	
-	<select id="selectCorrectSheet" resultMap="result" parameterType="java.util.Map">
-		SELECT SUBSTR('A',1) 
-		FROM DUAL 
+	<select id="selectUserAnwser" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT * 
+		FROM col_answer ]]>
+		<where>
+		col_num = #{col_num} and col_solvedate = #{col_solvedate} and user_id = #{user_id} 
+		</where>
+		ORDER BY col_list_num ASC
 	</select>
 	
 </mapper>

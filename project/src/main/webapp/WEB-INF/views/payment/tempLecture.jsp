@@ -10,7 +10,7 @@
 <body>
  <br>
 <h2> 강의 선택후 결제 </h2>
-<form method="post" action="${contextPath}/order_amount">
+<form method="post" action="${contextPath}/order">
     <button>결제하기</button>
 </form>
 </body>

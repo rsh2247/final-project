@@ -25,16 +25,22 @@
       }
       #content {
         width: 100%;
-        min-height:1200px;
+        min-height: 1200px;
         margin:auto;
         float: left;
       }
+      #contentbox{
+      	width: 1100px;
+      	margin: auto;
+      }
       #footer {
+      
         clear: both;
         padding: 5px;
         border: 0px solid #bcbcbc;
-        background-color: #353E5C;
-        height: 200px;
+        background-color: #252525;
+        height: 300px;
+        margin-top: 200px;
       }
       
     </style>

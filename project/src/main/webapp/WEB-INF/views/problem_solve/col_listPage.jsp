@@ -8,22 +8,31 @@
 <style type="text/css">
 
 #coltable{
-margin: 50px auto;
+width:100%;
 border-collapse: collapse;
 }
-
+#contentbox{
+	width: 1000px;
+	margin: 50px auto 0 auto;
+}
+#contentbox a{
+	text-decoration: none;
+	color: black;
+	padding-left: 20px;
+}
 </style>
 </head>
 <body>
+<div id="contentbox">
 	<table id="coltable">
-		<tr>
+		<tr style="border-bottom: 2px solid #3E60DB; height: 40px" >
 			<th width="100px">번호</th>
-			<th width="300px">문제집이름</th>
-			<th width="150px">제작자</th>
+			<th width="600px">문제집이름</th>
+			<th >제작자</th>
 			<th>평점</th>
 		</tr>
 		<c:forEach items="${list}" var="list">
-			<tr>
+			<tr style="border-bottom: 1px solid #ccc; height: 30px;">
 				<td>${list.COL_NUM}</td>
 				<td style="text-align: left; padding-left: 10px;"><a href="col_problemPage.pro?colNum=${list.COL_NUM}">${list.COL_NAME}</a></td>
 				<td>${list.USER_ID}</td>
@@ -31,5 +40,6 @@ border-collapse: collapse;
 			</tr>
 		</c:forEach>
 	</table>
+	</div>
 </body>
 </html>

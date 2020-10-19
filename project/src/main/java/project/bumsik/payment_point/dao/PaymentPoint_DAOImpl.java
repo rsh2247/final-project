@@ -22,7 +22,6 @@ public class PaymentPoint_DAOImpl implements PaymentPoint_DAO{
 	@Override
 	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException {
 		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchList",searchMap);
-		System.out.println("DAO list : "+list);
 		return list;
 	}
 

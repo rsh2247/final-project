@@ -190,7 +190,6 @@ public class Problem_ServiceImpl implements Problem_Service {
 	public void insertUserAnswer(Map<String, Object> inputMap) throws DataAccessException {
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		inputMap.put("user_id", user.getUsername());
-		System.out.println(inputMap);
 		problem_DAO.insertUserAnswer(inputMap);
 	}
 

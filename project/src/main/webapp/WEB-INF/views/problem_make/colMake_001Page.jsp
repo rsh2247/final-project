@@ -36,7 +36,8 @@
 			preorder = 0 * 1;
 		}
 		for ( var i in selectedList) {
-			var score = $('<input type="text" name="score'+(i*1+1*1)+'" class="scorebox"></input>')
+			var score = $('<input type="text" name="score' + (i * 1 + 1 * 1)
+					+ '" class="scorebox"></input>')
 			var selected = selectedList[i].childNodes[5];
 			$(selected).append(score);
 			selectedList[i].childNodes[3].appendChild(document
@@ -109,35 +110,53 @@
 		}
 		selectedList = [];
 	}
-	
-	function naming(){
+
+	function naming() {
 		var list = $('#list').children();
-		list = list.splice(1, list.length -1);
-		for(var i in list){
+		list = list.splice(1, list.length - 1);
+		for ( var i in list) {
 			var tdList = list[i].childNodes;
-			for(var j in tdList){
-				if(tdList[j].nodeName == 'TD' && j<=3){
+			for ( var j in tdList) {
+				if (tdList[j].nodeName == 'TD' && j <= 3) {
 					var value = 0;
 					var name;
-					if(j==1) name='pro_num';
-					else name = 'col_list_num';
-					try{
+					if (j == 1)
+						name = 'pro_num';
+					else
+						name = 'col_list_num';
+					try {
 						value = tdList[j].childNodes[0].nodeValue;
-					}catch (e) {
+					} catch (e) {
 					}
-					var hiddenInput = $('<input type="hidden" name="'+name+(i*1+1*1)+'"'+' value ="'+value+'"></input>');
+					var hiddenInput = $('<input type="hidden" name="' + name
+							+ (i * 1 + 1 * 1) + '"' + ' value ="' + value
+							+ '"></input>');
 					$(tdList[j]).append(hiddenInput);
 				}
 			}
 		}
 	}
-	
 </script>
 <style type="text/css">
+#contentbox {
+	width: 1000px;
+	margin: 50px auto 200px auto;
+}
+
+#colname {
+	width: 750px;
+	height: 30px;
+	padding: 0 0 2px 10px;
+	font-size: 18px;
+	border: 1px solid #ccc;
+	float: left;
+}
+
 .colList {
+	width: 100%;
 	border-collapse: collapse;
 	border: 1px solid #AAA;
-	width: 800px;
+	border-collapse: collapse;
 }
 
 .colList th {
@@ -157,10 +176,25 @@
 	width: 25px;
 }
 
+.btn {
+	width: 100px;
+	height: 30px;
+	border: 2px solid #ccc;
+	background-color: #fff;
+	float: left;
+	cursor: pointer;
+}
+
+#listtable {
+	width: 100%;
+	margin-bottom: 30px;
+}
+
 #selectable {
+	width: 100%;
 	border-collapse: collapse;
 	border: 1px solid #aaa;
-	width: 600px;
+	border-collapse: collapse;
 }
 
 #selectable th {
@@ -173,60 +207,64 @@
 </style>
 </head>
 <body>
-	<form action="makeCol002.pro">
-		<table>
-			<tr>
-				<td>문제집 제목 <input name="col_name" type="text">
-				<input type="hidden" name="categoryId" value="${categoryId}">
-				<input type="hidden" name="categoryName" value="${categoryName}">
-				</td>
-			</tr>
-			<tr>
-				<td>문제집 리스트
-					<table class="colList" id="list" onclick="select(selected2, selectedList2)">
-						<tr>
-							<th>문제번호</th>
-							<th>문제순서</th>
-							<th>배점</th>
-							<th width="400px">제목</th>
-							<th>분류</th>
-							<th>난이도</th>
-							<th>평점</th>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td><button onclick="add();" type="button">추가</button>
-					<button onclick="del();" type="button">제거</button>
-					<button onclick="up();" type="button">위</button>
-					<button onclick="down();" type="button">아래</button>
-					<button onclick="naming();" type="button">debug</button></td>
-			</tr>
-		</table>
-		<table id="selectable" onclick="select(selected, selectedList)">
-			<tr>
-				<th>문제번호</th>
-				<th></th>
-				<th></th>
-				<th width="300px">제목</th>
-				<th>분류</th>
-				<th>난이도</th>
-				<th>평점</th>
-			</tr>
-			<c:forEach var="list" items="${list}">
-				<tr>
-					<td>${list.PRO_NUM}</td>
-					<td></td>
-					<td></td>
-					<td>${list.PRO_NAME}</td>
-					<td></td>
-					<td></td>
-					<td></td>
+	<div id="contentbox">
+		<form action="makeCol002.pro">
+			<table id="listtable" style="border-collapse: collapse;">
+				<tr style="width: 100%; border-bottom: 1px solid #ccc; margin: 10px 0 10px 0; float: left;">
+					<td style="height: 40px; padding-left: 10px; font-size: 24px">${category}</td>
 				</tr>
-			</c:forEach>
-		</table>
-		<input onclick="naming();" type="submit" value="확인">
-	</form>
+				<tr>
+					<td><input id="colname" name="col_name" type="text" placeholder="문제집 제목을 입력해주세요."> <input type="hidden" name="categoryId" value="${categoryId}"> <input type="hidden" name="categoryName" value="${categoryName}"></td>
+				</tr>
+				<tr style="margin: 25px 0 10px 0; float: left;">
+					<td style="padding-left: 10px;">문제집 문제리스트
+				</tr>
+				<tr>
+					<td>
+						<table class="colList" id="list" onclick="select(selected2, selectedList2)">
+							<tr>
+								<th width="80px;">문제번호</th>
+								<th width="80px;">문제순서</th>
+								<th width="80px;">배점</th>
+								<th width="400px">제목</th>
+								<th>분류</th>
+								<th>난이도</th>
+								<th>평점</th>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr style="margin-top: 30px;">
+					<td><button onclick="add();" type="button" class="btn">추가</button>
+						<button onclick="del();" type="button" class="btn">제거</button>
+						<button onclick="up();" type="button" class="btn" style="margin-left: 20px">위</button>
+						<button onclick="down();" type="button" class="btn">아래</button></td>
+				</tr>
+			</table>
+			<table id="selectable" onclick="select(selected, selectedList)">
+				<tr>
+					<th width="240px;">문제번호</th>
+					<th></th>
+					<th></th>
+					<th width="400px">제목</th>
+					<th>분류</th>
+					<th>난이도</th>
+					<th>평점</th>
+				</tr>
+				<c:forEach var="list" items="${list}">
+					<tr>
+						<td>${list.PRO_NUM}</td>
+						<td></td>
+						<td></td>
+						<td>${list.PRO_NAME}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</c:forEach>
+			</table>
+			<input onclick="naming();" type="submit" value="확인" style="width: 100px; height: 30px; background-color: #fff; border: 2px solid #ccc; float: right; margin-top: 20px; cursor: pointer;">
+		</form>
+	</div>
 </body>
 </html>
