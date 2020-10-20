@@ -22,7 +22,6 @@ $(function () {
 });
 
 
-
 function getContextPath() {
 	  var hostIndex = location.href.indexOf(location.host) + location.host.length;
 	  return location.href.substring(hostIndex,location.href.indexOf('/', hostIndex + 1));
@@ -44,7 +43,7 @@ var point_check = function (no) {
      	url: getContextPath()+"/searchPoint",
         type: "post",
         data: "p_id="+"abcd",
-        async: false,		//default : true, true일때 usepoint가 ''으로 유지됨
+        async: false,							//default : true, true일때 usepoint가 ''으로 유지됨
         success: function(data, textStatus){
 			list = data;
 			/* $('#result').empty(); */
@@ -62,20 +61,11 @@ var point_check = function (no) {
         pt[i] = $("input[name=dispt]").eq(i).val();
         if (!pt[i]) pt[i] = 0;
         total_pt += parseInt(pt[i], 10);
-/*      console.log(i);
-        console.log(ptcnt);
-        console.log(pt);
-        console.log(total_pt);
-*/
     }
 
     var usedpoint = $("#ptsale").html().replace(' P', '').replace(/,/g, '');	//총 할인 내역에 적용된 point
     var targe_point = $('#dispt' + no).val();    //입력 받은 포인트    
-/*
-    console.log(parseInt(usedpoint));
-    console.log(parseInt(targe_point));
-    console.log(usepoint);
-*/
+
     //입력 받은 포인트 > 보유 포인트 || 적용한 포인트 + 입력받은 포인트 > 보유포인트
     if (total_pt > usepoint || parseInt(usedpoint) + parseInt(targe_point) > usepoint) {
         alert('보유포인트를 초과하였습니다.');
@@ -149,11 +139,11 @@ var point_apply = function (no) {
             } else if (data[0].point_over == '0') {
                 alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
             } else {
-            	
-                $("#sale_price_total em").text(data[0].discount_point);    // 할인 금액, discount_point
-                $("#total_price_total em").text(data[0].total_price);   // 할인 적용된 total_price
+            	console.log(data.dis);
+                $("#sale_price_total em").text(data[0].discount_point);    	// 할인 금액, discount_point
+                $("#total_price_total em").text(data[0].total_price);   	// 할인 적용된 total_price
                 $("#ptsale").text(data[0].discount_point);               	// 총할인내역-point  
-
+                $("#pt" + no).html(data[1].dis);   							// point 입력 table(td)
             }
         },
         error: function(data){
@@ -163,6 +153,26 @@ var point_apply = function (no) {
         }
     });
     
+}
+
+var discount_cancel = function (no, type) {
+
+    $.ajax({
+        url: getContextPath()+"/discount_cancel",
+        type: "POST",
+        dataType: "json",
+        data: {type: type, no: no},
+        beforeSend: function () {
+            //loadingfn('load');
+        },
+        success: function (data) {
+        	console.log(data.dis);
+            $("#sale_price_total em").text(data[0].discount_point);    	// 할인 금액, discount_point
+            $("#total_price_total em").text(data[0].total_price);   	// 할인 적용된 total_price
+            $("#ptsale").text(data[0].discount_point);               	// 총할인내역-point  
+            $("#pt" + no).html(data[1].dis);   							// point 입력 table(td)
+        }
+    });
 }
 
 var timecheck = function () {
@@ -211,9 +221,10 @@ function onAddressSelect(zip, address) {
     $("#addressBox").css("display", "none")
 }
 
+
 let trade_flag = 0;
 // 결제하기
-var trade_select = function () {
+var trade_select = function (no) {
 
     if(trade_flag == 1) {
         alert('결제정보를 등록하고 있습니다. \n잠시만 기다려주세요.');
@@ -221,11 +232,6 @@ var trade_select = function () {
     }
 
     var paynote_chk = $("#paynote_chk").val();
-
-    //개인정보 위탁동의 체크 (#개인정보위탁동의)
-    if (check_policy_agree() == false) {
-        return;
-    }
 
     if(!$("#check_refund").is(':checked') || !$("#check_payment").is(':checked') || (!$("#check_useguide").is(':checked') && paynote_chk) || !$("#check_contents").is(':checked')){
         alert("위 내용을 확인하셨을 경우 체크박스를 클릭해 주세요.");
@@ -241,19 +247,70 @@ var trade_select = function () {
         alert('결제방법을 선택해주세요.');
         $("input[name=trademethod]").eq(0).focus();
         return;
-    } 
+    }
+    payment(no);
+    
 }
 
-//개인정보 처리업무 위탁 동의 체크 (#개인정보위탁동의)
-function check_policy_agree() {
+var payment = function(no){
 
-    //회원가입시 개인정보 위탁동의를 하지 않았거나, 본 결제페이지에서 체크를 하지 않은 경우 false 리턴
-    if (policy_agree == 0 && !$("input[name=pay_agree]:checked").val()){
-        alert('결제 관련 개인정보 처리업무 위탁에 대한 동의사항에 동의하셔야 결제가 가능합니다.');
-        $("#pay_agree").focus();
-        return false;
+	var method = $("input[name=trademethod]:checked").val();
+
+    if(!$("#check_contents").is(':checked')){
+        alert("위 내용을 확인하셨을 경우 체크박스를 클릭해 주세요.");
+        $("#check_contents").focus();
+        return;
+    }
+    
+    if(confirm('입력하신 결제 정보로 주문을 하시겠습니까? \n 확인을 누르시면, 안심클릭 승인을 위한 창이 뜹니다.')){
+        if(method == 'kakao'){
+        	var option = "width = 500, height = 500, top = 100, left = 100, location = yes";
+        	
+        	var form = document.createElement("form");
+        	form.setAttribute("method","post");
+        	form.setAttribute("action",getContextPath()+"/kakaoPay");
+        	document.body.appendChild(form);
+        	
+        	var insert = document.createElement("input");
+        	insert.setAttribute("type","hidden");
+        	insert.setAttribute("name","order_id");
+        	insert.setAttribute("value",no);
+        	form.appendChild(insert);
+        	
+        	window.open('','new_popup', option);
+        	form.setAttribute("target",'new_popup');
+        	
+        	form.submit();
+        }
     }
 }
+
+function postPopUp() {
+	
+	var option = "width = 500, height = 500, top = 100, left = 100, location = yes";
+	
+	var form = document.createElement("form");
+	form.setAttribute("method","post");
+	form.setAttribute("action",getContextPath()+"/kakaoPay");
+	document.body.appendChild(form);
+	
+	var insert = document.createElement("input");
+	insert.setAttribute("type","hidden");
+	insert.setAttribute("name","id");
+	form.appendChild(insert);
+	
+	window.open('','new_popup', option);
+	form.setAttribute("target",'new_popup');
+	
+	form.submit();
+	
+}
+
+
+
+
+
+
 
 // ie version check
 var ie_version_chk = function() {

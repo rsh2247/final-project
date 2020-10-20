@@ -18,5 +18,8 @@ public interface PaymentMain_DAO {
 	
 	public int seq_order_id() throws DataAccessException;
 
+	//조인&강의명 추가
+	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException;
+
 
 }

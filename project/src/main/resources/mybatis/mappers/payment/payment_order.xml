@@ -15,6 +15,16 @@
 		<result property="point_over" column="point_over" />
 	</resultMap>
 	
+	<!-- 조인하여 강의명 받아오기 위해 -->
+	<resultMap id="payment_lectResult01" type="java.util.HashMap">
+		<result property="lecture_id" column="lecture_id"  />
+		<result property="lecture_category" column="lecture_category" />
+		<result property="lecture_name" column="lecture_name" />
+		<result property="user_id" column="user_id" />
+		<result property="lecture_tuition" column="lecture_tuition" />
+	</resultMap>
+	
+	
 	<!-- order sequence -->
 	<select id="seq_order" resultType="_int">
    			 select seq_order_id.NEXTVAL FROM dual
@@ -32,6 +42,35 @@
 			</if>
 		</where>
 	</select>
+	
+	<!-- 강의명 포함 -->
+<!--  	<select id="searchOrder2" resultMap="payment_order01" parameterType="java.util.Map"> 
+      <![CDATA[
+         select o.order_id, o.user_id, o.lecture_id, o.order_date, o.order_price, 
+         o.discount_point, o.total_price, o.point_over, l.lecture_name
+         from   orders o JOIN lecture l on
+      ]]>
+		<where>
+			<if test=" trade_key != ''  and  trade_key != null">
+				o.lecture_id = l.lecture_id
+				and o.order_id = #{trade_key}
+			</if>
+		</where>
+	</select> -->
+	
+	<select id="searchOrder2" resultMap="payment_order01" parameterType="java.util.Map"> 
+		select o.order_id, o.user_id, o.lecture_id, o.order_date, to_char(o.order_price) order_price, 
+        	   to_char(o.discount_point) discount_point, to_char(o.total_price) total_price, 
+        	   o.point_over, l.lecture_name
+		from orders o JOIN lecture l
+		ON o.lecture_id = l.lecture_id
+		and o.order_id = #{trade_key}
+	</select>
+	 
+	
+
+	
+	
 	
 	<insert id="insertOrder1" parameterType="java.util.Map">
 		insert into orders(order_id, user_id, lecture_id, order_date, order_price)

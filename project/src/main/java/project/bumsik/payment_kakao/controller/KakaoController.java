@@ -24,10 +24,11 @@ public class KakaoController {
     }
      
     @PostMapping("/kakaoPay")
-    public String kakaoPay() {
+    public String kakaoPay(@RequestParam("order_id") String order_id) {
         //log.info("kakaoPay post............................................");
         System.out.println("post : ready");
-        return "redirect:" + kakaopay.kakaoPayReady();
+        System.out.println("order_id : "+order_id);
+        return "redirect:" + kakaopay.kakaoPayReady(order_id);
     }
     
     @GetMapping("**/kakaoPaySuccess")

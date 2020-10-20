@@ -80,11 +80,6 @@
 		<div class="payment_wrap">
 			<br />
 			<!-- 주문내역 -->
-			<!-- <h2><img src="/img/payment/tit_0101.gif" alt="주문내역"/><a href="" target="_blank">
-                 <img src="/img/button/btn_faq.gif" alt="결제관련 FAQ"/></a></h2> -->
-			<h2>
-				주문내역<a href="" target="_blank">결제관련</a>
-			</h2>
 
 			<table class="board_list" id="lec_board_list">
 				<colgroup>
@@ -95,11 +90,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<!-- <th class="first"><img src="/img/board/tit_lectrueName.gif" alt="강의명" /></th>
-                                <th><img src="/img/board/tit_lectrueDay.gif" alt="수강일/강의수" /></th>
-                                <th><img src="/img/board/tit_teacher.gif" alt="교수명" /></th>
-                                <th class="last_date"><img src="/img/board/tit_price.gif" alt="금액" /></th> -->
-
+		
 						<th class="first">강의명</th>
 						<th>강의분야</th>
 						<th>강사아이디</th>
@@ -156,10 +147,7 @@
 							<col style="width: 133px;" />
 						</colgroup>
 						<tr>
-							<!-- <th class="first"><img src="/img/board/tit_lectrueName.gif" alt="강의명"/></th> -->
 							<th class="first">강의명</th>
-							<!-- <th><img src="/img/board/tit_coupon.gif" alt="쿠폰"/></th> -->
-							<!-- <th colspan="2" class="last"><img src="/img/board/tit_point.gif" alt="포인트"/></th> -->
 							<th colspan="2" class="last">포인트</th>
 						</tr>
 						<tr>
@@ -168,18 +156,7 @@
 								id="big_cart_19912304" value="7"> <input type="hidden"
 								id="middle_cart_19912304" value="321">
 								${lectlist[0].lecture_name}</td>
-							<!-- <td id="cp19912304">
-                                 	<a href="javascript:coupone_pop('9849','19912304');">
-                                    <img src="/img/button/inquiry.gif" alt="조회" /></a>                                        
-                                </td> -->
-							<!-- <td id="pt19915433">
-                                    <input type="text" class="dispt" name="dispt" id="dispt19915433" 
-                                     onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) 
-                                     event.returnValue=false; " style="ime-mode:disabled;" onkeyup="point_check(19915433);" />
-                                     <strong>P </strong><a href="javascript:point_apply(19915433);">
-                                     <img src="/img/button/apply.gif" alt="적용" /></a>
-                           	</td> -->
-   
+
 					 			<td colspan="2" id="pt${orderlist[0].order_id}"><input type="text" class="dispt" name="dispt" id="dispt${orderlist[0].order_id}"
 								onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false; "
 								style="ime-mode: disabled;" onkeyup="point_check(${orderlist[0].order_id});" />
@@ -238,13 +215,11 @@
 					</div>
 				</div>
 				<div class="orderWrap">
-					<!-- <h2><img src="/img/payment/tit_0105.gif" alt="결제수단"/></h2> -->
-					<h2>결제수단</h2>
+							<h2>결제수단</h2>
 					<div class="orderWay">
 						<div class="waySelect">
-							<label><input type="radio" name="trademethod"
-								value="point" /> 포인트 결제</label> <label><input type="radio"
-								name="trademethod" value="kakao" /> 카카오 결제</label>
+							<!-- <label><input type="radio" name="trademethod" value="point" /> 포인트 결제</label> --> 
+							<label><input type="radio" name="trademethod" value="kakao" /> 카카오 결제</label>
 						</div>
 						<ul class="orderEtc">
 							<li style="color: #ff0000;"><span>※</span>결제 시 주의 사항</li>
@@ -362,9 +337,6 @@
 
 							<tr>
 								<td colspan="3">
-									<!--※ 슈퍼패스, 0원 슈퍼패스는 수강여부에 관계없이 결제일로부터 7일 이내 전액 환불 가능<br>
-                                    (각 상품별로 한 아이디당 1회에 한해 가능합니다.)<br>
-                                    ※ 공제 시 상품 보유기간에 따른 학습수수료와 이미 수강한 강좌수에 따른 학습수수료를 각각 산정한 후, 이 중 큰 금액을 공제액으로 합니다.<br />-->
 									※ 학습 수수료 공제 시 강의 플레이 시간이 아닌 강의를 클릭(오픈)한 기준으로 수강한 강의 수가 산정됩니다.
 								</td>
 							</tr>
@@ -435,14 +407,24 @@
 				</p>
 
 				<p class="btn" id="paybtn">
-					<!-- <a href="javascript:trade_select();"><img src="/img/button/pay.gif" alt="결제하기"/></a>
-                    <a href="javascript:history.go(-1);"><img src="/img/button/cancel02.gif" alt="취소"/></a> -->
-					<a href="javascript:trade_select();">결제하기</a> <a
-						href="javascript:history.go(-1);">취소</a>
+
+					<a href="javascript:trade_select(${orderlist[0].order_id});">결제하기</a> 
+					<a href="javascript:history.go(-1);">취소</a>
 				</p>
 			</div>
 		</div>
 	</div>
+	
+	<div id="layer_pop">
+    	<div class="bg_mask"></div>
+    	<div class="pop_cont">
+        	<!-- <iframe name="lgu" id="lgu" width="650" height="650" frameborder="0"></iframe> -->
+        	<form name="viewForm" method="post"></form>
+    	</div><!-- // content -->
+	</div><!-- // lay_popup -->
+	
+	
+	
 </div>
 	<!--  -->
 	<%-- 	<div class="payment_wrap2">		
@@ -473,8 +455,7 @@
 				</table>
 				</form>
 	
-	
-	
+
         <h2> 결제 수단 선택</h2>
         <form name="pay" id="pay" method="post">             
                 <div>

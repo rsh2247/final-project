@@ -82,6 +82,7 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		return mav;
 	}
 	
+	/* 할인정보 적용 */
 	@Override
 	@RequestMapping(value="/orderinfo", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
@@ -89,12 +90,11 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 			@RequestParam(value="tp",required = false) int tp,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		System.out.println("orderinfo진입");
+		Map<String, Object> orderMap = new HashMap<String,Object>();
 
 		//order search(price)
-		Map<String, Object> orderMap = new HashMap<String,Object>();
 		orderMap.put("trade_key", no);			//주문번호(order_id) , 조건
 		List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo(orderMap);
-		//int order_price = (int) orderlist.get(0).get("order_price");  //by order_table
 		int order_price = ((BigDecimal)orderlist.get(0).get("order_price")).intValue();
 		System.out.println("order_price : "+order_price);
 		orderMap.put("discount_point", tp);		//할인 금액, 사용 포인트, sale_price_total(discount_point)
@@ -109,10 +109,54 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		orderMap.put("point_over", point_over);
 		System.out.println("point over : "+point_over);
 		
+		String point_cancel = "<td colspan=2 id=pt{orderlist[0].order_id}> 할인  "+
+				"<a href=\"javascript:discount_cancel({orderlist[0].order_id},'cancel');\">취소</a>\r\n" + 
+				"</td>";
+//		String point_cancel = "<td></td>";
+		orderMap.put("dis", point_cancel);
+		System.out.println(orderMap);
+		
 		//update
 		paymentMain_Service.updateOrderInfo(orderMap);
 		
 		orderlist = paymentMain_Service.searchOrderInfo(orderMap);
+		orderlist.add(orderMap);
+		System.out.println("ajax orderinfo : "+orderlist);
+		return orderlist;
+	}
+	
+	@Override
+	@RequestMapping(value="/discount_cancel", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<Map<String, Object>> discount_cancel(@RequestParam(value="no",required = false) String no,
+			@RequestParam(value="type",required = false) String dc,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		System.out.println("discount_cancel진입");
+		Map<String, Object> orderMap = new HashMap<String,Object>();
+
+		//order search(price)
+		orderMap.put("trade_key", no);			//주문번호(order_id) , 조건
+		List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo(orderMap);
+		int order_price = ((BigDecimal)orderlist.get(0).get("order_price")).intValue();
+		System.out.println("order_price : "+order_price);
+		orderMap.put("discount_point", dc);		//할인 금액, 사용 포인트, sale_price_total(discount_point)
+		
+
+		
+		String point_cancel = "<td colspan=\"2\" id=\"pt${orderlist[0].order_id}\">"
+				+ "<input type=\"text\" class=\"dispt\" name=\"dispt\" id=\"dispt${orderlist[0].order_id}\" "
+				+ "onkeyPress=\"if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false; "
+				+ "\"style=\"ime-mode: disabled;\" onkeyup=\"point_check(${orderlist[0].order_id});\" /> "
+				+ "href=\"javascript:point_apply(${orderlist[0].order_id});\">적용</a></td>";
+
+		orderMap.put("dis", point_cancel);
+		System.out.println(orderMap);
+		
+		//update
+		paymentMain_Service.updateOrderInfo(orderMap);
+		
+		orderlist = paymentMain_Service.searchOrderInfo(orderMap);
+		orderlist.add(orderMap);
 		System.out.println("ajax orderinfo : "+orderlist);
 		return orderlist;
 	}

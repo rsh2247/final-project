@@ -43,6 +43,13 @@ public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 		
 	}
 	
+	//강의명 추가
+	@Override
+	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList(namespace2+".searchOrder2",orderMap);
+		return list;
+	}
+	
 	
 	public int seq_order_id() throws DataAccessException{
 		int order_key =  sqlSession.selectOne(namespace2+".seq_order");

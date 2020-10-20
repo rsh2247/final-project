@@ -18,6 +18,8 @@ public interface PaymentMain_Service {
 	public void updateOrderInfo(Map<String, Object> orderMap) throws DataAccessException;
 	
 	public int seq_order_id() throws DataAccessException;
-
+	
+	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException;
+									 
 
 }

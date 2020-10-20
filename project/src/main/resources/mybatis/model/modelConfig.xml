@@ -3,10 +3,6 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<settings>
-		<setting name="jdbcTypeForNull" value="NULL" />
-	</settings>
-
 	<typeAliases>
 	    <typeAlias type="project.hm.hmp001_d000.vo.Hmp001_d000VO"  alias="hmp001_d000VO" />
 		<typeAlias type="project.hm.hmp001_d001.vo.Hmp001_d001VO"  alias="hmp001_d001VO" />
@@ -32,7 +28,6 @@
 		<typeAlias type="project.yoonju.H.H_P001.vo.ImageVO"  alias="imageVO" />
 		
 	</typeAliases> 
-	
 	
 	
 	
