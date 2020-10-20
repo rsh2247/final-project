@@ -80,6 +80,7 @@ public class Group_ControllerImpl {
 		resultMap.putAll(group_Service.selectOneGroup(paramMap));
 		ModelAndView mav = new ModelAndView("group/groupPage_write.tiles");
 		mav.addObject("result", resultMap);
+		System.out.println(resultMap);
 		mav.addObject("boardList", group_Service.selectGroupBoardList(paramMap));
 		return mav;
 	}
@@ -93,6 +94,9 @@ public class Group_ControllerImpl {
 	@RequestMapping(value = "cafe/confirm.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView writeconfirm(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		group_Service.insertArticle(paramMap);
+		Map<String,Object> resultMap = group_Service.checkMemberState(paramMap);
+		resultMap.putAll(group_Service.selectOneGroup(paramMap));
+		ModelAndView mav = new ModelAndView("group/groupMake.tiles");
 		return null;
 	}
 }
