@@ -73,25 +73,31 @@
 		</where>
 	</select>
 
-	<select id="selectGroupMember" resultMap="result"
-		parameterType="java.util.Map">
-		<![CDATA[
-		SELECT *
-		FROM group_table g, join_group_list l 
-		]]>
-		<where>g.group_num = l.group_num and g.group_num = ${group_num}</where>
-	</select>
-	
 	<select id="checkMemberState" resultMap="result" parameterType="java.util.Map">
 		SELECT g_list_state state 
 		FROM join_group_list 
-		WHERE group_num = #{num} and user_id = #{user_id} 
+		<where>
+		<if test="num != '' and num != null and user_id != '' and user_id != null"></if>
+			group_num = #{num} and user_id = #{user_id} 
+		</where>
 	</select>
 	
 	<select id="selectGroupBoard" resultMap="result" parameterType="java.util.Map">
-		SELECT board_name
+		SELECT board_name, board_num 
 		FROM board 
+		WHERE group_num = #{num}
 	</select>
-
+	
+	<select id="selectGroupMember" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT *
+		FROM join_group_list
+		]]>
+		<where>
+		group_num = #{num}
+		</where>
+	</select>
+	
+	
 
 </mapper>

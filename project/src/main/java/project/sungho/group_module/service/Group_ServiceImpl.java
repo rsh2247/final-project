@@ -1,5 +1,6 @@
 package project.sungho.group_module.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,21 +43,38 @@ public class Group_ServiceImpl implements Group_Service {
 	}
 	
 	public void insertGroupMember(Map<String, Object> inputMap) {
-		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		inputMap.put("user_id", user.getUsername());
+		String userId = "anonymousUser";
+		if(!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+			userId = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		}
+		inputMap.put("user_id", userId);
 		sqlSession.update("group.insertMember", inputMap);
 	}
 	
-	public List<Map<String, Object>> selectGroupMember(Map<String, Object> inputMap) {
+	
+	public Map<String,Object> checkMemberState(Map<String,Object> inputMap) {
+		String userId = "anonymousUser";
+		if(!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+			userId = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		}
+		inputMap.put("user_id", userId);
+		return (sqlSession.selectOne("group.checkMemberState", inputMap)==null) ? inputMap : sqlSession.selectOne("group.checkMemberState", inputMap);
+	}
+	
+	public List<Map<String,Object>> selectGroupBoardList(Map<String,Object> inputMap){
+		return sqlSession.selectList("group.selectGroupBoard", inputMap);
+	}
+	
+	public List<Map<String,Object>> selectGroupMemberList(Map<String,Object> inputMap){
 		return sqlSession.selectList("group.selectGroupMember", inputMap);
 	}
 	
-	public Map<String,Object> checkMemberState(Map<String,Object> inputMap) {
-		try {
-			CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			inputMap.put("user_id", user.getUsername());
-		}catch (Exception e) {}
-		return sqlSession.selectOne("group.checkMemberState", inputMap);
+	//article
+	
+	public void insertArticle(Map<String,Object> inputMap) {
+		inputMap.put("user_id", ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+		System.out.println(inputMap);
+		sqlSession.update("article.insertArticle", inputMap);
 	}
-
+	
 }

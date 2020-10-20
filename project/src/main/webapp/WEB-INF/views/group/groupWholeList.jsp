@@ -54,6 +54,7 @@
 			$.ajax({
 				type : "post",
 				url : "ajaxGroupSelect.pro",
+				async : false,
 				data : "num="+num,
 				success : function(data, textStatus) {
 					list = data;
@@ -76,9 +77,15 @@
 			}
 		})
 
-		$('').click(function() {
-			
+		$('#btn').click(function () {
+			location.href=getContextPath()+'/cafe/'+list.GROUP_NUM;
 		})
+		
+		function getContextPath() {
+			var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+			return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+		};
+		
 	})
 
 </script>

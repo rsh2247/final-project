@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="article">
+	<resultMap id="result" type="java.util.HashMap">
+	</resultMap>
+	
+	<insert id="insertArticle" parameterType="java.util.Map">
+		<selectKey resultType="string" keyProperty="post_num"
+			order="BEFORE">
+			SELECT CASE WHEN MAX(POST_NUM)+1 IS NOT NULL THEN MAX(POST_NUM)+1 
+			ELSE 1 
+			end as post_num 
+			FROM post
+		</selectKey>
+		INSERT INTO post(post_num,board_num,user_id,post_title,post_content,post_date) 
+		VALUES(#{post_num},#{board_num},#{user_id},#{post_title},#{post_content},SYSDATE)
+		
+	</insert>
+	
+	
+
+</mapper>

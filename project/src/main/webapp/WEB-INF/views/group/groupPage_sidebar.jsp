@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,8 +89,10 @@
 		<div id="profile">
 			<div id="profileImage"></div>
 			<ul>
-				<li>카페장 이름</li>
-				<li>카페 개설일</li>
+				<li>매니저 ${result.GROUP_LEADER}</li>
+				<li>since
+					<h6>${result.GROUP_DATE}</h6>
+				</li>
 			</ul>
 		</div>
 		<div id="cafeinfo">
@@ -102,23 +102,25 @@
 				<li>기타</li>
 				<li>등등</li>
 			</ul>
-			<button id="writebtn" class="btn">카페 글쓰기</button>
+			<form action="write.user" method="post">
+				<input type="hidden" name="num" value="${result.GROUP_NUM}">
+				<button id="writebtn" class="btn">카페 글쓰기</button>
+			</form>
 			<sec:authorize access="hasAnyRole('ROLE_USER')">
 				<c:if test="${result.STATE eq 'manager'}">
 					<form action="groupPage_managing.user" method="post">
-					<input type="hidden" name="groupNum" value="">
+						<input type="hidden" name="num" value="${result.GROUP_NUM}">
 						<button id="managebtn" class="btn">게시판 관리</button>
 					</form>
 				</c:if>
 			</sec:authorize>
 		</div>
-		<div id="boardlist1">전체 게시글</div>
+		<div id="boardlist1">전체 게시판</div>
 		<div id="boardlist2">
 			<ul style="margin: 10px 0 10px 0; padding-left: 15px;">
-				<li>대충 게시판 1</li>
-				<li>대충 게시판 2</li>
-				<li>대충 게시판 3</li>
-				<li>대충 게시판 4</li>
+				<c:forEach var="list" items="${boardList}">
+					<li>${list.BOARD_NAME}</li>
+				</c:forEach>
 			</ul>
 		</div>
 		<div id="replylist">

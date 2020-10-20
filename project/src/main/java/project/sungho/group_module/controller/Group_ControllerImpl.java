@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,19 +52,47 @@ public class Group_ControllerImpl {
 		return group_Service.selectOneGroup(paramMap);
 	}
 	
-	@RequestMapping(value = "**/groupPage_main.group", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView groupPage(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "cafe/{key1}", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView groupPage(@PathVariable("key1") String key1,@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		paramMap.put("num", key1);
 		Map<String,Object> resultMap = group_Service.checkMemberState(paramMap);
+		resultMap.putAll(group_Service.selectOneGroup(paramMap));
 		ModelAndView mav = new ModelAndView("group/groupPage_main.tiles");
-		System.out.println("그룹메인 - "+resultMap);
 		mav.addObject("result", resultMap);
+		mav.addObject("boardList", group_Service.selectGroupBoardList(paramMap));
 		return mav;
 	}
 	
-	@RequestMapping(value = "group/groupPage_managing.user", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "cafe/groupPage_managing.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView groupManaging(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String,Object> resultMap = group_Service.checkMemberState(paramMap);
+		resultMap.putAll(group_Service.selectOneGroup(paramMap));
 		ModelAndView mav = new ModelAndView("group/groupPage_managing.tiles");
-		System.out.println("그룹관리 - "+paramMap);
+		mav.addObject("result", resultMap);
+		mav.addObject("memberList", group_Service.selectGroupMemberList(paramMap));
+		mav.addObject("boardList", group_Service.selectGroupBoardList(paramMap));
 		return mav;
+	}
+	
+	@RequestMapping(value = "cafe/write.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView write(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String,Object> resultMap = group_Service.checkMemberState(paramMap);
+		resultMap.putAll(group_Service.selectOneGroup(paramMap));
+		ModelAndView mav = new ModelAndView("group/groupPage_write.tiles");
+		mav.addObject("result", resultMap);
+		mav.addObject("boardList", group_Service.selectGroupBoardList(paramMap));
+		return mav;
+	}
+	
+	@RequestMapping(value = "cafe/board.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView viewGroupBoard(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("group/groupMake.tiles");
+		return mav;
+	}
+	
+	@RequestMapping(value = "cafe/confirm.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView writeconfirm(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		group_Service.insertArticle(paramMap);
+		return null;
 	}
 }

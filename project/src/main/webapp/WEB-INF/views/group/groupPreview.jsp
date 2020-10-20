@@ -167,10 +167,7 @@ ul {
 					</ul>
 				</div>
 				<div id="rightbottom">
-					<form action="groupPage_main.group" method="post">
-						<input id="groupNum" type="hidden" name="num" value="">
 						<button id="btn">더보기</button>
-					</form>
 				</div>
 			</div>
 		</div>

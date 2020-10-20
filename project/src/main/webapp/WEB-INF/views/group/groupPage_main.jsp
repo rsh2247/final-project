@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +37,7 @@
 </head>
 <body>
 	<div id="contentbox">
-		<jsp:include page="groupPage_sidebar.jsp"></jsp:include>
+		<jsp:include page="groupPage_sidebar.jsp" flush="false"></jsp:include>
 		<div id="mainbox">
 			<div></div>
 			<div id="article">
