@@ -12,7 +12,7 @@
 		<result property="lecture_tuition" column="lecture_tuition" />
 	</resultMap>
 
-	<select id="order_amount" resultMap="payment_lectResult01" parameterType="java.util.Map"> 
+	<select id="order_lecture" resultMap="payment_lectResult01" parameterType="java.util.Map"> 
       <![CDATA[
          select lecture_id, lecture_category, lecture_name, user_id, lecture_tuition
          from   lecture

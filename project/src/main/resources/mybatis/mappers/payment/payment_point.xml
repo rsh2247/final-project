@@ -22,9 +22,16 @@
 				user_id = #{p_id}
 			</if>
 		</where>
+		and point_date = ( select MAX(point_date) from point )
 	</select>
 	
-	<update id="usePoint" parameterType="java.util.Map">
+	<insert id="insertPoint" parameterType="java.util.Map">
+		insert into point(point_date, point_change, point_rest, user_id, point_content) 
+		values(sysdate, #{point_change}, #{point_rest}, #{p_id}, #{point_content})
+	</insert>
+	
+	
+	<update id="updatePoint" parameterType="java.util.Map">
 		update point
 		set  point_date = sysdate
 		   , point_change = #{point_change}

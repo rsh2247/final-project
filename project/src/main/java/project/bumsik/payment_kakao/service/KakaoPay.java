@@ -32,39 +32,20 @@ public class KakaoPay {
     private KakaoPayReadyVO kakaoPayReadyVO;  //응답을 받을 객체
     private KakaoPayApprovalVO kakaoPayApprovalVO;
 
-	@Autowired
-	private PaymentMain_Service paymentMain_Service;
-    
 	
-	String order_price, discount_point, lecture_name, user_id, order_ids;
+	String order_id, order_price, discount_point, lecture_name, user_id, total_price;
 	
-    public String kakaoPayReady(String order_id) {
+    public String kakaoPayReady(List<Map<String, Object>> orderlist) {
     	//가맹점 코드 CID / 결제 한 건 코드 TID / 결제,취소에 대한 고유번호 AID
-    	System.out.println("kakaoPay Ready : "+order_id);
-		//강의 id 임의 설정
-		Map<String, Object> orderMap = new HashMap<String,Object>();
-		orderMap.put("trade_key", order_id);
-		order_ids = order_id;
-		
-		System.out.println("orderMap : "+orderMap);
-    	List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo2(orderMap);
-    	System.out.println("return orderlist : "+orderlist);
+    	System.out.println("kakaoPay Ready");
     	
-    	order_price = (String)orderlist.get(0).get("order_price");
-    	discount_point = (String) orderlist.get(0).get("discount_point");
-    	lecture_name = (String) orderlist.get(0).get("LECTURE_NAME");
+    	order_id = (String)orderlist.get(0).get("order_id");
     	user_id = (String) orderlist.get(0).get("user_id");
-    	
-//    	String tax_free_amount = Integer.toString((Integer.parseInt(order_price)*0.1));
-    	String tax_free_amount = String.valueOf(Math.round(Integer.parseInt(order_price)*1));
-    	System.out.println("order_price : "+order_price);
-    	System.out.println("tax_free_amount"+tax_free_amount);
-    	System.out.println("discount_point : "+discount_point);
-    	System.out.println("lecture_name : "+lecture_name);
-    	System.out.println("order_id : "+order_id);
-    	System.out.println("user_id : "+user_id);
-    	
-    	
+    	lecture_name = (String) orderlist.get(0).get("LECTURE_NAME");
+    	discount_point = (String) orderlist.get(0).get("discount_point");
+    	total_price = (String)orderlist.get(0).get("total_price");
+    	String tax_free_amount = String.valueOf(Math.round(Integer.parseInt(total_price)*1));
+    	  	
         RestTemplate restTemplate = new RestTemplate();
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
@@ -79,7 +60,7 @@ public class KakaoPay {
         params.add("partner_user_id", user_id); //가맹점에서 사용자 구분할 id
         params.add("item_name", lecture_name);   //상품 이름
         params.add("quantity", "1");         //상품 수량
-        params.add("total_amount", order_price);  //상품 총액
+        params.add("total_amount", total_price);  //상품 총액
         params.add("tax_free_amount", tax_free_amount);//면세
         params.add("approval_url", "http://localhost:8090/devFw/payment/kakaoPaySuccess"); //성공, 실제 호출 url
         params.add("cancel_url", "http://localhost:8090/devFw/payment/kakaoPayCancel");    //취소
@@ -111,9 +92,7 @@ public class KakaoPay {
     }
 
 	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
-    	 System.out.println("kakaoInfo");
- //       log.info("KakaoPayInfoVO............................................");
- //       log.info("-----------------------------");
+		System.out.println("kakaoInfo");
         
         RestTemplate restTemplate = new RestTemplate();
  
@@ -127,10 +106,10 @@ public class KakaoPay {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
-        params.add("partner_order_id", order_ids);
+        params.add("partner_order_id", order_id);
         params.add("partner_user_id", user_id);
         params.add("pg_token", pg_token);
-        params.add("total_amount", order_price);
+        params.add("total_amount", total_price);
         System.out.println("kakaopayInfo pg_token : "+ pg_token); 
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);

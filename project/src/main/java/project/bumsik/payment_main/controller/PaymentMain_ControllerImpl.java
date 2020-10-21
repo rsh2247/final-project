@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 import project.bumsik.payment_main.service.PaymentMain_Service;
 import project.bumsik.payment_point.controller.PaymentPoint_ControllerImpl;
 import project.bumsik.payment_point.service.PaymentPoint_Service;
+import project.sungho.security.member.CustomUser;
+
 
 @Controller("paymentMain_Controller")
 public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
@@ -47,37 +51,59 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		String trade_key = wdate+order_key;
 		System.out.println("trade_key :"+trade_key);
 		
-		
 		//강의 id 임의 설정
 		l_id = "a01";
 		Map<String, Object> lectMap = new HashMap<String,Object>();
 		lectMap.put("l_id", l_id);
 		
-		//유저 id 임의 설정
-		String p_id = "abcd";
-		Map<String, Object> searchMap = new HashMap<String,Object>();
-		searchMap.put("p_id", p_id);
-		
+		//securityContext로 session의 id정보 가져옴.
+		String userId = null;
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+			userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		}else {
+			userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		}
 		//order insert
 		Map<String, Object> orderMap = new HashMap<String,Object>();
-		orderMap.put("trade_key", trade_key);		//주문번호, order_num
-		orderMap.put("p_id", p_id);					//유저ID, user
-		orderMap.put("l_id", l_id);					//강의번호, lecture
 		
-		List<Map<String, Object>> lectlist = paymentMain_Service.order_amount(lectMap); //강의 정보 조회 list
-//		int order_price = (int) lectlist.get(0).get("lecture_tuition");					//by lecture_table
-		int order_price = ((BigDecimal)lectlist.get(0).get("lecture_tuition")).intValue();
+		orderMap.put("trade_key", trade_key);		//주문번호, order_num
+		orderMap.put("p_id", userId);				//유저ID, user
+		orderMap.put("l_id", l_id);					//강의번호, lecture
+		List<Map<String, Object>> lectlist = paymentMain_Service.order_lecture(lectMap); 	//강의 정보 조회 list
+		int order_price = ((BigDecimal)lectlist.get(0).get("lecture_tuition")).intValue();	//수강료
+		System.out.println("11");
 		orderMap.put("order_price", order_price);	//order_price
 		
-		paymentMain_Service.insertOrderInfo1(orderMap);
-		
+		paymentMain_Service.insertOrderInfo1(orderMap);	//주문정보 insert order_id, user_id, lecture_id, order_price(lecture_tution) 
 		List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo(orderMap);
-		List<Map<String, Object>> searchlist = paymentPoint_Service.searchList(searchMap); //point 조회
+		
+		//point 정보 조회
+		Map<String, Object> pointMap = new HashMap<String,Object>();		
+		pointMap.put("p_id", userId);
+		List<Map<String, Object>> pointlist = paymentPoint_Service.searchList(pointMap);
+		
+		//point 적립&사용 기록이 전혀 없는 user, 예외 발생하여...
+		if(pointlist.size() == 0 ) {
+			Map<String, Object> insertMap = new HashMap<String,Object>();
+			insertMap.put("point_change", 0);
+			insertMap.put("point_rest", 0);
+			insertMap.put("p_id", userId);
+			insertMap.put("point_content", "");
+			paymentPoint_Service.insertPoint(insertMap);
+			pointlist = paymentPoint_Service.searchList(pointMap);
+			System.out.println(""+pointlist);
+		}
+		
+		
+		
+		
+		
 		
 		mav.addObject("orderlist",orderlist);
 		mav.addObject("lectlist",lectlist);
-		mav.addObject("pointlist",searchlist);
+		mav.addObject("pointlist",pointlist);
 		System.out.println("order_amount : "+mav);
+		
 	 
 		return mav;
 	}
@@ -109,12 +135,13 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		orderMap.put("point_over", point_over);
 		System.out.println("point over : "+point_over);
 		
-		String point_cancel = "<td colspan=2 id=pt{orderlist[0].order_id}> 할인  "+
-				"<a href=\"javascript:discount_cancel({orderlist[0].order_id},'cancel');\">취소</a>\r\n" + 
-				"</td>";
-//		String point_cancel = "<td></td>";
+		String point_cancel = "<td colspan=2 id=pt${orderlist[0].order_id}>  할인 취소  \r\n"+ 
+				"<a href=\"javascript:discount_cancel(${orderlist[0].order_id},'cancel');\">"
+				+"<img src=\"./resources/img/button/close.gif\" alt=\"닫기\"></a>";
 		orderMap.put("dis", point_cancel);
 		System.out.println(orderMap);
+		
+		
 		
 		//update
 		paymentMain_Service.updateOrderInfo(orderMap);

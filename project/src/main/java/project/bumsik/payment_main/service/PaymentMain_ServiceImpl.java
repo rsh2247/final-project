@@ -21,8 +21,8 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	
 	//강의정보
 	@Override
-	public List<Map<String, Object>> order_amount(Map<String, Object> lectMap) throws DataAccessException {
-		List<Map<String, Object>> list = paymentMain_DAO.order_amount(lectMap);
+	public List<Map<String, Object>> order_lecture(Map<String, Object> lectMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentMain_DAO.order_lecture(lectMap);
 		return list;
 	}
 	
@@ -53,17 +53,24 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	public void updateOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
 		paymentMain_DAO.updateOrderInfo(orderMap);	
 	}
-	//교육명 추가
 	
+	//교육명 추가	
 	@Override
 	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
 		List<Map<String, Object>> list = paymentMain_DAO.searchOrderInfo2(orderMap);
 		return list;
 	}
 	
+	
 	public int seq_order_id() throws DataAccessException{
 		int order_key =  paymentMain_DAO.seq_order_id();
 		return order_key;
+	}
+
+	@Override
+	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentMain_DAO.serarchOrderPoint(orderMap);
+		return list;
 	}
 
 }
