@@ -20,6 +20,67 @@
 		
 	</insert>
 	
+	<insert id="insertBoard">
+		<selectKey resultType="string" keyProperty="board_num"
+			order="BEFORE">
+			SELECT CASE WHEN MAX(BOARD_NUM)+1 IS NOT NULL THEN MAX(BOARD_NUM)+1 
+			ELSE 1 
+			end as board_num 
+			FROM board
+		</selectKey>
+		INSERT INTO board(BOARD_NUM,BOARD_NAME,GROUP_NUM)
+		VALUES(#{board_num}, #{board_name}, #{group_num})
+	</insert>
 	
+	<select id="selectArticleByGroup" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, 
+		CASE 
+		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
+		ELSE to_char(post_date,'yyyy-mm-dd')
+		end as post_date 
+		FROM board b, post p 
+		]]>
+		<where>
+		b.board_num = p.board_num and group_num = #{group_num} 
+		</where>
+		order by post_num asc
+	</select>
+	
+	
+	<select id="selectArticleByBoard" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, 
+		CASE 
+		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
+		ELSE to_char(post_date,'yyyy-mm-dd')
+		end as post_date 
+		FROM post p, board b
+		]]>
+		<where>
+		b.board_num = #{board_num} and b.board_num = p.board_num
+		</where>
+		order by post_num asc
+	</select>
+	
+	<select id="selectBoardName" resultMap="result" parameterType="java.util.Map">
+		SELECT board_name
+		FROM board
+		WHERE board_num = #{board_num}
+	</select>
+	
+	<select id="selectArticle" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, 
+		CASE 
+		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
+		ELSE to_char(post_date,'yyyy-mm-dd')
+		end as post_date 
+		FROM post p, board b
+		]]>
+		<where>
+		b.board_num = p.board_num and post_num = #{post_num}
+		</where>
+	</select>
 
 </mapper>

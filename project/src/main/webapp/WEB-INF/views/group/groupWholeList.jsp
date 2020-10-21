@@ -55,7 +55,7 @@
 				type : "post",
 				url : "ajaxGroupSelect.pro",
 				async : false,
-				data : "num="+num,
+				data : "group_num="+num,
 				success : function(data, textStatus) {
 					list = data;
 					$('#groupNum').val(data.GROUP_NUM);

@@ -69,7 +69,7 @@
 			from group_table 
 		]]>
 		<where>
-			group_num = #{num}
+			group_num = #{group_num}
 		</where>
 	</select>
 
@@ -78,14 +78,14 @@
 		FROM join_group_list 
 		<where>
 		<if test="num != '' and num != null and user_id != '' and user_id != null"></if>
-			group_num = #{num} and user_id = #{user_id} 
+			group_num = #{group_num} and user_id = #{user_id} 
 		</where>
 	</select>
 	
 	<select id="selectGroupBoard" resultMap="result" parameterType="java.util.Map">
 		SELECT board_name, board_num 
 		FROM board 
-		WHERE group_num = #{num}
+		WHERE group_num = #{group_num}
 	</select>
 	
 	<select id="selectGroupMember" resultMap="result" parameterType="java.util.Map">
@@ -94,7 +94,7 @@
 		FROM join_group_list
 		]]>
 		<where>
-		group_num = #{num}
+		group_num = #{group_num}
 		</where>
 	</select>
 	

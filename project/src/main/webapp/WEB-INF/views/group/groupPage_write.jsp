@@ -98,7 +98,7 @@
 <body>
 	<form action="${contextPath}/cafe/confirm.user" method="post">
 	<input type="hidden" name="board_num" id="boardnum">
-	<input type="hidden" name="num" value="${result.GROUP_NUM}">
+	<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
 		<div id="contentbox">
 			<div id="topbar">
 				<div id="boardselect">
