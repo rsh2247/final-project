@@ -18,6 +18,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import project.sungho.security.member.CustomUser;
 import project.yoonju.H.H_P001.service.H_p001_d001Service;
 import project.yoonju.H.H_P001.vo.H_p001_d001VO;
 import project.yoonju.member.vo.MemberVO;
@@ -53,7 +55,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 	
 
 	@Override
-	@RequestMapping(value = "**/listArticles.page", method = { RequestMethod.GET, RequestMethod.POST })				//글목록보기
+	@RequestMapping(value = "H/H_P001/listArticles.page", method = { RequestMethod.GET, RequestMethod.POST })				//글목록보기
 	public ModelAndView listArticles(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	//	String viewName = (String) request.getAttribute("viewName");
 		String viewName = "/H_P001/listArticles.tiles";
@@ -69,7 +71,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 
 
 	@Override
-	@RequestMapping(value = "**/addNewArticle.user", method = RequestMethod.POST)										//글쓰기
+	@RequestMapping(value = "H/H_P001/addNewArticle.user", method = RequestMethod.POST)										//글쓰기
 	@ResponseBody
 	public ResponseEntity addNewArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
@@ -81,19 +83,23 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 			String value = multipartRequest.getParameter(name);
 			articleMap.put(name, value);
 		}
+		
 		String imageFileName = upload(multipartRequest);
 		HttpSession session = multipartRequest.getSession();				
-		String user_id = multipartRequest.getParameter("user_id");
+		
+		CustomUser cus = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();				
+
 		articleMap.put("post_parent", 0);
-		articleMap.put("user_id", user_id);
+		articleMap.put("user_id", cus.getUsername());
 		articleMap.put("imageFileName", imageFileName);
- 
+		System.out.println("아티클맵에 담긴 것----------------->>" + articleMap);
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			String post_num = boardService.addNewArticle(articleMap);
+			System.out.println("post_num에 담긴 것 -------------->" + post_num);
 			if (imageFileName != null && imageFileName.length() != 0) {
 				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + post_num);
@@ -101,7 +107,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 			}
 			message = "<script>";
 			message += " alert('새글을 추가했습니다.');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/H_P001/listArticles.page'; ";
+			message += " location.href='" + multipartRequest.getContextPath() + "/H/H_P001/listArticles.page'; ";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -110,7 +116,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 
 			message = " <script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해 주세요');');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/H_P001/articleForm.page'; ";
+			message += " location.href='" + multipartRequest.getContextPath() + "H//H_P001/articleForm.page'; ";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			e.printStackTrace();
@@ -119,14 +125,12 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 	}
 
 
-	@RequestMapping(value = "**/viewArticle.page", method = RequestMethod.GET)									//한 개 글보기
+	@RequestMapping(value = "H/H_P001/viewArticle.page", method = RequestMethod.GET)									//한 개 글보기
 	public ModelAndView viewArticle(@RequestParam("post_num") String post_num, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		//String viewName = (String) request.getAttribute("viewName");
 		String viewName = "/H_P001/viewArticle.tiles";
 		System.out.println("뷰네임에 담긴 것-------->" + viewName);
 		H_p001_d001VO articleVO = boardService.viewArticle(post_num); //여기서 에러가 난당
-		System.out.println("4시 25분, 35분 뒤에 담배피러 가야지");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("article2", articleVO);
@@ -136,7 +140,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		return mav;
 	}
 
-	@RequestMapping(value = "**/modArticle.user", method = RequestMethod.POST)									//글 수정하기
+	@RequestMapping(value = "H/H_P001/modifyArticle.user", method = RequestMethod.POST)									//글 수정하기
 	@ResponseBody
 	public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
@@ -151,12 +155,18 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 
 		String imageFileName = upload(multipartRequest);
 		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+
+		CustomUser cus = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				
+		//MemberVO memberVO = (MemberVO) session.getAttribute("member"); 
+		//String id = memberVO.getId(); 
+		// 위에 있는 두 줄은 CustomUser로 대체됨 
 		
-		String user_id = memberVO.getUser_id();
-		articleMap.put("user_id", user_id);
+		articleMap.put("user_id", cus.getUsername());
 		articleMap.put("imageFileName", imageFileName);
+		
 		String post_num = (String)articleMap.get("post_num");
+		System.out.println("아티클맵에 뭐가 담겼나 araticleMap-------------->" + articleMap );
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -174,19 +184,19 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 			}
 			message = "<script>";
 			message += " alert('글을 수정했습니다.');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/board/viewArticle.do?post_num="
+			message += " location.href='" + multipartRequest.getContextPath() + "/H/H_P001/viewArticle.page?post_num="
 					+ post_num + "';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			System.out.println("여기는 오냐?");
-			System.out.println("ArticlesMap" + articleMap + "111111111111");
+			System.out.println("ArticlesMap에 담긴 것--------------------->" + articleMap);
 			
 		} catch (Exception e) {
 			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 			srcFile.delete();
 			message = "<script>";
 			message += " alert('오류가 발생했습니다.다시 수정해주세요');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/board/viewArticle.do?post_num="
+			message += " location.href='" + multipartRequest.getContextPath() + "/board/viewArticle.page?post_num="
 					+ post_num + "';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -195,7 +205,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 	}
 
 	@Override
-	@RequestMapping(value = "**/removeArticle.user", method = RequestMethod.POST)										//글삭제하기
+	@RequestMapping(value = "H/H_P001/removeArticle.user", method = RequestMethod.POST)										//글삭제하기
 	@ResponseBody
 	public ResponseEntity removeArticle(@RequestParam("post_num") String post_num, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -206,19 +216,20 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			boardService.removeArticle(post_num);
+			System.out.println("삭제도 포스트넘이 문제인가---------->" + post_num);
 			File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + post_num);
 			FileUtils.deleteDirectory(destDir);
 
 			message = "<script>";
 			message += " alert('글을 삭제했습니다.');";
-			message += " location.href='" + request.getContextPath() + "/board/listArticles.do';";
+			message += " location.href='" + request.getContextPath() + "/H/H_P001/listArticles.page';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			message = "<script>";
 			message += " alert('작업중 오류가 발생했습니다.다시 시도해 주세요.');";
-			message += " location.href='" + request.getContextPath() + "/board/listArticles.do';";
+			message += " location.href='" + request.getContextPath() + "/H/H_P001/listArticles.page';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			e.printStackTrace();
@@ -226,7 +237,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		return resEnt;
 	}
 
-	@RequestMapping(value = "**/articleForm.user", method = RequestMethod.GET) //경로 절대경로로 바꾸기
+	@RequestMapping(value = "H/H_P001/articleForm.user", method = RequestMethod.GET) //경로 절대경로로 바꾸기
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//String viewName = (String) request.getAttribute("viewName");
 		String viewName = "/H_P001/articleForm.tiles";

@@ -9,6 +9,7 @@
 <c:set var="imageFileList"  value="${articleMap.imageFileList}"  />
 
 
+
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
@@ -28,7 +29,7 @@
    <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
    <script type="text/javascript" >
      function backToList(obj){								/* 뒤로가기 */
-	    obj.action="${contextPath}/yoonju/H/H_P001/listArticles.do";
+	    obj.action="${contextPath}/H/H_P001/listArticles.page";
 	    obj.submit();
      }
  
@@ -41,8 +42,8 @@
 		 document.getElementById("tr_btn").style.display="none";
 	 }
 	 
-	 function fn_modify_article(obj){						/* 수정하기 제출 */
-		 obj.action="${contextPath}/yoonju/H/H_P001/modArticle.do";
+ 	 function fn_modify_article(obj){						/* 수정하기 제출 */
+		 obj.action="${contextPath}/H/H_P001/modifyArticle.user";
 		 obj.submit();
 	 }
 	 
@@ -52,7 +53,7 @@
 		 form.setAttribute("action", url);
 	     var articleNOInput = document.createElement("input");
 	     articleNOInput.setAttribute("type","hidden");
-	     articleNOInput.setAttribute("name","psot_num");
+	     articleNOInput.setAttribute("name","post_num");
 	     articleNOInput.setAttribute("value", post_num);
 		 
 	     form.appendChild(articleNOInput);
@@ -84,6 +85,13 @@
 	         reader.readAsDataURL(input.files[0]);
 	     }
 	 }  
+/* 	 
+	  function modifyArticle(obj){
+		    obj.action="${contextPath}/H/H_P001/modArticle.user";
+		    obj.submit();
+		  } */
+	  
+	  
  </script>
 </head>
 <body>
@@ -95,7 +103,7 @@
    </td>
    <td >
     <input type="text"  value="${article2.post_num}"  disabled />
-    <input type="hidden" name="post_num" value="${article.post_num}"  />
+    <input type="hidden" name="post_num" value="${article2.post_num}"  />
    </td>
   </tr>
   <tr>
@@ -170,19 +178,19 @@
   </tr>
   <tr   id="tr_btn_modify"  align="center"  >
 	   <td colspan="2"   >
-	       <input type=button value="수정반영하기"   onClick="fn_modify_article(frmArticle)"  >
+	       <input type=button value="확인"   onClick="fn_modify_article(frmArticle)"  >
            <input type=button value="취소"  onClick="backToList(frmArticle)">
 	   </td>   
   </tr>
     
   <tr  id="tr_btn"    >
    <td colspan="2" align="center">
-       <c:if test="${member.user_id == article2.user_id }">
-	      <input type=button value="수정하기" onClick="fn_enable(this.form)">
-	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/yoonju/H/H_P001/removeArticle.do', ${article2.post_num})">
+       <c:if test="${pageContext.request.userPrincipal.name == article2.user_id }">
+	      <input type=button value="수정하기" onClick="fn_enable(this.form)" />
+	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/H/H_P001/removeArticle.user', ${article2.post_num})">
 	    </c:if>
 	    <input type=button value="리스트로 돌아가기"  onClick="backToList(this.form)">
-	     <input type=button value="답글쓰기"  onClick="fn_reply_form('${contextPath}/yoonju/H/H_P001/replyForm.do', ${article2.post_num})">
+	     <input type=button value="답글쓰기"  onClick="fn_reply_form('${contextPath}/H/H_P001/replyForm.do', ${article2.post_num})">
    </td>
   </tr>
  </table>

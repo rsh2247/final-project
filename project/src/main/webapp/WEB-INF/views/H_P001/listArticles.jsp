@@ -18,17 +18,7 @@
   <meta charset="UTF-8">
   <title>글목록창</title>
 </head>
-<!-- <script>
-	function fn_articleForm(list,articleForm,loginForm){
-	   if(list.user_id != '' && list.user_id != 'false'){
-	    location.href=articleForm;
-	  }else{
-	    alert("로그인 후 글쓰기가 가능합니다.")
-	    location.href=loginForm+'?action=/devFw/user/loginPage.do';
-	    
-	  }
-	}
-</script> -->
+
 	<h1>자유 게시판</h1>
 	<br>
 <body>
@@ -57,7 +47,7 @@ border-bottom: none; border-top: none; " >
 	<td width="10%">${article.user_id }</td>		<!-- 아이디겠지..? -->
 	<td align='left'  width="35%">
 	  <span style="padding-right:30px"></span>
- 		<a class='cls1' href="${contextPath}/viewArticle.page?post_num=${article.post_num}">${article.post_title}</a>
+ 		<a class='cls1' href="${contextPath}/H/H_P001/viewArticle.page?post_num=${article.post_num}">${article.post_title}</a>
 	  </td>
 	  <td  width="10%">${article.post_date}</td> 	<!-- 작성일이겠지..? -->
 	</tr>
@@ -66,7 +56,7 @@ border-bottom: none; border-top: none; " >
     </c:choose>
 </table>
 		<sec:authorize access="hasAnyRole('ROLE_USER')">
-			<a class="cls2" href="${contextPath}/H_P001/articleForm.page">글쓰기</a>
+			<a class="cls2" href="${contextPath}/H/H_P001/articleForm.user">글쓰기</a>
 		</sec:authorize>
 </body>
 </html>

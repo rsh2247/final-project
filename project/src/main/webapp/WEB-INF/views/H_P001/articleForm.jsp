@@ -25,7 +25,7 @@
       }
   }  
   function backToList(obj){
-    obj.action="${contextPath}/yoonju/H/H_P001/listArticles.do";
+    obj.action="${contextPath}/H/H_P001/listArticles.page";
     obj.submit();
   }
   
@@ -40,20 +40,13 @@
 </head>
 <body>
 <h1 style="text-align:center">글쓰기</h1>
-  <form name="articleForm" method="post"   action="${contextPath}/addNewArticle.page"   enctype="multipart/form-data">
+  <form name="articleForm" method="post"   action="${contextPath}/H/H_P001/addNewArticle.user"   enctype="multipart/form-data">
     <table border="0" align="center">
-      <tr>
+     <%--  <tr>
 					<td align="right"> 작성자</td>
-					<td colspan=2  align="left"><input type="text" size="20" maxlength="100" value="${pageContext.request.userPrincipal.name}" readonly/> </td>
-			</tr>
-<%-- 		<tr>	
-			<td><sec:authorize access="isAuthenticated()">
-                    <sec:authentication property="principal.user_nickname" var="user_nickname" />
-                    <div id="user_nickname">${user_nickname }</div>
-                </sec:authorize>
-            </td>   
-		</tr> --%>
-		
+					<td colspan=2  align="left"><input type="text" size="20" maxlength="100" value="${}" readonly/> </td>
+			</tr> --%>
+
 	     <tr>
 			   <td align="right">글제목: </td>
 			   <td colspan="2"><input type="text" size="67"  maxlength="500" name="post_title" /></td>
