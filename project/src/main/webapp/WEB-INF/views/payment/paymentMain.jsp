@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -14,61 +15,6 @@
 <link href="<c:url value="/resources/css/board.css" />" rel="stylesheet">
 <script src="<c:url value="/resources/js/payment.js" />"></script>
 
-<script>
-	
-/*             	
-            $(document).ready(function(){
-            	
-                $('#payId').click(function(){
-                    var data = $('input[name="trademethod"]:checked').val();
-                    if(data=="point"){
-                    //    $('#pay').attr("action","${contextPath}/payment/pointPay.do").submit();                  
-                        $('#pay').attr("action","${contextPath}/payment/pointPay.do").submit();                  
-                    }else if(data="kakao"){
-                    	
-                    	var url = "${contextPath}/kakaoPay";
-                    	var name = "pay";
-                    	var option = "width = 500, height = 500, top = 100, left = 100, location = no";
-                    	
-                       window.open("",pay,option);
-                       $('#pay').attr("target",pay);
-                       $('#pay').attr("action",url).submit();
-                        
-                    }
-                });
-                
-                var list, list2;
-                var p_id = "abcd";
-                var point_rest;
-                
-                $('#search').click(function(){
-                    	$.ajax({
-                     	url: "${contextPath}/searchPoint",
-                        type: "post",
-                        data: "p_id="+p_id,
-                        success: function(data, textStatus){
-        					list = data;
-        					console.log(list);
-        					console.log(list[0].point_rest);
-        					
-        					point_rest = $('#result').val(list[0].point_rest);
-        					
-        					
-                        },
-                        error: function(data, textStatus){
-                            alert("error");
-                        },
-                        complete:function(data, textSatus){  				
-                        }
-                    });    
-                });
-                
-                         
-            }); //end
-            
-             */
-            
-    </script>
 </head>
 <body>
 
@@ -106,8 +52,9 @@
 			</table>
 			
 			<p class="total_price" style="color: #cc0000;">
-				<span style="font-size: 8pt; position: relative; right: 170px;">*
-					이벤트 상품은 포인트 사용이 불가합니다.</span> <span>총 주문금액 : <em>${lectlist[0].lecture_tuition}원</em></span>
+				<span style="font-size: 8pt; position: inherit; right: 170px;">*
+					이벤트 상품은 포인트 사용이 불가합니다.</span> 
+				<span>총 주문금액 : <em>${lectlist[0].lecture_tuition}원</em></span>
 			</p>
 			<!-- // 주문내역 끝 -->
 			<!-- 할인/결제금액 -->
@@ -127,7 +74,7 @@
 							</li>
 							<li class="sale_price" id="sale_price_total"><em> </em>원
 							</li>
-							<li class="total_price" id="total_price_total"><em> </em>원
+							<li class="total_price" id="total_price_total"><em>${orderlist[0].order_price}</em>원
 							</li>
 						</ul>
 					</dd>
@@ -151,16 +98,17 @@
 							<th colspan="2" class="last">포인트</th>
 						</tr>
 						<tr>
-							<td class="title"><input type="hidden"
-								id="join_flag_19912304" value=""> <input type="hidden"
-								id="big_cart_19912304" value="7"> <input type="hidden"
-								id="middle_cart_19912304" value="321">
+							<td class="title">
+							<!-- 							
+								<input type="hidden"id="join_flag_19912304" value=""> 
+								<input type="hidden" id="big_cart_19912304" value="7"> 
+								<input type="hidden" id="middle_cart_19912304" value="321"> -->
 								${lectlist[0].lecture_name}</td>
 
 					 			<td colspan="2" id="pt${orderlist[0].order_id}"><input type="text" class="dispt" name="dispt" id="dispt${orderlist[0].order_id}"
 								onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false; "
 								style="ime-mode: disabled;" onkeyup="point_check(${orderlist[0].order_id});" />
-								<strong> P </strong><a href="javascript:point_apply(${orderlist[0].order_id});">적용</a>
+								<strong> P </strong><a href="javascript:point_apply(${orderlist[0].order_id});"><img src="./resources/img/button/apply.gif" alt="적용" /></a>
 							</td>
 					 
 					 
@@ -218,7 +166,7 @@
 							<h2>결제수단</h2>
 					<div class="orderWay">
 						<div class="waySelect">
-							<!-- <label><input type="radio" name="trademethod" value="point" /> 포인트 결제</label> --> 
+							<label><input type="radio" name="trademethod" value="point" /> 포인트 결제</label> 
 							<label><input type="radio" name="trademethod" value="kakao" /> 카카오 결제</label>
 						</div>
 						<ul class="orderEtc">
@@ -407,68 +355,25 @@
 				</p>
 
 				<p class="btn" id="paybtn">
+					<p class="btn" id="paybtn"><a href="javascript:trade_select(${orderlist[0].order_id});">
+					<img src="./resources/img/button/pay.gif" alt="결제하기"/></a>
+					<a href="javascript:history.go(-1);">
+					<img src="./resources/img/button/cancel02.gif" alt="취소"/></a></p>
 
-					<a href="javascript:trade_select(${orderlist[0].order_id});">결제하기</a> 
-					<a href="javascript:history.go(-1);">취소</a>
-				</p>
 			</div>
 		</div>
 	</div>
-	
+<!-- 	
 	<div id="layer_pop">
     	<div class="bg_mask"></div>
     	<div class="pop_cont">
-        	<!-- <iframe name="lgu" id="lgu" width="650" height="650" frameborder="0"></iframe> -->
+        	<iframe name="lgu" id="lgu" width="650" height="650" frameborder="0"></iframe>
         	<form name="viewForm" method="post"></form>
-    	</div><!-- // content -->
-	</div><!-- // lay_popup -->
-	
-	
+    	</div>
+	</div>
+ -->	
 	
 </div>
-	<!--  -->
-	<%-- 	<div class="payment_wrap2">		
-				<!-- 주문내역 -->
-				<form id = "order_amount" method="post" action="{contextPath}/order_amount">
-				<h2> 주문내역</h2>               
-                <table>
-					<tr>
-						<th scope="row">강의번호</th>
-						<td>${orderlist[0].lecture_id}</td>
-					</tr>
-					<tr>
-						<th scope="row">강의분야</th>
-						<td>${orderlist[0].lecture_category}</td>
-					</tr>
-						<tr>
-						<th scope="row">강의명</th>
-						<td>${orderlist[0].lecture_name}</td>
-					</tr>
-					<tr>
-						<th scope="row">강사아이디</th>
-						<td>${orderlist[0].user_id}</td>
-					</tr>
-					<tr>
-						<th scope="row">수강료</th>
-						<td>${orderlist[0].lecture_tuition}</td>
-					</tr>
-				</table>
-				</form>
-	
 
-        <h2> 결제 수단 선택</h2>
-        <form name="pay" id="pay" method="post">             
-                <div>
-                    <input type="radio" name="trademethod" id="op1" value="point" checked>
-                    <label for="point">포인트 결제</label>
-                    <input type="radio" name="trademethod" id="op2"  value="kakao">
-                    <label for="kakao">카카오 결제</label>
-                </div>
-                <div>
-                    <button type="button" name="button" id="payId">결제하기</button>
-                    <!-- <button onclick="select()">결제하기</button> -->
-                </div>
-        </form>         
-	</div> --%>
 </body>
 </html>
