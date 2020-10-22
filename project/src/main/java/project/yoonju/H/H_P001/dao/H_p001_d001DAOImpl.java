@@ -1,6 +1,7 @@
 package project.yoonju.H.H_P001.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,5 +73,21 @@ public class H_p001_d001DAOImpl implements H_p001_d001DAO {
 	private String selectNewImageFileNO() throws DataAccessException {
 		return sqlSession.selectOne("yoonju.H.H_P001.H_p001_d001DAO.selectNewImageFileNO");
 	}
-
+	
+	@Override
+	public int count() throws Exception{
+		return sqlSession.selectOne("yoonju.H.H_P001.H_p001_d001DAO.count");
+	}
+	
+	public List listPage(int displayPost, int postnum) throws DataAccessException{
+		HashMap data = new HashMap();
+		System.out.println("디스플레이포스트는?--------------->" + displayPost);
+		System.out.println("포스트넘은?------------------>" + postnum);
+		data.put("displayPost", displayPost);
+		data.put("postnum", postnum);
+		
+		return sqlSession.selectList("yoonju.H.H_P001.H_p001_d001DAO.listPage", data);
+	}
+	
+	
 }

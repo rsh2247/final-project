@@ -20,16 +20,43 @@
 	  <result property="post_num" column="post_num" />
 	  <result property="imageFileName" column="imageFileName" />
  </resultMap>
+ 
+ 
+<select id="count" resultType="int">	<!-- 게시물 총 갯수 -->
+ 	<![CDATA[
+ 		SELECT count(post_date) 
+ 		FROM post
+ 	]]>
+</select>
 
-  <select id="selectAllArticlesList" resultMap="articlesResult"   >		<!-- 글목록 보기 -->
+
+  <select id = "listPage" parameterType = "hashMap" resultMap = "articlesResult" >
+			<![CDATA[				
+				SELECT post_num, post_parent, post_title, post_content, post_date, imageFileName, user_id, board_num
+ 				FROM (
+       						 SELECT post_num, post_parent, post_title, post_content, post_date, imageFileName, user_id, board_num,
+            				 ROW_NUMBER() OVER(ORDER BY post_date desc) AS rNum
+      						 FROM POST
+       					 ) mb
+  				WHERE rNum BETWEEN #{displayPost} AND #{postnum}
+      			ORDER BY post_date desc
+			]]>
+  </select>
+  
+  <select id="selectAllArticlesList" resultType="articleVO"   >		<!-- 글목록 보기 -->
     <![CDATA[
-      SELECT post_num, post_parent, post_title, post_content, post_date, imageFileName, user_id, board_num
-      FROM post
-      ORDER BY post_date desc
+      SELECT *
+      FROM (
+      	SELECT post_num, post_parent, post_title, post_content, post_date, imageFileName, user_id, board_num
+      	FROM post
+      	ORDER BY post_date desc
+      	)
+      WHERE ROWNUM <= 10
     ]]>
   </select>
   
-	<!--단일이미지 추가  -->
+
+
 	 
   <insert id="insertNewArticle"  parameterType="java.util.Map">					<!-- SQL에 글추가 -->
 		<![CDATA[
@@ -52,7 +79,7 @@
     ]]>
   </select>
   
-  <update id="updateArticle"  parameterType="java.util.Map">
+  <update id="updateArticle"  parameterType="java.util.Map">					<!-- 수정된 글 추가 -->
 			update post
 			set post_title=#{post_title},	 
 				post_content=#{post_content}
@@ -62,7 +89,7 @@
 			where post_num=#{post_num}
 	</update>
 	
-	<delete id="deleteArticle"  parameterType="String"> <!-- 여기 인트를 스트링으로 바꿈 -->
+	<delete id="deleteArticle"  parameterType="String"> <!-- 여기 인트를 스트링으로 바꿈 -->	<!-- 글삭제 -->
     <![CDATA[
       delete from post
       where post_num in (

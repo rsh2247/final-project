@@ -17,4 +17,6 @@ public interface H_p001_d001Service {
 	//private String loginCheck(String user_id) throws Exception;
 	public void modArticle(Map articleMap) throws Exception;
 	public void removeArticle(String post_num) throws Exception;
+	public int count() throws Exception;
+	public List listPage(int displayPost, int postnum) throws Exception;
 }

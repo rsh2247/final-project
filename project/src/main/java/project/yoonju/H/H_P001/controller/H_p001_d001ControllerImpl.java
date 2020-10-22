@@ -69,6 +69,65 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 
 	}
 
+	@Override
+	@RequestMapping(value = "H/H_P001/listPage.page", method = {RequestMethod.GET, RequestMethod.POST})					//게시물목록 + 페이징추가
+	public ModelAndView listPage(@RequestParam("num") int num, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		int count = boardService.count();	//전체 게시물 갯수
+		int postnum = 10 * num;	//한 페이지에서 출력할 게시물 갯수	
+		int pagenumList = (int)Math.ceil((double)count/10);	//하단 페이징 번호
+		int displayPost = (num - 1) * 10;	// 출력할 게시물
+		int pageNum_cnt = 10; //한번에 출력할 페이지 갯수		
+
+		//표시되는 페이지 번호 중 마지막 번호 1차 계산
+		int endPageNum = (int)(Math.ceil((double)num) / (double)pageNum_cnt) * pageNum_cnt; // 
+		
+		//표시되는 페이지 번호 중 첫번째 번호
+		int startPageNum = endPageNum - (pageNum_cnt-1);  
+		
+		// 마지막 번호 재계산
+		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNum_cnt));
+		
+		if(endPageNum > endPageNum_tmp) {	
+			endPageNum = endPageNum_tmp;
+		}
+		
+		boolean prev = startPageNum == 1 ? true:false; 
+		boolean next = endPageNum * pageNum_cnt >= count ? true:false;
+
+		
+		if(startPageNum < 0 ) {
+			startPageNum = 1;
+		}							//내가 따로 만든 코드
+		
+		String viewName = "/H_P001/listPage.tiles";
+		System.out.println("뷰네임-------------" + viewName);
+		List articlesList = boardService.listPage(displayPost, postnum);
+		
+		System.out.println("CON===============>>" + articlesList.size());
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("articlesList", articlesList);
+		mav.addObject("pagenum", pagenumList);
+		System.out.println("articlesList는" + articlesList);
+		
+		mav.addObject("startPageNum", startPageNum);
+		mav.addObject("endPageNum", endPageNum);
+		mav.addObject("endPageNum_tmp", endPageNum_tmp);
+		mav.addObject("prev", prev);
+		mav.addObject("next", next);
+		mav.addObject("select", num);
+		
+		System.out.println("endPageNum은?" + endPageNum);		
+		System.out.println("startPageNum은?" + startPageNum);
+		System.out.println("endPageNum_tmp는?" + endPageNum_tmp);
+		System.out.println("pagenumList는?" + pagenumList);
+		System.out.println("count는?" + count);		
+		System.out.println("prev는??" + prev);
+		System.out.println("next는?" + next);
+		
+		return mav;
+	}
+	
 
 	@Override
 	@RequestMapping(value = "H/H_P001/addNewArticle.user", method = RequestMethod.POST)										//글쓰기

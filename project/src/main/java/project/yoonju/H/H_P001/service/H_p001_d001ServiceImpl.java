@@ -45,13 +45,17 @@ public class H_p001_d001ServiceImpl  implements H_p001_d001Service{
 		return articleVO;
 	}
 	
-/*	@Override
-	private String loginCheck(String user_id) throws Exception{
-		H_p001_d001VO articleVO = 
-		
-		return 
+	@Override
+	public int count() throws Exception{
+		return boardDAO.count();
 	}
-*/	
+	
+	@Override
+	public List listPage(int displayPost, int postnum) throws Exception {
+		return boardDAO.listPage(displayPost, postnum);
+	}
+	
+	
 	
 	@Override
 	public void modArticle(Map articleMap) throws Exception {

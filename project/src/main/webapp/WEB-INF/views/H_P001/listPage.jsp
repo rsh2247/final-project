@@ -55,9 +55,39 @@ border-bottom: none; border-top: none; " >
      </c:when>
     </c:choose>
 </table>
-<br>
-	<a href="${contextPath}/H/H_P001/listPage.page?num=1">글목록</a>
-<br>
+	<div>
+ 	<c:if test="${prev}">
+		<span>
+		[<a href = "${contextPath}/H/H_P001/listPage?=num${startPageNum -1}">이전]</a>
+		</span>
+	</c:if>
+	
+	<c:forEach begin ="${startPageNum}" end="${endPageNum_tmp}" var = "num"> 
+		<span>		
+ 			<c:if test="${select != num}">	<!-- 그 외 다른 게시물이면 하이퍼링크로 다른 페이지 접근 가능하도록 -->
+		  		<a href="${contextPath}/H/H_P001/listPage.page?num=${num}">${num}</a>
+		  		
+		  	</c:if>
+		  	<c:if test="${select == num}"> <!-- 셀렉된 페이지만 굵은 글씨로 나오게 -->
+		  		<b>${num}</b>
+		  	</c:if>
+		</span>
+	</c:forEach>
+	
+	<c:if test="${next}">
+		<span>
+			[<a href = "${contextPath}/H/H_P001/listPage.page?=num${endPageNum +1}">다음]</a>
+		</span>
+	</c:if>
+	</div>
+<%-- 	<div>
+		<c:forEach begin = "1" end = "${pagenum}" var = "num">
+		<span>
+			<a href="${contextPath}/H/H_P001/listPage.page?num=${num}">${num}</a>
+		</span>
+		</c:forEach>
+	</div> --%>
+
 		<sec:authorize access="hasAnyRole('ROLE_USER')">
 			<a class="cls2" href="${contextPath}/H/H_P001/articleForm.user">글쓰기</a>
 		</sec:authorize>
