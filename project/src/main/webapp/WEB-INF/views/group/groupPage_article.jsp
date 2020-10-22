@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 }
 
 #innerbox {
-	width: 800px;
+	width: inherit;
 	padding: 20px 25px 20px 25px;
 	text-align: left;
 }
@@ -23,8 +24,18 @@
 	font-size: xx-large;
 	padding: 5px 0 5px 10px;
 }
-#maincontent{
+
+#maincontent {
 	padding: 15px 0 5px 10px;
+	min-height: 300px;
+}
+
+#replybox {
+	margin: 30px 0 0 0;
+}
+.re_bottom{
+	margin: 15px 0 10px;
+	border-bottom: 1px solid #eee;	
 }
 </style>
 </head>
@@ -35,7 +46,9 @@
 				<div id="innerbox">
 					<div id="namebox">${post.POST_TITLE}</div>
 					<div id="maincontent">${post.POST_CONTENT}</div>
-					<div id="replybox"></div>
+					<div style="border-bottom: 1px solid #eee; margin: 10px 0 10px;"></div>
+					<div id="replybox">
+						<jsp:include page="../article/reply.jsp" /></div>
 				</div>
 			</div>
 		</div>

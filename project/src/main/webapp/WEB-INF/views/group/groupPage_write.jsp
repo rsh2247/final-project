@@ -64,6 +64,8 @@
 	position: absolute;
 	display: none;
 	background-color: #fff;
+	position: relative;
+    z-index: 1;
 }
 
 #titlebox{
@@ -85,9 +87,14 @@
 	height: 40px;
 	text-align: left;
 	padding-left: 10px;
+	border: 1px solid #ccc;
+	background-color: #fff;
 	cursor: pointer;
+	transition: all 400ms;
 }
-
+.listbtn:hover{
+	background-color: #ccc;
+}
 .btn{
 	width: 90px;
 	height: 30px;

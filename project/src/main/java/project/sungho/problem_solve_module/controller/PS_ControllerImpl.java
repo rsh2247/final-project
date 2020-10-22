@@ -173,7 +173,6 @@ public class PS_ControllerImpl implements PS_Controller {
 	//문제 데이터 insert
 	@RequestMapping(value = "**/makePro002.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView makePro002(@RequestParam HashMap<String, String> paramMap) throws Exception {
-		
 		String tag = paramMap.get("tag");
 		paramMap.put("tag_id", tag.split("/")[0]);
 		paramMap.put("tag_name", tag.split("/")[1]);

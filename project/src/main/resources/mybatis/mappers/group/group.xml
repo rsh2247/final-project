@@ -8,34 +8,27 @@
 	</resultMap>
 
 	<insert id="insertGroup" parameterType="java.util.Map">
-		<selectKey resultType="string" keyProperty="group_num"
+		<selectKey resultType="int" keyProperty="group_num"
 			order="BEFORE">
-			SELECT CASE WHEN MAX(GROUP_NUM)+1 IS NOT NULL THEN
+			SELECT CASE WHEN TO_NUMBER(MAX(GROUP_NUM))+1 IS NOT NULL THEN
 			MAX(GROUP_NUM)+1
 			ELSE 1
-			end as group_num
+			end 
 			FROM group_table
 		</selectKey>
 		INSERT INTO group_table(group_num, group_name, group_leader,
 		group_category, group_date, group_desc, group_joinmanner)
 		VALUES
-		(#{group_num} , #{group_name}, #{user_id}, #{group_category}, sysdate,
+		(#{group_num}, #{group_name}, #{user_id}, #{group_category}, sysdate,
 		#{group_desc}, #{manner})
 	</insert>
 
 	<insert id="insertMember">
 		INSERT INTO join_group_list(group_num, user_id,
 		g_list_state, g_list_candidate, g_list_joindate)
-		VALUES(#{group_num},
-		#{user_id}, #{g_list_state}, sysdate, sysdate)
+		VALUES(#{group_num}, #{user_id}, #{g_list_state}, sysdate, sysdate)
 
 	</insert>
-
-	<select id="selectMaxGroupNum" resultMap="result"
-		parameterType="java.util.Map">
-		SELECT max(group_num) group_num
-		FROM group_table
-	</select>
 
 	<select id="selectUserGroup" resultMap="result"
 		parameterType="java.util.Map">
@@ -71,6 +64,16 @@
 		<where>
 			group_num = #{group_num}
 		</where>
+	</select>
+
+	<select id="selectMyGroup" resultMap="result" parameterType="java.util.Map">
+		SELECT t.GROUP_NUM,GROUP_NAME,GROUP_LEADER,GROUP_CATEGORY,GROUP_DATE,GROUP_DESC,
+		(select count(l.user_id)
+		from join_group_list l
+		WHERE l.group_num =
+		t.group_num) MEMBER_COUNT 
+		from group_table t, join_group_list j
+        WHERE t.group_num = j.group_num and j.user_id = #{user_id}
 	</select>
 
 	<select id="checkMemberState" resultMap="result" parameterType="java.util.Map">

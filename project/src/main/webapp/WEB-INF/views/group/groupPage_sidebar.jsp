@@ -36,7 +36,7 @@
 }
 #profile {
 	width: 100%;
-	height: 70px;
+	height: 100px;
 	border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee;
 	padding: 15px 0 15px 0;

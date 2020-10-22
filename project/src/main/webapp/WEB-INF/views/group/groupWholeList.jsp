@@ -18,7 +18,7 @@
 }
 
 #groupTable {
-	width: 1000px;
+	width: inherit;
 	margin: 20px auto 0 auto;
 	border-collapse: collapse;
 	position: absolute;

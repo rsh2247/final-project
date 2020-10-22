@@ -98,27 +98,28 @@
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
+	var list = [];
     $(document).ready(function() 
 	    {
 			$('html').click(function(e) {
 					    if (e.target.className != 'selectboard'
 						    && e.target.className != 'selectedboard') {
-						$('.selectedboard').attr(
-							'class', 'selectboard');
+						$('.selectedboard').attr('class', 'selectboard');
+					    list = [];
 					    }
 					});
 			$('#add').click(function() {
 			    		var name = $('#nameinput').val();
-					    var newlist = '<tr><td><label class="selectboard" onclick="select(this)">'+name+'</label></td></tr>'
-					    $('#boardList').append(newlist);
-					    var map = JSON.stringify({"name":name,"group_num":"a"});
+					    var map = JSON.stringify({"board_name":name,"group_num":"${result.GROUP_NUM}"});
 					    $.ajax({
 						type : "post",
 						url : "add.user",
+						async: false,
 						data : "input=" + map,
 						success : function(data, textStatus) {
-							list = data;
-							console.log(data);
+						    var newlist = '<tr><td><button type="button" value="'+data.BOARD_NUM+'" class="selectboard" onclick="select(this)">'+name+'</button></td></tr>'
+						    $('#boardList').append(newlist);
+						    alert('추가 완료.');
 						},
 						error : function(data, textSatus) {
 							alert("에러가 발생");
@@ -130,15 +131,38 @@
 
 			$('#del').click(function() {
 			    $('.selectedboard').parent().remove();
+			    $.ajax({
+				type : "post",
+				url : "delete.user",
+				traditional : true,
+				async: false,
+				data : {'data':list},
+				success : function(data, textStatus) {
+				    alert('삭제 완료.');
+				},
+				error : function(data, textSatus) {
+					alert("에러가 발생");
+				},
+				complete : function(data, textSatus) {
+				}
+			});
 			})
-			
 			
 		    })
     function select(e) {
 	if ($(e).attr('class') == 'selectboard') {
 	    $(e).attr('class', 'selectedboard');
+	    list.push($(e).val())
+	    console.log(list);
 	} else {
 	    $(e).attr('class', 'selectboard');
+	    for(var i=0; i<list.length; i++){
+			if(list[i] == $(e).val()){
+			    list.splice(i,1);
+			    console.log(list);
+			    return;
+			}
+	    }
 	}
     }
 </script>
@@ -180,7 +204,7 @@
 							<c:set var="i" value="1" />
 							<c:forEach var="list" items="${boardList}">
 								<tr>
-									<td><input type="hidden" value="${list.BOARD_NUM}" id="list${i}value" disabled="disabled"><label class="selectboard" id="list${i}" onclick="select(this)">${list.BOARD_NAME}</label></td>
+									<td><button type="button" class="selectboard" id="list${i}" value="${list.BOARD_NUM}" onclick="select(this)">${list.BOARD_NAME}</button></td>
 								</tr>
 								<c:set var="i" value="${i+1}" />
 							</c:forEach>

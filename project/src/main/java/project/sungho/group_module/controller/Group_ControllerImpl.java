@@ -1,5 +1,6 @@
 package project.sungho.group_module.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,10 +8,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.TypeBase;
+import org.codehaus.jackson.type.JavaType;
+import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,7 +58,12 @@ public class Group_ControllerImpl {
 		ModelAndView mav = new ModelAndView("group/groupWholeList.tiles");
 		return mav;
 	}
-	
+	@RequestMapping(value = "group/mygroup.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mygroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("group/groupMyList.tiles");
+		mav.addObject("list", group_Service.selectMyGroup());
+		return mav;
+	}
 	@ResponseBody
 	@RequestMapping(value = "**/ajaxGroupSelect.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public Map<String, Object> groupAjax(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -73,6 +84,7 @@ public class Group_ControllerImpl {
 			mav.setViewName("group/groupPage_board.tiles");
 		}else if(paramMap.containsKey("post_num")) {
 			mav.addObject("post", post_Service.selectOneArticle(paramMap));
+			mav.addObject("reply", post_Service.selectReplyList(paramMap));
 			mav.setViewName("group/groupPage_article.tiles");
 		} else {
 			mav.addObject("postList", post_Service.selectArticleByGroup(paramMap));
@@ -129,10 +141,19 @@ public class Group_ControllerImpl {
 	@ResponseBody
 	@RequestMapping(value = "cafe/add.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public Map<String, Object> addGroupBoard(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String,Object> inputMap = (new ObjectMapper()).readValue(request.getParameter("input"), new TypeReference<Map<String,String>>(){});
+		return post_Service.insertBoard(inputMap);
+	}
+	@ResponseBody
+	@RequestMapping(value = "cafe/delete.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public void delGroupBoard(String[] data ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		post_Service.deleteBoardList(data);
+	}
+	@ResponseBody
+	@RequestMapping(value = "cafe/replyInsert.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public Map<String, Object> insertReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println(request.getParameter("input"));
-		Map<String,Object> map = new HashMap<String, Object>();
-		
-		map.put("test", "test");
-		return map;
+		Map<String,Object> inputMap = (new ObjectMapper()).readValue(request.getParameter("input"), new TypeReference<Map<String,String>>(){});
+		return post_Service.insertReply(inputMap);
 	}
 }

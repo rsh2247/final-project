@@ -25,7 +25,7 @@
 </script>
 <style type="text/css">
 .container {
-	height: 75px;
+	height: 80px;
 	padding: 0 15px 0 15px;
 	border-bottom: 2px solid #eee;
 }
@@ -114,7 +114,7 @@
 .one>li {
 	float: left;
 	position: relative;
-	height: 30px;
+	height: 35px;
 	width: 120px;
 	border-bottom: 2px solid #eee;
 	z-index: 1;
@@ -137,7 +137,7 @@
 .two {
 	position: absolute;
 	left: 0px;
-	top: 32px;
+	top: 35px;
 	box-shadow: -5px 5px 8px -5px rgba(0, 0, 0, 0.15), 5px 5px 8px -5px rgba(0, 0, 0, 0.15);;
 }
 
@@ -209,10 +209,9 @@ h3 {
 			<sec:authorize access="hasAnyRole('ROLE_USER')">
 				<div id='loginbar'>
 					<form id="logoutForm" action="/logout.logout" method="post">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<p class="login">
-							<a href="userPage_col.user"><sec:authentication
+							<a href="${contextPath}/userPage_col.user"><sec:authentication
 									property="principal.username" /></a> | <a
 								href="${contextPath}/logout">로그아웃</a>
 						</p>

@@ -15,7 +15,7 @@
 }
 
 #contentbox {
-	width: 1000px;
+	width: 1100px;
 	margin: 50px auto 0 auto;
 }
 
@@ -50,7 +50,7 @@
 	<div id="index">
 		<button class="btn" onclick="location.href='groupmain'">전체 그룹</button>
 		<button class="btn" onclick="location.href='groupmaking.user'">그룹 만들기</button>
-		<button class="btn">내 그룹</button>
+		<button class="btn" onclick="location.href='mygroup.user'">내 그룹</button>
 	</div>
 </body>
 </html>

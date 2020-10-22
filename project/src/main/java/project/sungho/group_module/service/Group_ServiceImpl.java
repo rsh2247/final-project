@@ -22,7 +22,6 @@ public class Group_ServiceImpl implements Group_Service {
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		inputMap.put("user_id", user.getUsername());
 		sqlSession.update("group.insertGroup", inputMap);
-		inputMap.putAll(sqlSession.selectOne("selectMaxGroupNum"));
 		sqlSession.update("group.insertMember", inputMap);
 	}
 	
@@ -36,7 +35,16 @@ public class Group_ServiceImpl implements Group_Service {
 		List<Map<String, Object>> list = sqlSession.selectList("group.selectWholeGroup");
 		return list;
 	}
-	
+	public List<Map<String, Object>> selectMyGroup(){
+		String userId = "anonymousUser";
+		if(!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+			userId = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		}
+		Map<String,Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("user_id", userId);
+		List<Map<String, Object>> list = sqlSession.selectList("group.selectMyGroup",inputMap);
+		return list;
+	}
 	public Map<String, Object> selectOneGroup(Map<String, Object> inputMap) {
 		Map<String, Object> map = sqlSession.selectOne("group.selectOneGroup", inputMap);
 		return map;
@@ -50,7 +58,6 @@ public class Group_ServiceImpl implements Group_Service {
 		inputMap.put("user_id", userId);
 		sqlSession.update("group.insertMember", inputMap);
 	}
-	
 	
 	public Map<String,Object> checkMemberState(Map<String,Object> inputMap) {
 		String userId = "anonymousUser";
@@ -73,7 +80,6 @@ public class Group_ServiceImpl implements Group_Service {
 	
 	public void insertArticle(Map<String,Object> inputMap) {
 		inputMap.put("user_id", ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
-		System.out.println(inputMap);
 		sqlSession.update("article.insertArticle", inputMap);
 	}
 	

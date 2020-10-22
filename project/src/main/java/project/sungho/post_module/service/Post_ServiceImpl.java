@@ -30,11 +30,29 @@ public class Post_ServiceImpl implements Post_Service {
 	public Map<String, Object> selectBoardName(Map<String,Object> inputMap) {
 		return sqlSession.selectOne("article.selectBoardName", inputMap);
 	}
-	public void insertBoard(Map<String,Object> inputMap) {
-		Iterator<String> keys = inputMap.keySet().iterator();
-		while(keys.hasNext()) {
-			String key = keys.next();
-			System.out.println(key);
+	public List<Map<String, Object>> selectReplyList(Map<String,Object> inputMap) {
+		return sqlSession.selectList("article.selectReply", inputMap);
+	}
+	public Map<String, Object> insertReply(Map<String,Object> inputMap) {
+		String userId = "anonymousUser";
+		if(!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+			userId = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		}
+		inputMap.put("user_id", userId);
+		System.out.println(inputMap);
+		sqlSession.update("article.insertReply", inputMap);
+		return inputMap;
+	}
+	public Map<String, Object> insertBoard(Map<String,Object> inputMap) {
+		sqlSession.update("article.insertBoard", inputMap);
+		return inputMap;
+	}
+	public void deleteBoardList(String[] input) {
+		Map<String,Object> inputMap = new HashMap<String, Object>();
+		for(String data : input) {
+			inputMap.put("board_num", data);
+			sqlSession.update("article.deleteBoard",inputMap);
+			inputMap.remove("board_num");
 		}
 	}
 }
