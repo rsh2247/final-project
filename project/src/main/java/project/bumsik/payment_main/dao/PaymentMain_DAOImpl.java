@@ -14,38 +14,51 @@ import project.bumsik.payment_main.vo.Lecture_VO;
 public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 	@Autowired
 	private SqlSession sqlSession;
-	private static String namespace = "payment.lect";
-	private static String namespace2 = "payment.order";
+//	private static String namespace = "payment.lect";
+	private static String namespace = "payment.order";
 	
 	@Override
-	public List<Map<String, Object>> order_amount(Map<String, Object> lectMap) throws DataAccessException {
-		List<Map<String, Object>> list = sqlSession.selectList(namespace+".order_amount",lectMap);
+	public List<Map<String, Object>> order_lecture(Map<String, Object> lectMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList(namespace+".order_lecture",lectMap);
 		return list;
 	}
 	
-
+	//강의 최초 선택시 
 	@Override
 	public void insertOrderInfo1(Map<String, Object> orderMap) throws DataAccessException {
-		sqlSession.selectList(namespace2+".insertOrder1",orderMap);
+		sqlSession.selectList(namespace+".insertOrder1",orderMap);
 	}
+	//포인트 사용 정보 담아 insert
 	@Override
 	public void insertOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
-		sqlSession.selectList(namespace2+".insertOrder2",orderMap);
+		sqlSession.selectList(namespace+".insertOrder2",orderMap);
 	}
 	@Override
 	public List<Map<String, Object>> searchOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
-		List<Map<String, Object>> list = sqlSession.selectList(namespace2+".searchOrder",orderMap);
+		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchOrder",orderMap);
 		return list;
 	}
 	@Override
 	public void updateOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
-		sqlSession.selectList(namespace2+".updateOrder",orderMap);
+		sqlSession.selectList(namespace+".updateOrder",orderMap);
 		
 	}
 	
+	//강의명 추가
+	@Override
+	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchOrder2",orderMap);
+		return list;
+	}
+	//order join point
+	@Override
+	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList(namespace+".serarchOrderPoint",orderMap);
+		return list;
+	}
 	
 	public int seq_order_id() throws DataAccessException{
-		int order_key =  sqlSession.selectOne(namespace2+".seq_order");
+		int order_key =  sqlSession.selectOne(namespace+".seq_order");
 		return order_key;
 	}
 

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
@@ -7,18 +7,38 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+* {
+	list-style: none;
+}
+
+#contentbox {
+	height: 1200px;
+	margin-top: 30px;
+}
+
 #leftmenu {
 	width: 200px;
 	height: 100%;
 	float: left;
-	background-color: #eee;
+	background-color: #fff;
 }
 
+#mainbox {
+	width: 850px;
+	height: 100%;
+	margin-left: 25px;
+	float: left;
+}
+#profiletop{
+	width: 100%;
+	height: 30px;
+	border-top: 2px solid #555;
+}
 #profile {
 	width: 100%;
-	height: 70px;
-	border-top: 1px solid #fff;
-	border-bottom: 1px solid #fff;
+	height: 100px;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
 	padding: 15px 0 15px 0;
 }
 
@@ -60,32 +80,51 @@
 	text-align: left;
 	padding: 10px 0 10px 15px;
 }
-.btn{
+
+.linkbtn {
+	background-color: transparent;
+	border: none;
+	font-size: medium;
+	font-family: Inter, "Noto Sans KR", "Noto Sans JP", "Malgun Gothic", "맑은 고딕", sans-serif;
+	cursor: pointer;
+}
+
+.linkbtn:hover {
+	text-decoration: underline;
+}
+
+.btn {
 	width: 100%;
 	height: 40px;
 	border: 1px solid #aaa;
 	cursor: pointer;
 }
-.btn:hover{
+
+.btn:hover {
+	
 }
+
 #writebtn {
 	margin: 15px auto 15px auto;
 	display: inline-block;
 	position: relative;
 }
-#managebtn{
+
+#managebtn {
 	margin: 0 0 15px 0;
 }
 </style>
 </head>
 <body>
 	<div id="leftmenu">
-		카페정보 내정보
+	<div id="profiletop">카페정보 내정보</div>
 		<div id="profile">
 			<div id="profileImage"></div>
 			<ul>
-				<li>카페장 이름</li>
-				<li>카페 개설일</li>
+				<li>매니저 ${result.GROUP_LEADER}</li>
+				<li>since
+					<h6>${result.GROUP_DATE}</h6>
+				</li>
 			</ul>
 		</div>
 		<div id="cafeinfo">
@@ -95,20 +134,28 @@
 				<li>기타</li>
 				<li>등등</li>
 			</ul>
-			<button id="writebtn" class="btn">카페 글쓰기</button>
+			<form action="write.user" method="post">
+				<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+				<button id="writebtn" class="btn">카페 글쓰기</button>
+			</form>
 			<sec:authorize access="hasAnyRole('ROLE_USER')">
 				<c:if test="${result.STATE eq 'manager'}">
-					<button id="managebtn" class="btn">게시판 관리</button>
+					<form action="managing.user" method="post">
+						<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+						<button id="managebtn" class="btn">게시판 관리</button>
+					</form>
 				</c:if>
 			</sec:authorize>
 		</div>
-		<div id="boardlist1">전체 게시글</div>
+		<div id="boardlist1"><form action="${result.GROUP_NUM}"><button class="linkbtn">전체게시판</button></form></div>
 		<div id="boardlist2">
 			<ul style="margin: 10px 0 10px 0; padding-left: 15px;">
-				<li>대충 게시판 1</li>
-				<li>대충 게시판 2</li>
-				<li>대충 게시판 3</li>
-				<li>대충 게시판 4</li>
+				<c:forEach var="list" items="${boardList}">
+					<li><form action="board.user" method="post">
+							<button class="linkbtn">${list.BOARD_NAME}</button>
+							<input type="hidden" name="board_num" value="${list.BOARD_NUM}"> <input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+						</form></li>
+				</c:forEach>
 			</ul>
 		</div>
 		<div id="replylist">

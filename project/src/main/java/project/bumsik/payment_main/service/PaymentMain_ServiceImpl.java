@@ -19,19 +19,21 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	@Autowired
 	private PaymentPoint_DAO paymentPoint_DAO;
 	
+	//강의정보
 	@Override
-	public List<Map<String, Object>> order_amount(Map<String, Object> lectMap) throws DataAccessException {
-		List<Map<String, Object>> list = paymentMain_DAO.order_amount(lectMap);
+	public List<Map<String, Object>> order_lecture(Map<String, Object> lectMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentMain_DAO.order_lecture(lectMap);
 		return list;
 	}
-
+	
+	//포인트 정보
 	@Override
 	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException {
 		List<Map<String, Object>> list = paymentPoint_DAO.searchList(searchMap);
 		return list;
 	}
 	
-		
+	//주문정보	
 	@Override
 	public void insertOrderInfo1(Map<String, Object> orderMap) throws DataAccessException {
 		paymentMain_DAO.insertOrderInfo1(orderMap);
@@ -40,20 +42,35 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	public void insertOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
 		paymentMain_DAO.insertOrderInfo2(orderMap);
 	}
+	
 	@Override
 	public List<Map<String, Object>> searchOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
 		List<Map<String, Object>> list = paymentMain_DAO.searchOrderInfo(orderMap);
 		return list;
 	}
+	
 	@Override
 	public void updateOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
 		paymentMain_DAO.updateOrderInfo(orderMap);	
 	}
-
+	
+	//교육명 추가	
+	@Override
+	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentMain_DAO.searchOrderInfo2(orderMap);
+		return list;
+	}
+	
 	
 	public int seq_order_id() throws DataAccessException{
 		int order_key =  paymentMain_DAO.seq_order_id();
 		return order_key;
+	}
+
+	@Override
+	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException {
+		List<Map<String, Object>> list = paymentMain_DAO.serarchOrderPoint(orderMap);
+		return list;
 	}
 
 }

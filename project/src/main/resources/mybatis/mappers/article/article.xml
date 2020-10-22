@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="article">
+	<resultMap id="result" type="java.util.HashMap">
+	</resultMap>
+	
+	<insert id="insertArticle" parameterType="java.util.Map">
+		<selectKey resultType="string" keyProperty="post_num"
+			order="BEFORE">
+			SELECT CASE WHEN MAX(POST_NUM)+1 IS NOT NULL THEN MAX(POST_NUM)+1 
+			ELSE 1 
+			end as post_num 
+			FROM post
+		</selectKey>
+		INSERT INTO post(post_num,board_num,user_id,post_title,post_content,post_date) 
+		VALUES(#{post_num},#{board_num},#{user_id},#{post_title},#{post_content},SYSDATE)
+	</insert>
+	
+	<insert id="insertReply" parameterType="java.util.Map">
+		<selectKey resultType="string" keyProperty="post_num"
+			order="BEFORE">
+			SELECT CASE WHEN MAX(POST_NUM)+1 IS NOT NULL THEN MAX(POST_NUM)+1 
+			ELSE 1 
+			end as post_num 
+			FROM post
+		</selectKey>
+		INSERT INTO post(post_num,board_num,user_id,post_content,post_date,post_parent)
+		VALUES(#{post_num},0,#{user_id},#{post_content},SYSDATE,#{post_parent})
+	</insert>
+	
+	<insert id="insertBoard">
+		<selectKey resultType="string" keyProperty="board_num"
+			order="BEFORE">
+			SELECT CASE WHEN MAX(BOARD_NUM)+1 IS NOT NULL THEN MAX(BOARD_NUM)+1 
+			ELSE 1 
+			end as board_num 
+			FROM board
+		</selectKey>
+		INSERT INTO board(BOARD_NUM,BOARD_NAME,GROUP_NUM)
+		VALUES(#{board_num}, #{board_name}, #{group_num})
+	</insert>
+	<select id="selectMaxReplyNum" resultMap="result" parameterType="java.util.Map">
+		SELECT MAX(post_num) as post_num 
+		FROM post
+	</select>
+	
+	<select id="selectMaxBoardNum" resultMap="result" parameterType="java.util.Map">
+		SELECT MAX(board_num) as board_num 
+		FROM board
+	</select>
+	
+	<delete id="deleteBoard" parameterType="java.util.Map">
+		DELETE FROM board 
+		WHERE board_num = #{board_num}
+	</delete>
+	<select id="selectArticleByGroup" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, 
+		CASE 
+		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
+		ELSE to_char(post_date,'yyyy-mm-dd')
+		end as post_date 
+		FROM board b, post p 
+		]]>
+		<where>
+		b.board_num = p.board_num and group_num = #{group_num} 
+		</where>
+		order by post_num asc
+	</select>
+	
+	
+	<select id="selectArticleByBoard" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, 
+		CASE 
+		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
+		ELSE to_char(post_date,'yyyy-mm-dd')
+		end as post_date 
+		FROM post p, board b
+		]]>
+		<where>
+		b.board_num = #{board_num} and b.board_num = p.board_num
+		</where>
+		order by post_num asc
+	</select>
+	
+	<select id="selectBoardName" resultMap="result" parameterType="java.util.Map">
+		SELECT board_name
+		FROM board
+		WHERE board_num = #{board_num}
+	</select>
+	
+	<select id="selectArticle" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT rownum, post_num,p.board_num as board_num, board_name, user_id, post_title, post_content, post_category, 
+		CASE 
+		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
+		ELSE to_char(post_date,'yyyy-mm-dd')
+		end as post_date 
+		FROM post p, board b
+		]]>
+		<where>
+		b.board_num = p.board_num and post_num = #{post_num}
+		</where>
+	</select>
+	
+	<select id="selectReply" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT *
+		FROM post
+		]]>
+		<where>post_parent = #{post_num}</where>
+		order by post_date
+	</select>
+
+</mapper>

@@ -18,7 +18,7 @@
 }
 
 #groupTable {
-	width: 1000px;
+	width: inherit;
 	margin: 20px auto 0 auto;
 	border-collapse: collapse;
 	position: absolute;
@@ -54,7 +54,8 @@
 			$.ajax({
 				type : "post",
 				url : "ajaxGroupSelect.pro",
-				data : "num="+num,
+				async : false,
+				data : "group_num="+num,
 				success : function(data, textStatus) {
 					list = data;
 					$('#groupNum').val(data.GROUP_NUM);
@@ -76,9 +77,15 @@
 			}
 		})
 
-		$('').click(function() {
-			
+		$('#btn').click(function () {
+			location.href=getContextPath()+'/cafe/'+list.GROUP_NUM;
 		})
+		
+		function getContextPath() {
+			var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+			return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+		};
+		
 	})
 
 </script>

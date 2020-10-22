@@ -20,7 +20,10 @@
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/group/*.user"
 			access="hasRole('ROLE_USER')" />
-
+		<intercept-url pattern="/cafe/*.user"
+			access="hasRole('ROLE_USER')" />
+			<intercept-url pattern="/*.user"
+			access="hasRole('ROLE_USER')" />
 		<csrf disabled="true" />
 
 		<form-login login-page="/loginPage.login"

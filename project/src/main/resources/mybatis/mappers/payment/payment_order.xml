@@ -15,7 +15,25 @@
 		<result property="point_over" column="point_over" />
 	</resultMap>
 	
-	<!-- order sequence -->
+	<!-- 조인하여 강의명 받아오기 위해 -->
+	<resultMap id="payment_lectResult01" type="java.util.HashMap">
+		<result property="lecture_id" column="lecture_id"  />
+		<result property="lecture_category" column="lecture_category" />
+		<result property="lecture_name" column="lecture_name" />
+		<result property="user_id" column="user_id" />
+		<result property="lecture_tuition" column="lecture_tuition" />
+	</resultMap>
+	<!-- point 업데이트할 정보 받기위해 -->
+	<resultMap id="payment_pointResult01" type="java.util.HashMap">
+		<result property="point_date" column="point_date"  />
+		<result property="point_change" column="point_change" />
+		<result property="point_rest" column="point_rest" />
+		<result property="user_id" column="user_id" />
+		<result property="point_content" column="point_content" />
+	</resultMap>
+	
+	
+	<!-- 주문번호 생성 , order sequence -->
 	<select id="seq_order" resultType="_int">
    			 select seq_order_id.NEXTVAL FROM dual
 	</select>
@@ -33,6 +51,8 @@
 		</where>
 	</select>
 	
+	
+	<!-- point정보 제외 orders, 초기 강의 클릭시 -->
 	<insert id="insertOrder1" parameterType="java.util.Map">
 		insert into orders(order_id, user_id, lecture_id, order_date, order_price)
 		values(#{trade_key}, #{p_id}, #{l_id}, sysdate, #{order_price})
@@ -40,8 +60,8 @@
 	<insert id="insertOrder2" parameterType="java.util.Map">
 		insert into orders(order_id, user_id, lecture_id, order_date, order_price, discount_point, total_price, point_over)
 		values(#{trade_key}, #{p_id}, #{l_id}, sysdate, #{order_price}, #{discount_point}, #{total_price}, #{point_over})
-	</insert>
-	
+	</insert>	
+	<!-- point사용 정보 입력 받고 적용 update -->
 	<update id="updateOrder" parameterType="java.util.Map">
 		update orders
 		set  discount_point = #{discount_point}
@@ -49,6 +69,42 @@
 		   , point_over = #{point_over}
 		where order_id = #{trade_key}
 	</update>
+	
+	
+	<!-- 강의 컬럼 조회 -->
+	<select id="order_lecture" resultMap="payment_lectResult01" parameterType="java.util.Map"> 
+      <![CDATA[
+         select lecture_id, lecture_category, lecture_name, user_id, lecture_tuition
+         from   lecture
+      ]]>
+	<where>
+		<if test=" l_id != ''  and  l_id != null">
+			lecture_id = #{l_id}
+		</if>
+	</where>
+	<!-- 강의명 order&lecture lecture_name , kakao에서 String로 전부 받기 때문에 [to_char]-->
+	</select>
+	<select id="searchOrder2" resultMap="payment_order01" parameterType="java.util.Map"> 
+		select o.order_id, o.user_id, o.lecture_id, o.order_date, to_char(o.order_price) order_price, 
+        	   to_char(o.discount_point) discount_point, to_char(o.total_price) total_price, 
+        	   o.point_over, l.lecture_name
+		from orders o JOIN lecture l
+		ON o.lecture_id = l.lecture_id
+		and o.order_id = #{trade_key}
+	</select>
+	
+	<!-- orders&point join -->
+	<select id="serarchOrderPoint" resultMap="payment_pointResult01" parameterType="java.util.Map">
+		select o.discount_point, 
+			   p.point_rest, 
+			   p.point_content, 
+			   p.point_date 
+		from orders o join point p 
+		on o.user_id = p.user_id
+		and o.order_id = #{order_id}
+	</select>
+	
+	
 	
 	
 </mapper>

@@ -23,7 +23,6 @@ public class MainControllerImpl implements MainController {
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = request.getRequestURI().substring(7).split("\\.")[0];
 		String category = request.getParameter("category");
-		System.out.println(url);
 		ModelAndView mav = new ModelAndView(url+".tiles");
 		mav.addObject("category", category);
 		return mav;

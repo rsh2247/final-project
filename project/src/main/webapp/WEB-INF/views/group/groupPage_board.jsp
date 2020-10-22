@@ -6,21 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-* {
-	list-style: none;
-}
-
 #contentbox {
 	height: 1200px;
 	margin-top: 20px;
-}
-
-#mainbox {
-	width: 850px;
-	height: 100%;
-	margin-left: 25px;
-	float: left;
-	background-color: #fff;
 }
 
 #namebox {
@@ -60,7 +48,7 @@
 		<jsp:include page="groupPage_sidebar.jsp" flush="false"></jsp:include>
 		<div id="mainbox">
 			<div id="namebox">
-				<label class="title">전체글보기</label>
+				<label class="title">${boardname.BOARD_NAME}</label>
 			</div>
 			<div id="tablebox">
 				<table id="article">
@@ -73,7 +61,7 @@
 					</tr>
 					<c:forEach var="list" items="${postList}">
 						<tr>
-							<td style="font-size: small;">${list.BOARD_NAME}</td>
+							<td style="font-size: small;">${list.POST_NUM}</td>
 							<td style="text-align: left;"><form action="article.user" method="post">
 									<button class="linkbtn">${list.POST_TITLE}</button>
 									<input type="hidden" name="post_num" value="${list.POST_NUM}">

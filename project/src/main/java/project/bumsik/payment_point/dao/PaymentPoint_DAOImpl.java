@@ -24,10 +24,15 @@ public class PaymentPoint_DAOImpl implements PaymentPoint_DAO{
 		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchList",searchMap);
 		return list;
 	}
-
+	
+	@Override
+	public void insertPoint(Map<String, Object> resultMap) throws DataAccessException {
+		sqlSession.selectList(namespace+".insertPoint",resultMap);
+	}
+	
 	@Override
 	public void updatePoint(Map<String, Object> resultMap) throws DataAccessException {
-		sqlSession.selectList(namespace+".usePoint",resultMap);
+		sqlSession.selectList(namespace+".updatePoint",resultMap);
 	}
 	
 }

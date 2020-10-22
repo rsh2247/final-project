@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -18,7 +18,13 @@
 	width: 1200px;
 }
 
-
+#index tr:nth-child(1) td {
+	background-color: #3E60DB;
+	border: 1px solid #3E60DB;
+}
+#index tr:nth-child(1) a {
+	color: #fff;
+}
 #mainbox {
 	width: 800px;
 	background-color: #fff;
@@ -50,13 +56,16 @@
 #colhistory th {
 	padding: 10px 0 10px 0;
 }
-#tablerow td{
-	height: 30px; 
+
+#tablerow td {
+	height: 35px;
 }
-#tablerow a{
+
+#tablerow a {
 	text-decoration: none;
 	color: black;
 }
+
 #tablerow a:hover {
 	color: #3E60DB
 }

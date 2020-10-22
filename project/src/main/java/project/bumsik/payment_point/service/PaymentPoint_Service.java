@@ -10,7 +10,7 @@ import project.bumsik.payment_point.vo.PaymentPoint_VO;
 
 public interface PaymentPoint_Service {	
 	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException;
-	
+	public void insertPoint(Map<String, Object> resultMap) throws DataAccessException;
 	public void updatePoint(Map<String, Object> resultMap) throws DataAccessException;
 	
 }

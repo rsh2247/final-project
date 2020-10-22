@@ -1,4 +1,8 @@
 
+function getContextPath() {
+	var hostIndex = location.href.indexOf(location.host) + location.host.length;
+	return location.href.substring(hostIndex,location.href.indexOf('/', hostIndex + 1));
+};
 
 $(function () {
 
@@ -9,24 +13,8 @@ $(function () {
             $("#detail_info").hide("slow");
         }
     });
-
-    $("input[name='trademethod']").click(function(){
-        var method = $(this).val();
-       if(method == 'SC0040'){
-           $('#section_escrow').show();
-       }else{
-           $('#section_escrow').hide();
-       }
-        $("#method").val(method);
-    });
 });
 
-
-
-function getContextPath() {
-	  var hostIndex = location.href.indexOf(location.host) + location.host.length;
-	  return location.href.substring(hostIndex,location.href.indexOf('/', hostIndex + 1));
-};
 
 //매개변수 no 주문번호, tp = total_price
 var point_check = function (no) {
@@ -43,11 +31,9 @@ var point_check = function (no) {
 	$.ajax({
      	url: getContextPath()+"/searchPoint",
         type: "post",
-        data: "p_id="+"abcd",
-        async: false,		//default : true, true일때 usepoint가 ''으로 유지됨
+        async: false,							//default : true, true일때 usepoint가 ''으로 유지됨
         success: function(data, textStatus){
 			list = data;
-			/* $('#result').empty(); */
 			usepoint = list[0].point_rest;
 			console.log(usepoint);
         },
@@ -62,20 +48,11 @@ var point_check = function (no) {
         pt[i] = $("input[name=dispt]").eq(i).val();
         if (!pt[i]) pt[i] = 0;
         total_pt += parseInt(pt[i], 10);
-/*      console.log(i);
-        console.log(ptcnt);
-        console.log(pt);
-        console.log(total_pt);
-*/
     }
 
     var usedpoint = $("#ptsale").html().replace(' P', '').replace(/,/g, '');	//총 할인 내역에 적용된 point
     var targe_point = $('#dispt' + no).val();    //입력 받은 포인트    
-/*
-    console.log(parseInt(usedpoint));
-    console.log(parseInt(targe_point));
-    console.log(usepoint);
-*/
+
     //입력 받은 포인트 > 보유 포인트 || 적용한 포인트 + 입력받은 포인트 > 보유포인트
     if (total_pt > usepoint || parseInt(usedpoint) + parseInt(targe_point) > usepoint) {
         alert('보유포인트를 초과하였습니다.');
@@ -85,53 +62,19 @@ var point_check = function (no) {
 }
 
 //point 조회와 적용
+var total_price;	//포인트 적용 후 받아올 total_price
 var point_apply = function (no) {
-    if (timecheck()) {
-        alert('결제가 진행중입니다.');
-        return;
-    }
 
+	/*tp 입력포인트*/
     var tp = $('#dispt' + no).val();
-
+    
+    /*최소 사용 point 설정*/
     if (tp < 100) {
         alert('100포인트 이상 사용 가능합니다.');
         return;
     }
-
-    //order_num = {'point_over','re',rp,dp,tp,}
-//    $.ajax({
-//        url: "./payment/pay_process.php",
-//        type: "POST",
-//        dataType: "json",
-//        data: {type: 'ptdis', no: no, tp: tp},
-//        beforeSend: function () {
-//            //loadingfn('load');
-//        },
-//        success: function (data) {
-//            if (data.order_num == 'point_over') {
-//                alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
-//                location.reload();
-//            } else if (data.order_num == 're') {
-//                alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
-//            } else {
-//                $("#total_order_total em").text(data.rp);   // 총 주문금액
-//                $("#sale_price_total em").text(data.dp);    // 할인 금액
-//                $("#total_price_total em").text(data.tp);   // 할인 적용된 price
-//                $("#ptsale").text(data.pdis);               // 총할인내역-point  
-//                $("#cpsale").text(decodeURIComponent(data.cdis));  //쿠폰/할인 혜택 span
-//                $("#pt" + no).html(decodeURIComponent(data.dis));   //point 입력 td
-//                if (parseInt(data.preusept) < 0) {
-//                    var pre_pt = 0;
-//                } else {
-//                    var pre_pt = data.preusept;
-//                }
-//                $("#preusept").text(pre_pt);  //예상 적립포인트
-//
-//            }
-//        }
-//    });
-//    
     
+    /*포인트 적용 사항 변경  적용 */ 
     $.ajax({
     	url: getContextPath()+"/orderinfo",
         type: "POST",
@@ -146,14 +89,14 @@ var point_apply = function (no) {
             if (data[0].point_over == '0') {
                 alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
                 location.reload();
-            } else if (data[0].point_over == '0') {
-                alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
             } else {
-            	
-                $("#sale_price_total em").text(data[0].discount_point);    // 할인 금액, discount_point
-                $("#total_price_total em").text(data[0].total_price);   // 할인 적용된 total_price
+            	console.log(data[1].dis);
+                $("#sale_price_total em").text(data[0].discount_point);    	// 할인 금액, discount_point
+                $("#total_price_total em").text(data[0].total_price);   	// 할인 적용된 total_price
                 $("#ptsale").text(data[0].discount_point);               	// 총할인내역-point  
-
+                $("#pt" + no).html(data[1].dis);   							// point 입력 table(td)
+                
+                total_price = data[0].total_price;
             }
         },
         error: function(data){
@@ -163,6 +106,126 @@ var point_apply = function (no) {
         }
     });
     
+}
+
+/*미완성*/
+var discount_cancel = function (no, type) {
+	console.log(no);
+	console.log(type);
+    $.ajax({
+        url: getContextPath()+"/discount_cancel",
+        type: "POST",
+        dataType: "json",
+        data: {type: type, no: no},
+        beforeSend: function () {
+            //loadingfn('load');
+        },
+        success: function (data) {
+        	console.log(data[1].dis);
+            $("#sale_price_total em").text(data[0].discount_point);    	// 할인 금액, discount_point
+            $("#total_price_total em").text(data[0].total_price);   	// 할인 적용된 total_price
+            $("#ptsale").text(data[0].discount_point);               	// 총할인내역-point  
+            $("#pt" + no).html(data[1].dis);   							// point 입력 table(td)
+        }
+    });
+}
+
+
+// 약관, 결제 방법등 체크박스 선택
+var trade_select = function (no) {
+
+    var paynote_chk = $("#paynote_chk").val();
+
+    if(!$("#check_refund").is(':checked') || !$("#check_payment").is(':checked') || (!$("#check_useguide").is(':checked') && paynote_chk) || !$("#check_contents").is(':checked')){
+        alert("위 내용을 확인하셨을 경우 체크박스를 클릭해 주세요.");
+        $("#check_contents").focus();
+        return;
+    }     
+
+    var send = new Array();
+
+    var method = $("input[name=trademethod]:checked").val();
+    // 결제 방법이 선택되지 않았을 때
+    if (!method) {
+        alert('결제방법을 선택해주세요.');
+        $("input[name=trademethod]").eq(0).focus();
+        return;
+    }
+
+    payment(no);
+    
+    
+}
+// 결제하기
+var payment = function(no){
+	console.log(no);
+	console.log(total_price);
+	var method = $("input[name=trademethod]:checked").val();
+
+    if(!$("#check_contents").is(':checked')){
+        alert("위 내용을 확인하셨을 경우 체크박스를 클릭해 주세요.");
+        $("#check_contents").focus();
+        return;
+    }
+/*    
+    if(confirm('입력하신 결제 정보로 주문을 하시겠습니까?')){
+        if(method == 'kakao'){
+        	postPopUp(no,"/kakaoPay");
+        }else if(method == 'point'){
+        	if(total_price == 0 ){
+        		point로 전액 결제
+        		postPopUp(no,"/insertPoint");
+        		window.close();
+        	}else{
+        		point로 결제후 잔액 결제
+        		postPopUp(no,"/kakaoPay");
+        	}
+        }
+    }
+*/
+    console.log(total_price);
+    if(confirm('입력하신 결제 정보로 주문을 하시겠습니까?')){
+        if(method == 'kakao'){
+        	postPopUp(no,"/kakaoPay");
+    	//	window.close();
+        }else if(method == 'point'){
+        	if(total_price!=0){				//결제할 금액이 남았으면
+        		postPopUp(no,"/kakaoPay");
+        	}
+        	postPopUp(no,"/insertPoint");	//포인트로 전액 결제
+    		window.close();
+        }else if(method == ''){
+        	
+        }
+    }
+    
+}
+
+//결제창 popUp 
+function postPopUp(no, action) {
+	console.log(no);
+	console.log(action);
+	var option = "width = 500, height = 500, top = 100, left = 100, location = yes";
+	
+	var form = document.createElement("form");
+	form.setAttribute("method","post");
+	form.setAttribute("action",getContextPath()+action);
+	document.body.appendChild(form);
+	
+	/*value로 주문번호 전송*/
+	var insert = document.createElement("input");
+	insert.setAttribute("type","hidden");
+	insert.setAttribute("name","order_id");
+	insert.setAttribute("value",no);
+	form.appendChild(insert);
+	
+	console.log(insert.getAttribute("value"));
+	
+	window.open('','new_popup', option);
+	form.setAttribute("target",'new_popup');
+	
+	form.submit();
+	
 }
 
 var timecheck = function () {
@@ -190,11 +253,8 @@ var onAddresstSearch = function () {
         success: function (data) {
             //alert(address);
             $("#addressList").html(decodeURIComponent(data.tbl));
-
         }
     });
-
-
 }
 function onAddressEnter() {
     if (event.keyCode == 13 || event.keyCode == 10) {
@@ -209,50 +269,6 @@ function onAddressSelect(zip, address) {
 
     $("#addressList").html("")
     $("#addressBox").css("display", "none")
-}
-
-let trade_flag = 0;
-// 결제하기
-var trade_select = function () {
-
-    if(trade_flag == 1) {
-        alert('결제정보를 등록하고 있습니다. \n잠시만 기다려주세요.');
-        return;
-    }
-
-    var paynote_chk = $("#paynote_chk").val();
-
-    //개인정보 위탁동의 체크 (#개인정보위탁동의)
-    if (check_policy_agree() == false) {
-        return;
-    }
-
-    if(!$("#check_refund").is(':checked') || !$("#check_payment").is(':checked') || (!$("#check_useguide").is(':checked') && paynote_chk) || !$("#check_contents").is(':checked')){
-        alert("위 내용을 확인하셨을 경우 체크박스를 클릭해 주세요.");
-        $("#check_contents").focus();
-        return;
-    }     
-
-    var send = new Array();
-
-    var method = $("input[name=trademethod]:checked").val();
-    // 결제 방법이 선택되지 않았을 때
-    if (!method) {
-        alert('결제방법을 선택해주세요.');
-        $("input[name=trademethod]").eq(0).focus();
-        return;
-    } 
-}
-
-//개인정보 처리업무 위탁 동의 체크 (#개인정보위탁동의)
-function check_policy_agree() {
-
-    //회원가입시 개인정보 위탁동의를 하지 않았거나, 본 결제페이지에서 체크를 하지 않은 경우 false 리턴
-    if (policy_agree == 0 && !$("input[name=pay_agree]:checked").val()){
-        alert('결제 관련 개인정보 처리업무 위탁에 대한 동의사항에 동의하셔야 결제가 가능합니다.');
-        $("#pay_agree").focus();
-        return false;
-    }
 }
 
 // ie version check
@@ -282,6 +298,3 @@ var ie_version_chk = function() {
         return false;
     }
 }
-
-
-

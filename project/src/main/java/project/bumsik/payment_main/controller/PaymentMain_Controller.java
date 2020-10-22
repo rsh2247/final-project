@@ -15,4 +15,7 @@ public interface PaymentMain_Controller {
 
 	public List<Map<String, Object>> orderinfo(@RequestParam(value="no",required = false) String no,@RequestParam(value="tp",required = false) int tp,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+	public List<Map<String, Object>> discount_cancel(String no, String dc, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+
 }

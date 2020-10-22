@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.sungho.group_module.service.Group_Service;
 import project.sungho.problem_solve_module.service.Problem_Service;
 import project.sungho.user_module.service.User_Service;
 
@@ -33,15 +34,16 @@ public class User_ContollerImpl implements User_Contoller {
 	@Autowired
 	Problem_Service problem_Service;
 	
+	@Autowired
+	Group_Service group_Service;
+	
 	@RequestMapping(value = "**/userPage_pro.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userPage_pro(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
 		return null;
-		
 	}
 
-	@RequestMapping(value = "**/userPage_col.user", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "userPage_col.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userPage_col(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		List<Map<String,Object>> list = user_Service.selectUserCol();
@@ -53,7 +55,6 @@ public class User_ContollerImpl implements User_Contoller {
 	
 	@RequestMapping(value = "**/userPage_col_correctsheet.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userPage_col_correctsheet(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
 		String col_num = request.getParameter("number");
 		String time = request.getParameter("time");
 		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", col_num); searchMap.put("col_solvedate", time);
@@ -63,6 +64,13 @@ public class User_ContollerImpl implements User_Contoller {
 		mav.addObject("proList",proList);
 		mav.addObject("answerList", answerlist);
 		return mav;	
+	}
+	
+	@RequestMapping(value = "userGroup.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mygroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("user/userGroup.tiles");
+		mav.addObject("list", group_Service.selectMyGroup());
+		return mav;
 	}
 
 }
