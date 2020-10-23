@@ -176,7 +176,7 @@ var payment = function(no){
     	//	window.close();
         }else if(method == 'point'){
         	if(total_price!=0){				//결제할 금액이 남았으면
-        		alert('총 결제 금액이 남았습니다.다른 결제 방법 선택해 주세요.');
+        		alert('총 결제 금액이 남았습니다. 다른 결제 방법 선택해 주세요.');
         		$("input[name=trademethod]").attr("checked",false)
                 $("input[name=trademethod]").eq(0).focus();
         		if(method == 'kakao') postPopUp(no,"/kakaoPay");
