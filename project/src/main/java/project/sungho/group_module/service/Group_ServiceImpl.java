@@ -72,8 +72,16 @@ public class Group_ServiceImpl implements Group_Service {
 		return sqlSession.selectList("group.selectGroupBoard", inputMap);
 	}
 	
-	public List<Map<String,Object>> selectGroupMemberList(Map<String,Object> inputMap){
-		return sqlSession.selectList("group.selectGroupMember", inputMap);
+	public Map<String,Object> selectGroupMemberList(Map<String,Object> inputMap){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("member", sqlSession.selectList("group.selectGroupMember", inputMap));
+		map.put("candidate", sqlSession.selectList("selectCandidate", inputMap));
+		return map;
+	}
+	
+	public void yieldManager(Map<String, Object> inputMap) {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		inputMap.put("user_id", user.getUsername());
 	}
 	
 	//article

@@ -79,6 +79,26 @@
 #controlpanel{
 	float: left;
 }
+.memberList{
+	width:-webkit-fill-available;
+	margin: 20px;
+	border-collapse: collapse;
+}
+.memberList th{
+	height: 45px;
+	border-bottom: 2px solid #555;
+}
+.memberList td{
+	height: 35px;
+	border-bottom: 1px solid #555;
+}
+
+.memberbtn{
+	width: 80px;
+	height: 30px;
+	cursor: pointer;
+}
+
 .selectboard {
 	width: -webkit-fill-available;
 	padding: 5px 0 5px 10px;
@@ -95,8 +115,10 @@
 	color: #fff;
 	cursor: pointer;
 }
+memberbtn:parent {
+	display: inline-block;
+}
 </style>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 	var list = [];
     $(document).ready(function() 
@@ -171,7 +193,6 @@
 	<div id="contentbox">
 		<jsp:include page="groupPage_sidebar.jsp"></jsp:include>
 		<div id="mainbox">
-			<form action="" id="form">
 				<div class="divbox">
 					<div class="divheader">
 						<label class="colname">카페관리</label>
@@ -216,15 +237,54 @@
 						<button type="button" class="boardbtn" id="add">게시판 추가</button>
 					</div>
 				</div>
-				<div class="divbox" style="display: flex;">
+				<div class="divbox" style="display:inline-block;">
 					<div class="divheader">
 						<label class="colname">카페회원관리</label>
 					</div>
-					<ul>
-						<li></li>
-					</ul>
+					회원목록
+					<table class="memberList">
+						<tr>
+							<th width="400px">아이디</th>
+							<th>등급</th>
+							<th>가입일자</th>
+							<th width="200px"></th>
+						</tr>
+						<c:forEach var="list" items="${memberList.member}">
+							<tr>
+								<td>${list.USER_ID}</td>
+								<td>${list.G_LIST_STATE}</td>
+								<td>${list.G_LIST_JOINDATE}</td>
+								<td>
+								<c:if test="${list.G_LIST_STATE ne 'manager'}">
+								<form action="" method="post">
+								<button class="memberbtn" value="${list.USER_ID}">추방</button></form>
+								<form action="yield" method="post">
+								<input type="hidden" name="num" value="${result.GROUP_NUM}">
+								<input type="hidden" name="userId" value="${list.USER_ID}">
+								<button class="memberbtn" >관리자 양도</button></form>
+								</c:if></td>
+							</tr>
+						</c:forEach>
+					</table>
+					가입신청목록
+					<table class="memberList">
+						<tr>
+							<th width="400px">아이디</th>
+							<th> </th>
+							<th>가입신청일자</th>
+							<th width="200px"></th>
+						</tr>
+						<c:forEach var="list" items="${memberList.candidate}">
+							<tr>
+								<td>${list.USER_ID}</td>
+								<td> </td>
+								<td>${list.G_LIST_CANDIDATE}</td>
+								<td><button class="memberbtn">승낙</button>
+									<button class="memberbtn">거절</button></td>
+							</tr>
+						</c:forEach>
+					</table>
 				</div>
-			</form>
 		</div>
 	</div>
 </body>

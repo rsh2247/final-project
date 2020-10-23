@@ -93,14 +93,27 @@
 	
 	<select id="selectGroupMember" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
-		SELECT *
+		SELECT user_id,g_list_state,TO_CHAR(g_list_joindate,'YYYY-MM-DD') g_list_joindate,g_list_candidate 
 		FROM join_group_list
 		]]>
 		<where>
-		group_num = #{group_num}
+		group_num = #{group_num} and g_list_state != 'candidate' 
 		</where>
 	</select>
 	
+	<select id="selectCandidate" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT user_id,g_list_state,TO_CHAR(g_list_joindate,'YYYY-MM-DD') g_list_joindate, TO_CHAR(g_list_candidate,'YYYY-MM-DD') g_list_candidate 
+		FROM join_group_list
+		]]>
+		<where>
+		group_num = #{group_num} and g_list_state = 'candidate' 
+		</where>
+	</select>
+	
+	<update id="replaceManager" parameterType="java.util.Map">
+		
+	</update>
 	
 
 </mapper>

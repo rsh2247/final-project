@@ -12,6 +12,6 @@ public interface Group_Service {
 	public void insertGroupMember(Map<String, Object> inputMap);
 	public Map<String,Object> checkMemberState(Map<String,Object> inputMap) throws Exception;
 	public List<Map<String,Object>> selectGroupBoardList(Map<String,Object> inputMap);
-	public List<Map<String,Object>> selectGroupMemberList(Map<String,Object> inputMap);
+	public Map<String,Object> selectGroupMemberList(Map<String,Object> inputMap);
 	public void insertArticle(Map<String,Object> inputMap);
 }
