@@ -22,7 +22,7 @@
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/cafe/*.user"
 			access="hasRole('ROLE_USER')" />
-			<intercept-url pattern="/*.user"
+		<intercept-url pattern="/order"
 			access="hasRole('ROLE_USER')" />
 		<csrf disabled="true" />
 

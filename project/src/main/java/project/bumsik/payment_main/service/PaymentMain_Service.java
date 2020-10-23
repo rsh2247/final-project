@@ -21,5 +21,6 @@ public interface PaymentMain_Service {
 	
 	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException;
 	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException;
+	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException;
 
 }

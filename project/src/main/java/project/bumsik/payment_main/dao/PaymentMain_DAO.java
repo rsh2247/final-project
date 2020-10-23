@@ -23,5 +23,7 @@ public interface PaymentMain_DAO {
 	//point 정보 insert위해 필요정보 조회
 	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException;
 
+	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException;
+
 
 }

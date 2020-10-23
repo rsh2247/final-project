@@ -38,6 +38,63 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 
 	
 	@Override
+	@RequestMapping(value="/paymentSuccess.pay", method = { RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView paymentSuccess(@RequestParam(value="order_id",required = false) String order_id,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		System.out.println("결제 성공 페이지로 이동할 데이터 저장");
+		
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("order_id", order_id);
+		List<Map<String, Object>> resultList = paymentMain_Service.searchOrderInfo2(resultMap); //order join lecture 상품명
+		//pay table insert
+		String pay_id = (String)resultList.get(0).get("order_id");
+    	String pay_way="포인트 결제";
+    	String user_id = user.getUsername();
+		
+    	java.util.Date now = new java.util.Date();
+	    SimpleDateFormat vans = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");    	
+    	String pay_date=vans.format(now);
+    	
+    	String pay_amount = (String)resultList.get(0).get("total_price");			//총 결제금액
+    	
+    	//완료 페이지 필요한 데이터
+    	String discount_point = (String) resultList.get(0).get("discount_point");	//할인포인트
+    	String lecture_name = (String) resultList.get(0).get("LECTURE_NAME");		//강의명, 상풍명
+		String order_price = (String) resultList.get(0).get("order_price");			//주문금액
+    	
+    	String pay_content = "결제시각 : "+ pay_date
+    					+"\n 결제번호 : "+ pay_id
+    					+"\n 상품명  : "+ lecture_name
+    					+"\n 주문금액 : "+order_price
+    					+"\n 할인금액 : "+discount_point
+    					+"\n 총 결제금액"+pay_amount;
+    	
+    	resultMap.put("pay_id", pay_id);
+    	resultMap.put("pay_content", pay_content);
+    	resultMap.put("pay_way", pay_way);
+    	resultMap.put("user_id", user_id);
+    	resultMap.put("pay_date", pay_date);
+    	resultMap.put("pay_amount", pay_amount);
+    	System.out.println("1");
+    	paymentMain_Service.paymentResult(resultMap);
+    	System.out.println("2");
+    	resultMap.put("discount_point", discount_point);
+    	resultMap.put("lecture_name", lecture_name);
+    	resultMap.put("order_price", order_price);
+    	System.out.println("3");
+    	ModelAndView mav = new ModelAndView("payment/paymentSuccess.tiles");
+    	System.out.println("4");
+    	mav.addObject("info",resultMap);
+    	System.out.println("5");
+    	System.out.println(mav);
+    	System.out.println("6");
+    	return mav;
+	}
+	  
+	
+	@Override
 	@RequestMapping(value="/order", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView order_amount(@RequestParam(value="l_id",required = false) String l_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("mapping: order / order_amount 진입");
@@ -48,8 +105,8 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 	    SimpleDateFormat vans = new SimpleDateFormat("yyMMdd");
 	    String wdate = vans.format(now);
 		int order_key = paymentMain_Service.seq_order_id();
-		String trade_key = wdate+order_key;
-		System.out.println("trade_key :"+trade_key);
+		String order_id = wdate+order_key;
+		System.out.println("order_id :"+order_id);
 		
 		//강의 id 임의 설정
 		l_id = "a01";
@@ -66,14 +123,14 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		//order insert
 		Map<String, Object> orderMap = new HashMap<String,Object>();
 		
-		orderMap.put("trade_key", trade_key);		//주문번호, order_num
+		orderMap.put("order_id", order_id);		//주문번호, order_num
 		orderMap.put("p_id", userId);				//유저ID, user
 		orderMap.put("l_id", l_id);					//강의번호, lecture
 		List<Map<String, Object>> lectlist = paymentMain_Service.order_lecture(lectMap); 	//강의 정보 조회 list
 		int order_price = ((BigDecimal)lectlist.get(0).get("lecture_tuition")).intValue();	//수강료
-		System.out.println("11");
-		orderMap.put("order_price", order_price);	//order_price
 		
+		orderMap.put("order_price", order_price);	//order_price
+		System.out.println("11 : "+orderMap);
 		paymentMain_Service.insertOrderInfo1(orderMap);	//주문정보 insert order_id, user_id, lecture_id, order_price(lecture_tution) 
 		List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo(orderMap);
 		
@@ -92,13 +149,7 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 			paymentPoint_Service.insertPoint(insertMap);
 			pointlist = paymentPoint_Service.searchList(pointMap);
 			System.out.println(""+pointlist);
-		}
-		
-		
-		
-		
-		
-		
+		}	
 		mav.addObject("orderlist",orderlist);
 		mav.addObject("lectlist",lectlist);
 		mav.addObject("pointlist",pointlist);
@@ -119,7 +170,7 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		Map<String, Object> orderMap = new HashMap<String,Object>();
 
 		//order search(price)
-		orderMap.put("trade_key", no);			//주문번호(order_id) , 조건
+		orderMap.put("order_id", no);			//주문번호(order_id) , 조건
 		List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo(orderMap);
 		int order_price = ((BigDecimal)orderlist.get(0).get("order_price")).intValue();
 		System.out.println("order_price : "+order_price);
@@ -162,7 +213,7 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		Map<String, Object> orderMap = new HashMap<String,Object>();
 
 		//order search(price)
-		orderMap.put("trade_key", no);			//주문번호(order_id) , 조건
+		orderMap.put("order_id", no);			//주문번호(order_id) , 조건
 		List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo(orderMap);
 		int order_price = ((BigDecimal)orderlist.get(0).get("order_price")).intValue();
 		System.out.println("order_price : "+order_price);

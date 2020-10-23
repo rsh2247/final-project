@@ -363,15 +363,6 @@
 			</div>
 		</div>
 	</div>
-<!-- 	
-	<div id="layer_pop">
-    	<div class="bg_mask"></div>
-    	<div class="pop_cont">
-        	<iframe name="lgu" id="lgu" width="650" height="650" frameborder="0"></iframe>
-        	<form name="viewForm" method="post"></form>
-    	</div>
-	</div>
- -->	
 	
 </div>
 

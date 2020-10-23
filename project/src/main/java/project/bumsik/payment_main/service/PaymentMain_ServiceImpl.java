@@ -33,7 +33,7 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 		return list;
 	}
 	
-	//주문정보	
+	//주문정보	insert
 	@Override
 	public void insertOrderInfo1(Map<String, Object> orderMap) throws DataAccessException {
 		paymentMain_DAO.insertOrderInfo1(orderMap);
@@ -42,7 +42,7 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	public void insertOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
 		paymentMain_DAO.insertOrderInfo2(orderMap);
 	}
-	
+	//주문정보 search
 	@Override
 	public List<Map<String, Object>> searchOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
 		List<Map<String, Object>> list = paymentMain_DAO.searchOrderInfo(orderMap);
@@ -66,11 +66,17 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 		int order_key =  paymentMain_DAO.seq_order_id();
 		return order_key;
 	}
-
+	
 	@Override
 	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException {
 		List<Map<String, Object>> list = paymentMain_DAO.serarchOrderPoint(orderMap);
 		return list;
+	}
+
+	@Override
+	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException {
+		paymentMain_DAO.paymentResult(resultMap);
+		
 	}
 
 }
