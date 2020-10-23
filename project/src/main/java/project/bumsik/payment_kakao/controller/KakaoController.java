@@ -46,7 +46,7 @@ public class KakaoController {
         
     	//등록된 주문정보 에서 데이터 조회
 		Map<String, Object> orderMap = new HashMap<String,Object>();
-		orderMap.put("trade_key", order_id);
+		orderMap.put("order_id", order_id);
 		b_order_id = order_id;					//주문번호 보존
 		
 		//강의명추가(조인) searchOrderInfo2

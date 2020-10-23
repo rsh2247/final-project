@@ -38,7 +38,7 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 
 	
 	@Override
-	@RequestMapping(value="/paymentSuccess.pay", method = { RequestMethod.GET})
+	@RequestMapping(value="/paymentSuccess.pay", method = { RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView paymentSuccess(@RequestParam(value="order_id",required = false) String order_id,HttpServletRequest request, HttpServletResponse response) throws Exception{
 		System.out.println("결제 성공 페이지로 이동할 데이터 저장");
 		
@@ -128,9 +128,9 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		orderMap.put("l_id", l_id);					//강의번호, lecture
 		List<Map<String, Object>> lectlist = paymentMain_Service.order_lecture(lectMap); 	//강의 정보 조회 list
 		int order_price = ((BigDecimal)lectlist.get(0).get("lecture_tuition")).intValue();	//수강료
-		System.out.println("11");
-		orderMap.put("order_price", order_price);	//order_price
 		
+		orderMap.put("order_price", order_price);	//order_price
+		System.out.println("11 : "+orderMap);
 		paymentMain_Service.insertOrderInfo1(orderMap);	//주문정보 insert order_id, user_id, lecture_id, order_price(lecture_tution) 
 		List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo(orderMap);
 		
