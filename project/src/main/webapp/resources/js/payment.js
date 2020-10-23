@@ -156,6 +156,7 @@ var trade_select = function (no) {
     
     
 }
+
 // 결제하기
 var payment = function(no){
 	console.log(no);
@@ -167,22 +168,7 @@ var payment = function(no){
         $("#check_contents").focus();
         return;
     }
-/*    
-    if(confirm('입력하신 결제 정보로 주문을 하시겠습니까?')){
-        if(method == 'kakao'){
-        	postPopUp(no,"/kakaoPay");
-        }else if(method == 'point'){
-        	if(total_price == 0 ){
-        		point로 전액 결제
-        		postPopUp(no,"/insertPoint");
-        		window.close();
-        	}else{
-        		point로 결제후 잔액 결제
-        		postPopUp(no,"/kakaoPay");
-        	}
-        }
-    }
-*/
+
     console.log(total_price);
     if(confirm('입력하신 결제 정보로 주문을 하시겠습니까?')){
         if(method == 'kakao'){
@@ -190,10 +176,17 @@ var payment = function(no){
     	//	window.close();
         }else if(method == 'point'){
         	if(total_price!=0){				//결제할 금액이 남았으면
-        		postPopUp(no,"/kakaoPay");
+        		alert('총 결제 금액이 남았습니다.다른 결제 방법 선택해 주세요.');
+        		$("input[name=trademethod]").attr("checked",false)
+                $("input[name=trademethod]").eq(0).focus();
+        		if(method == 'kakao') postPopUp(no,"/kakaoPay");
+        	}else if(total_price == 0){
+        		postPopUp(no,"/insertPoint");	//포인트로 전액 결제
+        		console.log("돌아 온거 맞나?");
+        		self.close();
+        		var url=getContextPath()+"/mainPage/mainPage001.do";
+        		location.replace(url);
         	}
-        	postPopUp(no,"/insertPoint");	//포인트로 전액 결제
-    		window.close();
         }else if(method == ''){
         	
         }
@@ -225,6 +218,7 @@ function postPopUp(no, action) {
 	form.setAttribute("target",'new_popup');
 	
 	form.submit();
+	
 	
 }
 

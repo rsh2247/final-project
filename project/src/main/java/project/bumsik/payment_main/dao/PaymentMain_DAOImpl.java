@@ -17,6 +17,11 @@ public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 //	private static String namespace = "payment.lect";
 	private static String namespace = "payment.order";
 	
+	public int seq_order_id() throws DataAccessException{
+		int order_key =  sqlSession.selectOne(namespace+".seq_order");
+		return order_key;
+	}
+	
 	@Override
 	public List<Map<String, Object>> order_lecture(Map<String, Object> lectMap) throws DataAccessException {
 		List<Map<String, Object>> list = sqlSession.selectList(namespace+".order_lecture",lectMap);
@@ -44,7 +49,7 @@ public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 		
 	}
 	
-	//강의명 추가
+	//order join lecture 강의명 추가
 	@Override
 	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
 		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchOrder2",orderMap);
@@ -57,10 +62,9 @@ public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 		return list;
 	}
 	
-	public int seq_order_id() throws DataAccessException{
-		int order_key =  sqlSession.selectOne(namespace+".seq_order");
-		return order_key;
+	//pay insert
+	@Override
+	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException {
+		sqlSession.selectList(namespace+".paymentResult",resultMap);	
 	}
-
-
 }

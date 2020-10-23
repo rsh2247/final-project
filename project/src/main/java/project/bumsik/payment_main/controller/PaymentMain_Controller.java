@@ -18,4 +18,7 @@ public interface PaymentMain_Controller {
 	public List<Map<String, Object>> discount_cancel(String no, String dc, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 
+	public ModelAndView paymentSuccess(String order_id, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
+	
 }

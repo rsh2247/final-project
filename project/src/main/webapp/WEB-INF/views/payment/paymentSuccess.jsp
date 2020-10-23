@@ -40,23 +40,24 @@ table.approved td {
 <table class="approved">
 	<tr>
 		<th scope="row">결제시각</th>
-		<td>${info.approved_at}</td>
+		<td>${info.pay_date}</td>
 	</tr>
 	<tr>
 		<th scope="row">결제번호</th>
-		<td>${info.partner_order_id}</td>
+		<td>${info.pay_id}</td>
 	</tr>
-		<tr>
+	<tr>
 		<th scope="row">상품명</th>
-		<td>${info.item_name}</td>
+		<td>${info.lecture_name}</td>
 	</tr>
 	<tr>
-		<th scope="row">결제금액</th>
-		<td>${info.amount.total}</td>
+		<th scope="row">주문금액</th>
+		<td>${info.order_price}</td>
+		<td>포인트 사용 ${info.discount_point}</td>
 	</tr>
 	<tr>
-		<th scope="row">결제수단</th>
-		<td>${info.payment_method_type}</td>
+		<th scope="row">총 결제 금액</th>
+		<td>${info.pay_amount}</td>
 	</tr>
 </table>
   
