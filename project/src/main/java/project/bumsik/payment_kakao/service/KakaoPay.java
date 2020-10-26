@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import project.bumsik.payment_kakao.vo.AmountVO;
 import project.bumsik.payment_kakao.vo.KakaoPayApprovalVO;
 
 import project.bumsik.payment_kakao.vo.KakaoPayReadyVO;
@@ -31,21 +32,25 @@ public class KakaoPay {
     
     private KakaoPayReadyVO kakaoPayReadyVO;  //응답을 받을 객체
     private KakaoPayApprovalVO kakaoPayApprovalVO;
-
+    private AmountVO amountVO;
 	
 	String order_id, order_price, discount_point, lecture_name, user_id, total_price;
-	
+	Integer discount_point_int;
     public String kakaoPayReady(List<Map<String, Object>> orderlist) {
     	//가맹점 코드 CID / 결제 한 건 코드 TID / 결제,취소에 대한 고유번호 AID
     	System.out.println("kakaoPay Ready");
-    	
+    	System.out.println("orderlist : "+orderlist);
     	order_id = (String)orderlist.get(0).get("order_id");
     	user_id = (String) orderlist.get(0).get("user_id");
     	lecture_name = (String) orderlist.get(0).get("LECTURE_NAME");
     	discount_point = (String) orderlist.get(0).get("discount_point");
     	total_price = (String)orderlist.get(0).get("total_price");
     	String tax_free_amount = String.valueOf(Math.round(Integer.parseInt(total_price)*1));
-    	  	
+    	
+    	discount_point_int = Integer.parseInt(discount_point);
+    	System.out.println("discount_point_int"+discount_point_int);
+    	
+    	
         RestTemplate restTemplate = new RestTemplate();
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
@@ -110,13 +115,17 @@ public class KakaoPay {
         params.add("partner_user_id", user_id);
         params.add("pg_token", pg_token);
         params.add("total_amount", total_price);
+//        params.add("discount_amount", discount_point);
+        params.add("payload","http://localhost:8090/devFw/mainPage/mainPage001.do");
         System.out.println("kakaopayInfo pg_token : "+ pg_token); 
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         System.out.println(body);
         try {
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
+            
             System.out.println(kakaoPayApprovalVO.toString());
+            
             return kakaoPayApprovalVO;
         
         } catch (RestClientException e) {

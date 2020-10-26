@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 
@@ -30,10 +32,11 @@ table.approved td {
     border-bottom: 1px solid #ccc;
 }
 
-
 </style>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    
 </head>
-<body>
+<body onload="submit()">
 
 	<h1>결제가 정상적으로 완료되었습니다.</h1>
 <hr>
@@ -51,14 +54,25 @@ table.approved td {
 		<td>${info.item_name}</td>
 	</tr>
 	<tr>
-		<th scope="row">결제금액</th>
-		<td>${info.amount.total}</td>
+		<th scope="row">할인금액</th>
+		<td>${info.discount}</td>
 	</tr>
 	<tr>
-		<th scope="row">결제수단</th>
-		<td>${info.payment_method_type}</td>
+		<th scope="row">주문금액</th>
+		<td>${info.order_price}</td>
+	</tr>
+	<tr>
+		<th scope="row">총 결제 금액</th>
+		<td>${info.amount.total}</td>
 	</tr>
 </table>
+	<form id="payload" name="payload" action="${info.payload}">		
+	</form>
+   <script type="text/javascript">
+        function submit() {     
+                document.submitForm.submit(); // Submits the form without the button
+            }
+    </script>
   
 <br><br><br>
 <hr>
