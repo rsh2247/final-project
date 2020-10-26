@@ -111,9 +111,22 @@
 		</where>
 	</select>
 	
-	<update id="replaceManager" parameterType="java.util.Map">
-		
+	<update id="updateGroupManager" parameterType="java.util.Map">
+		UPDATE group_table
+		SET group_leader = #{user_id}
+		WHERE group_num = #{group_num}
 	</update>
+	
+	<update id="updateUser" parameterType="java.util.Map">
+		UPDATE join_group_list
+		SET G_LIST_STATE = #{g_list_state}
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM join_group_list
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</delete>
 	
 
 </mapper>

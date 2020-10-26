@@ -53,6 +53,7 @@
 	border-bottom: 1px solid #e9e9e9;
 	padding: 7px 0 7px 0;
 }
+
 </style>
 </head>
 <body>
@@ -66,16 +67,17 @@
 				<table id="article">
 					<tr>
 						<th width="100px"></th>
-						<th width="400px">제목</th>
+						<th width="450px">제목</th>
 						<th>작성자</th>
-						<th width="120px">작성일시</th>
+						<th width="100px">작성일시</th>
 						<th width="100px">조회</th>
 					</tr>
 					<c:forEach var="list" items="${postList}">
 						<tr>
 							<td style="font-size: small;">${list.BOARD_NAME}</td>
 							<td style="text-align: left;"><form action="article.user" method="post">
-									<button class="linkbtn">${list.POST_TITLE}</button>
+									<a class="alink">${list.POST_TITLE}</a><p class="replynum">[${list.REPLY_NUM}]</p>
+									<input type="hidden" name="board_num" value="${list.BOARD_NUM}">
 									<input type="hidden" name="post_num" value="${list.POST_NUM}">
 									<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
 								</form></td>

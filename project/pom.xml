@@ -296,7 +296,13 @@
 			<groupId>log</groupId>
 			<artifactId>log4sql</artifactId>
 			<version>1.1</version>
-		</dependency>						
+		</dependency>	
+		<!-- Sql Log -->
+		<dependency>
+    		<groupId>org.lazyluke</groupId>
+    		<artifactId>log4jdbc-remix</artifactId>
+    		<version>0.2.7</version>
+		</dependency>					
 	</dependencies>
 	<build>
 		<plugins>

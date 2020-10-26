@@ -8,9 +8,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import project.sungho.security.member.CustomUser;
 
+@Transactional
 @Service("group_Service")
 public class Group_ServiceImpl implements Group_Service {
 
@@ -80,9 +82,25 @@ public class Group_ServiceImpl implements Group_Service {
 	}
 	
 	public void yieldManager(Map<String, Object> inputMap) {
+		inputMap.put("g_list_state", "manager");
+		sqlSession.update("group.updateGroupManager", inputMap);
+		sqlSession.update("group.updateUser", inputMap);
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		inputMap.put("user_id", user.getUsername());
+		inputMap.put("g_list_state", "user");
+		sqlSession.update("group.updateUser", inputMap);
 	}
+	
+	public void deportUser(Map<String, Object> inputMap) {
+		sqlSession.update("group.deleteUser", inputMap);
+	}
+	
+	public void applyUser(Map<String, Object> inputMap) {
+		inputMap.put("g_list_state", "user");
+		sqlSession.update("group.updateUser", inputMap);
+	}
+	
+	
 	
 	//article
 	

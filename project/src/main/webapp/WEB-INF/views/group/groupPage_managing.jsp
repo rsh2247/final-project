@@ -38,6 +38,24 @@
 	width: 100%;
 	border-bottom: 2px solid #555;
 	padding: 10px 0 10px 0;
+	font-size: x-large;
+}
+.divmiddle{
+	padding: 25px 0 0px 0;
+	padding-left: 20px;
+	font-size: large;
+}
+
+.desc{
+	width: inherit;
+	margin: 10px 0px 5px 0px;
+}
+
+.inputbox input{
+	width: 500px;
+	height: 30px;
+	padding-left: 0.7em;
+	border: 1px solid #555;
 }
 
 .colname {
@@ -81,7 +99,7 @@
 }
 .memberList{
 	width:-webkit-fill-available;
-	margin: 20px;
+	margin: 10px 20px 20px 20px;
 	border-collapse: collapse;
 }
 .memberList th{
@@ -115,7 +133,7 @@
 	color: #fff;
 	cursor: pointer;
 }
-memberbtn:parent {
+.inlineform{
 	display: inline-block;
 }
 </style>
@@ -198,16 +216,16 @@ memberbtn:parent {
 						<label class="colname">카페관리</label>
 					</div>
 					<ul class="ulbox">
-						<li><div id='desc'>카페이름</div>
-							<div id="inputbox">
+						<li><div class='desc'>카페이름</div>
+							<div class="inputbox">
 								<input type="text">
 							</div></li>
-						<li><div id='desc'>가입방식</div>
-							<div id="inputbox">
+						<li><div class='desc'>가입방식</div>
+							<div class="inputbox">
 								<input type="text">
 							</div></li>
-						<li><div id='desc'>카페설명</div>
-							<div id="inputbox">
+						<li><div class='desc'>카페설명</div>
+							<div class="inputbox">
 								<input type="text">
 							</div></li>
 					</ul>
@@ -216,7 +234,7 @@ memberbtn:parent {
 					<div class="divheader">
 						<label class="colname">게시판관리</label>
 					</div>
-					<div>게시판목록</div>
+					<div class="divmiddle">게시판목록</div>
 					<div id="tablebox">
 						<table id="boardList">
 							<tr>
@@ -241,7 +259,7 @@ memberbtn:parent {
 					<div class="divheader">
 						<label class="colname">카페회원관리</label>
 					</div>
-					회원목록
+					<div class="divmiddle">회원목록</div>
 					<table class="memberList">
 						<tr>
 							<th width="400px">아이디</th>
@@ -250,23 +268,27 @@ memberbtn:parent {
 							<th width="200px"></th>
 						</tr>
 						<c:forEach var="list" items="${memberList.member}">
+							<c:if test="${list.G_LIST_STATE ne 'deport'}">
 							<tr>
 								<td>${list.USER_ID}</td>
 								<td>${list.G_LIST_STATE}</td>
 								<td>${list.G_LIST_JOINDATE}</td>
 								<td>
 								<c:if test="${list.G_LIST_STATE ne 'manager'}">
-								<form action="" method="post">
+								<form action="deport" method="post" class="inlineform">
+								<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+								<input type="hidden" name="user_id" value="${list.USER_ID}">
 								<button class="memberbtn" value="${list.USER_ID}">추방</button></form>
-								<form action="yield" method="post">
-								<input type="hidden" name="num" value="${result.GROUP_NUM}">
-								<input type="hidden" name="userId" value="${list.USER_ID}">
+								<form action="yield" method="post" class="inlineform">
+								<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+								<input type="hidden" name="user_id" value="${list.USER_ID}">
 								<button class="memberbtn" >관리자 양도</button></form>
 								</c:if></td>
 							</tr>
+							</c:if>
 						</c:forEach>
 					</table>
-					가입신청목록
+					<div class="divmiddle">가입신청목록</div>
 					<table class="memberList">
 						<tr>
 							<th width="400px">아이디</th>
@@ -279,8 +301,20 @@ memberbtn:parent {
 								<td>${list.USER_ID}</td>
 								<td> </td>
 								<td>${list.G_LIST_CANDIDATE}</td>
-								<td><button class="memberbtn">승낙</button>
-									<button class="memberbtn">거절</button></td>
+								<td>
+								<form action="apply" class="inlineform">
+									<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+									<input type="hidden" name="user_id" value="${list.USER_ID}">
+									<input type="hidden" name="apply" value="true">
+									<button class="memberbtn">승낙</button>
+								</form>
+								<form action="apply" class="inlineform">
+									<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+									<input type="hidden" name="user_id" value="${list.USER_ID}">
+									<input type="hidden" name="apply" value="false">
+									<button class="memberbtn">거절</button>
+								</form>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
