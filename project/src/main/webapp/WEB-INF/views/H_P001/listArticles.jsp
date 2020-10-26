@@ -22,6 +22,7 @@
 	<h1>자유 게시판</h1>
 	<br>
 <body>
+
 <table align="center" border="1"  width="70%" style="border-left: none; border-right: none; 
 border-bottom: none; border-top: none; " >
   <tr height="10" align="center"  bgcolor="#FFBBC">
@@ -30,6 +31,7 @@ border-bottom: none; border-top: none; " >
      <td >제목</td>
      <td >작성일</td>
   </tr>
+  <c:set var="num" value = ""/>
 <c:choose>
   <c:when test="${articlesList ==null }" >
     <tr  height="10">

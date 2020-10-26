@@ -42,6 +42,13 @@ public class H_p001_d001DAOImpl implements H_p001_d001DAO {
 		return post_num;
 	}
     
+	@Override
+	public String addrplyArticle(Map articleMap) throws DataAccessException {
+		String parent_num = (String)articleMap.get("post_num");
+		articleMap.put("parent_num", parent_num);
+		sqlSession.insert("yoonju.H.H_P001.H_p001_d001DAO.addrplyArticle",articleMap);
+		return null;
+	}
 	
 	@Override
 	public H_p001_d001VO selectArticle(String post_num) throws DataAccessException {
@@ -88,6 +95,6 @@ public class H_p001_d001DAOImpl implements H_p001_d001DAO {
 		
 		return sqlSession.selectList("yoonju.H.H_P001.H_p001_d001DAO.listPage", data);
 	}
-	
-	
+
+
 }

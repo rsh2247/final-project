@@ -30,6 +30,7 @@ border-bottom: none; border-top: none; " >
      <td >제목</td>
      <td >작성일</td>
   </tr>
+
 <c:choose>
   <c:when test="${articlesList ==null }" >
     <tr  height="10">
@@ -41,9 +42,9 @@ border-bottom: none; border-top: none; " >
     </tr>
   </c:when>
   <c:when test="${articlesList !=null }" >
-    <c:forEach  var="article" items="${articlesList }" varStatus="articleNum" >
+    <c:forEach  var="article" items="${articlesList }" >
      <tr align="center">
-	<td width="5%">${articleNum.count}</td>			<!-- 글번호 카운팅? 글번호는 post_num인데..?? -->
+	<td width="5%">${article.rnum}</td>			<!-- 글번호 카운팅? 글번호는 post_num인데..?? -->
 	<td width="10%">${article.user_id }</td>		<!-- 아이디겠지..? -->
 	<td align='left'  width="35%">
 	  <span style="padding-right:30px"></span>
@@ -51,6 +52,7 @@ border-bottom: none; border-top: none; " >
 	  </td>
 	  <td  width="10%">${article.post_date}</td> 	<!-- 작성일이겠지..? -->
 	</tr>
+
     </c:forEach>
      </c:when>
     </c:choose>
@@ -58,11 +60,10 @@ border-bottom: none; border-top: none; " >
 	<div>
  	<c:if test="${prev}">
 		<span>
-		[<a href = "${contextPath}/H/H_P001/listPage?=num${startPageNum -1}">이전]</a>
+		[<a href = "${contextPath}/H/H_P001/listPage.page?num=${startPageNum -1}">이전]</a>
 		</span>
 	</c:if>
-	
-	<c:forEach begin ="${startPageNum}" end="${endPageNum_tmp}" var = "num"> 
+	<c:forEach begin ="${startPageNum}" end="${endPageNum}" var = "num"> 
 		<span>		
  			<c:if test="${select != num}">	<!-- 그 외 다른 게시물이면 하이퍼링크로 다른 페이지 접근 가능하도록 -->
 		  		<a href="${contextPath}/H/H_P001/listPage.page?num=${num}">${num}</a>
@@ -76,7 +77,7 @@ border-bottom: none; border-top: none; " >
 	
 	<c:if test="${next}">
 		<span>
-			[<a href = "${contextPath}/H/H_P001/listPage.page?=num${endPageNum +1}">다음]</a>
+			[<a href = "${contextPath}/H/H_P001/listPage.page?num=${endPageNum +1}">다음]</a>
 		</span>
 	</c:if>
 	</div>

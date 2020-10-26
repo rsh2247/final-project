@@ -18,7 +18,18 @@ public class H_p001_d001VO {
 	private String user_id;
 	private Date  post_date;
 	private String board_num;
+	private String rnum;
 	
+	public String getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
+	}
+
+
 	public String getPost_num() {
 		return post_num;
 	}

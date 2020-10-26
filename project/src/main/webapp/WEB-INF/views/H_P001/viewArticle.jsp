@@ -63,16 +63,19 @@
 	 }
 	 
 	 function fn_reply_form(url, post_parent){			/* 댓글달기? */
-		 var form = document.createElement("form");
-		 form.setAttribute("method", "post");
-		 form.setAttribute("action", url);
-	     var parentNOInput = document.createElement("input");
+		console.log("########################");
+			 
+		var form = $("form[name='frmArticle']");
+		 form.attr("method", "post");
+		 form.attr("action", url);
+	     /* var parentNOInput = document.createElement("input");
 	     parentNOInput.setAttribute("type","hidden");
 	     parentNOInput.setAttribute("name","post_parent");
 	     parentNOInput.setAttribute("value", post_parent);
 		 
 	     form.appendChild(parentNOInput);
-	     document.body.appendChild(form);
+	     document.body.appendChild(form); */
+	     console.log("form의 내용 ! "+JSON.stringify(form));
 		 form.submit();
 	 }
 	 
@@ -96,6 +99,7 @@
 </head>
 <body>
   <form name="frmArticle" method="post"  action="${contextPath}"  enctype="multipart/form-data">
+  <%-- <input type="hidden" name="post_num" value="${article2.post_num}"/> --%>
   <table  border=0  align="center">
   <tr>
    <td width=150 align="center" bgcolor=#FF9933>
@@ -176,6 +180,35 @@
 	    <input type=text value="<fmt:formatDate value="${article2.post_date}" />" disabled />
 	   </td>   
   </tr>
+  <!-- 댓글 코드 시작 -->
+ 	<tr>
+ 		<td>작성자</td>
+ 		<td>
+ 			첫 번째 댓글
+ 		</td>
+ 	</tr> 
+ 	<tr>
+ 		<td>작성자</td>
+ 		<td>
+ 			두 번째 댓글
+ 		</td>
+ 	</tr> 
+  	<tr>
+  	<td>작성자</td>
+ 		<td>
+ 			세 번째 댓글
+ 		</td>
+ 	</tr> 
+  <tr>
+				<td align="center" valign="top"><br><input  value="${cus.getUsername()}" disabled/>  </td>
+				<td align= "left" colspan=2><textarea name="post_content" rows="10" cols="65" maxlength="4000"></textarea> </td>
+     </tr>
+  
+  
+  
+  
+  
+  <!-- 댓그 코드 끝 -->
   <tr   id="tr_btn_modify"  align="center"  >
 	   <td colspan="2"   >
 	       <input type=button value="확인"   onClick="fn_modify_article(frmArticle)"  >
@@ -190,7 +223,7 @@
 	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/H/H_P001/removeArticle.user', ${article2.post_num})">
 	    </c:if>
 	    <input type=button value="리스트로 돌아가기"  onClick="backToList(this.form)">
-	     <input type=button value="답글쓰기"  onClick="fn_reply_form('${contextPath}/H/H_P001/replyForm.do', ${article2.post_num})">
+	     <input type=button value="답글쓰기"  onClick="fn_reply_form('${contextPath}/H/H_P001/addrplyArticle.user', ${article2.post_num})">
    </td>
   </tr>
  </table>

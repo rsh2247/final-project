@@ -23,4 +23,6 @@ public interface H_p001_d001Controller {
                               HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	public ModelAndView listPage(@RequestParam("num") int num, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	public ResponseEntity addrplyArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 }
