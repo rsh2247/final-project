@@ -51,7 +51,7 @@
 	margin: 10px 0px 5px 0px;
 }
 
-.inputbox input{
+.inputtext{
 	width: 500px;
 	height: 30px;
 	padding-left: 0.7em;
@@ -215,20 +215,24 @@
 					<div class="divheader">
 						<label class="colname">카페관리</label>
 					</div>
+					<form action="" method="post">
 					<ul class="ulbox">
 						<li><div class='desc'>카페이름</div>
 							<div class="inputbox">
-								<input type="text">
-							</div></li>
-						<li><div class='desc'>가입방식</div>
-							<div class="inputbox">
-								<input type="text">
+								<input type="text" class="inputtext" name="group_name">
 							</div></li>
 						<li><div class='desc'>카페설명</div>
 							<div class="inputbox">
-								<input type="text">
+								<input type="text" class="inputtext" name="group_desc">
 							</div></li>
+						<li><div class='desc'>가입방식</div>
+							<div class="inputbox">
+								<input type="radio" name="group_joinmanner" value="free"> 가입 신청시 바로 가입가능
+								<input type="radio" name="group_joinmanner" value="need"> 가입 신청후 승인 필요
+							</div></li>
+						<li><div><button>확인</button></div></li>
 					</ul>
+					</form>
 				</div>
 				<div class="divbox">
 					<div class="divheader">

@@ -101,6 +101,12 @@
 		</where>
 	</select>
 	
+	<select id="authorityCheck" resultMap="result" parameterType="java.util.Map">
+		SELECT g_list_state 
+		FROM join_group_list 
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</select>
+	
 	<select id="selectCandidate" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
 		SELECT user_id,g_list_state,TO_CHAR(g_list_joindate,'YYYY-MM-DD') g_list_joindate, TO_CHAR(g_list_candidate,'YYYY-MM-DD') g_list_candidate 

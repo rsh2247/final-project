@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.sungho.problem_solve_module.service.Problem_Service;
+import project.sungho.security.member.MailSendService;
 import project.sungho.security.member.UserAuthenticationService;
 
 @Controller
@@ -22,6 +23,8 @@ public class CustomUserController {
 	
 	@Autowired
 	UserAuthenticationService customUser_Service;
+	@Autowired
+	MailSendService mss;
 	
 	@RequestMapping(value = "**/loginPage.login", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView search(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -42,7 +45,9 @@ public class CustomUserController {
 	
 	@RequestMapping(value = "**/user.signUp", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView signUp(@RequestParam HashMap<String, Object> inputMap ,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		customUser_Service.signUp(inputMap);
+		//customUser_Service.signUp(inputMap);
+		String authkey = mss.sendAuthMail((String) inputMap.get("email"));
+		System.out.println(authkey);
 		ModelAndView mav = new ModelAndView("/user/signIn.tiles");
 		return mav;
 	}
