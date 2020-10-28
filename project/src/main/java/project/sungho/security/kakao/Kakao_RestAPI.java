@@ -28,9 +28,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Kakao_RestAPI {
 	private final static String K_CLIENT_ID = "edb8a69b7aa8a6cb6bf4e8f43c8e43a9";
 	private final static String K_REDIRECT_URI = "http://localhost:8090/devFw/kakaoLogin";
+	private final static String K_SECRET_KEY = "nYRkaKITTsj526O9LZatardtmPRSks6m";
 
 	public String getAuthorizationUrl(HttpSession session) {
-
 		String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?" + "client_id=" + K_CLIENT_ID + "&redirect_uri="
 				+ K_REDIRECT_URI + "&response_type=code";
 		return kakaoUrl;
@@ -50,16 +50,19 @@ public class Kakao_RestAPI {
 		JsonNode returnNode = null;
 
 		try {
-
 			post.setEntity(new UrlEncodedFormEntity(postParams));
 			final HttpResponse response = client.execute(post);
 			final int responseCode = response.getStatusLine().getStatusCode();
 
 			// JSON 형태 반환값 처리
-
 			ObjectMapper mapper = new ObjectMapper();
 			returnNode = mapper.readTree(response.getEntity().getContent());
-
+			System.out.println(returnNode);
+			
+            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+            System.out.println("Post parameters : " + postParams);
+            System.out.println("Response Code : " + responseCode);
+ 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
@@ -81,6 +84,7 @@ public class Kakao_RestAPI {
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpPost post = new HttpPost(RequestUrl);
 		String accessToken = getAccessToken(autorize_code);
+		System.out.println("accessToken = "+accessToken);
 		// add header
 		post.addHeader("Authorization", "Bearer " + accessToken);
 

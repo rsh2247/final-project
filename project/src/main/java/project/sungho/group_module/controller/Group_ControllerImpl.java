@@ -219,6 +219,7 @@ public class Group_ControllerImpl {
 		}
 		ModelAndView mav = new ModelAndView(new RedirectView(request.getContextPath() + "/cafe/managing.user"));
 		mav.addObject("group_num", paramMap.get("group_num"));
+		 
 		return mav;
 	}
 	
@@ -233,6 +234,7 @@ public class Group_ControllerImpl {
 		ModelAndView mav = new ModelAndView(new RedirectView("" + paramMap.get("group_num")));
 		mav.addObject("need","");
 		return mav;
+		
 	}
 
 }

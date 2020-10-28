@@ -67,15 +67,15 @@ public class CustomUserController {
 			throws Exception {
 		System.out.println(code);
 		JsonNode userInfo = kakao_API.getKakaoUserInfo(code);
-
-		System.out.println(userInfo);
+		
+		
 		String id = userInfo.get("id").toString();
 		String image = userInfo.get("properties").get("profile_image").toString();
 		String nickname = userInfo.get("properties").get("nickname").toString();
 		
 		ModelAndView mav = new ModelAndView("");
 
-		return mav;
+		return null;
 	}
 
 }
