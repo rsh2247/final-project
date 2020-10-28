@@ -14,7 +14,6 @@ import project.bumsik.payment_main.vo.Lecture_VO;
 public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 	@Autowired
 	private SqlSession sqlSession;
-//	private static String namespace = "payment.lect";
 	private static String namespace = "payment.order";
 	
 	public int seq_order_id() throws DataAccessException{

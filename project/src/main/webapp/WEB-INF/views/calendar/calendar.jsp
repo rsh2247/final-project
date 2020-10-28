@@ -122,7 +122,7 @@
                     <div class="modal-footer modalBtnContainer-modifyEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                         <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+                        <button type="button" class="btn btn-primary" id="updateEvent">수정</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -151,15 +151,15 @@
                 <div class="col-lg-6">
                     <label for="calendar_view">등록자별</label>
                     <div class="input-group">
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="정연"
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="sjbn"
                                 checked>정연</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현"
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="aaa"
                                 checked>다현</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나"
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="bbb"
                                 checked>사나</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연"
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="ccc"
                                 checked>나연</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효"
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="ddd"
                                 checked>지효</label>
                     </div>
                 </div>

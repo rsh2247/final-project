@@ -45,7 +45,7 @@ public class KakaoController {
 	
 	String order_price, discount_point, lecture_name, user_id, order_ids, total_price, b_order_id;
 	Integer discount_point_int;
-	private AmountVO amountVO;
+	
     @PostMapping("/kakaoPay")
     public String kakaoPay(@RequestParam("order_id") String order_id) {
         System.out.println("post : ready");

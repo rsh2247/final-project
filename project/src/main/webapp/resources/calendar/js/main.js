@@ -4,7 +4,6 @@ function getContextPath() {
 	return location.href.substring(hostIndex,location.href.indexOf('/', hostIndex + 1));
 };
 
-
 var draggedEventIsAllDay;
 var activeInactiveWeekends = true;
 
@@ -29,12 +28,12 @@ var calendar = $('#calendar').fullCalendar({
                               },
   eventLimitClick           : 'week', //popover
   navLinks                  : true,
-  defaultDate               : moment('2019-05'), //실제 사용시 현재 날짜로 수정
+  defaultDate               : moment('2020-05'), //실제 사용시 현재 날짜로 수정
   timeFormat                : 'HH:mm',
   defaultTimedEventDuration : '01:00:00',
   editable                  : true,
   minTime                   : '00:00:00',
-  maxTime                   : '24:00:00',
+  maxTime                   : '23:59:59',
   slotLabelFormat           : 'HH:mm',
   weekends                  : true,
   nowIndicator              : true,
@@ -78,7 +77,7 @@ var calendar = $('#calendar').fullCalendar({
 
 
   eventRender: function (event, element, view) {
-
+	   console.log(event);
     //일정에 hover시 요약
     element.popover({
       title: $('<div />', {
@@ -109,16 +108,16 @@ var calendar = $('#calendar').fullCalendar({
   },
 
   /* ****************
-   *  일정 받아옴 
+   *  일정 받아옴 o
    * ************** */
   events: function (start, end, timezone, callback) {
     $.ajax({
       type: "get",
-      url: getContextPath()+"/resources/calendar/data.json",
+      url: getContextPath()+"/calendar_load.cal",
       data: {
         // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-        //startDate : moment(start).format('YYYY-MM-DD'),
-        //endDate   : moment(end).format('YYYY-MM-DD')
+        // startDate : moment(start).format('YYYY-MM-DD'),
+        // endDate   : moment(end).format('YYYY-MM-DD')
       },
       success: function (response) {
         var fixedDate = response.map(function (array) {
@@ -126,12 +125,15 @@ var calendar = $('#calendar').fullCalendar({
             array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
           }
           return array;
-        });
+        });       
         callback(fixedDate);
       }
     });
   },
 
+ 
+
+  
   eventAfterAllRender: function (view) {
     if (view.name == "month") $(".fc-content").css('height', 'auto');
   },
@@ -233,7 +235,7 @@ var calendar = $('#calendar').fullCalendar({
     $contextMenu.on("click", "a", function (e) {
       e.preventDefault();
 
-      //닫기 버튼이 아닐때
+      //닫기 버튼이 아닐때 addEvent.js
       if ($(this).data().role !== 'close') {
         newEvent(startDate, endDate, $(this).html());
       }
