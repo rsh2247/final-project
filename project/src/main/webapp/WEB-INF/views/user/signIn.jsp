@@ -95,5 +95,6 @@
 		</table>
 		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
 	</form>
+	<button onclick="location.href='${kakao_url}'">카카오로그인</button>
 </body>
 </html>

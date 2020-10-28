@@ -56,19 +56,19 @@
 
 	<!-- 타일즈 실습 설정 -->
 	<beans:bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
 				<beans:value>classpath:tiles/*.xml</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="preparerFactoryClass"
-			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
+			value="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory" />
 	</beans:bean>
 	<beans:bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles2.TilesView" />
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 		<beans:property name="order" value="1" />
 	</beans:bean>
 
