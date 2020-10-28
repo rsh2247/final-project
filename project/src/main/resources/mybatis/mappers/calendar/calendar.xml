@@ -31,12 +31,33 @@
 	<insert id="insertEvent" parameterType="java.util.Map">
 		<![CDATA[ 
 		insert into calendar(cal_id, cal_date, user_id, cal_startdate, cal_enddate, 
-						   cal_content, cal_name, cal_category, cal_allday, cal_color)
+						   	 cal_content, cal_name, cal_category, cal_allday, cal_color)
 		values(#{_id}, sysdate, #{user_id}, TO_DATE(#{start},'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{end},'YYYY-MM-DD HH24:MI:SS'), 
 		       #{description}, #{title}, #{type}, #{allDay}, #{backgroundColor})
 		]]>
 	</insert>
+	<update id="modifyEvent" parameterType="java.util.Map">
+		<![CDATA[ 
+		update calendar
+		set  cal_date = sysdate
+		   , cal_startdate = TO_DATE(#{start},'YYYY-MM-DD HH24:MI:SS')
+		   , cal_enddate = TO_DATE(#{end},'YYYY-MM-DD HH24:MI:SS')
+		   , cal_content = #{description}
+		   , cal_name = #{title}
+		   , cal_category = #{type}
+		   , cal_allday = #{allDay}
+		   , cal_color = #{backgroundColor}
+		where cal_id = #{_id}
+		]]>
+	</update>
 	
+	<delete id="deleteEvent" parameterType="java.util.Map">
+		<![CDATA[
+		delete from calendar
+		where cal_id = #{_id}
+		]]>
+	</delete>
+		
 	<!-- 	
 		<insert id="insertEvent" parameterType="java.util.Map">
 		insert into calendar(cal_id, cal_date, cal_startdate, cal_enddate, 

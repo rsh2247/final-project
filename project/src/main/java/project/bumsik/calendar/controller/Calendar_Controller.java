@@ -6,11 +6,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 public interface Calendar_Controller {
 
 	public List<Map<String, Object>> calendar_load(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public void calendar_insertEvent(Map<String, Object> dataMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public void calendar_modifyEvent(Map<String, Object> dataMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public void calendar_deleteEvent(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	void calendar_deleteEvent(@RequestParam(value="cal_id",required = false) String cal_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 }

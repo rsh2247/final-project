@@ -66,7 +66,7 @@ var newEvent = function (start, end, eventType) {
         if (editAllDay.is(':checked')) {
             eventData.start = moment(eventData.start).format('YYYY-MM-DD');
             //render시 날짜표기수정
-     //     eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
+     //	    eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
             eventData.end = moment(eventData.end).format('YYYY-MM-DD');
             //DB에 넣을때(선택)
             realEndDay = moment(eventData.end).format('YYYY-MM-DD');

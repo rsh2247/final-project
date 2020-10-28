@@ -25,4 +25,16 @@ public class Calendar_DAOImpl implements Calendar_DAO{
 		sqlSession.selectList(namespace+".insertEvent",dataMap);
 		
 	}
+
+	@Override
+	public void calendar_modifyEvent(Map<String, Object> dataMap) throws DataAccessException {
+		sqlSession.selectList(namespace+".modifyEvent",dataMap);
+		
+	}
+
+	@Override
+	public void calendar_deleteEvent(Map<String, Object> dataMap) throws DataAccessException {
+		sqlSession.selectList(namespace+".deleteEvent",dataMap);
+		
+	}
 }

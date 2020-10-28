@@ -26,4 +26,16 @@ public class Calendar_ServiceImpl implements Calendar_Service{
 		
 	}
 
+	@Override
+	public void calendar_modifyEvent(Map<String, Object> dataMap) throws DataAccessException {
+		calendar_DAO.calendar_modifyEvent(dataMap);
+		
+	}
+
+	@Override
+	public void calendar_deleteEvent(Map<String, Object> dataMap) throws DataAccessException {
+		calendar_DAO.calendar_deleteEvent(dataMap);
+		
+	}
+
 }

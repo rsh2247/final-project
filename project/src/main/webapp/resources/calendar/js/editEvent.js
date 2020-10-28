@@ -122,7 +122,6 @@ var editEvent = function (event, element, view) {
 
 // 삭제버튼, 일정번호 필요 cal_id
 $('#deleteEvent').on('click', function () {
-	
 	$('#deleteEvent').unbind();
 	$("#calendar").fullCalendar('removeEvents', $(this).data('id'));
 	eventModal.modal('hide');
@@ -132,11 +131,13 @@ $('#deleteEvent').on('click', function () {
 		type: "get",
 		url: getContextPath()+"/calendar_deleteEvent.cal",
 		data: {
-			//...
+			_id :  $(this).data('id')
 		},
 		success: function (response) {
 			alert('삭제되었습니다.');
+		},
+			error: function(response){
+			alert('에러에러');
 		}
 	});
-	
 });

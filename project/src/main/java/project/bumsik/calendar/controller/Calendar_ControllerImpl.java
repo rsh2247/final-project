@@ -109,7 +109,7 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 		System.out.println("---input ----dataMap : "+dataMap2);		
 	}
 	
-	/* 일정수정  미완성..*/
+	/* 일정수정 */
 	@Override
 	@RequestMapping(value="/calendar_modifyEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -119,45 +119,45 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 		
 		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		
-//	
-//		String _id = (String) dataMap.get("eventData[_id]");
-//		String title = (String) dataMap.get("eventData[title]");
-//		String description = (String) dataMap.get("eventData[description]");
-//		String type = (String) dataMap.get("eventData[type]");
-//		String backgroundColor = (String) dataMap.get("eventData[backgroundColor]");
-//		String start = (String) dataMap.get("eventData[start]");
-//		String end = (String) dataMap.get("eventData[end]");
-//		
-//		Map<String, Object> dataMap2 = new HashMap<String, Object>();
-//		
-//		dataMap2.put("_id", _id);
-//		dataMap2.put("title", title);
-//		dataMap2.put("description", description);
-//		dataMap2.put("start", start);
-//		dataMap2.put("end", end);
-//		dataMap2.put("type", type);
-//		dataMap2.put("user_id", userId);
-//		dataMap2.put("backgroundColor", backgroundColor);
-//		
-//		/* ajax에서 받아와서 false,true를 0,1로 치환하연 db에 저장 */
-//		String getAllDay = (String) dataMap.get("eventData[allDay]");
-//		if(getAllDay.equals("false")) {
-//			dataMap2.put("allDay", "0");
-//		}else {
-//			dataMap2.put("allDay", "1");
-//		}
-//		calendar_Service.calendar_insertEvent(dataMap2);
-//		System.out.println("---input ----dataMap : "+dataMap2);	
-//		
-	}
+		//dataMap에서 꺼내와서 쿼리 작성중..에러가 많이나서 임시로 하드코딩..수정도..
+		String _id = (String) dataMap.get("_id");
+		String title = (String) dataMap.get("title");
+		String description = (String) dataMap.get("description");
+		String start = (String) dataMap.get("start");
+		String end = (String) dataMap.get("end");
+		String type = (String) dataMap.get("type");
+		String backgroundColor = (String) dataMap.get("backgroundColor");
 		
+		Map<String, Object> dataMap2 = new HashMap<String, Object>();
+		
+		dataMap2.put("_id", _id);
+		dataMap2.put("title", title);
+		dataMap2.put("description", description);
+		dataMap2.put("start", start);
+		dataMap2.put("end", end);
+		dataMap2.put("type", type);
+		dataMap2.put("user_id", userId);
+		dataMap2.put("backgroundColor", backgroundColor);
+		
+		/* ajax에서 받아와서 false,true를 0,1로 치환하연 db에 저장 */
+		String getAllDay = (String) dataMap.get("allDay");
+		if(getAllDay.equals("false")) {
+			dataMap2.put("allDay", "0");
+		}else {
+			dataMap2.put("allDay", "1");
+		}
+		calendar_Service.calendar_modifyEvent(dataMap2);
+		System.out.println("---modify ----dataMap : "+dataMap2);	
+	}
+
 	/* 일정삭제 */
 	@Override
 	@RequestMapping(value="/calendar_deleteEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public void calendar_deleteEvent(HttpServletRequest request, HttpServletResponse response) throws Exception {
-			
+	public void calendar_deleteEvent(@RequestParam(value="_id",required = false) String _id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("삭제 시작합니다????!!!"+_id);
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+			dataMap.put("_id", _id);
+			calendar_Service.calendar_deleteEvent(dataMap);	
 	}
-	
-	
 }
