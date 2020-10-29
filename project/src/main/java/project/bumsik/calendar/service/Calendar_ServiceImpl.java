@@ -38,4 +38,10 @@ public class Calendar_ServiceImpl implements Calendar_Service{
 		
 	}
 
+	@Override
+	public void calendar_resizeDragEvent(Map<String, Object> dataMap) throws DataAccessException {
+		calendar_DAO.calendar_resizeDragEvent(dataMap);
+		
+	}
+
 }

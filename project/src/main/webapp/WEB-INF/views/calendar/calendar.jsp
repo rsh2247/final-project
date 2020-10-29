@@ -152,9 +152,9 @@
                     <label for="calendar_view">등록자별</label>
                     <div class="input-group">
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="sjbn"
-                                checked>정연</label>
+                                checked>개인 일정</label>
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="aaa"
-                                checked>다현</label>
+                                checked></label>
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="bbb"
                                 checked>사나</label>
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="ccc"

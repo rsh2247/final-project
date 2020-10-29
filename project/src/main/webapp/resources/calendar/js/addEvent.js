@@ -31,22 +31,17 @@ var newEvent = function (start, end, eventType) {
     modifyBtnContainer.hide();          //닫기, 삭제, 저장 버튼 숨김
     eventModal.modal('show');           //모달 바로실행
 
-    /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
-    var eventId = 1 + Math.floor(Math.random() * 1000);
-    /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
-
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();      //이벤트 핸들러 요소제거
     $('#save-event').on('click', function () {
 
         var eventData = {
-            _id: eventId,           //임시지정(Controller에서 재지정)
             title: editTitle.val(),
             start: editStart.val(),
             end: editEnd.val(),
             description: editDesc.val(),
             type: editType.val(),
-            username: 'sjbn',
+       //     username: 'sjbn',
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
             allDay: false           //default : false
@@ -85,7 +80,14 @@ var newEvent = function (start, end, eventType) {
             type: "get",
             url: getContextPath()+"/calendar_insertEvent.cal",
             data: {
-            	eventData: eventData
+				title: eventData.title,
+				description : eventData.description,
+				start : eventData.start,
+				end : eventData.end,
+				type : eventData.type,
+				backgroundColor : eventData.backgroundColor,
+				textColor: eventData.textColor,
+				allDay : eventData.allDay
             },
             success: function (response) {
                 //DB연동시 중복이벤트 방지를 위한??

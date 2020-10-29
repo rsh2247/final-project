@@ -28,7 +28,7 @@ var calendar = $('#calendar').fullCalendar({
                               },
   eventLimitClick           : 'week', //popover
   navLinks                  : true,
-  defaultDate               : moment('2020-05'), //실제 사용시 현재 날짜로 수정
+  defaultDate               : moment('2020-11'), //실제 사용시 현재 날짜로 수정
   timeFormat                : 'HH:mm',
   defaultTimedEventDuration : '01:00:00',
   editable                  : true,
@@ -120,14 +120,14 @@ var calendar = $('#calendar').fullCalendar({
         // endDate   : moment(end).format('YYYY-MM-DD')
       },
       success: function (response) {
-		/*        
+		        
 		var fixedDate = response.map(function (array) {  
 			if (array.allDay && array.start !== array.end) {
-            	array.end = moment(array.end); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+            	array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
         	}
           	return array;
-        });*/       
-        callback(response);
+        });       
+        callback(fixedDate);
       }
     });
   },
@@ -150,13 +150,15 @@ var calendar = $('#calendar').fullCalendar({
     //리사이즈한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "",
+      url: getContextPath()+"/calendar_resizeEvent.cal",
       data: {
-        //id: event._id,
-        //....
+    	  _id: event._id,
+          start: newDates.startDate,
+          end: newDates.endDate,
       },
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+        location.reload();
       }
     });
 
@@ -185,12 +187,15 @@ var calendar = $('#calendar').fullCalendar({
     //드롭한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "",
+      url: getContextPath()+"/calendar_dragEvent.cal",
       data: {
-        //...
+    	  _id: event._id,
+          start: newDates.startDate,
+          end: newDates.endDate,
       },
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+        location.reload();
       }
     });
 

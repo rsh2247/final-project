@@ -19,7 +19,8 @@
 
 	<select id="load" resultMap="calendar_load01" parameterType="java.util.Map"> 
       <![CDATA[
-         select cal_id, cal_date, user_id, cal_startdate, cal_enddate, cal_content, cal_name, cal_category, cal_allday, cal_color
+         select cal_id, cal_date, user_id, cal_startdate, cal_enddate, 
+                cal_content, cal_name, cal_category, cal_allday, cal_color
          from   calendar
       ]]>
 		<where>
@@ -29,6 +30,13 @@
 		</where>
 	</select>
 	<insert id="insertEvent" parameterType="java.util.Map">
+		<selectKey resultType="int" keyProperty="_id" order="BEFORE">
+			select case when max(cal_id)!='null'
+			then max(to_number(cal_id))+1 
+			else 1
+			end as cal_id
+			from calendar
+    	</selectKey>   
 		<![CDATA[ 
 		insert into calendar(cal_id, cal_date, user_id, cal_startdate, cal_enddate, 
 						   	 cal_content, cal_name, cal_category, cal_allday, cal_color)
@@ -57,6 +65,16 @@
 		where cal_id = #{_id}
 		]]>
 	</delete>
+	
+	<update id="resizeDragEvent" parameterType="java.util.Map">
+		<![CDATA[ 
+		update calendar
+		set  cal_startdate = TO_DATE(#{start},'YYYY-MM-DD HH24:MI:SS')
+		   , cal_enddate = TO_DATE(#{end},'YYYY-MM-DD HH24:MI:SS')
+		where cal_id = #{_id}
+		]]>
+	</update>
+	
 		
 	<!-- 	
 		<insert id="insertEvent" parameterType="java.util.Map">

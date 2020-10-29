@@ -85,7 +85,8 @@ var editEvent = function (event, element, view) {
 		event.allDay = statusAllDay;
 		event.title = editTitle.val();
 		event.start = startDate;
-		event.end = displayDate;
+		event.end = endDate;
+//		event.end = displayDate;
 		event.type = editType.val();
 		event.backgroundColor = editColor.val();
 		event.description = editDesc.val();
@@ -110,7 +111,7 @@ var editEvent = function (event, element, view) {
 				allDay : event.allDay
 			},
 			success: function (response) {
-				alert('수정되었습니다.')
+				location.reload();
 			},
 			error: function(response){
 				alert('에러에러');
@@ -134,7 +135,7 @@ $('#deleteEvent').on('click', function () {
 			_id :  $(this).data('id')
 		},
 		success: function (response) {
-			alert('삭제되었습니다.');
+			location.reload();
 		},
 			error: function(response){
 			alert('에러에러');

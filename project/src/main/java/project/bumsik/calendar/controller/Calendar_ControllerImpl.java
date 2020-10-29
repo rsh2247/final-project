@@ -58,8 +58,6 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 				row.put("allDay", false);				
 			}
 		}
-		System.out.println("-------calMap : "+calMap);
-		System.out.println("-------calList : "+calList); 
 	    return calList;
 	}
 	
@@ -68,8 +66,8 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	@RequestMapping(value="/calendar_insertEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void calendar_insertEvent(@RequestParam Map<String, Object> dataMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("calendar_insertEvent----");
-		System.out.println("dataMap : "+dataMap);
+		System.out.println("calendar_insertEvent");
+		
 		//일정 조회, 해당 user_id
 		String userId = null;
 		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
@@ -77,36 +75,17 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 		}else {
 			userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		}
-		
-		//dataMap에서 꺼내와서 쿼리 작성중..에러가 많이나서 임시로 하드코딩..
-		String _id = (String) dataMap.get("eventData[_id]");
-		String title = (String) dataMap.get("eventData[title]");
-		String description = (String) dataMap.get("eventData[description]");
-		String type = (String) dataMap.get("eventData[type]");
-		String backgroundColor = (String) dataMap.get("eventData[backgroundColor]");
-		String start = (String) dataMap.get("eventData[start]");
-		String end = (String) dataMap.get("eventData[end]");
-		
-		Map<String, Object> dataMap2 = new HashMap<String, Object>();
-		
-		dataMap2.put("_id", _id);
-		dataMap2.put("title", title);
-		dataMap2.put("description", description);
-		dataMap2.put("start", start);
-		dataMap2.put("end", end);
-		dataMap2.put("type", type);
-		dataMap2.put("user_id", userId);
-		dataMap2.put("backgroundColor", backgroundColor);
-		
+
+		dataMap.put("user_id", userId);
+
 		/* ajax에서 받아와서 false,true를 0,1로 치환하연 db에 저장 */
-		String getAllDay = (String) dataMap.get("eventData[allDay]");
+		String getAllDay = (String) dataMap.get("allDay");
 		if(getAllDay.equals("false")) {
-			dataMap2.put("allDay", "0");
+			dataMap.put("allDay", "0");
 		}else {
-			dataMap2.put("allDay", "1");
+			dataMap.put("allDay", "1");
 		}
-		calendar_Service.calendar_insertEvent(dataMap2);
-		System.out.println("---input ----dataMap : "+dataMap2);		
+		calendar_Service.calendar_insertEvent(dataMap);
 	}
 	
 	/* 일정수정 */
@@ -114,40 +93,17 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	@RequestMapping(value="/calendar_modifyEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void calendar_modifyEvent(@RequestParam Map<String, Object> dataMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("calendar_modifyEvent----");
-		System.out.println("-----------------dataMap : "+dataMap);
-		
-		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-		
-		//dataMap에서 꺼내와서 쿼리 작성중..에러가 많이나서 임시로 하드코딩..수정도..
-		String _id = (String) dataMap.get("_id");
-		String title = (String) dataMap.get("title");
-		String description = (String) dataMap.get("description");
-		String start = (String) dataMap.get("start");
-		String end = (String) dataMap.get("end");
-		String type = (String) dataMap.get("type");
-		String backgroundColor = (String) dataMap.get("backgroundColor");
-		
-		Map<String, Object> dataMap2 = new HashMap<String, Object>();
-		
-		dataMap2.put("_id", _id);
-		dataMap2.put("title", title);
-		dataMap2.put("description", description);
-		dataMap2.put("start", start);
-		dataMap2.put("end", end);
-		dataMap2.put("type", type);
-		dataMap2.put("user_id", userId);
-		dataMap2.put("backgroundColor", backgroundColor);
-		
+		System.out.println("calendar_modifyEvent");
+
 		/* ajax에서 받아와서 false,true를 0,1로 치환하연 db에 저장 */
 		String getAllDay = (String) dataMap.get("allDay");
 		if(getAllDay.equals("false")) {
-			dataMap2.put("allDay", "0");
+			dataMap.put("allDay", "0");
 		}else {
-			dataMap2.put("allDay", "1");
+			dataMap.put("allDay", "1");
 		}
-		calendar_Service.calendar_modifyEvent(dataMap2);
-		System.out.println("---modify ----dataMap : "+dataMap2);	
+		calendar_Service.calendar_modifyEvent(dataMap);
+		System.out.println("---modify ----dataMap : "+dataMap);	
 	}
 
 	/* 일정삭제 */
@@ -155,9 +111,30 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	@RequestMapping(value="/calendar_deleteEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void calendar_deleteEvent(@RequestParam(value="_id",required = false) String _id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("삭제 시작합니다????!!!"+_id);
+		System.out.println("calendar_deleteEvent"+_id);
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-			dataMap.put("_id", _id);
-			calendar_Service.calendar_deleteEvent(dataMap);	
+		dataMap.put("_id", _id);
+		calendar_Service.calendar_deleteEvent(dataMap);	
 	}
+	
+	/* resize 일정*/
+	@Override
+	@RequestMapping(value="/calendar_resizeEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public void calendar_resizeEvent(@RequestParam Map<String, Object> dataMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("calendar_resizeEvent");
+		calendar_Service.calendar_resizeDragEvent(dataMap);	
+	}
+	
+	
+	/* drag 일정 */
+	@Override
+	@RequestMapping(value="/calendar_dragEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public void calendar_dragEvent(@RequestParam Map<String, Object> dataMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("calendar_dragEvent");
+		calendar_Service.calendar_resizeDragEvent(dataMap);	
+	}
+	
+	
 }
