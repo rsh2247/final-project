@@ -45,8 +45,8 @@
          from   orders
       ]]>
 		<where>
-			<if test=" trade_key != ''  and  trade_key != null">
-				order_id = #{trade_key}
+			<if test=" order_id != ''  and  order_id != null">
+				order_id = #{order_id}
 			</if>
 		</where>
 	</select>
@@ -55,11 +55,11 @@
 	<!-- point정보 제외 orders, 초기 강의 클릭시 -->
 	<insert id="insertOrder1" parameterType="java.util.Map">
 		insert into orders(order_id, user_id, lecture_id, order_date, order_price)
-		values(#{trade_key}, #{p_id}, #{l_id}, sysdate, #{order_price})
+		values(#{order_id}, #{p_id}, #{l_id}, sysdate, #{order_price})
 	</insert>
 	<insert id="insertOrder2" parameterType="java.util.Map">
 		insert into orders(order_id, user_id, lecture_id, order_date, order_price, discount_point, total_price, point_over)
-		values(#{trade_key}, #{p_id}, #{l_id}, sysdate, #{order_price}, #{discount_point}, #{total_price}, #{point_over})
+		values(#{order_id}, #{p_id}, #{l_id}, sysdate, #{order_price}, #{discount_point}, #{total_price}, #{point_over})
 	</insert>	
 	<!-- point사용 정보 입력 받고 적용 update -->
 	<update id="updateOrder" parameterType="java.util.Map">
@@ -67,7 +67,7 @@
 		set  discount_point = #{discount_point}
 		   , total_price = #{total_price}
 		   , point_over = #{point_over}
-		where order_id = #{trade_key}
+		where order_id = #{order_id}
 	</update>
 	
 	
@@ -90,7 +90,7 @@
         	   o.point_over, l.lecture_name
 		from orders o JOIN lecture l
 		ON o.lecture_id = l.lecture_id
-		and o.order_id = #{trade_key}
+		and o.order_id = #{order_id}
 	</select>
 	
 	<!-- orders&point join -->
@@ -102,9 +102,13 @@
 		from orders o join point p 
 		on o.user_id = p.user_id
 		and o.order_id = #{order_id}
+		and p.point_date = ( select MAX(point_date) from point )
 	</select>
 	
-	
+	<insert id="paymentResult" parameterType="java.util.Map">
+		insert into pay(pay_id, pay_content, pay_way, user_id, pay_date, pay_amount)
+		values(#{pay_id}, #{pay_content}, #{pay_way}, #{user_id}, sysdate, #{pay_amount})
+	</insert>
 	
 	
 </mapper>

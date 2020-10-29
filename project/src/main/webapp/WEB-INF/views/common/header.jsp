@@ -280,9 +280,8 @@ h3 {
 					</ul></li>
 				<li><a href="${contextPath}/group/groupmain" class="link">그룹</a></li>
 				<li><a href="${contextPath}/F/F_P001/listScore.page" class="link">랭킹</a></li>
+				<li><a href="${contextPath}/calendar/calendar.do" class="link">일정관리</a></li>
 				
-				<li><a class="link">일정관리</a></li>
-
 				<li><a href="#" class="link">게시판</a>
 					<ul class="two">
 						<li><a href="${contextPath}/H/H_P001/listArticles.page"

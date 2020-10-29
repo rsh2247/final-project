@@ -19,14 +19,14 @@
 .payment_wrap .sale_pay dt li {float:left; padding:12px 0; margin:0; font-size:14px; font-weight:bold; text-align:center; color:#2a2a2a;}
 .payment_wrap .sale_pay dt li.total_order {width:260px; border-right:1px solid #cdcdcd; background:#eceff1;}
 .payment_wrap .sale_pay dt li.sale_price {width:260px; border-right:1px solid #cdcdcd; background:#eceff1;}
-.payment_wrap .sale_pay dt li.total_price {width:260px; color:#fff; background:#cc0000;}
+.payment_wrap .sale_pay dt li.total_price {width:270px; color:#fff; background:#cc0000;}
 
 .payment_wrap .sale_pay dd ul {display:inline; float:left; margin:0 0 0 0; background:url(../img/payment/sum_bg.gif) no-repeat;list-style: none;}
 .payment_wrap .sale_pay dd li {float:left; padding:13px 0; color:#2a2a2a; text-align:center; border-bottom:1px solid #cdcdcd;}
 .payment_wrap .sale_pay dd li em {font-size:25px; font-weight:bold}
 .payment_wrap .sale_pay dd li.total_order {width:264px;}
 .payment_wrap .sale_pay dd li.sale_price {width:254px; margin:0 0 0 0; }
-.payment_wrap .sale_pay dd li.total_price  {width:275px; margin:0 0 0 0; color:#cc0000;}
+.payment_wrap .sale_pay dd li.total_price  {width:270px; margin:0 0 0 0; color:#cc0000;}
 .payment_wrap .sale_pay dd li.total_price  em {color:#cc0000;}
 
 .payment_wrap div.total_order {float:left; width:496px; margin:28px 0 0 20px; _margin-left:10px; display:inline-block;}

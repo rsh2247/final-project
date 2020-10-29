@@ -27,7 +27,6 @@
 		INSERT INTO join_group_list(group_num, user_id,
 		g_list_state, g_list_candidate, g_list_joindate)
 		VALUES(#{group_num}, #{user_id}, #{g_list_state}, sysdate, sysdate)
-
 	</insert>
 
 	<select id="selectUserGroup" resultMap="result"
@@ -93,13 +92,52 @@
 	
 	<select id="selectGroupMember" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
-		SELECT *
+		SELECT user_id,g_list_state,TO_CHAR(g_list_joindate,'YYYY-MM-DD') g_list_joindate,g_list_candidate 
 		FROM join_group_list
 		]]>
 		<where>
-		group_num = #{group_num}
+		group_num = #{group_num} and g_list_state != 'candidate' 
 		</where>
 	</select>
+	
+	<select id="authorityCheck" resultMap="result" parameterType="java.util.Map">
+		SELECT g_list_state 
+		FROM join_group_list 
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</select>
+	
+	<select id="selectCandidate" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT user_id,g_list_state,TO_CHAR(g_list_joindate,'YYYY-MM-DD') g_list_joindate, TO_CHAR(g_list_candidate,'YYYY-MM-DD') g_list_candidate 
+		FROM join_group_list
+		]]>
+		<where>
+		group_num = #{group_num} and g_list_state = 'candidate' 
+		</where>
+	</select>
+	
+	<select id="checkGroupManner" resultMap="result" parameterType="java.util.Map">
+		SELECT group_joinmanner
+		FROM group_table
+		WHERE group_num = #{group_num}
+	</select>
+	
+	<update id="updateGroupManager" parameterType="java.util.Map">
+		UPDATE group_table
+		SET group_leader = #{user_id}
+		WHERE group_num = #{group_num}
+	</update>
+	
+	<update id="updateUser" parameterType="java.util.Map">
+		UPDATE join_group_list
+		SET G_LIST_STATE = #{g_list_state}
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM join_group_list
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</delete>
 	
 	
 

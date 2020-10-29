@@ -21,6 +21,7 @@
 		<typeAlias type="project.bumsik.payment_point.vo.PaymentPoint_VO"  alias="payPointVO" />
 		<typeAlias type="project.bumsik.payment_main.vo.Lecture_VO" alias="lectureVO"/>
 		<typeAlias type="project.bumsik.payment_main.vo.Order_VO" alias="orderVO"/>
+		<typeAlias type="project.bumsik.calendar.vo.Calendar_VO" alias="calendarVO"/>
 		
 		<!-- 이윤주 추가 -->
 		<typeAlias type="project.yoonju.H.H_P001.vo.H_p001_d001VO"  alias="articleVO" />

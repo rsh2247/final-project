@@ -38,6 +38,24 @@
 	width: 100%;
 	border-bottom: 2px solid #555;
 	padding: 10px 0 10px 0;
+	font-size: x-large;
+}
+.divmiddle{
+	padding: 25px 0 0px 0;
+	padding-left: 20px;
+	font-size: large;
+}
+
+.desc{
+	width: inherit;
+	margin: 10px 0px 5px 0px;
+}
+
+.inputtext{
+	width: 500px;
+	height: 30px;
+	padding-left: 0.7em;
+	border: 1px solid #555;
 }
 
 .colname {
@@ -79,6 +97,26 @@
 #controlpanel{
 	float: left;
 }
+.memberList{
+	width:-webkit-fill-available;
+	margin: 10px 20px 20px 20px;
+	border-collapse: collapse;
+}
+.memberList th{
+	height: 45px;
+	border-bottom: 2px solid #555;
+}
+.memberList td{
+	height: 35px;
+	border-bottom: 1px solid #555;
+}
+
+.memberbtn{
+	width: 80px;
+	height: 30px;
+	cursor: pointer;
+}
+
 .selectboard {
 	width: -webkit-fill-available;
 	padding: 5px 0 5px 10px;
@@ -95,8 +133,10 @@
 	color: #fff;
 	cursor: pointer;
 }
+.inlineform{
+	display: inline-block;
+}
 </style>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 	var list = [];
     $(document).ready(function() 
@@ -171,31 +211,34 @@
 	<div id="contentbox">
 		<jsp:include page="groupPage_sidebar.jsp"></jsp:include>
 		<div id="mainbox">
-			<form action="" id="form">
 				<div class="divbox">
 					<div class="divheader">
 						<label class="colname">카페관리</label>
 					</div>
+					<form action="" method="post">
 					<ul class="ulbox">
-						<li><div id='desc'>카페이름</div>
-							<div id="inputbox">
-								<input type="text">
+						<li><div class='desc'>카페이름</div>
+							<div class="inputbox">
+								<input type="text" class="inputtext" name="group_name">
 							</div></li>
-						<li><div id='desc'>가입방식</div>
-							<div id="inputbox">
-								<input type="text">
+						<li><div class='desc'>카페설명</div>
+							<div class="inputbox">
+								<input type="text" class="inputtext" name="group_desc">
 							</div></li>
-						<li><div id='desc'>카페설명</div>
-							<div id="inputbox">
-								<input type="text">
+						<li><div class='desc'>가입방식</div>
+							<div class="inputbox">
+								<input type="radio" name="group_joinmanner" value="free"> 가입 신청시 바로 가입가능
+								<input type="radio" name="group_joinmanner" value="need"> 가입 신청후 승인 필요
 							</div></li>
+						<li><div><button>확인</button></div></li>
 					</ul>
+					</form>
 				</div>
 				<div class="divbox">
 					<div class="divheader">
 						<label class="colname">게시판관리</label>
 					</div>
-					<div>게시판목록</div>
+					<div class="divmiddle">게시판목록</div>
 					<div id="tablebox">
 						<table id="boardList">
 							<tr>
@@ -216,15 +259,70 @@
 						<button type="button" class="boardbtn" id="add">게시판 추가</button>
 					</div>
 				</div>
-				<div class="divbox" style="display: flex;">
+				<div class="divbox" style="display:inline-block;">
 					<div class="divheader">
 						<label class="colname">카페회원관리</label>
 					</div>
-					<ul>
-						<li></li>
-					</ul>
+					<div class="divmiddle">회원목록</div>
+					<table class="memberList">
+						<tr>
+							<th width="400px">아이디</th>
+							<th>등급</th>
+							<th>가입일자</th>
+							<th width="200px"></th>
+						</tr>
+						<c:forEach var="list" items="${memberList.member}">
+							<c:if test="${list.G_LIST_STATE ne 'deport'}">
+							<tr>
+								<td>${list.USER_ID}</td>
+								<td>${list.G_LIST_STATE}</td>
+								<td>${list.G_LIST_JOINDATE}</td>
+								<td>
+								<c:if test="${list.G_LIST_STATE ne 'manager'}">
+								<form action="deport" method="post" class="inlineform">
+								<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+								<input type="hidden" name="user_id" value="${list.USER_ID}">
+								<button class="memberbtn" value="${list.USER_ID}">추방</button></form>
+								<form action="yield" method="post" class="inlineform">
+								<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+								<input type="hidden" name="user_id" value="${list.USER_ID}">
+								<button class="memberbtn" >관리자 양도</button></form>
+								</c:if></td>
+							</tr>
+							</c:if>
+						</c:forEach>
+					</table>
+					<div class="divmiddle">가입신청목록</div>
+					<table class="memberList">
+						<tr>
+							<th width="400px">아이디</th>
+							<th> </th>
+							<th>가입신청일자</th>
+							<th width="200px"></th>
+						</tr>
+						<c:forEach var="list" items="${memberList.candidate}">
+							<tr>
+								<td>${list.USER_ID}</td>
+								<td> </td>
+								<td>${list.G_LIST_CANDIDATE}</td>
+								<td>
+								<form action="apply" class="inlineform">
+									<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+									<input type="hidden" name="user_id" value="${list.USER_ID}">
+									<input type="hidden" name="apply" value="true">
+									<button class="memberbtn">승낙</button>
+								</form>
+								<form action="apply" class="inlineform">
+									<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+									<input type="hidden" name="user_id" value="${list.USER_ID}">
+									<input type="hidden" name="apply" value="false">
+									<button class="memberbtn">거절</button>
+								</form>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
 				</div>
-			</form>
 		</div>
 	</div>
 </body>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="calendar">
+	<resultMap id="calendar_load01" type="java.util.HashMap">
+		<result property="_id" column="cal_id"  />
+		<result property="cal_date" column="cal_date" />
+		<result property="username" column="user_id" />
+		<result property="start" column="cal_startdate" />
+		<result property="end" column="cal_enddate" />
+		<result property="description" column="cal_content" />
+		<result property="title" column="cal_name" />
+		<result property="type" column="cal_category" />
+		<result property="allDay" column="cal_allday" />
+		<result property="backgroundColor" column="cal_color" />
+	</resultMap>
+
+	<select id="load" resultMap="calendar_load01" parameterType="java.util.Map"> 
+      <![CDATA[
+         select cal_id, cal_date, user_id, cal_startdate, cal_enddate, 
+                cal_content, cal_name, cal_category, cal_allday, cal_color
+         from   calendar
+      ]]>
+		<where>
+			<if test=" user_id != ''  and  user_id != null">
+				user_id = #{user_id}
+			</if>
+		</where>
+	</select>
+	<insert id="insertEvent" parameterType="java.util.Map">
+		<selectKey resultType="int" keyProperty="_id" order="BEFORE">
+			select case when max(cal_id)!='null'
+			then max(to_number(cal_id))+1 
+			else 1
+			end as cal_id
+			from calendar
+    	</selectKey>   
+		<![CDATA[ 
+		insert into calendar(cal_id, cal_date, user_id, cal_startdate, cal_enddate, 
+						   	 cal_content, cal_name, cal_category, cal_allday, cal_color)
+		values(#{_id}, sysdate, #{user_id}, TO_DATE(#{start},'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{end},'YYYY-MM-DD HH24:MI:SS'), 
+		       #{description}, #{title}, #{type}, #{allDay}, #{backgroundColor})
+		]]>
+	</insert>
+	<update id="modifyEvent" parameterType="java.util.Map">
+		<![CDATA[ 
+		update calendar
+		set  cal_date = sysdate
+		   , cal_startdate = TO_DATE(#{start},'YYYY-MM-DD HH24:MI:SS')
+		   , cal_enddate = TO_DATE(#{end},'YYYY-MM-DD HH24:MI:SS')
+		   , cal_content = #{description}
+		   , cal_name = #{title}
+		   , cal_category = #{type}
+		   , cal_allday = #{allDay}
+		   , cal_color = #{backgroundColor}
+		where cal_id = #{_id}
+		]]>
+	</update>
+	
+	<delete id="deleteEvent" parameterType="java.util.Map">
+		<![CDATA[
+		delete from calendar
+		where cal_id = #{_id}
+		]]>
+	</delete>
+	
+	<update id="resizeDragEvent" parameterType="java.util.Map">
+		<![CDATA[ 
+		update calendar
+		set  cal_startdate = TO_DATE(#{start},'YYYY-MM-DD HH24:MI:SS')
+		   , cal_enddate = TO_DATE(#{end},'YYYY-MM-DD HH24:MI:SS')
+		where cal_id = #{_id}
+		]]>
+	</update>
+	
+		
+	<!-- 	
+		<insert id="insertEvent" parameterType="java.util.Map">
+		insert into calendar(cal_id, cal_date, cal_startdate, cal_enddate, 
+						   cal_content, cal_name, cal_category, cal_allday, cal_color)
+		values(#{_id}, sysdate, #{start}, #{end}, #{description}, 
+			   #{username}, #{type}, #{allDay}, #{backgroundColor})
+		</insert>
+	 -->
+<!-- 	 	
+		<insert id="insertEvent" parameterType="java.util.Map">
+		<![CDATA[ 
+		insert into calendar(cal_id, cal_date, cal_startdate, cal_enddate, 
+						   cal_content, cal_name, cal_category, cal_allday, cal_color)
+		values(#{eventData[_id]}, sysdate, #{eventData[start]}, #{eventData[end]}, #{eventData[description]}, 
+			   #{eventData[username]}, #{eventData[type]}, #{eventData[allDay]}, #{eventData[backgroundColor]})
+		]]>
+		</insert>
+	 -->
+</mapper>

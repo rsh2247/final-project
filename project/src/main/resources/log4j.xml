@@ -20,6 +20,15 @@
 		</layout>
 	</appender>
 	
+	<!--sql Logger  -->
+	<logger name="jdbc.sqltiming" additivity="false">
+    	<level value="warn" />
+    	<appender-ref ref="console"/> 
+	</logger>
+	<logger name="jdbc.sqlonly" additivity="false"> 
+    	<level value="fatal"/> 
+    	<appender-ref ref="console"/> 
+	</logger>
 	
 	<!-- Application Loggers -->
 	<logger name="project">

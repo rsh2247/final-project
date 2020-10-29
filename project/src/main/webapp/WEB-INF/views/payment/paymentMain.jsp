@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -72,7 +71,7 @@
 						<ul>
 							<li class="total_order" id="total_order_total"><em>${orderlist[0].order_price}</em>원
 							</li>
-							<li class="sale_price" id="sale_price_total"><em> </em>원
+							<li class="sale_price" id="sale_price_total"><em>0</em>원
 							</li>
 							<li class="total_price" id="total_price_total"><em>${orderlist[0].order_price}</em>원
 							</li>
@@ -99,17 +98,13 @@
 						</tr>
 						<tr>
 							<td class="title">
-							<!-- 							
-								<input type="hidden"id="join_flag_19912304" value=""> 
-								<input type="hidden" id="big_cart_19912304" value="7"> 
-								<input type="hidden" id="middle_cart_19912304" value="321"> -->
 								${lectlist[0].lecture_name}</td>
 
 					 			<td colspan="2" id="pt${orderlist[0].order_id}"><input type="text" class="dispt" name="dispt" id="dispt${orderlist[0].order_id}"
 								onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false; "
 								style="ime-mode: disabled;" onkeyup="point_check(${orderlist[0].order_id});" />
 								<strong> P </strong><a href="javascript:point_apply(${orderlist[0].order_id});"><img src="./resources/img/button/apply.gif" alt="적용" /></a>
-							</td>
+								</td>
 					 
 					 
 					 	
@@ -363,15 +358,6 @@
 			</div>
 		</div>
 	</div>
-<!-- 	
-	<div id="layer_pop">
-    	<div class="bg_mask"></div>
-    	<div class="pop_cont">
-        	<iframe name="lgu" id="lgu" width="650" height="650" frameborder="0"></iframe>
-        	<form name="viewForm" method="post"></form>
-    	</div>
-	</div>
- -->	
 	
 </div>
 

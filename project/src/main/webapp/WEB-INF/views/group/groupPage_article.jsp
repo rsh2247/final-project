@@ -11,6 +11,7 @@
 	border: 1px solid #eee;
 	border-radius: 5px;
 	border: 1px solid #eee;
+	margin-bottom: 50px;
 }
 
 #innerbox {

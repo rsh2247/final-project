@@ -6,14 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.alink').click(function () {
+		$(this).parent().submit();
+    })
+})
+</script>
 <style type="text/css">
 * {
 	list-style: none;
 }
 
 #contentbox {
-	height: 1200px;
+	min-height: 1200px;
 	margin-top: 30px;
+	margin-bottom: 50px;
 }
 
 #leftmenu {
@@ -80,17 +89,46 @@
 	text-align: left;
 	padding: 10px 0 10px 15px;
 }
-
+.recentReply{
+	width: inherit;
+    height: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .linkbtn {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	background-color: transparent;
 	border: none;
 	font-size: medium;
 	font-family: Inter, "Noto Sans KR", "Noto Sans JP", "Malgun Gothic", "맑은 고딕", sans-serif;
 	cursor: pointer;
 }
+.alink{
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+	display: inline-block;
+    max-width: 85%;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.alink:hover{
+	text-decoration: underline;
+}
 
 .linkbtn:hover {
 	text-decoration: underline;
+}
+
+.replynum{
+	display: inline-block;
+	font-size: small;
+	margin-left: 5px;
 }
 
 .btn {
@@ -138,11 +176,18 @@
 				<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
 				<button id="writebtn" class="btn">카페 글쓰기</button>
 			</form>
+			
 			<sec:authorize access="hasAnyRole('ROLE_USER')">
 				<c:if test="${result.STATE eq 'manager'}">
 					<form action="managing.user" method="post">
 						<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
 						<button id="managebtn" class="btn">게시판 관리</button>
+					</form>
+				</c:if>
+				<c:if test="${empty result.STATE}">
+					<form action="signUp" method="post">
+						<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+						<button id="managebtn" class="btn">회원가입</button>
 					</form>
 				</c:if>
 			</sec:authorize>
@@ -161,9 +206,9 @@
 		<div id="replylist">
 			<ul>
 				<li style="padding-bottom: 10px;">최근 댓글</li>
-				<li>대충 댓글1</li>
-				<li>대충 댓글2</li>
-				<li>대충 댓글3</li>
+				<c:forEach var="list" items="${replyList}">
+				<li class="recentReply">${list.POST_CONTENT}</li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
