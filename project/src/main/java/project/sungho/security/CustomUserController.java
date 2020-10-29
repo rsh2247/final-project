@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -70,10 +71,14 @@ public class CustomUserController {
 	@RequestMapping(value = "**/user.signUp", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView signUp(@RequestParam HashMap<String, Object> inputMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("user/signIn.tiles");
+		if(customUser_Service.checkUserId(inputMap)) {
+			mav.setViewName("user/signUp.tiles");
+			return mav;
+		}
 		String authkey = mss.sendAuthMail((String) inputMap.get("email"), request.getContextPath());
 		inputMap.put("authkey", authkey);
 		customUser_Service.signUp(inputMap);
-		ModelAndView mav = new ModelAndView("/user/signIn.tiles");
 		return mav;
 	}
 	
@@ -91,16 +96,23 @@ public class CustomUserController {
 		System.out.println(code);
 		JsonNode userInfo = kakao_API.getKakaoUserInfo(code);
 		Map<String, Object> inputMap = new HashMap<String, Object>(); 
-		inputMap.put("username", "kakao-"+userInfo.get("id").toString());
+		inputMap.put("id", "kakao-"+userInfo.get("id").toString());
 		kakao_API.checkUser(inputMap);
 		ArrayList<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-		CustomUser user = new CustomUser((String) inputMap.get("username"), "", roles);
+		CustomUser user = new CustomUser((String) inputMap.get("id"), "", roles);
 		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		return null;
+		return new ModelAndView("redirect:mainPage/mainPage001.do");
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "user/ajaxIdCheck", method = { RequestMethod.GET, RequestMethod.POST })
+	public String groupAjax(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		if(customUser_Service.checkUserId(paramMap)) return "1";
+		else return "0";
+	}
 }
 
 

@@ -11,7 +11,7 @@
 	
 	<insert id="insertKakaoUser" parameterType="java.util.Map">
 		INSERT INTO user_table (user_id,user_pw, user_type,user_enable,user_signdate)
-		VALUES(#{username},#{pw},'ROLE_USER',1,SYSTIMESTAMP)
+		VALUES(#{id},#{pw},'ROLE_USER',1,SYSTIMESTAMP)
 	</insert>
 
 	<select id="selectUser" resultMap="result" parameterType="java.util.Map">
@@ -24,7 +24,7 @@
 		user_nickname,
 		user_enable
 		FROM user_table
-		WHERE user_id = #{username}
+		WHERE user_id = #{id}
 	</select>
 	
 	<select id="selectUserByEmail" resultMap="result" parameterType="java.util.Map">

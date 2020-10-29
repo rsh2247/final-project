@@ -133,7 +133,7 @@ public class Kakao_RestAPI {
 	public void checkUser(Map<String, Object> inputMap) {
 		Map map = sqlSession.selectOne("user.selectUser", inputMap);
 		if(map == null) {
-			inputMap.put("pw", "{bcrpyt}"+bcryptPasswordEncoder.encode((String) inputMap.get("username")));
+			inputMap.put("pw", "{bcrpyt}"+bcryptPasswordEncoder.encode((String) inputMap.get("id")));
 			sqlSession.update("insertKakaoUser", inputMap);
 		}
 	}

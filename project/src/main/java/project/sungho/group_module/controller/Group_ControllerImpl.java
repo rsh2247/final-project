@@ -86,6 +86,10 @@ public class Group_ControllerImpl {
 			mav.addObject("replyList", post_Service.selectRecentReply(paramMap));
 			if(paramMap.containsKey("need")) {
 				mav.setViewName("group/forceSignUp.tiles");
+			} else if (paramMap.containsKey("signUp")) {
+				mav.setViewName("group/groupPage_signUp.tiles");
+				System.out.println(request.getAttribute("signUp"));
+				mav.addObject("signUpResult",request.getAttribute("signUp"));
 			} else if (paramMap.containsKey("post_num")) {
 				mav.addObject("post", post_Service.selectOneArticle(paramMap));
 				mav.addObject("reply", post_Service.selectReplyList(paramMap));
@@ -223,18 +227,19 @@ public class Group_ControllerImpl {
 		return mav;
 	}
 	
-	@RequestMapping(value = "cafe/signup", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView cafeSignup(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("");
-		return mav;
-	}
-	
 	@RequestMapping(value = "cafe/auth", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView cafeAuth(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView(new RedirectView("" + paramMap.get("group_num")));
 		mav.addObject("need","");
 		return mav;
 		
+	}
+	
+	@RequestMapping(value = "cafe/signUp", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView cafeSignUp(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView(new RedirectView("" + paramMap.get("group_num")));
+		mav.addObject("signUp",group_Service.signUpCafe(paramMap));
+		return mav;
 	}
 
 }

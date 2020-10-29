@@ -51,21 +51,21 @@ public class UserAuthenticationService implements UserDetailsService {
 	}
 	
 	public void signUp(Map<String,Object> inputMap) {
-		//Map<String, Object> user = sqlSession.selectOne("user.selectUser",inputMap.get("id"));
 		inputMap.put("pw", "{bcrypt}"+bcryptPasswordEncoder.encode((String) inputMap.get("pw")));
-		System.out.println(inputMap.get("pw"));
 		int result = userDao.insertUser(inputMap);
 	}
 	
 	public void userConfirm(Map<String,Object> inputMap) {
-		System.out.println("inputMap : " + inputMap);
 		Map<String,Object> user = userDao.selectUserByEmail(inputMap);
-		
 		if(user.get("USER_AUTHKEY").equals(inputMap.get("authKey")) ) {
 			System.out.println("check");
 			userDao.updateUserEnable(user);
 		}
 	}
 	
+	public boolean checkUserId(Map<String,Object> inputMap) {
+		if(userDao.selectUser(inputMap) == null) return false;
+		else return true;
+	}
 
 }

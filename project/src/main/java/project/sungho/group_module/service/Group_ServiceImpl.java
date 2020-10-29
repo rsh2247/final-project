@@ -102,6 +102,19 @@ public class Group_ServiceImpl implements Group_Service {
 		inputMap.put("g_list_state", "user");
 		sqlSession.update("group.updateUser", inputMap);
 	}
+	
+	public String signUpCafe(Map<String, Object> inputMap) {
+		String userId = "anonymousUser";
+		if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+			userId = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+			inputMap.put("user_id", userId);
+			String manner = ((Map<String,String>)sqlSession.selectOne("checkGroupManner",inputMap)).get("GROUP_JOINMANNER");
+			inputMap.put("g_list_state", "user");
+			if(manner.equals("free")) {sqlSession.update("group.insertMember", inputMap); return "join";}
+			else {inputMap.put("g_list_state", "candidate"); sqlSession.update("group.insertMember", inputMap); return "candi";}
+		}
+		return "fail";
+	}
 
 	// article
 	public void insertArticle(Map<String, Object> inputMap) {

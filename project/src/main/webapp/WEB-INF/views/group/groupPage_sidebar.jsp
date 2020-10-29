@@ -176,11 +176,18 @@ $(document).ready(function () {
 				<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
 				<button id="writebtn" class="btn">카페 글쓰기</button>
 			</form>
+			
 			<sec:authorize access="hasAnyRole('ROLE_USER')">
 				<c:if test="${result.STATE eq 'manager'}">
 					<form action="managing.user" method="post">
 						<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
 						<button id="managebtn" class="btn">게시판 관리</button>
+					</form>
+				</c:if>
+				<c:if test="${empty result.STATE}">
+					<form action="signUp" method="post">
+						<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+						<button id="managebtn" class="btn">회원가입</button>
 					</form>
 				</c:if>
 			</sec:authorize>

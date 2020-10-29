@@ -16,6 +16,7 @@ public interface Group_Service {
 	public void yieldManager(Map<String, Object> inputMap);
 	public void deportUser(Map<String, Object> inputMap);
 	public void applyUser(Map<String, Object> inputMap);
+	public String signUpCafe(Map<String, Object> inputMap);
 	public void insertArticle(Map<String,Object> inputMap);
 	public boolean authorityCheck(Map<String, Object> inputMap, String ...strings);
 }

@@ -27,7 +27,6 @@
 		INSERT INTO join_group_list(group_num, user_id,
 		g_list_state, g_list_candidate, g_list_joindate)
 		VALUES(#{group_num}, #{user_id}, #{g_list_state}, sysdate, sysdate)
-
 	</insert>
 
 	<select id="selectUserGroup" resultMap="result"
@@ -117,6 +116,12 @@
 		</where>
 	</select>
 	
+	<select id="checkGroupManner" resultMap="result" parameterType="java.util.Map">
+		SELECT group_joinmanner
+		FROM group_table
+		WHERE group_num = #{group_num}
+	</select>
+	
 	<update id="updateGroupManager" parameterType="java.util.Map">
 		UPDATE group_table
 		SET group_leader = #{user_id}
@@ -133,6 +138,7 @@
 		DELETE FROM join_group_list
 		WHERE user_id = #{user_id} and group_num = #{group_num}
 	</delete>
+	
 	
 
 </mapper>

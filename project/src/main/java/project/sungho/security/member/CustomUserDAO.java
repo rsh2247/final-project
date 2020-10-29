@@ -21,8 +21,9 @@ public class CustomUserDAO extends SqlSessionDaoSupport{
 		return sqlSession.update("user.insertUser",paramMap);
 	}
 
-	public Map<String, Object> selectUser(String username) throws DataAccessException {
-		return sqlSession.selectOne("user.selectUser",username);
+	public Map<String, Object> selectUser(Map<String, Object> paramMap) throws DataAccessException {
+		System.out.println(paramMap);
+		return sqlSession.selectOne("user.selectUser", paramMap);
 	}
 	
 	public Map<String, Object> selectUserByEmail(Map<String, Object> inputMap) {
