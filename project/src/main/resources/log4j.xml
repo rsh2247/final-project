@@ -26,7 +26,7 @@
     	<appender-ref ref="console"/> 
 	</logger>
 	<logger name="jdbc.sqlonly" additivity="false"> 
-    	<level value="fatal"/> 
+    	<level value="info"/> 
     	<appender-ref ref="console"/> 
 	</logger>
 	

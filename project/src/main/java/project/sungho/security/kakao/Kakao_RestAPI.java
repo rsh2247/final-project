@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -26,6 +30,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service("kakao_API")
 public class Kakao_RestAPI {
+	
+	@Autowired
+	SqlSession sqlSession;
+	
+	@Autowired
+	BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	private final static String K_CLIENT_ID = "edb8a69b7aa8a6cb6bf4e8f43c8e43a9";
 	private final static String K_REDIRECT_URI = "http://localhost:8090/devFw/kakaoLogin";
 	private final static String K_SECRET_KEY = "nYRkaKITTsj526O9LZatardtmPRSks6m";
@@ -57,8 +68,9 @@ public class Kakao_RestAPI {
 			// JSON 형태 반환값 처리
 			ObjectMapper mapper = new ObjectMapper();
 			returnNode = mapper.readTree(response.getEntity().getContent());
-			System.out.println(returnNode);
 			
+			
+			System.out.println(returnNode);
             System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
             System.out.println("Post parameters : " + postParams);
             System.out.println("Response Code : " + responseCode);
@@ -100,6 +112,8 @@ public class Kakao_RestAPI {
 			// JSON 형태 반환값 처리
 			ObjectMapper mapper = new ObjectMapper();
 			returnNode = mapper.readTree(response.getEntity().getContent());
+			
+			
 		} catch (UnsupportedEncodingException e) {
 
 			e.printStackTrace();
@@ -114,6 +128,14 @@ public class Kakao_RestAPI {
 			// clear resources
 		}
 		return returnNode;
+	}
+	
+	public void checkUser(Map<String, Object> inputMap) {
+		Map map = sqlSession.selectOne("user.selectUser", inputMap);
+		if(map == null) {
+			inputMap.put("pw", "{bcrpyt}"+bcryptPasswordEncoder.encode((String) inputMap.get("username")));
+			sqlSession.update("insertKakaoUser", inputMap);
+		}
 	}
 	
 }

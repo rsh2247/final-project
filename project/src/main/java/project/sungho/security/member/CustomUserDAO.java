@@ -25,4 +25,12 @@ public class CustomUserDAO extends SqlSessionDaoSupport{
 		return sqlSession.selectOne("user.selectUser",username);
 	}
 	
+	public Map<String, Object> selectUserByEmail(Map<String, Object> inputMap) {
+		return sqlSession.selectOne("selectUserByEmail",inputMap);
+	}
+	public void updateUserEnable(Map<String,Object> user) {
+		sqlSession.update("updateUserEnable",user);
+	}
+	
+	
 }

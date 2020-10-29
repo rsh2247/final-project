@@ -3,11 +3,12 @@
 	xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                                  http://www.springframework.org/schema/beans/spring-beans.xsd
                                  http://www.springframework.org/schema/security
                                  http://www.springframework.org/schema/security/spring-security.xsd">
-
+	
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/user/loginPage.do"
 			access="hasRole('ROLE_USER')" />
@@ -27,7 +28,7 @@
 
 		<form-login login-page="/loginPage.login"
 			default-target-url="/mainPage/mainPage001.do"
-			username-parameter="loginId" password-parameter="loginPw"
+			username-parameter="id" password-parameter="pw"
 			authentication-failure-url="/loginPage.login" />
 			
 			
@@ -60,6 +61,7 @@
 	
 	<beans:bean id="kakaoUser" class="project.sungho.security.oauth.KakaoOAuth2User">
 	</beans:bean>
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 </beans:beans>
 

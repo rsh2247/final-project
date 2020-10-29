@@ -7,7 +7,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 	    http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
-
+	
+	
     <!-- HTTP Root Access configuration -->
     <sec:http pattern="/rest/**" create-session="never" access-decision-manager-ref="accessDecisionManager"
               entry-point-ref="oauthAuthenticationEntryPoint" use-expressions="true" auto-config="true">
@@ -42,7 +43,7 @@
 
     <!-- OAuth2 Token Generation Services -->
     <sec:http pattern="/oauth/token" create-session="stateless"
-              authentication-manager-ref="clientAuthenticationManager">
+              authentication-manager-ref="clientAuthenticationManager" use-expressions="true">
         <sec:intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY"/>
         <sec:anonymous enabled="false"/>
         <sec:http-basic entry-point-ref="clientAuthenticationEntryPoint"/>

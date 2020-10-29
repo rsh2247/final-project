@@ -72,10 +72,10 @@
 				<td colspan="2"><p style="text-align: center; font-size: 24px;">로그인</p></td>
 			</tr>
 			<tr>
-				<td><input type="text" name="loginId" placeholder="ID" class="infoinput"></td>
+				<td><input type="text" name="id" placeholder="ID" class="infoinput"></td>
 			</tr>
 			<tr>
-				<td><input type="password" name="loginPw" placeholder="Password" class="infoinput"></td>
+				<td><input type="password" name="pw" placeholder="Password" class="infoinput"></td>
 			</tr>
 			<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
 				<tr>

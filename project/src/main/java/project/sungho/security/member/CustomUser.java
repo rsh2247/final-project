@@ -10,6 +10,7 @@ public class CustomUser extends User {
 
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 	private String nickName, email;
+	private boolean enable;
 
 	public CustomUser(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
@@ -17,6 +18,9 @@ public class CustomUser extends User {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.email = email;
 		this.nickName = nickName;
+	}
+	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, authorities);
 	}
 
 	public String getNickName() {
@@ -35,4 +39,12 @@ public class CustomUser extends User {
 		this.email = email;
 	}
 
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+	
 }
