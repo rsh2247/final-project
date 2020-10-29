@@ -100,7 +100,7 @@
 </head>
 <body>
   <form name="frmArticle" method="post"  action="${contextPath}"  enctype="multipart/form-data">
-  <input type="hidden" name="post_num" value="${article2.post_num}"/>
+  <%-- <input type="hidden" name="post_num" value="${article2.post_num}"/> --%>
   <table  border=0  align="center">
   <tr>
    <td width=150 align="center" bgcolor=#FF9933>
@@ -131,12 +131,10 @@
     <td width="150" align="center" bgcolor="#FF9933">
       내용
    </td>
-   <td width="500" align= "left">
-    	<!-- <textarea rows="20" cols="60"  name="post_content"  id="i_post_content"  disabled /> --> <%-- ${article2.post_content} --%>
-    	<%-- <input type="text"  value="${article2.post_content}" /> --%>
-<%--     	<input class = "cdeditor" value="${aritcle2.post_content}" name="post_content" id="i_post_content" disabled /> --%>
-    	<textarea class="cdeditor" value="${aritcle2.post_content}" id="editor" name="post_content" disabled></textarea>
-    	
+   <td >
+    	<input type="text" value="${article2.post_content}" name="post_content" id="i_post_content" disabled />
+    	<%-- <input type= "hidden" class="cdeditor" id="editor" name="i_post_content" value = "${article2.post_content}"/>
+    	${article2.post_content} --%>
    </td>  
   </tr>
 
@@ -224,7 +222,6 @@
   <tr  id="tr_btn"    >
    <td colspan="2" align="center">
        <c:if test="${pageContext.request.userPrincipal.name == article2.user_id }">
-       
 	      <input type=button value="수정하기" onClick="fn_enable(this.form)" />
 	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/H/H_P001/removeArticle.user', ${article2.post_num})">
 	    </c:if>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="yoonju.F.F_P001.F_P001_D001DAO">
+<resultMap id="scoreResult" type="scoreVO">
+
+
+    <result property="score_content" column = "score_content" />
+    <result property="score_date" column = "score_date" />
+    <result property="score_point" column = "score_point" />
+    <result property="user_id" column = "user_id" />
+    <result property="score_category" column = "score_category" />
+    <result property="score_rank" column = "score_rank" />
+    <result property="score_totalPoint" column = "score_totalPoint" />
+
+  </resultMap> 
+  
+
+  <select id="selectAllScoreList" resultType="scoreVO"   >		<!-- 종합순위 -->
+    <![CDATA[
+      SELECT   user_id, SUM(score_point) AS score_totalPoint
+	  FROM     score 
+	  GROUP BY user_id
+	  ORDER BY score_totalPoint DESC
+    ]]>
+  </select>
+  
+  
+   <select id = "selectScorelist_categoryScore" resultType = "scoreVO">	<!-- 1번 카테고리 순위 (문제출제)  -->
+  	<![CDATA[
+  		SELECT   score_category, user_id, SUM(score_point) as score_totalPoint
+  		FROM     score 
+		WHERE    score_category = #{score_category}
+		GROUP BY user_id, score_category
+		ORDER BY score_totalPoint DESC
+  	]]>
+  </select>
+  
+  <select id = "viewUser_score" resultType = "scoreVO" parameterType = "String"> <!-- 유저정보 -->
+  	<![CDATA[
+  		SELECT   *
+		FROM  	 score
+		WHERE  	 user_id = #{user_id}
+		ORDER BY score_date DESC
+  	]]>
+  </select>
+  
+  <select id="searchUser" resultType = "scoreVO" parameterType = "hashMap">	<!-- 유저검색 -->
+  	<![CDATA[
+  		SELECT	 user_id, SUM(score_point) AS score_totalPoint
+  		FROM	 score
+  		WHERE	 user_id LIKE concat ('%', #{keyword}, '%')
+  		ORDER BY score_date DESC
+  	]]>
+  </select>
+  
+  
+
+</mapper>
