@@ -13,7 +13,7 @@
 <head>
 <script type = "text/javascript">
 	function userInfo(){
-		var popUrl = /devFw/src/main/webapp/WEB-INF/views/F_P001/userInfo.html
+		var popUrl = ${contextPath}/F_P001/userInfo.html;  //??
 		var popOption =  "whith = 500, hight = 400, resizable = no, status = no;";
 		windows.open(popUrl, popOption);
 	};
