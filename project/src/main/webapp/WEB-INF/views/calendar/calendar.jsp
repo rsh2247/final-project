@@ -49,8 +49,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title"></h4>
                     </div>
                     <div class="modal-body">
@@ -127,15 +127,11 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
         <div class="panel panel-default">
-
             <div class="panel-heading">
                 <h3 class="panel-title">필터</h3>
             </div>
-
             <div class="panel-body">
-
                 <div class="col-lg-6">
                     <label for="calendar_view">구분별</label>
                     <div class="input-group">
@@ -147,30 +143,21 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="col-lg-6">
                     <label for="calendar_view">등록자별</label>
                     <div class="input-group">
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="sjbn"
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${data.username}"
                                 checked>개인 일정</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="aaa"
-                                checked></label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="bbb"
-                                checked>사나</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="ccc"
-                                checked>나연</label>
-                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="ddd"
-                                checked>지효</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" name="testSch" value="${data.testSch}"
+                                checked>시험 일정</label>
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- /.filter panel -->
     </div>
     <!-- /.container -->
     
-	
    <!-- .js -->
 	<script src="<c:url value="/resources/calendar/vendor/js/jquery.min.js" />"></script>
 	<script src="<c:url value="/resources/calendar/vendor/js/bootstrap.min.js" />"></script>

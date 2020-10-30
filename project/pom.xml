@@ -88,6 +88,13 @@
     		<version>${spring.security.version}</version>
 		</dependency>
 		
+		<!-- 이미지업로드 -->
+		<dependency>
+    		<groupId>org.imgscalr</groupId>
+    		<artifactId>imgscalr-lib</artifactId>
+    		<version>4.2</version>
+		</dependency>
+		
 		
 		<!-- Bcrypy -->
 		<dependency> 

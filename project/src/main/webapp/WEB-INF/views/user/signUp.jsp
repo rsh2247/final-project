@@ -64,22 +64,6 @@ var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-
 			    alert('아이디를 입력하세요.');
 			}else if(idPattern.test(id)==false){
 			    alert('아이디를 형식에 맞춰주세요.');   
-			}else if(idPattern.test(id)==true){
-			    $.ajax({
-				type : "post",
-				url : "ajaxIdCheck",
-				data : "id=" + id,
-				success : function(data, textStatus) {
-					if(data == 1){
-					    alert("아이디중복");
-					}
-				},
-				error : function(data, textSatus) {
-					alert("에러가 발생");
-				},
-				complete : function(data, textSatus) {
-				}
-			});    
 			}else if($('#pwbox').val()==''){
 			    alert('비밀번호를 입력하세요.');
 			}else if(pwPattern.test($('#pwbox').val())==false){
@@ -87,11 +71,28 @@ var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-
 			}else if(emailPattern.test($('#emailbox').val())==false){
 			    alert('이메일을 형식에 맞춰주세요.');
 			}else{
-			    $('#action').submit();
-			    $('#action').attr('id','null');
+			    $.ajax({
+				type : "post",
+				url : "ajaxIdCheck",
+				data : "id=" + id,
+				success : function(data, textStatus) {
+					if(data == 1){
+					    alert("아이디중복");
+					}else{
+					    $('#action').submit();
+					    $('#action').attr('id','null');
+					}
+				},
+				error : function(data, textSatus) {
+					alert("에러가 발생");
+				},
+				complete : function(data, textSatus) {
+				}
+			});
 			}
-	    })
+		})
 	})
+	
 </script>
 </head>
 <body>

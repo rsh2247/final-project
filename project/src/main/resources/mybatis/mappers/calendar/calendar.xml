@@ -25,7 +25,7 @@
       ]]>
 		<where>
 			<if test=" user_id != ''  and  user_id != null">
-				user_id = #{user_id}
+				user_id IN (#{user_id} , 'admin')
 			</if>
 		</where>
 	</select>

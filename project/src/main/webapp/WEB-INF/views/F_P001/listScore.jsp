@@ -11,7 +11,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 <c:url var = "getBoardListURL" value = "{contextPath}/F/F_P001/getBoardList"></c:url>
+=======
+<script type = "text/javascript">
+	function userInfo(){
+		var popUrl = ${contextPath}/F_P001/userInfo.html;  //??
+		var popOption =  "whith = 500, hight = 400, resizable = no, status = no;";
+		windows.open(popUrl, popOption);
+	};
+>>>>>>> refs/remotes/origin/master
 
 <script type = "text/javascript">
 	var loopSearch = true;

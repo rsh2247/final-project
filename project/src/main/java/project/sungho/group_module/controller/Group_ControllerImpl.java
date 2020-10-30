@@ -84,12 +84,12 @@ public class Group_ControllerImpl {
 			mav.addObject("result", resultMap);
 			mav.addObject("boardList", group_Service.selectGroupBoardList(paramMap));
 			mav.addObject("replyList", post_Service.selectRecentReply(paramMap));
+			mav.addObject("user", group_Service.checkMemberState(paramMap));
 			if(paramMap.containsKey("need")) {
 				mav.setViewName("group/forceSignUp.tiles");
 			} else if (paramMap.containsKey("signUp")) {
 				mav.setViewName("group/groupPage_signUp.tiles");
-				System.out.println(request.getAttribute("signUp"));
-				mav.addObject("signUpResult",request.getAttribute("signUp"));
+				mav.addObject("signUpResult",paramMap.get("signUp"));
 			} else if (paramMap.containsKey("post_num")) {
 				mav.addObject("post", post_Service.selectOneArticle(paramMap));
 				mav.addObject("reply", post_Service.selectReplyList(paramMap));

@@ -28,6 +28,9 @@
 		<typeAlias type="project.yoonju.H.H_P001.vo.ImageVO"  alias="imageVO" />
 		<typeAlias type="project.yoonju.F.F_P001.vo.F_P001_D001VO"  alias="scoreVO" />
 		
+		<!-- git에서 받은후 에러 발생하여 임시로 추가 -->
+		<typeAlias type="project.yoonju.member.vo.MemberVO"  alias="memberVO" />
+		
 	</typeAliases> 
 	
 	
