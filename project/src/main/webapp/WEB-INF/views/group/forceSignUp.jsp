@@ -57,7 +57,8 @@
 					그룹에 가입해보세요
 				</div>
 				<div id="desc3">${result.GROUP_DESC}</div>
-				<form action="" method="post">
+				<form action="signUp" method="post">
+					<input type="hidden" value="${result.GROUP_NUM}" name="group_num">
 					<button id="signUpbtn">카페 가입하기</button>
 				</form>
 			</div>

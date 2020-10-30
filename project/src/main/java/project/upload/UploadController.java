@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -26,23 +28,24 @@ public class UploadController {
 
 	@RequestMapping(value = "/upload1", method = RequestMethod.GET)
 	public String upload1(Locale locale, Model model) {
-
-		return "upload/upload1";
+		return "mainPage/mainPage001.tiles";
 	}
 
 	@RequestMapping(value = "/upload2", method = RequestMethod.GET)
 	public String upload2(Locale locale, Model model) {
-
 		return "upload/upload2";
 	}
 
 	@RequestMapping(value = "requestupload1")
-	public String requestupload1(MultipartHttpServletRequest mtfRequest) {
+	public String requestupload1(MultipartHttpServletRequest mtfRequest, HttpServletRequest request) {
 		String src = mtfRequest.getParameter("src");
 		System.out.println("src value : " + src);
 		MultipartFile mf = mtfRequest.getFile("file");
-
-		String path = "C:\\MyProject\\photoUpload\\";
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		String attach_path = "resources/image/";
+		String path = root_path+attach_path;
+		String a = "C:\\file_repo\\";
+		System.out.println(path);
 
 		String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 		long fileSize = mf.getSize(); // 파일 사이즈

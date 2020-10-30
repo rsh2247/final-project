@@ -12,6 +12,14 @@ $(document).ready(function () {
     $('.alink').click(function () {
 		$(this).parent().submit();
     })
+    $('#cafeinfobtn').click(function () {
+		$('#myprofile').css('display','none');
+		$('#profile').css('display','block');
+    })
+    $('#myinfobtn').click(function () {
+		$('#profile').css('display','none');
+		$('#myprofile').css('display','block');
+    })
 })
 </script>
 <style type="text/css">
@@ -40,7 +48,7 @@ $(document).ready(function () {
 }
 #profiletop{
 	width: 100%;
-	height: 30px;
+	min-height: 30px;
 	border-top: 2px solid #555;
 }
 #profile {
@@ -50,7 +58,22 @@ $(document).ready(function () {
 	border-bottom: 1px solid #eee;
 	padding: 15px 0 15px 0;
 }
-
+#myprofile {
+	width: 100%;
+	height: 100px;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	padding: 15px 0 15px 0;
+	display: none;
+}
+#myprofileImage {
+	width: 70px;
+	height: 100%;
+	margin-left: 15px;
+	float: left;
+	border: 1px solid #fff;
+	float: left;
+}
 #profileImage {
 	width: 70px;
 	height: 100%;
@@ -141,7 +164,16 @@ $(document).ready(function () {
 .btn:hover {
 	
 }
-
+.infobtn{
+	background-color: transparent;
+	border: 0px solid #ccc;
+	font-size: large;
+	margin: 5px 0 5px 0;
+	cursor: pointer;
+}
+.infobtn:hover{
+	text-decoration: underline;
+}
 #writebtn {
 	margin: 15px auto 15px auto;
 	display: inline-block;
@@ -155,14 +187,22 @@ $(document).ready(function () {
 </head>
 <body>
 	<div id="leftmenu">
-	<div id="profiletop">카페정보 내정보</div>
+	<div id="profiletop"><button class="infobtn" id="cafeinfobtn">카페 정보</button><button id="myinfobtn" class="infobtn" style="margin-left: 10px;">내 정보</button></div>
 		<div id="profile">
 			<div id="profileImage"></div>
-			<ul>
+			<ul style="text-align: left;">
 				<li>매니저 ${result.GROUP_LEADER}</li>
 				<li>since
-					<h6>${result.GROUP_DATE}</h6>
+					<h6 style="display: inline-block;">${result.GROUP_DATE}</h6>
 				</li>
+			</ul>
+		</div>
+		<div id="myprofile">
+			<div id="myprofileImage"></div>
+			<ul style="text-align: left;">
+				<li><p style="font-size: small;">${user.USER_ID}</p></li>
+				<li>${user.STATE}</li>
+				<li><p style="font-size: small; color: #555;">가입 ${user.G_LIST_JOINDATE}</p></li>
 			</ul>
 		</div>
 		<div id="cafeinfo">

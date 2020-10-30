@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ib_itext.text.Paragraph;
 import project.sungho.security.member.CustomUser;
 
 @Transactional
@@ -108,6 +109,7 @@ public class Group_ServiceImpl implements Group_Service {
 		if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
 			userId = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 			inputMap.put("user_id", userId);
+			if(sqlSession.selectOne("group.checkMemberState", inputMap) != null) return "fail";
 			String manner = ((Map<String,String>)sqlSession.selectOne("checkGroupManner",inputMap)).get("GROUP_JOINMANNER");
 			inputMap.put("g_list_state", "user");
 			if(manner.equals("free")) {sqlSession.update("group.insertMember", inputMap); return "join";}

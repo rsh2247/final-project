@@ -5,6 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.btnlink').click(function () {
+	location.href=getContextPath()+'/cafe/'+$(this).val();
+	})
+
+	function getContextPath() {
+		var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+		return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+	};
+})
+</script>
 <style type="text/css">
 * {
 	
@@ -48,7 +61,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var list = 1;
-		$('.btnlink').click(function() {
+		$('.btnlink1').click(function() {
 			var num = $(this).val();
 			$('#previewLayer').css('display', 'block');
 			$.ajax({

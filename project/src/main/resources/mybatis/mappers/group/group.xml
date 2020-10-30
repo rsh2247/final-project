@@ -50,14 +50,14 @@
 		(select count(user_id)
 		from join_group_list l
 		where l.group_num =
-		t.group_num) MEMBER_COUNT
+		t.group_num and g_list_state in ('user','manager')) MEMBER_COUNT
 		from group_table t
 	</select>
 
 	<select id="selectOneGroup" resultMap="result"
 		parameterType="java.util.Map">
 		<![CDATA[
-			select *
+			select group_num, group_name, group_leader, group_category, group_icon, group_joinmanner, group_desc, to_char(group_date,'yyyy-mm-dd') as group_date
 			from group_table 
 		]]>
 		<where>
@@ -76,7 +76,7 @@
 	</select>
 
 	<select id="checkMemberState" resultMap="result" parameterType="java.util.Map">
-		SELECT g_list_state state 
+		SELECT g_list_state state,to_char(g_list_joindate,'yyyy-mm-dd') as g_list_joindate,user_id
 		FROM join_group_list 
 		<where>
 		<if test="num != '' and num != null and user_id != '' and user_id != null"></if>
