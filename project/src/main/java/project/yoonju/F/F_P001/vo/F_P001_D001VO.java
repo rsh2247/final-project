@@ -14,9 +14,9 @@ public class F_P001_D001VO {
 	String score_point;		// 점수
 	String user_id;			// 아이디
 	String score_category;	// 분류
-	String score_rank;		
+	String score_rank;		//아직 안써용
 	String score_totalPoint;// 합계 점수
-	
+
 	
 	
 	public String getScore_totalPoint() {

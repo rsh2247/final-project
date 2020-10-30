@@ -11,78 +11,93 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script type = "text/javascript">
+	var loopSearch = true;
+	function user_idSearch(){
+		if(loopSearch == false)
+			return;
+			
+			var value = document.frmSearch.searchUser.value;
+				$.ajax({
+					type   : "get",
+					async  : "${contextPath}/F/F_P001/searchUser.page",
+					data   : {keyword:value},
+					succes : function(data, textStatus){
+						var jsonInfo = JSON.parse(data);
+						displayResult(jsonInfo);
+					},
+					error : function(data, textStatus){
+						alert("에러가 발생했습니다." + data);
+					},
+					complete : function(data, textStatus){
+						
+					}
+				});
+		}
+
+	
+</script>
+
  <style>
    .cls1 {text-decoration:none;}
    .cls2{text-align:center; font-size:30px;}
   </style>
   <meta charset="UTF-8">
-  <title>글목록창</title>
+  <title>랭킹</title>
 </head>
 
-	<h1>자유 게시판</h1>
+	<h1>PRACTICE EVERYDAY RANKING</h1>
 	<br>
 <body>
+
 <table align="center" border="1"  width="70%" style="border-left: none; border-right: none; 
 border-bottom: none; border-top: none; " >
   <tr height="10" align="center"  bgcolor="#FFBBC">
-     <td >글번호</td>
-     <td >작성자</td>              
-     <td >제목</td>
-     <td >작성일</td>
-  </tr>
 
+     <td >아이디</td>              
+     <td >총 점수</td>
+     <td>획득정보</td>
+     <!-- <td>유저 정보</td> -->
+  </tr>
+  <c:set var="num" value = ""/>
 <c:choose>
-  <c:when test="${articlesList ==null }" >
+  <c:when test="${scoreList ==null }" >
     <tr  height="10">
-      <td colspan="4">
+      <td colspan="10">
          <p align="center">
             <b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
         </p>
       </td>  
     </tr>
   </c:when>
-  <c:when test="${articlesList !=null }" >
-    <c:forEach  var="article" items="${articlesList }" >
+  <c:when test="${scoreList !=null }" >
+    <c:forEach  var="score" items="${scoreList }" varStatus="scoreNum" >
      <tr align="center">
-	<td width="5%">${article.rnum}</td>			<!-- 글번호 카운팅? 글번호는 post_num인데..?? -->
-	<td width="10%">${article.user_id }</td>		<!-- 아이디겠지..? -->
-	<td align='left'  width="35%">
-	  <span style="padding-right:30px"></span>
- 		<a class='cls1' href="${contextPath}/H/H_P001/viewArticle.page?post_num=${article.post_num}">${article.post_title}</a>
-	  </td>
-	  <td  width="10%">${article.post_date}</td> 	<!-- 작성일이겠지..? -->
+		<td width="10%">${score.user_id }</td>		<!-- 유저 아이디 -->	
+		<td width="10%">${score.score_totalPoint}</td>
+		<td width="5%">
+			<a href= "${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id }">보기</a>
+		</td>
 	</tr>
-
     </c:forEach>
      </c:when>
     </c:choose>
 </table>
-	<div>
- 	<c:if test="${prev}">
-		<span>
-		[<a href = "${contextPath}/H/H_P001/listPage.page?num=${startPageNum -1}">이전]</a>
-		</span>
-	</c:if>
-	<c:forEach begin ="${startPageNum}" end="${endPageNum}" var = "num"> 
-		<span>		
- 			<c:if test="${select != num}">	<!-- 그 외 다른 게시물이면 하이퍼링크로 다른 페이지 접근 가능하도록 -->
-		  		<a href="${contextPath}/H/H_P001/listPage.page?num=${num}">${num}</a>
-		  		
-		  	</c:if>
-		  	<c:if test="${select == num}"> <!-- 셀렉된 페이지만 굵은 글씨로 나오게 -->
-		  		<b>${num}</b>
-		  	</c:if>
-		</span>
-	</c:forEach>
-	
-	<c:if test="${next}">
-		<span>
-			[<a href = "${contextPath}/H/H_P001/listPage.page?num=${endPageNum +1}">다음]</a>
-		</span>
-	</c:if>
-	</div>
-		<sec:authorize access="hasAnyRole('ROLE_USER')">
-			<a class="cls2" href="${contextPath}/H/H_P001/articleForm.user">글쓰기</a>
-		</sec:authorize>
+    <br>
+    <table>
+    	<div>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1" >문제출제랭킹</a>
+    		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2" >문제풀이랭킹</a>
+    	</div>
+    	<div id = "search">
+    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page">
+    			<input name = "searchUser" type = "text" onKeyUp = "user_idSearch()" />
+    			<input type = "submit" name = "search" value = "검 색" />
+    		</form>
+    		
+ 		</div>
+    </table>
 </body>
 </html>

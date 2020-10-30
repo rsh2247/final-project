@@ -33,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.sungho.security.member.CustomUser;
 import project.yoonju.F.F_P001.service.F_P001_D001Service;
 import project.yoonju.F.F_P001.vo.F_P001_D001VO;
+import project.yoonju.F.F_P001.vo.F_P001_D001VO2;
 
 
 /*import com.myspring.pro30.board.service.H_p001_d001Service;
@@ -50,7 +51,6 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	@Override
 	@RequestMapping(value = "F/F_P001/listScore.page", method = { RequestMethod.GET, RequestMethod.POST })				//전체 랭킹리스트 보기
 	public ModelAndView listScore(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	//	String viewName = (String) request.getAttribute("viewName");
 		String viewName = "/F_P001/listScore.tiles";
 		System.out.println("뷰네임-------------" + viewName);
 		List<F_P001_D001VO> scoreList = scoreService.allScoreList();
@@ -95,5 +95,45 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 		System.out.println(scoreList.toString());
 		return mav;
 	}
+	
+	
+	@Override
+	@RequestMapping(value = "F/F_P001/searchUser.page", method = {RequestMethod.GET})
+	public ModelAndView searchUser(@RequestParam("user_id") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName ="/F_P001/searchUser.tiles";
+		List<F_P001_D001VO> scoreList = scoreService.searchUser(user_id);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("scoreList", scoreList);
+		return mav;
+		
+	}
+	
+	
+	
+/*	@Override
+	@RequestMapping(value = "F/F_P001/searchUser.page", method = {RequestMethod.GET})
+	public void searchUser(
+			@RequestParam(required = false, defaultValue = "") String searchType,
+			@RequestParam(required = false) String keyword,
+			HttpServletRequest request, HttpServletResponse response ) throws Exception{
+		String viewName = "/F_P001/searchUser.tiles"; 
+		
+		
+		F_P001_D001VO2 search = new F_P001_D001VO2();
+		ModelAndView mav = new ModelAndView(viewName);
+		
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
+
+		
+		System.out.println("뷰네임-------------" + viewName);
+		List<F_P001_D001VO> scoreList = scoreService.searchUser(search);
+		System.out.println("CON===============>>" + scoreList.size());
+		mav.addObject("scoreList", scoreList) ;
+		
+	}*/
+	
+	
 	
 }

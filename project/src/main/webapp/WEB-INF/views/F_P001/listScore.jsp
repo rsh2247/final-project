@@ -11,13 +11,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type = "text/javascript">
-	function userInfo(){
-		var popUrl = /devFw/src/main/webapp/WEB-INF/views/F_P001/userInfo.html
-		var popOption =  "whith = 500, hight = 400, resizable = no, status = no;";
-		windows.open(popUrl, popOption);
-	};
+<c:url var = "getBoardListURL" value = "{contextPath}/F/F_P001/getBoardList"></c:url>
 
+<script type = "text/javascript">
+	var loopSearch = true;
+	function user_idSearch(){
+		if(loopSearch == false)
+			return;
+			
+			var value = document.frmSearch.searchUser.value;
+				$.ajax({
+					type   : "get",
+					async  : "${contextPath}/F/F_P001/searchUser.page",
+					data   : {user_id:value},
+					succes : function(data, textStatus){
+						var jsonInfo = JSON.parse(data);
+						displayResult(jsonInfo);
+					},
+					error : function(data, textStatus){
+						alert("에러가 발생했습니다." + data);
+					},
+					complete : function(data, textStatus){
+						
+					}
+				});
+		}
+
+	
 </script>
 
  <style>
@@ -73,9 +93,12 @@ border-bottom: none; border-top: none; " >
     		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>
     		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2" >문제풀이랭킹</a>
     	</div>
-    	<div>
-  			<input type="text" name="keyword" />
-  			<button type="button">검색</button>
+    	<div id = "search">
+    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page">
+    			<input name = "searchUser" type = "text" onKeyUp = "user_idSearch()" />
+    			<input type = "submit" name = "searchUser" value = "검 색" />
+    		</form>
+    		
  		</div>
     </table>
 </body>

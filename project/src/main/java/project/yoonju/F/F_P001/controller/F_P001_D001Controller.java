@@ -19,5 +19,13 @@ public interface F_P001_D001Controller {
 	
 	public ModelAndView viewUser_score(@RequestParam("user_id") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-
+	public ModelAndView searchUser(@RequestParam("user_id") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+/*	public void searchUser(
+			@RequestParam(required = false, defaultValue = "") String searchType,
+			@RequestParam(required = false) String keyword,
+			HttpServletRequest request, HttpServletResponse response ) throws Exception;
+*/
+	
+	
 }
