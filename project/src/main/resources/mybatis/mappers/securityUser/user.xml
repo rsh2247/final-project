@@ -22,7 +22,8 @@
 		user_type as authority,
 		user_email as email,
 		user_nickname,
-		user_enable
+		user_enable,
+		user_image
 		FROM user_table
 		WHERE user_id = #{id}
 	</select>

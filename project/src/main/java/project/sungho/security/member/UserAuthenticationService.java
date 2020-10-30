@@ -39,7 +39,11 @@ public class UserAuthenticationService implements UserDetailsService {
 		if(user.get("USER_ENABLE").toString().equals("1")) enable = true;
 		List<GrantedAuthority> gas = new ArrayList<GrantedAuthority>();
 		gas.add(new SimpleGrantedAuthority(user.get("AUTHORITY").toString()));
-		return new CustomUser(user.get("USERNAME").toString(), user.get("PASSWORD").toString(), enable, true, true, true, gas,user.get("EMAIL").toString(),"testnickname");
+		String image = "noimage.png";
+		if(user.get("USER_IMAGE")!=null) {
+			image = user.get("USER_IMAGE").toString();
+		}
+		return new CustomUser(user.get("USERNAME").toString(), user.get("PASSWORD").toString(), enable, true, true, true, gas,user.get("EMAIL").toString(),"testnickname",image);
 	}
 	
 	public UserAuthenticationService() {

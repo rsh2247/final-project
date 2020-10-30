@@ -83,20 +83,14 @@ public class User_ContollerImpl implements User_Contoller {
 	@ResponseBody
 	@RequestMapping(value = "uploadImage", method = { RequestMethod.POST })
 	public String requestupload1(MultipartHttpServletRequest mtfRequest, HttpServletRequest request) {
-		MultipartFile mf = mtfRequest.getFile("formData");
+		MultipartFile mf = mtfRequest.getFile("file");
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		String attach_path = "resources/image/";
 		String path = root_path+attach_path;
-		System.out.println(path);
-
 		String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-		long fileSize = mf.getSize(); // 파일 사이즈
-
-		System.out.println("originFileName : " + originFileName);
-		System.out.println("fileSize : " + fileSize);
-
-		String safeFile = path + System.currentTimeMillis() + originFileName;
-
+		//long fileSize = mf.getSize(); // 파일 사이즈
+		String fileName = System.currentTimeMillis() + originFileName;
+		String safeFile = path + fileName;
 		try {
 			mf.transferTo(new File(safeFile));
 		} catch (IllegalStateException e) {
@@ -106,8 +100,7 @@ public class User_ContollerImpl implements User_Contoller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return "redirect:upload1";
+		return fileName;
 	}
 
 }
