@@ -92,7 +92,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-
 	<servlet-mapping>
 		<servlet-name>ConnectorServlet</servlet-name>
 		<url-pattern>/ckfinder/core/connector/java/connector.java</url-pattern>
