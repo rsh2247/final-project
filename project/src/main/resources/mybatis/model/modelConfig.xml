@@ -27,6 +27,8 @@
 		<typeAlias type="project.yoonju.H.H_P001.vo.H_p001_d001VO"  alias="articleVO" />
 		<typeAlias type="project.yoonju.H.H_P001.vo.ImageVO"  alias="imageVO" />
 		
+		
+		
 	</typeAliases> 
 	
 	

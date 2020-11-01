@@ -22,8 +22,6 @@
       <put-attribute name="body" value="/WEB-INF/views/member/listMembers.jsp" />
    </definition>
    
-
-    
    <definition name="/member/loginForm" extends="baseLayout">
       <put-attribute name="title" value="로그인창" />
       <put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />

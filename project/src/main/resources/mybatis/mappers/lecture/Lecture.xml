@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Lecture">
+	<resultMap id="lectureResult" type="lectureVO">
+		<result property="lecture_id" column="lecture_id"  />
+		<result property="lecture_category" column="lecture_category" />
+		<result property="lecture_name" column="lecture_name" />
+		<result property="user_id" column="user_id" />
+		<result property="lecture_tuition" column="lecture_tuition" />
+		<result property="lecture_detail" column="lecture_detail" />
+		<result property="studentCount" column="studentCount" />
+		<result property="lecture_score" column="lecture_score" />
+		<result property="lecture_thumbnail" column="lecture_thumbnail" />
+		<collection property="lecture_thumbnailEncoder" column="{lecture_id=lecture_id}" javaType="java.util.Map"
+			select="getLectureThumbnail" ofType="java.util.Map"></collection>
+	</resultMap>
+	
+	<resultMap id="lecture_clobMap" type="java.util.Map">
+		<result property="lecture_thumbnailEncoder" column="lecture_thumbnail" javaType="[B" jdbcType="BLOB" />
+	</resultMap>
+	
+	<select id="getLectureThumbnail" parameterType="java.util.Map" resultMap="Lecture.lecture_clobMap">
+		<![CDATA[
+			SELECT LECTURE_THUMBNAIL
+			FROM LECTURE
+			WHERE LECTURE_ID = #{lecture_id}
+		]]>
+	</select>
+	
+	<select id="getLectureList" resultMap="Lecture.lectureResult" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT RESULT.LECTURE_ID, RESULT.LECTURE_CATEGORY, RESULT.LECTURE_NAME, RESULT.USER_ID, RESULT.LECTURE_TUITION, RESULT.LECTURE_DETAIL, RESULT.LECTURE_THUMBNAIL, DECODE(LECTURE_SCORE,NULL,0,LECTURE_SCORE)AS LECTURE_SCORE, STUDENTCOUNT
+		FROM
+		(
+			SELECT A.LECTURE_ID, A.LECTURE_CATEGORY, A.LECTURE_NAME, A.USER_ID, A.LECTURE_TUITION, A.LECTURE_DETAIL, A.LECTURE_THUMBNAIL, LECTURE_SCORE, STUDENTCOUNT
+			]]>
+			<choose>
+				<when test="comparator == 'count'">
+					<![CDATA[
+					, ROW_NUMBER()OVER(ORDER BY STUDENTCOUNT DESC) AS ROW_NUM
+					]]>
+				</when>
+				<otherwise>
+					<![CDATA[
+					, ROW_NUMBER()OVER(ORDER BY LECTURE_NAME ASC) AS ROW_NUM
+					]]>
+				</otherwise>
+			</choose>
+			
+			<![CDATA[
+			FROM LECTURE A
+			LEFT OUTER JOIN
+			(
+			    SELECT LECTURE_ID, (SUM(STU_EVALSCORE) / COUNT(USER_ID)) AS LECTURE_SCORE
+			    FROM
+			    (
+			        SELECT *
+			        FROM STUDENT
+			        WHERE STU_EVALCONTENT IS NOT NULL
+			    )
+			    GROUP BY LECTURE_ID
+			    ORDER BY LECTURE_SCORE DESC
+			)B ON A.LECTURE_ID = B.LECTURE_ID
+			LEFT OUTER JOIN
+			(
+			    SELECT A.LECTURE_ID,COUNT(B.USER_ID) AS STUDENTCOUNT
+			    FROM LECTURE A
+			    INNER JOIN STUDENT B ON A.LECTURE_ID = B.LECTURE_ID
+			    GROUP BY A.LECTURE_ID
+			    UNION
+                SELECT A.LECTURE_ID,COUNT(A.LECTURE_ID)-1 AS STUDENTCOUNT
+                FROM LECTURE A
+                LEFT OUTER JOIN STUDENT B ON A.LECTURE_ID = B.LECTURE_ID
+                WHERE B.LECTURE_ID IS NULL
+                GROUP BY A.LECTURE_ID
+			    ORDER BY STUDENTCOUNT DESC
+			)C ON A.LECTURE_ID = C.LECTURE_ID
+			WHERE 1=1
+		]]>
+		<if test="searchKeyword != null">
+			<![CDATA[
+				AND (A.LECTURE_CATEGORY LIKE '%'||#{searchKeyword}||'%' 
+				OR A.LECTURE_NAME LIKE '%'||#{searchKeyword}||'%' 
+		 		OR A.LECTURE_DETAIL LIKE '%'||#{searchKeyword}||'%') 
+			]]>
+		</if>
+		<if test="lecture_id != null">
+			<![CDATA[
+				AND A.LECTURE_ID = #{lecture_id}
+			]]>
+		</if>
+		<![CDATA[
+		) RESULT
+		]]>
+		<if test="student_id != null">
+		<![CDATA[
+			LEFT OUTER JOIN STUDENT X ON result.lecture_id = X.LECTURE_ID 
+       		WHERE X.USER_ID = #{student_id}
+		]]>
+		</if>
+		<if test="startIndex != null and endIndex != null">
+		<![CDATA[
+			WHERE ROW_NUM BETWEEN #{startIndex} AND #{endIndex}
+			ORDER BY ROW_NUM
+		]]>
+		</if>
+	</select>
+	
+	<select id="getLectureListCnt" resultType="int" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT COUNT(LECTURE_ID)
+		FROM
+		(
+			SELECT A.LECTURE_ID, A.LECTURE_CATEGORY, A.LECTURE_NAME, A.USER_ID, A.LECTURE_TUITION, A.LECTURE_DETAIL, A.LECTURE_THUMBNAIL, DECODE(LECTURE_SCORE,NULL,0,LECTURE_SCORE)AS LECTURE_SCORE, STUDENTCOUNT
+			]]>
+			<![CDATA[
+			FROM LECTURE A
+			LEFT OUTER JOIN
+			(
+			    SELECT LECTURE_ID, (SUM(STU_EVALSCORE) / COUNT(USER_ID)) AS LECTURE_SCORE
+			    FROM
+			    (
+			        SELECT *
+			        FROM STUDENT
+			        WHERE STU_EVALCONTENT IS NOT NULL
+			    )
+			    GROUP BY LECTURE_ID
+			    ORDER BY LECTURE_SCORE DESC
+			)B ON A.LECTURE_ID = B.LECTURE_ID
+			LEFT OUTER JOIN
+			(
+			    SELECT A.LECTURE_ID,COUNT(B.USER_ID) AS STUDENTCOUNT
+			    FROM LECTURE A
+			    INNER JOIN STUDENT B ON A.LECTURE_ID = B.LECTURE_ID
+			    GROUP BY A.LECTURE_ID
+			    UNION
+                SELECT A.LECTURE_ID,COUNT(A.LECTURE_ID)-1 AS STUDENTCOUNT
+                FROM LECTURE A
+                LEFT OUTER JOIN STUDENT B ON A.LECTURE_ID = B.LECTURE_ID
+                WHERE B.LECTURE_ID IS NULL
+                GROUP BY A.LECTURE_ID
+			    ORDER BY STUDENTCOUNT DESC
+			)C ON A.LECTURE_ID = C.LECTURE_ID
+			WHERE 1=1
+		]]>
+		<if test="searchKeyword != null">
+			<![CDATA[
+				AND (A.LECTURE_CATEGORY LIKE '%'||#{searchKeyword}||'%' 
+				OR A.LECTURE_NAME LIKE '%'||#{searchKeyword}||'%' 
+		 		OR A.LECTURE_DETAIL LIKE '%'||#{searchKeyword}||'%') 
+			]]>
+		</if>
+		<![CDATA[
+		)
+		]]>
+	</select>
+	
+	<select id="checkOverlapLectureId" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT COUNT(LECTURE_ID)
+			FROM LECTURE
+			WHERE LECTURE_ID = #{lecture_id}
+		]]>
+	</select>
+	
+	<update id="updateThumbnail" parameterType="lectureVO">
+		<![CDATA[
+			UPDATE LECTURE
+			SET LECTURE_THUMBNAIL = #{lecture_thumbnailEncoder.img}
+			WHERE LECTURE_ID = #{lecture_id}
+		]]>
+	</update>
+	
+	<insert id="insertLecture" parameterType="lectureVO">
+		<![CDATA[
+			INSERT INTO LECTURE (LECTURE_ID, LECTURE_CATEGORY, LECTURE_NAME, LECTURE_TUITION, LECTURE_DETAIL, USER_ID)
+			VALUES (#{lecture_id},#{lecture_category},#{lecture_name},#{lecture_tuition},#{lecture_detail},#{user_id})
+		]]>
+	</insert>
+
+</mapper>
