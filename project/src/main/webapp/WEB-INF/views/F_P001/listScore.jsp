@@ -11,16 +11,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
-<c:url var = "getBoardListURL" value = "{contextPath}/F/F_P001/getBoardList"></c:url>
-=======
-<script type = "text/javascript">
-	function userInfo(){
-		var popUrl = ${contextPath}/F_P001/userInfo.html;  //??
-		var popOption =  "whith = 500, hight = 400, resizable = no, status = no;";
-		windows.open(popUrl, popOption);
-	};
->>>>>>> refs/remotes/origin/master
 
 <script type = "text/javascript">
 	var loopSearch = true;
@@ -45,8 +35,6 @@
 					}
 				});
 		}
-
-	
 </script>
 
  <style>
@@ -105,9 +93,8 @@ border-bottom: none; border-top: none; " >
     	<div id = "search">
     		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page">
     			<input name = "searchUser" type = "text" onKeyUp = "user_idSearch()" />
-    			<input type = "submit" name = "searchUser" value = "검 색" />
+    			<input type = "submit" name = "search" value = "검 색" />
     		</form>
-    		
  		</div>
     </table>
 </body>

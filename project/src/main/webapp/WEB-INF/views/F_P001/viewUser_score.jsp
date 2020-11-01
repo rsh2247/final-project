@@ -11,14 +11,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type = "text/javascript">
-	function userInfo(){
-		var popUrl = /devFw/src/main/webapp/WEB-INF/views/F_P001/userInfo.html
-		var popOption =  "whith = 500, hight = 400, resizable = no, status = no;";
-		windows.open(popUrl, popOption);
-	};
-
-</script>
 
  <style>
    .cls1 {text-decoration:none;}
@@ -47,19 +39,7 @@ border-bottom: none; border-top: none; " >
   </tr>
   <c:set var="num" value = ""/>
 <c:choose>
-  <%-- <c:when test="${scoreList ==null }" >
-    <tr  height="10">
-      <td colspan="10">
-         <p align="center">
-            <b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
-        </p>
-      </td>  
-    </tr>
-  </c:when> --%>
-  
-<%--   <c:when test="${scoreList.score_category = 1}">
-  
-  </c:when> --%>
+
   <c:when test="${scoreList !=null }" >
     <c:forEach  var="score" items="${scoreList }" varStatus="scoreNum" >
      <tr align="center">
@@ -78,9 +58,11 @@ border-bottom: none; border-top: none; " >
     		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1" >문제출제랭킹</a>
     		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>
     		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2" >문제풀이랭킹</a>
-    	<div>
-  			<input type="text" name="keyword" />
-  			<button type="button">검색</button>
+    	<div id = "search">
+    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page">
+    			<input name = "searchUser" type = "text" onKeyUp = "user_idSearch()" />
+    			<input type = "submit" name = "search" value = "검 색" />
+    		</form>
  		</div>
 </body>
 </html>

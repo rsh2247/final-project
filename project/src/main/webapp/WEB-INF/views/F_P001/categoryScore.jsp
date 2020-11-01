@@ -63,10 +63,12 @@ border-bottom: none; border-top: none; " >
     		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>
     		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2" >문제풀이랭킹</a>
     	</div>
-    	<div>
-  			<input type="text" name="keyword" />
-  			<button type="button">검색</button>
- 		</div>    	
+    	<div id = "search">
+    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page">
+    			<input name = "searchUser" type = "text" onKeyUp = "user_idSearch()" />
+    			<input type = "submit" name = "search" value = "검 색" />
+    		</form>
+ 		</div> 	
     </table>
     
     

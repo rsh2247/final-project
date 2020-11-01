@@ -22,7 +22,7 @@
 				$.ajax({
 					type   : "get",
 					async  : "${contextPath}/F/F_P001/searchUser.page",
-					data   : {keyword:value},
+					data   : {user_id:value},
 					succes : function(data, textStatus){
 						var jsonInfo = JSON.parse(data);
 						displayResult(jsonInfo);
@@ -96,7 +96,6 @@ border-bottom: none; border-top: none; " >
     			<input name = "searchUser" type = "text" onKeyUp = "user_idSearch()" />
     			<input type = "submit" name = "search" value = "검 색" />
     		</form>
-    		
  		</div>
     </table>
 </body>

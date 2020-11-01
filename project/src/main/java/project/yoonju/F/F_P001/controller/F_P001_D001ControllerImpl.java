@@ -99,11 +99,13 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	
 	@Override
 	@RequestMapping(value = "F/F_P001/searchUser.page", method = {RequestMethod.GET})
-	public ModelAndView searchUser(@RequestParam("user_id") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView searchUser(@RequestParam("searchUser") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName ="/F_P001/searchUser.tiles";
 		List<F_P001_D001VO> scoreList = scoreService.searchUser(user_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("scoreList", scoreList);
+		System.out.println("CON===============>>" + scoreList.size());
+		System.out.println("뷰네임-------------" + viewName);
 		return mav;
 		
 	}

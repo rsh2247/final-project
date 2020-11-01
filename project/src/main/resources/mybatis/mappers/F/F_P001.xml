@@ -47,12 +47,13 @@
   	]]>
   </select>
   
-  <select id="searchUser" resultType = "scoreVO" parameterType = "String">	<!-- 유저검색 -->
+  <select id="searchUser" resultType = "scoreVO">	<!-- 유저검색 -->
   	<![CDATA[
-  		SELECT	 user_id, SUM(score_point) AS score_totalPoint
-  		FROM	 score
-  		WHERE	 user_id like '%' || #{user_id} || '%'
-  		ORDER BY score_date DESC
+  		SELECT   user_id, SUM(score_point) AS score_totalPoint
+		FROM     score 
+		WHERE 	 user_id LIKE '%'||#{user_id}||'%'  
+		GROUP BY user_id
+		ORDER BY score_totalPoint DESC
   	]]>
   </select>
   
