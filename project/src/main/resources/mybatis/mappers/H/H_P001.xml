@@ -13,6 +13,7 @@
     <result property="post_date" column="post_date" />
     <result property="imageFileName" column="imageFileName" />
     <result property="board_num" column="board_num" /> 
+    <result property="rnum" column = "rnum" />
   </resultMap> 
   
   <resultMap id="imgResult" type="imageVO">
@@ -20,6 +21,7 @@
 	  <result property="post_num" column="post_num" />
 	  <result property="imageFileName" column="imageFileName" />
  </resultMap>
+ 
  
  
 <select id="count" resultType="int">	<!-- 게시물 총 갯수 -->
@@ -32,14 +34,18 @@
 
   <select id = "listPage" parameterType = "hashMap" resultMap = "articlesResult" >
 			<![CDATA[				
-				SELECT post_num, post_parent, post_title, post_content, post_date, imageFileName, user_id, board_num
- 				FROM (
-       						 SELECT post_num, post_parent, post_title, post_content, post_date, imageFileName, user_id, board_num,
-            				 ROW_NUMBER() OVER(ORDER BY post_date desc) AS rNum
-      						 FROM POST
-       					 ) mb
-  				WHERE rNum BETWEEN #{displayPost} AND #{postnum}
-      			ORDER BY post_date desc
+ 				      SELECT *
+						FROM
+							(
+							SELECT ROWNUM as rnum, a.*
+							      FROM (
+							      		SELECT post_num, post_parent, post_title, post_content, post_date, imageFileName, user_id, board_num
+							      		FROM post
+							      		ORDER BY post_date desc
+							      		) a
+							)       
+						WHERE rnum BETWEEN #{displayPost} AND #{postnum}
+						ORDER BY rnum asc
 			]]>
   </select>
   
@@ -63,6 +69,20 @@
 			INSERT into post(post_num, post_title, post_content, imageFileName, user_id, post_date, post_parent, board_num)
 			VALUES(#{post_num},#{post_title}, #{post_content}, #{imageFileName}, #{user_id}, SYSDATE, 0, 0)
 		]]>      
+	</insert>
+	
+	  <insert id="addrplyArticle"  parameterType="java.util.Map">					<!-- SQL에 글추가 -->
+		<selectKey resultType="string" keyProperty="post_num"
+			order="BEFORE">
+			SELECT CASE WHEN MAX(POST_NUM)+1 IS NOT NULL THEN MAX(POST_NUM)+1 
+			ELSE 1 
+			end as post_num 
+			FROM post
+		</selectKey>
+		<![CDATA[
+			INSERT INTO post(post_num, post_title, post_content, imageFileName, user_id, post_date, post_parent, board_num)
+			VALUES(#{post_num}, #{post_title}, #{post_content}, #{imageFileName}, #{user_id}, SYSDATE, #{post_parent}, 0)
+		]]>
 	</insert>
 	
   <select id="selectNewArticleNO" resultType="String"  > 						<!-- 글번호 자동 부여 -->

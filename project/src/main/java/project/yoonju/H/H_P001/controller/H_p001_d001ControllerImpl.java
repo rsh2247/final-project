@@ -73,32 +73,32 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 	@RequestMapping(value = "H/H_P001/listPage.page", method = {RequestMethod.GET, RequestMethod.POST})					//게시물목록 + 페이징추가
 	public ModelAndView listPage(@RequestParam("num") int num, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		int count = boardService.count();	//전체 게시물 갯수
-		int postnum = 10 * num;	//한 페이지에서 출력할 게시물 갯수	
-		int pagenumList = (int)Math.ceil((double)count/10);	//하단 페이징 번호
-		int displayPost = (num - 1) * 10;	// 출력할 게시물
-		int pageNum_cnt = 10; //한번에 출력할 페이지 갯수		
+		int count = boardService.count();	//전체 게시물 갯수					119
+		int postnum = 10 * num;	//한 페이지에서 출력할 게시물 갯수					10
+		int pagenumList = (int)Math.ceil((double)count/10);	//하단 페이징 번호	(double)119/10 → ceil(11.9) → 12
+		int displayPost = (num - 1) * 10;	// 출력할 게시물 					(1-1) * 10 = 0
+		int pageNum_cnt = 10; //한번에 출력할 페이지 갯수							10
 
-		//표시되는 페이지 번호 중 마지막 번호 1차 계산
-		int endPageNum = (int)(Math.ceil((double)num) / (double)pageNum_cnt) * pageNum_cnt; // 
+		//표시되는 페이지 번호 중 마지막 번호 1차 계산		/ int(ceil(1/10)) * 10 / → / int(ceil(1)) * 10 / → / int(1) * 10 /→ 10 
+		int endPageNum = (int)(Math.ceil(((double)num) / (double)pageNum_cnt)) * pageNum_cnt; // 
 		
 		//표시되는 페이지 번호 중 첫번째 번호
-		int startPageNum = endPageNum - (pageNum_cnt-1);  
+		int startPageNum = endPageNum - (pageNum_cnt-1); 	// 10-(10-1) → 10-9 = 1
 		
-		// 마지막 번호 재계산
+		// 표시되는 페이지 번호 중 마지막 번호 2차 계산				 	(int)ceil((119)/10) → int(ceil(11.9)) → 	12
 		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNum_cnt));
 		
 		if(endPageNum > endPageNum_tmp) {	
 			endPageNum = endPageNum_tmp;
 		}
 		
-		boolean prev = startPageNum == 1 ? true:false; 
-		boolean next = endPageNum * pageNum_cnt >= count ? true:false;
+		boolean prev = startPageNum == 1 ? false:true; 
+		boolean next = endPageNum * pageNum_cnt >= count ? false:true;
 
 		
-		if(startPageNum < 0 ) {
-			startPageNum = 1;
-		}							//내가 따로 만든 코드
+		/*
+		 * if(startPageNum < 0 ) { startPageNum = 1; }
+		 */						//내가 따로 만든 코드
 		
 		String viewName = "/H_P001/listPage.tiles";
 		System.out.println("뷰네임-------------" + viewName);
@@ -110,6 +110,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		mav.addObject("pagenum", pagenumList);
 		System.out.println("articlesList는" + articlesList);
 		
+		mav.addObject("count", count);
 		mav.addObject("startPageNum", startPageNum);
 		mav.addObject("endPageNum", endPageNum);
 		mav.addObject("endPageNum_tmp", endPageNum_tmp);
@@ -124,6 +125,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		System.out.println("count는?" + count);		
 		System.out.println("prev는??" + prev);
 		System.out.println("next는?" + next);
+		System.out.println("num은?" + num);
 		
 		return mav;
 	}
@@ -151,7 +153,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		articleMap.put("post_parent", 0);
 		articleMap.put("user_id", cus.getUsername());
 		articleMap.put("imageFileName", imageFileName);
-		System.out.println("아티클맵에 담긴 것----------------->>" + articleMap);
+		System.out.println("아티클맵에 담긴 것----------------->>11111" + articleMap);
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -183,6 +185,69 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		return resEnt;
 	}
 
+	@Override
+	@RequestMapping(value = "H/H_P001/addrplyArticle.user", method = RequestMethod.POST)										//글쓰기
+	@ResponseBody
+	public ResponseEntity addrplyArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
+		Map<String, Object> articleMap = new HashMap<String, Object>();
+		Enumeration enu = multipartRequest.getParameterNames();
+		while (enu.hasMoreElements()) {
+			String name = (String) enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			articleMap.put(name, value);
+		}
+		
+		while (enu.hasMoreElements()) {
+			String name = (String) enu.nextElement();
+			
+
+			System.out.println("parameter ######################################");
+			System.out.println(articleMap.get(name));
+			System.out.println("parameter ######################################");
+			
+
+		}
+		
+		
+		String imageFileName = upload(multipartRequest);
+		HttpSession session = multipartRequest.getSession();				
+		
+		CustomUser cus = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();				
+
+//		articleMap.put(arg0, post_num);
+//		articleMap.put("post_parent", 0);
+		
+		articleMap.put("user_id", cus.getUsername());
+		System.out.println("아티클맵에 담긴 것----------------->>" + articleMap);
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			String post_num = boardService.addrplyArticle(articleMap);
+			System.out.println("post_num에 담긴 것 -------------->" + post_num);
+			message = "<script>";
+			message += " alert('새글을 추가했습니다.');";
+			message += " location.href='" + multipartRequest.getContextPath() + "/H/H_P001/listArticles.page'; ";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch (Exception e) {
+			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
+			srcFile.delete();
+
+			message = " <script>";
+			message += " alert('오류가 발생했습니다. 다시 시도해 주세요');');";
+			message += " location.href='" + multipartRequest.getContextPath() + "H//H_P001/articleForm.page'; ";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		return resEnt;
+	}
+	
+	
 
 	@RequestMapping(value = "H/H_P001/viewArticle.page", method = RequestMethod.GET)									//한 개 글보기
 	public ModelAndView viewArticle(@RequestParam("post_num") String post_num, HttpServletRequest request,
@@ -195,7 +260,7 @@ public class H_p001_d001ControllerImpl implements H_p001_d001Controller {
 		mav.addObject("article2", articleVO);
 		System.out.println("articleVO를 보여줘=========>>>>" + articleVO);
 		System.out.println("mav에 담긴 것------------->" + mav);
-
+		
 		return mav;
 	}
 

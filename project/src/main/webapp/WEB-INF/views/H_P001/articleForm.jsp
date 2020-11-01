@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  /> 
 <%
   request.setCharacterEncoding("UTF-8");
@@ -13,6 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>글쓰기창</title>
+<script type="text/javascript" src="${contextPath}/resources/ckeditor/ckeditor/ckeditor.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
    function readURL(input) {
@@ -38,11 +40,13 @@
 </script>
  <title>글쓰기창</title>
 </head>
+
+
 <body>
 <h1 style="text-align:center">글쓰기</h1>
   <form name="articleForm" method="post"   action="${contextPath}/H/H_P001/addNewArticle.user"   enctype="multipart/form-data">
     <table border="0" align="center">
-     <%--  <tr>
+      <%-- <tr>
 					<td align="right"> 작성자</td>
 					<td colspan=2  align="left"><input type="text" size="20" maxlength="100" value="${}" readonly/> </td>
 			</tr> --%>
@@ -53,16 +57,16 @@
 		 </tr>
 	 		<tr>
 				<td align="right" valign="top"><br>글내용: </td>
-				<td colspan=2><textarea name="post_content" rows="10" cols="65" maxlength="4000"></textarea> </td>
+				<td colspan=2><textarea class="cdeditor" id="editor" name="post_content"></textarea> </td>
      </tr>
-     <tr>
+     <tr>	
 			  <td align="right">이미지파일 첨부:  </td>
 			  <td> <input type="file" name="imageFileName"  onchange="readURL(this);" /></td>
 			  <td><img  id="preview" src="#"   width=200 height=200/></td>
 			  
 			  
-			  <td align="right">이미지파일 첨부</td>
-				<td align="left"> <input type="button" value="파일 추가" onClick="fn_addFile()"/></td>
+			  <!-- <td align="right">이미지파일 첨부</td>
+				<td align="left"> <input type="button" value="파일 추가" onClick="fn_addFile()"/></td> -->
 				
 				
 	   </tr>
@@ -78,5 +82,8 @@
      </tr>
     </table>
   </form>
+  <script>
+  CKEDITOR.replace('editor', {height: 500});
+  </script>
 </body>
 </html>

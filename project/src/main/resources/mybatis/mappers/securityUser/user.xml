@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
+	<resultMap id="result" type="java.util.HashMap">
+	</resultMap>
 
 	<insert id="insertUser" parameterType="java.util.Map">
 		INSERT INTO user_table
-		VALUES(#{id},#{pw},'ROLE_USER',#{email},'test_phonenum',#{nickName},SYSTIMESTAMP)
+		VALUES(#{id},#{pw},'ROLE_USER',#{email},'test_phonenum',#{nickName},SYSTIMESTAMP,0,#{authkey})
+	</insert>
+	
+	<insert id="insertKakaoUser" parameterType="java.util.Map">
+		INSERT INTO user_table (user_id,user_pw, user_type,user_enable,user_signdate)
+		VALUES(#{id},#{pw},'ROLE_USER',1,SYSTIMESTAMP)
 	</insert>
 
-	<select id="selectUser" resultType="map">
+	<select id="selectUser" resultMap="result" parameterType="java.util.Map">
 		SELECT
 		user_id as username,
 		user_pw as password,
 		1 as enabled,
 		user_type as authority,
-		user_email,
-		user_nickname
+		user_email as email,
+		user_nickname,
+		user_enable,
+		user_image
 		FROM user_table
-		WHERE user_id = #{username}
+		WHERE user_id = #{id}
 	</select>
+	
+	<select id="selectUserByEmail" resultMap="result" parameterType="java.util.Map">
+		SELECT
+		user_id as username,
+		user_pw as password,
+		user_email as email,
+		user_authkey
+		FROM user_table
+		WHERE user_email = #{email} and user_authkey = #{authKey}
+	</select>
+	
+	<update id="updateUserEnable" parameterType="java.util.Map">
+		UPDATE user_table
+		SET user_enable = 1
+		WHERE user_id = #{USERNAME}
+	</update>
 </mapper>

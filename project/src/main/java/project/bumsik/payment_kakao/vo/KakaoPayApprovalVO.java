@@ -15,8 +15,33 @@ public class KakaoPayApprovalVO {
     private String item_name, item_code, payload;
     private Integer quantity, tax_free_amount, vat_amount;
     private Date created_at, approved_at;
-     
-    public String getAid() {
+    
+	/* 추가 order_price, pay_amount, discount */
+    private String order_price;
+    private String pay_amount;
+    private String discount;
+    public String getOrder_price() {
+		return order_price;
+	}
+	public void setOrder_price(String order_price) {
+		this.order_price = order_price;
+	}
+	public String getPay_amount() {
+		return pay_amount;
+	}
+	public void setPay_amount(String pay_amount) {
+		this.pay_amount = pay_amount;
+	}
+	public String getDiscount() {
+		return discount;
+	}
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+	
+	
+	
+	public String getAid() {
     	return aid;
     }
     public void setAid(String aid) {

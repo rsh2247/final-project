@@ -1,5 +1,7 @@
 package project.sungho.user_module.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.sungho.group_module.service.Group_Service;
@@ -45,9 +49,7 @@ public class User_ContollerImpl implements User_Contoller {
 
 	@RequestMapping(value = "userPage_col.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userPage_col(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		List<Map<String,Object>> list = user_Service.selectUserCol();
-		System.out.println(list);
 		ModelAndView mav = new ModelAndView("user/userPage_col.tiles");
 		mav.addObject("list", list);
 		return mav;
@@ -71,6 +73,34 @@ public class User_ContollerImpl implements User_Contoller {
 		ModelAndView mav = new ModelAndView("user/userGroup.tiles");
 		mav.addObject("list", group_Service.selectMyGroup());
 		return mav;
+	}
+	@RequestMapping(value = "userPage_modify.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView userPage_modify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("user/userPage_modify.tiles");
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "uploadImage", method = { RequestMethod.POST })
+	public String requestupload1(MultipartHttpServletRequest mtfRequest, HttpServletRequest request) {
+		MultipartFile mf = mtfRequest.getFile("file");
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		String attach_path = "resources/image/";
+		String path = root_path+attach_path;
+		String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+		//long fileSize = mf.getSize(); // 파일 사이즈
+		String fileName = System.currentTimeMillis() + originFileName;
+		String safeFile = path + fileName;
+		try {
+			mf.transferTo(new File(safeFile));
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fileName;
 	}
 
 }

@@ -22,4 +22,7 @@ public interface H_p001_d001DAO {
 	public List selectImageFileList(String post_num) throws DataAccessException;
 	public int count() throws Exception;
 	public List listPage(int displayPost, int postnum) throws DataAccessException;
+	public String addrplyArticle(Map articleMap) throws DataAccessException;
+
+	
 }

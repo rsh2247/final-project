@@ -65,7 +65,7 @@
 			<td><a>수강중인 강의목록</a></td>
 		</tr>
 		<tr>
-			<td><a>정보수정</a></td>
+			<td><a href="userPage_modify.user">정보수정</a></td>
 		</tr>
 		<tr>
 			<td><a>회원탈퇴</a></td>

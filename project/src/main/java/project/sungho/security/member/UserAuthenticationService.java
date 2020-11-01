@@ -20,10 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.REQUIRED)
 public class UserAuthenticationService implements UserDetailsService {
 	
-	private SqlSession sqlSession;
+	@Autowired
+	SqlSession sqlSession;
 	
 	@Autowired
 	CustomUserDAO userDao;
+	
+	@Autowired
+	BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,9 +35,15 @@ public class UserAuthenticationService implements UserDetailsService {
 		if(user == null) {
 			throw new UsernameNotFoundException(username);
 		}
-		 List<GrantedAuthority> gas = new ArrayList<GrantedAuthority>();
-		 gas.add(new SimpleGrantedAuthority(user.get("AUTHORITY").toString()));
-		return new CustomUser(user.get("USERNAME").toString(), user.get("PASSWORD").toString(), true, true, true, true, gas,"testemail","testnickname");
+		boolean enable = false;
+		if(user.get("USER_ENABLE").toString().equals("1")) enable = true;
+		List<GrantedAuthority> gas = new ArrayList<GrantedAuthority>();
+		gas.add(new SimpleGrantedAuthority(user.get("AUTHORITY").toString()));
+		String image = "noimage.png";
+		if(user.get("USER_IMAGE")!=null) {
+			image = user.get("USER_IMAGE").toString();
+		}
+		return new CustomUser(user.get("USERNAME").toString(), user.get("PASSWORD").toString(), enable, true, true, true, gas,user.get("EMAIL").toString(),"testnickname",image);
 	}
 	
 	public UserAuthenticationService() {
@@ -45,11 +55,21 @@ public class UserAuthenticationService implements UserDetailsService {
 	}
 	
 	public void signUp(Map<String,Object> inputMap) {
-		//Map<String, Object> user = sqlSession.selectOne("user.selectUser",inputMap.get("id"));
+		inputMap.put("pw", "{bcrypt}"+bcryptPasswordEncoder.encode((String) inputMap.get("pw")));
 		int result = userDao.insertUser(inputMap);
-		System.out.println(result);
-		
 	}
 	
+	public void userConfirm(Map<String,Object> inputMap) {
+		Map<String,Object> user = userDao.selectUserByEmail(inputMap);
+		if(user.get("USER_AUTHKEY").equals(inputMap.get("authKey")) ) {
+			System.out.println("check");
+			userDao.updateUserEnable(user);
+		}
+	}
+	
+	public boolean checkUserId(Map<String,Object> inputMap) {
+		if(userDao.selectUser(inputMap) == null) return false;
+		else return true;
+	}
 
 }

@@ -1,64 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans
-	xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-                                 http://www.springframework.org/schema/beans/spring-beans.xsd
-                                 http://www.springframework.org/schema/security
-                                 http://www.springframework.org/schema/security/spring-security.xsd">
+  
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	    http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
+	
+	
+    <!-- HTTP Root Access configuration -->
+    <sec:http pattern="/rest/**" create-session="never" access-decision-manager-ref="accessDecisionManager"
+              entry-point-ref="oauthAuthenticationEntryPoint" use-expressions="true" auto-config="true">
+        <sec:anonymous enabled="false"/>
+        <sec:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER"/>
+        <sec:access-denied-handler ref="oauthAccessDeniedHandler"/>
+        <sec:expression-handler ref="oauthWebExpressionHandler"/>
+    </sec:http>
 
+    <!-- OAuth2 Authentication Entry Point -->
+    <bean id="oauthAuthenticationEntryPoint"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+        <property name="realmName" value="conference"/>
+    </bean>
 
+    <bean id="oauthAccessDeniedHandler"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler"/>
 
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter"/>
+                <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+                <bean class="org.springframework.security.web.access.expression.WebExpressionVoter">
+                    <property name="expressionHandler" ref="oauthWebExpressionHandler"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
 
-	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/user/loginPage.do"
-			access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/problem_solve/*.pro"
-			access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/problem_make/*.pro"
-			access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/group/*.user"
-			access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/cafe/*.user"
-			access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/order"
-			access="hasRole('ROLE_USER')" />
-		<csrf disabled="true" />
+    <oauth:web-expression-handler id="oauthWebExpressionHandler"/>
 
-		<form-login login-page="/loginPage.login"
-			default-target-url="/mainPage/mainPage001.do"
-			username-parameter="loginId" password-parameter="loginPw"
-			authentication-failure-url="/loginPage.login" />
-		<!-- 권한없을때 페이지 -->
-		<access-denied-handler
-			error-page="/access_error.login" />
+    <!-- OAuth2 Token Generation Services -->
+    <sec:http pattern="/oauth/token" create-session="stateless"
+              authentication-manager-ref="clientAuthenticationManager" use-expressions="true">
+        <sec:intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY"/>
+        <sec:anonymous enabled="false"/>
+        <sec:http-basic entry-point-ref="clientAuthenticationEntryPoint"/>
+        <sec:custom-filter ref="clientCredentialsTokenEndpointFilter" before="BASIC_AUTH_FILTER"/>
+        <sec:access-denied-handler ref="oauthAccessDeniedHandler"/>
+    </sec:http>
 
-		<logout logout-success-url="/mainPage/mainPage001.do" />
+    <bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
+        <property name="tokenStore" ref="tokenStore"/>
+        <property name="supportRefreshToken" value="true"/>
+        <property name="accessTokenValiditySeconds" value="300000"/>
+        <property name="clientDetailsService" ref="clientDetails"/>
+    </bean>
 
-	</http>
+    <bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore"/>
 
-	<authentication-manager>
-		<authentication-provider
-			user-service-ref="userService">
-			<!-- <user-service> <user name="user" password="userPw" authorities="ROLE_USER" 
-				/> <user name="guest" password="guest" authorities="ROLE_GUEST" /> </user-service> -->
-			<!-- <jdbc-user-service data-source-ref="dataSource" users-by-username-query="SELECT 
-				USER_ID as username, user_pw as password, 1 as enabled FROM user_table WHERE 
-				user_id=?" authorities-by-username-query=" SELECT user_id as username, CASE 
-				user_type WHEN 'user' THEN 'ROLE_USER' ELSE 'ROLE_ADMIN' END authority FROM 
-				user_table WHERE user_id=?" /> -->
-		</authentication-provider>
-	</authentication-manager>
+    <bean id="approvalStore" class="org.springframework.security.oauth2.provider.approval.TokenApprovalStore">
+        <property name="tokenStore" ref="tokenStore"/>
+    </bean>
 
-	<beans:bean id="userService"
-		class="project.sungho.security.member.UserAuthenticationService">
-		<beans:constructor-arg name="sqlSession"
-			ref="sqlSession"></beans:constructor-arg>
-	</beans:bean>
+    <bean id="userApprovalHandler"
+          class="org.springframework.security.oauth2.provider.approval.ApprovalStoreUserApprovalHandler">
+        <property name="approvalStore" ref="approvalStore"/>
+        <property name="clientDetailsService" ref="clientDetails"/>
+        <property name="requestFactory">
+            <bean class="org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory">
+                <constructor-arg index="0" ref="clientDetails"/>
+            </bean>
+        </property>
+    </bean>
 
-</beans:beans>
+    <!-- OAuth2 Authorization Server -->
+    <oauth:authorization-server client-details-service-ref="clientDetails" token-services-ref="tokenServices"
+                                user-approval-handler-ref="userApprovalHandler">
+        <oauth:authorization-code/>
+        <oauth:implicit/>
+        <oauth:refresh-token/>
+        <oauth:client-credentials/>
+        <oauth:password/>
+    </oauth:authorization-server>
 
+    <!-- OAuth2 Protected Resources Server -->
+    <oauth:resource-server id="resourceServerFilter" resource-id="conference" token-services-ref="tokenServices"/>
+
+    <!-- OAuth2 Client Configuration -->
+    <bean id="clientCredentialsTokenEndpointFilter"
+          class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
+        <property name="authenticationManager" ref="clientAuthenticationManager"/>
+    </bean>
+
+    <bean id="clientAuthenticationEntryPoint"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+        <property name="realmName" value="conference/client"/>
+        <property name="typeName" value="Basic"/>
+    </bean>
+
+    <bean id="clientDetailsUserService"
+          class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService">
+        <constructor-arg ref="clientDetails"/>
+    </bean>
+
+    <!-- OAuth2 Client's Authentication Manager -->
+    <sec:authentication-manager id="clientAuthenticationManager">
+        <sec:authentication-provider user-service-ref="clientDetailsUserService"/>
+    </sec:authentication-manager>
+
+    <!-- File based client details access -->
+    <oauth:client-details-service id="clientDetails">
+        <!-- Web Application clients -->
+        <oauth:client client-id="client"
+                      secret="secret"
+                      authorities="APP"
+                      authorized-grant-types="authorization_code"
+                      resource-ids="conference"
+                      scope="read,write,trust"/>
+        <oauth:client client-id="client2"
+                      secret="secret"
+                      authorities="APP"
+                      authorized-grant-types="password"
+                      resource-ids="conference"
+                      scope="read,write,trust"/>
+        <oauth:client client-id="client3"
+                      secret="secret"
+                      authorities="APP"
+                      authorized-grant-types="client_credentials"
+                      resource-ids="conference"
+                      scope="read,write,trust"/>
+        <oauth:client client-id="client4"
+                      secret="secret"
+                      authorities="APP"
+                      authorized-grant-types="implicit"
+                      resource-ids="conference"
+                      scope="read,write,trust"/>
+    </oauth:client-details-service>
+
+    <sec:global-method-security pre-post-annotations="enabled" proxy-target-class="true">
+        <sec:expression-handler ref="oauthExpressionHandler"/>
+    </sec:global-method-security>
+
+    <oauth:expression-handler id="oauthExpressionHandler"/>
+
+</beans>
 
 
 

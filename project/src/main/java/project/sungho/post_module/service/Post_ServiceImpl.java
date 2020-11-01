@@ -33,7 +33,10 @@ public class Post_ServiceImpl implements Post_Service {
 	public List<Map<String, Object>> selectReplyList(Map<String,Object> inputMap) {
 		return sqlSession.selectList("article.selectReply", inputMap);
 	}
-	public Map<String, Object> insertReply(Map<String,Object> inputMap) {
+	public List<Map<String, Object>> selectRecentReply(Map<String,Object> inputMap) {
+		return sqlSession.selectList("selectRecentReply", inputMap);
+	}
+	public List<Map<String, Object>> insertReply(Map<String,Object> inputMap) {
 		String userId = "anonymousUser";
 		if(!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
 			userId = ((CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -41,7 +44,8 @@ public class Post_ServiceImpl implements Post_Service {
 		inputMap.put("user_id", userId);
 		System.out.println(inputMap);
 		sqlSession.update("article.insertReply", inputMap);
-		return inputMap;
+		inputMap.put("post_num", inputMap.get("post_parent"));
+		return sqlSession.selectList("article.selectReply", inputMap);
 	}
 	public Map<String, Object> insertBoard(Map<String,Object> inputMap) {
 		sqlSession.update("article.insertBoard", inputMap);
@@ -52,6 +56,7 @@ public class Post_ServiceImpl implements Post_Service {
 		for(String data : input) {
 			inputMap.put("board_num", data);
 			sqlSession.update("article.deleteBoard",inputMap);
+			sqlSession.update("article.deleteBoardArticle", inputMap);
 			inputMap.remove("board_num");
 		}
 	}

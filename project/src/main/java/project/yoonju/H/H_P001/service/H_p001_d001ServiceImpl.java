@@ -37,6 +37,10 @@ public class H_p001_d001ServiceImpl  implements H_p001_d001Service{
 		return boardDAO.insertNewArticle(articleMap);
 	}
 	
+	@Override
+	public String addrplyArticle(Map articleMap) throws Exception {
+		return boardDAO.addrplyArticle(articleMap);
+	}
 	
 	 //단일 파일 보이기
 	@Override
@@ -66,6 +70,8 @@ public class H_p001_d001ServiceImpl  implements H_p001_d001Service{
 	public void removeArticle(String post_num) throws Exception {
 		boardDAO.deleteArticle(post_num);
 	}
+
+
 	
 
 	

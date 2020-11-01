@@ -26,7 +26,7 @@ var point_check = function (no) {
     var pt = new Array();
     var ptcnt = $("input[name=dispt]").size();
     var total_pt = 0;		//입력받을 포인트
-    var usepoint='';   	//가지고 있는 포인트
+    var usepoint='';   		//가지고 있는 포인트
 
 	$.ajax({
      	url: getContextPath()+"/searchPoint",
@@ -51,7 +51,7 @@ var point_check = function (no) {
     }
 
     var usedpoint = $("#ptsale").html().replace(' P', '').replace(/,/g, '');	//총 할인 내역에 적용된 point
-    var targe_point = $('#dispt' + no).val();    //입력 받은 포인트    
+    var targe_point = $('#dispt' + no).val();    								//입력 받은 포인트    
 
     //입력 받은 포인트 > 보유 포인트 || 적용한 포인트 + 입력받은 포인트 > 보유포인트
     if (total_pt > usepoint || parseInt(usedpoint) + parseInt(targe_point) > usepoint) {
@@ -80,9 +80,6 @@ var point_apply = function (no) {
         type: "POST",
         dataType: "json",
         data: {no: no, tp: tp},
-        beforeSend: function () {
-            //loadingfn('load');
-        },
         success: function (data) {
         	
         	console.log(data);
@@ -91,6 +88,8 @@ var point_apply = function (no) {
                 location.reload();
             } else {
             	console.log(data[1].dis);
+				console.log("dp : "+data[0].discount_point)
+				console.log("tp : "+data[0].total_price)
                 $("#sale_price_total em").text(data[0].discount_point);    	// 할인 금액, discount_point
                 $("#total_price_total em").text(data[0].total_price);   	// 할인 적용된 total_price
                 $("#ptsale").text(data[0].discount_point);               	// 총할인내역-point  
@@ -108,7 +107,7 @@ var point_apply = function (no) {
     
 }
 
-/*미완성*/
+/*할인 취소*/
 var discount_cancel = function (no, type) {
 	console.log(no);
 	console.log(type);
@@ -117,14 +116,11 @@ var discount_cancel = function (no, type) {
         type: "POST",
         dataType: "json",
         data: {type: type, no: no},
-        beforeSend: function () {
-            //loadingfn('load');
-        },
         success: function (data) {
         	console.log(data[1].dis);
             $("#sale_price_total em").text(data[0].discount_point);    	// 할인 금액, discount_point
             $("#total_price_total em").text(data[0].total_price);   	// 할인 적용된 total_price
-            $("#ptsale").text(data[0].discount_point);               	// 총할인내역-point  
+            $("#ptsale").text(data[0].discount_point+" P");               	// 총할인내역-point  
             $("#pt" + no).html(data[1].dis);   							// point 입력 table(td)
         }
     });
@@ -152,7 +148,7 @@ var trade_select = function (no) {
         return;
     }
 
-    payment(no);
+    payment(no);	//체크 다 됬으면 주문번호(no) 전송하여 결재
     
     
 }
@@ -180,10 +176,9 @@ var payment = function(no){
         		$("input[name=trademethod]").attr("checked",false)
                 $("input[name=trademethod]").eq(0).focus();
         		if(method == 'kakao') postPopUp(no,"/kakaoPay");
+
         	}else if(total_price == 0){
         		postPopUp(no,"/insertPoint");	//포인트로 전액 결제
-        		console.log("돌아 온거 맞나?");
-        		self.close();
         		var url=getContextPath()+"/mainPage/mainPage001.do";
         		location.replace(url);
         	}

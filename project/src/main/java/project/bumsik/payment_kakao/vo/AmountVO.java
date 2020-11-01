@@ -4,9 +4,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AmountVO {
- 
- 
-	private Integer total, tax_free, vat, point, discount;
+  
+	private Integer total, tax_free, vat, point;
 	
 	public Integer getTotal() {
 		return total;
@@ -31,11 +30,5 @@ public class AmountVO {
 	}
 	public void setPoint(Integer point) {
 		this.point = point;
-	}
-	public Integer getDiscount() {
-		return discount;
-	}
-	public void setDiscount(Integer discount) {
-		this.discount = discount;
 	}
 }

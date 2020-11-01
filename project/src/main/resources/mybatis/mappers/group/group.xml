@@ -27,7 +27,6 @@
 		INSERT INTO join_group_list(group_num, user_id,
 		g_list_state, g_list_candidate, g_list_joindate)
 		VALUES(#{group_num}, #{user_id}, #{g_list_state}, sysdate, sysdate)
-
 	</insert>
 
 	<select id="selectUserGroup" resultMap="result"
@@ -51,14 +50,14 @@
 		(select count(user_id)
 		from join_group_list l
 		where l.group_num =
-		t.group_num) MEMBER_COUNT
+		t.group_num and g_list_state in ('user','manager')) MEMBER_COUNT
 		from group_table t
 	</select>
 
 	<select id="selectOneGroup" resultMap="result"
 		parameterType="java.util.Map">
 		<![CDATA[
-			select *
+			select group_num, group_name, group_leader, group_category, group_icon, group_joinmanner, group_desc, to_char(group_date,'yyyy-mm-dd') as group_date
 			from group_table 
 		]]>
 		<where>
@@ -77,7 +76,7 @@
 	</select>
 
 	<select id="checkMemberState" resultMap="result" parameterType="java.util.Map">
-		SELECT g_list_state state 
+		SELECT g_list_state state,to_char(g_list_joindate,'yyyy-mm-dd') as g_list_joindate,user_id
 		FROM join_group_list 
 		<where>
 		<if test="num != '' and num != null and user_id != '' and user_id != null"></if>
@@ -101,6 +100,12 @@
 		</where>
 	</select>
 	
+	<select id="authorityCheck" resultMap="result" parameterType="java.util.Map">
+		SELECT g_list_state 
+		FROM join_group_list 
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</select>
+	
 	<select id="selectCandidate" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
 		SELECT user_id,g_list_state,TO_CHAR(g_list_joindate,'YYYY-MM-DD') g_list_joindate, TO_CHAR(g_list_candidate,'YYYY-MM-DD') g_list_candidate 
@@ -111,9 +116,29 @@
 		</where>
 	</select>
 	
-	<update id="replaceManager" parameterType="java.util.Map">
-		
+	<select id="checkGroupManner" resultMap="result" parameterType="java.util.Map">
+		SELECT group_joinmanner
+		FROM group_table
+		WHERE group_num = #{group_num}
+	</select>
+	
+	<update id="updateGroupManager" parameterType="java.util.Map">
+		UPDATE group_table
+		SET group_leader = #{user_id}
+		WHERE group_num = #{group_num}
 	</update>
+	
+	<update id="updateUser" parameterType="java.util.Map">
+		UPDATE join_group_list
+		SET G_LIST_STATE = #{g_list_state}
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM join_group_list
+		WHERE user_id = #{user_id} and group_num = #{group_num}
+	</delete>
+	
 	
 
 </mapper>

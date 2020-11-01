@@ -19,4 +19,5 @@ public interface H_p001_d001Service {
 	public void removeArticle(String post_num) throws Exception;
 	public int count() throws Exception;
 	public List listPage(int displayPost, int postnum) throws Exception;
+	public String addrplyArticle(Map articleMap) throws Exception;
 }

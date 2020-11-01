@@ -28,7 +28,7 @@
 			FROM post
 		</selectKey>
 		INSERT INTO post(post_num,board_num,user_id,post_content,post_date,post_parent)
-		VALUES(#{post_num},0,#{user_id},#{post_content},SYSDATE,#{post_parent})
+		VALUES(#{post_num},#{board_num},#{user_id},#{post_content},SYSDATE,#{post_parent})
 	</insert>
 	
 	<insert id="insertBoard">
@@ -43,8 +43,9 @@
 		VALUES(#{board_num}, #{board_name}, #{group_num})
 	</insert>
 	<select id="selectMaxReplyNum" resultMap="result" parameterType="java.util.Map">
-		SELECT MAX(post_num) as post_num 
-		FROM post
+		<![CDATA[SELECT *
+		FROM post]]>
+		<where>post_num = (SELECT max(post_num) FROM post WHERE post_parent IS NOT NULL)</where>
 	</select>
 	
 	<select id="selectMaxBoardNum" resultMap="result" parameterType="java.util.Map">
@@ -56,35 +57,43 @@
 		DELETE FROM board 
 		WHERE board_num = #{board_num}
 	</delete>
+	
+	<delete id="deleteBoardArticle" parameterType="java.util.Map">
+		DELETE FROM post
+		WHERE board_num = #{board_num}
+	</delete>
+	
 	<select id="selectArticleByGroup" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
-		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, 
+		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, (select count(post_num) from post p1 where p1.post_parent = p2.post_num) as reply_num,
 		CASE 
 		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
 		ELSE to_char(post_date,'yyyy-mm-dd')
 		end as post_date 
-		FROM board b, post p 
+		FROM board b, post p2 
 		]]>
 		<where>
-		b.board_num = p.board_num and group_num = #{group_num} 
+		b.board_num = p2.board_num and group_num = #{group_num} and post_parent is null
 		</where>
-		order by post_num asc
+		group by rownum, post_num, board_name, user_id, post_title, post_content, post_category, post_date
+		order by post_num desc
 	</select>
 	
 	
 	<select id="selectArticleByBoard" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
-		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, 
+		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, (select count(post_num) from post p1 where p1.post_parent = p2.post_num) as reply_num,
 		CASE 
 		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
 		ELSE to_char(post_date,'yyyy-mm-dd')
 		end as post_date 
-		FROM post p, board b
+		FROM post p2, board b
 		]]>
 		<where>
-		b.board_num = #{board_num} and b.board_num = p.board_num
+		b.board_num = #{board_num} and b.board_num = p2.board_num and post_parent is null
 		</where>
-		order by post_num asc
+		group by rownum, post_num, board_name, user_id, post_title, post_content, post_category, post_date
+		order by post_num desc
 	</select>
 	
 	<select id="selectBoardName" resultMap="result" parameterType="java.util.Map">
@@ -103,17 +112,29 @@
 		FROM post p, board b
 		]]>
 		<where>
-		b.board_num = p.board_num and post_num = #{post_num}
+		b.board_num = p.board_num and post_num = #{post_num} and post_parent is null
 		</where>
 	</select>
 	
 	<select id="selectReply" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
-		SELECT *
+		SELECT post_content, user_id, to_char(post_date,'yyyy-mm-dd hh24:mi:ss') as post_date
 		FROM post
 		]]>
 		<where>post_parent = #{post_num}</where>
 		order by post_date
+	</select>
+	
+	<select id="selectRecentReply" resultMap="result" parameterType="java.util.Map">
+		SELECT post_content
+		FROM(
+			SELECT post_content
+			FROM post p, board b
+			WHERE b.group_num = #{group_num} and b.board_num = p.board_num
+			and post_parent IS NOT NULL 
+			order by post_date DESC
+		)
+		WHERE <![CDATA[ROWNUM<=5]]>
 	</select>
 
 </mapper>
