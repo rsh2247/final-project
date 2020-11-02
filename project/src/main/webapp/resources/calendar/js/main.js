@@ -282,30 +282,21 @@ function getDisplayEventDate(event) {
 function filtering(event) {
   var show_username = true;
   var show_type = true;
-  var show_testSch = true; //시험 일정... 뽑기 위해
+//  var show_testSch = true; //시험 일정... 뽑기 위해
   
   var username = $('input:checkbox.filter:checked').map(function () {
     return $(this).val();
   }).get();
   var types = $('#type_filter').val();		//배열 ??
-  console.log("types : "+types);
   show_username = username.indexOf(event.username) >= 0;		//체크 0 true , 미체크시 -1 false
-  show_testSch =  
-  console.log("indexOf : "+username.indexOf(event.username));
   if (types && types.length > 0) {
-	  console.log("types.length : "+types.length)
     if (types[0] == "all") {
       show_type = true;
-      console.log("show_type 1: "+show_type);
     } else {
-      console.log("types.indexOf : "+types.indexOf(event.type));
-      console.log("show_type 2: "+show_type);
       show_type = types.indexOf(event.type) >= 0;
     }
   }
-  console.log("return show_username : "+show_username);
-  console.log("return show_type : "+show_type);
-  return show_username && show_type && show_testSch;
+  return show_username && show_type;
 }
 
 function calDateWhenResize(event) {

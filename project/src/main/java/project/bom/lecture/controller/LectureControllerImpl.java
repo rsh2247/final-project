@@ -24,6 +24,8 @@ import project.common.Pagination;
 public class LectureControllerImpl implements LectureController {
 	@Autowired
 	private LectService lectService;
+	@Autowired
+	private Lecture_VO lecture_VO;
 	
 	@RequestMapping("lecture/main.do")
 	public String lectInit(Model model) {

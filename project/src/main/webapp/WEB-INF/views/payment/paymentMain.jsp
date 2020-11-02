@@ -20,12 +20,13 @@
 <div id="container_wrap">
 	<div class="contents">
 		<h2 class="title">
-			수강신청 <span>Home &gt; 강의상세보기 &gt; <em> 수강신청</em></span>
+			<img src="./resources/img/payment/tit_0102.gif" alt="수강신청"/> 
+			<span>Home &gt; 강의상세보기 &gt; <em> 수강신청</em></span>
 		</h2>
 		<div class="payment_wrap">
 			<br />
 			<!-- 주문내역 -->
-
+			<h2><img src="./resources/img/payment/tit_0101.gif" alt="주문내역"/></h2>
 			<table class="board_list" id="lec_board_list">
 				<colgroup>
 					<col style="width:;" />
@@ -35,7 +36,6 @@
 				</colgroup>
 				<tbody>
 					<tr>
-		
 						<th class="first">강의명</th>
 						<th>강의분야</th>
 						<th>강사아이디</th>
@@ -45,16 +45,16 @@
 						<td class="title">${lectlist[0].lecture_name}</td>
 						<td>${lectlist[0].lecture_category}</td>
 						<td>${lectlist[0].user_id}</td>
-						<td>${lectlist[0].lecture_tuition}</td>
+						<td>${lectlist[0].lecture_tuition} 원</td>
 					</tr>
 				</tbody>
 			</table>
-			
-			<p class="total_price" style="color: #cc0000;">
-				<span style="font-size: 8pt; position: inherit; right: 170px;">*
-					이벤트 상품은 포인트 사용이 불가합니다.</span> 
+			<%-- 			
+			<p class="total_price" style="color:#5573C9;">
+				<span style="font-size: 8pt; position: inherit; right: 170px;">*이벤트 상품은 포인트 사용이 불가합니다.</span>
 				<span>총 주문금액 : <em>${lectlist[0].lecture_tuition}원</em></span>
 			</p>
+			 --%>
 			<!-- // 주문내역 끝 -->
 			<!-- 할인/결제금액 -->
 			<div class="sale_pay" style="display: block">
@@ -94,7 +94,7 @@
 						</colgroup>
 						<tr>
 							<th class="first">강의명</th>
-							<th colspan="2" class="last">포인트</th>
+							<th colspan="2" class="p_last">포인트</th>
 						</tr>
 						<tr>
 							<td class="title">
@@ -105,9 +105,6 @@
 								style="ime-mode: disabled;" onkeyup="point_check(${orderlist[0].order_id});" />
 								<strong> P </strong><a href="javascript:point_apply(${orderlist[0].order_id});"><img src="./resources/img/button/apply.gif" alt="적용" /></a>
 								</td>
-					 
-					 
-					 	
 						</tr>
 					</table>
 
@@ -284,14 +281,6 @@
 								</td>
 							</tr>
 
-							<tr>
-								<th scope="row" class="first-child">교재비</th>
-								<td colspan="3" class="left">* 반품/교환가능 기간: 변심반품의 경우 결제일로부터
-									10일 이내 또는 수령일로부터 7일 이내, 상품의 결함 및 계약내용과 다를 경우 그 재화 등을 공급받은 날부터
-									3개월 이내에 가능하며, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 가능합니다. 교재배송 출발
-									이후 환불 요청을 하실 경우, 배송/반송에 소요된 요금을 제외하고 환불 진행이 가능합니다. (이 때, 30일
-									이내란 해당 재화등을 공급받은 날부터 3개월 이내에만 적용됩니다.)</td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -300,7 +289,7 @@
 					<li>- 할인상품의 경우 학습수수료는 이미 이용한 강좌의 '할인 전 정가'를 기준으로 계산하여 공제합니다.</li>
 					<li>- 모바일, 다운로드 서비스 및 기타 제공된 혜택상품을 사용하였을 경우 환불금액에서 공제됩니다.</li>
 					<li>- 환불 절차 및 자세한 사항은 <a
-						href="//egosi.hackers.com/site/?c=customer&idx=2&cate_big=결제문의&cate_small=4"
+						href=""
 						target="_blank">[여기]</a>를 참고하시기 바랍니다
 					</li>
 				</ul>
@@ -339,10 +328,9 @@
 				<h3 class="title ">이용약관</h3>
 				<p class="rep">
 					- 선생님 강의 변동사항 발생 시 미리 공지해 드릴 예정이며, 그 경우 다른 선생님 강의로 변경 가능합니다.<br />
-					- 제공되는 동영상 강의는 추후 변경될 수 있습니다<br /> - 이용약관을 살펴보시려면 [<a href="">여기</a>]를
-					클릭해 주세요.<br /> - 결제취소 및 상품 관련 기타 문의, 소비자피해보상의 처리, 재화 등에 대한 불만 처리 및
-					소비자와 사업자 사이의 분쟁 처리에 관한 사항은 고객센터(00-0000-0000)를 이용해 주세요.<br /> <a
-						href="" target="_blank"><b>공지 확인하기 ></b></a><br />
+					- 제공되는 동영상 강의는 추후 변경될 수 있습니다<br />
+					- 결제취소 및 상품 관련 기타 문의, 소비자피해보상의 처리, 재화 등에 대한 불만 처리 및
+					    소비자와 사업자 사이의 분쟁 처리에 관한 사항은 고객센터(00-0000-0000)를 이용해 주세요.<br />
 				</p>
 				<p>
 					<input type="checkbox" id="check_contents" value="agree"> <label

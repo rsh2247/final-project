@@ -18,10 +18,6 @@ $(function () {
 
 //매개변수 no 주문번호, tp = total_price
 var point_check = function (no) {
-    if (timecheck()) {
-        alert('결제가 진행중입니다.');
-        return;
-    }
 
     var pt = new Array();
     var ptcnt = $("input[name=dispt]").size();
@@ -122,6 +118,7 @@ var discount_cancel = function (no, type) {
             $("#total_price_total em").text(data[0].total_price);   	// 할인 적용된 total_price
             $("#ptsale").text(data[0].discount_point+" P");               	// 총할인내역-point  
             $("#pt" + no).html(data[1].dis);   							// point 입력 table(td)
+            total_price = data[0].total_price;
         }
     });
 }
@@ -168,7 +165,18 @@ var payment = function(no){
     console.log(total_price);
     if(confirm('입력하신 결제 정보로 주문을 하시겠습니까?')){
         if(method == 'kakao'){
-        	postPopUp(no,"/kakaoPay");
+        	if(total_price==0){
+        		alert('총 결제 금액이 0원 입니다. 포인트 결제를 선택해 주세요.');
+        		$("input[name=trademethod]").attr("checked",false)
+                $("input[name=trademethod]").eq(0).focus();
+        		if(method == 'point') {
+        			console.log(method);
+        			console.log(no);
+        			postPopUp(no,"/insertPoint");
+        		}
+        	}else{
+        		postPopUp(no,"/kakaoPay");        		
+        	}
     	//	window.close();
         }else if(method == 'point'){
         	if(total_price!=0){				//결제할 금액이 남았으면
@@ -215,49 +223,6 @@ function postPopUp(no, action) {
 	form.submit();
 	
 	
-}
-
-var timecheck = function () {
-    var chk = $("#lgu").attr("src");
-    return chk;
-}
-function onPopupClose(s) {
-    $("#" + s).css("display", "none");
-}
-function onAddress() {
-    $("#addressBox").css("display", "block");
-    $("#address_search").focus();
-}
-var onAddresstSearch = function () {
-    var ads = $("#address_search").val();
-
-    $.ajax({
-        url: "./common/popAddress.php",
-        type: "POST",
-        dataType: "json",
-        data: {ads: ads},
-        beforeSend: function () {
-            //loadingfn('load');
-        },
-        success: function (data) {
-            //alert(address);
-            $("#addressList").html(decodeURIComponent(data.tbl));
-        }
-    });
-}
-function onAddressEnter() {
-    if (event.keyCode == 13 || event.keyCode == 10) {
-        onAddresstSearch()
-    }
-}
-function onAddressSelect(zip, address) {
-    $("#zip_1").val(zip);
-    //$("#zip_2").val(zip.substr(3, 3));
-    $("#address1").val(address);
-    $("#address2").val('');
-
-    $("#addressList").html("")
-    $("#addressBox").css("display", "none")
 }
 
 // ie version check

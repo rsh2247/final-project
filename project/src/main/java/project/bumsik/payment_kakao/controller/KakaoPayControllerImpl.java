@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class KakaoController {
+public class KakaoPayControllerImpl implements KakaoPayController{
     
 	@Autowired
     private KakaoPay kakaopay;
@@ -38,6 +38,7 @@ public class KakaoController {
 	@Autowired
 	private PaymentPoint_Controller paymentPoint_Controller;
 	
+	@Override
 	@GetMapping("/kakaoPay")
     public void kakaoPayGet() {
         System.out.println("get");
@@ -45,8 +46,9 @@ public class KakaoController {
 	
 	String order_price, discount_point, lecture_name, user_id, order_ids, total_price, b_order_id;
 	Integer discount_point_int;
-	
-    @PostMapping("/kakaoPay")
+   
+	@Override
+	@PostMapping("/kakaoPay")
     public String kakaoPay(@RequestParam("order_id") String order_id) {
         System.out.println("post : ready");
         System.out.println("order_id : "+order_id);
@@ -56,15 +58,16 @@ public class KakaoController {
 		orderMap.put("order_id", order_id);
 		b_order_id = order_id;					//주문번호 보존
 		
-		//강의명추가(조인) searchOrderInfo2
-    	List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo2(orderMap);
+		//강의명추가(조인) searchOrderlecName
+    	List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderlecName(orderMap);
     	discount_point = (String) orderlist.get(0).get("discount_point");
     	order_price = (String) orderlist.get(0).get("order_price");  	
     	total_price = (String)orderlist.get(0).get("total_price");
     	
         return "redirect:" + kakaopay.kakaoPayReady(orderlist);
     }
-    
+	
+	@Override
     @GetMapping("**/kakaoPaySuccess")
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, HttpServletRequest request, HttpServletResponse response) {
         //log.info("kakaoPaySuccess get...pg_token : " + pg_token);
@@ -92,13 +95,15 @@ public class KakaoController {
     	return "payment/paymentSuccess.tiles";
     }
     
+	@Override
     @GetMapping("**/kakaoPayCancel")
     public String kakaoPayCancel(@RequestParam("pg_token") String pg_token, Model model) {
         //log.info("kakaoPaySuccess get...pg_token : " + pg_token);
     	System.out.println("Cancel");
     	return "payment/paymentMain.tiles";
     }
-    
+	
+	@Override
     @GetMapping("**/kakaoPayFail")
     public String kakaoPayFail(@RequestParam("pg_token") String pg_token, Model model) {
         //log.info("kakaoPaySuccess get...pg_token : " + pg_token);

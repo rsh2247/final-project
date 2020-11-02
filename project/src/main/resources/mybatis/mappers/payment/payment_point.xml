@@ -13,32 +13,31 @@
 	</resultMap>
 
 	<select id="searchList" resultMap="payment_pointResult01" parameterType="java.util.Map"> 
-      <![CDATA[
+     <![CDATA[
          select point_date, point_change, point_rest, user_id, point_content
          from   point
-      ]]>
-		<where>
-			<if test=" p_id != ''  and  p_id != null">
-				user_id = #{p_id}
-			</if>
-		</where>
-		and point_date = ( select MAX(point_date) from point )
+         where user_id = #{user_id}
+         and point_date = (select MAX(point_date) from point where user_id = #{user_id})
+    ]]>
 	</select>
 	
 	<insert id="insertPoint" parameterType="java.util.Map">
+	 <![CDATA[	
 		insert into point(point_date, point_change, point_rest, user_id, point_content) 
-		values(sysdate, #{point_change}, #{point_rest}, #{p_id}, #{point_content})
+		values(sysdate, #{point_change}, #{point_rest}, #{user_id}, #{point_content})
+	]]>
 	</insert>
-	
-	
+		
 	<update id="updatePoint" parameterType="java.util.Map">
+	<![CDATA[		
 		update point
 		set  point_date = sysdate
 		   , point_change = #{point_change}
 		   , point_rest = #{point_rest}
-		   , user_id = #{p_id}
+		   , user_id = #{user_id}
 		   , point_content = null
-		where user_id = #{p_id}
+		where user_id = #{user_id}
+	]]>
 	</update>
 	
 </mapper>

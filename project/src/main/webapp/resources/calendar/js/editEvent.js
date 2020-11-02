@@ -46,8 +46,14 @@ var editEvent = function (event, element, view) {
 	editColor.val(event.backgroundColor).css('color', event.backgroundColor);
 	
 	addBtnContainer.hide();		//추가 저장 버튼 숨기고
-	modifyBtnContainer.show();	//수정 보튼 보이게
-	eventModal.modal('show');
+	
+	if(event.username == "admin"){
+		alert('공통 시험 일정은 수정 불가능 합니다.');
+	}else{
+		modifyBtnContainer.show();	//수정 보튼 보이게		
+		eventModal.modal('show');
+	}
+	
 	
 	//수정 버튼 클릭시
 	$('#updateEvent').unbind();
