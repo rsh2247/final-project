@@ -33,14 +33,7 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	public void insertOrderInit(Map<String, Object> orderMap) throws DataAccessException {
 		paymentMain_DAO.insertOrderInit(orderMap);
 	}
-	
-	//포인트 정보
-	/*
-	 * @Override public List<Map<String, Object>> searchList(Map<String, Object>
-	 * searchMap) throws DataAccessException { List<Map<String, Object>> list =
-	 * paymentPoint_DAO.searchList(searchMap); return list; }
-	 */
-	
+
 	//주문 정보 조회
 	@Override
 	public List<Map<String, Object>> searchOrder(Map<String, Object> orderMap) throws DataAccessException {
@@ -55,12 +48,10 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	
 	//강의명 추가 조회(join)	
 	@Override
-	public List<Map<String, Object>> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException {
-		List<Map<String, Object>> list = paymentMain_DAO.searchOrderlecName(orderMap);
-		return list;
+	public Map<String, Object> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException {
+		orderMap = paymentMain_DAO.searchOrderlecName(orderMap);
+		return orderMap;
 	}
-	
-	
 	
 	@Override
 	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException {
@@ -72,6 +63,11 @@ public class PaymentMain_ServiceImpl implements PaymentMain_Service{
 	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException {
 		paymentMain_DAO.paymentResult(resultMap);
 		
+	}
+	@Override
+	public Map<String, Object> serarchOrderPay(Map<String, Object> resultMap2) {
+		resultMap2 = paymentMain_DAO.serarchOrderPay(resultMap2);
+		return resultMap2;
 	}
 
 }

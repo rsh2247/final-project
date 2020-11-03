@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -56,7 +57,7 @@ table.approved td {
 <table class="approved">
 	<tr>
 		<th scope="row">결제시각</th>
-		<td>${info.approved_at}</td>
+		<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${info.approved_at}"/></td>
 	</tr>
 	<tr>
 		<th scope="row">결제번호</th>
@@ -68,7 +69,7 @@ table.approved td {
 	</tr>
 	<tr>
 		<th scope="row">할인금액</th>
-		<td>${info.discount}</td>
+		<td>${info.discount_point}</td>
 	</tr>
 	<tr>
 		<th scope="row">주문금액</th>
@@ -79,20 +80,6 @@ table.approved td {
 		<td>${info.pay_amount}</td>
 	</tr>
 </table>
-
-<%-- 
-	<form id="payload" name="payload" action="${info.payload}">		
-	</form>
-   <script type="text/javascript">
-        function submit() {     
-                document.submitForm.submit(); // Submits the form without the button
-            }
-    </script>
-   --%>
-<br><br><br>
-<hr>
-  
-<h2>[[${info}]]</h2>
 
 </body>
 </html>

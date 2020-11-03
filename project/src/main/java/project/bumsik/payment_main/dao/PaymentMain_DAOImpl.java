@@ -46,9 +46,8 @@ public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 	
 	//order join lecture 강의명 추가
 	@Override
-	public List<Map<String, Object>> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException {
-		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchOrderlecName",orderMap);
-		return list;
+	public Map<String, Object> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException {
+		return sqlSession.selectOne(namespace+".searchOrderlecName",orderMap);
 	}
 	//order join point
 	@Override
@@ -61,5 +60,9 @@ public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 	@Override
 	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException {
 		sqlSession.selectList(namespace+".paymentResult",resultMap);	
+	}
+	@Override
+	public Map<String, Object> serarchOrderPay(Map<String, Object> resultMap2) {
+		return sqlSession.selectOne(namespace+".serarchOrderPay",resultMap2);
 	}
 }

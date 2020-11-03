@@ -193,7 +193,7 @@ ul.orderEtc li span {position:absolute; top:-1px; left:0;}
 .contents .contents_tab li a:hover,
 .contents .contents_tab li.on a {color:#fff; background-color:#DA1E3F;}
 
-/* ÄÁÅÙÃ÷¿µ¿ª_ÅÇ_¶óÀÌºêÆ¯°­ Ãß°¡_131017_ÀåÀºÁö */
+
 .contents .contents_tab_live01{clear:both; width:800px; height:34px; margin:0 0 20px; display:block;}
 .contents .contents_tab_live01 li {float:left; height:34px;}
 .contents .contents_tab_live01 li:first-child{width:400px;border-right:1px solid #b7b7b7;margin-right:11px;}

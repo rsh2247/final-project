@@ -42,7 +42,7 @@
 						<th class="last_date">금액</th>
 					</tr>
 					<tr>
-						<td class="title">${lectlist[0].lecture_name}</td>
+						<td class="title">${lectlist[0].item_name}</td>
 						<td>${lectlist[0].lecture_category}</td>
 						<td>${lectlist[0].user_id}</td>
 						<td>${lectlist[0].lecture_tuition} 원</td>
@@ -98,7 +98,7 @@
 						</tr>
 						<tr>
 							<td class="title">
-								${lectlist[0].lecture_name}</td>
+								${lectlist[0].item_name}</td>
 
 					 			<td colspan="2" id="pt${orderlist[0].order_id}"><input type="text" class="dispt" name="dispt" id="dispt${orderlist[0].order_id}"
 								onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false; "

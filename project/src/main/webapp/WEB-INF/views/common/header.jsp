@@ -287,7 +287,7 @@ h3 {
 						<li><a href="${contextPath}/H/H_P001/listArticles.page"
 							class="link">자유게시판</a></li>
 					</ul></li>
-				<li><a href="${contextPath}/order" class="link">강의</a></li>
+				<li><a href="${contextPath}/orderInit.pay" class="link">강의</a></li>
 			</ul>
 		</nav>
 	</div>
