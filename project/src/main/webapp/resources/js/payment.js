@@ -162,7 +162,6 @@ var payment = function(no){
         return;
     }
 
-    console.log(total_price);
     if(confirm('입력하신 결제 정보로 주문을 하시겠습니까?')){
         if(method == 'kakao'){
         	if(total_price==0){

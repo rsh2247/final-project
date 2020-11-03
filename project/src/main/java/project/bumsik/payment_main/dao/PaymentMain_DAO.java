@@ -19,11 +19,12 @@ public interface PaymentMain_DAO {
 	
 
 	//조인&강의명 추가
-	public List<Map<String, Object>> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException;
+	public Map<String, Object> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException;
 	//point 정보 insert위해 필요정보 조회
 	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException;
 
 	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException;
+	public Map<String, Object> serarchOrderPay(Map<String, Object> resultMap2);
 
 
 }

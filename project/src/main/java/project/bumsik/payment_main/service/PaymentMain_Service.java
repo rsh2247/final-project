@@ -18,9 +18,10 @@ public interface PaymentMain_Service {
 	public void updateOrder(Map<String, Object> orderMap) throws DataAccessException;
 	
 	
-	public List<Map<String, Object>> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException;
+	public Map<String, Object> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException;
 	public List<Map<String, Object>> serarchOrderPoint(Map<String, Object> orderMap) throws DataAccessException;
 	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException;
+	public Map<String, Object> serarchOrderPay(Map<String, Object> resultMap2);
 
 //	public List<Map<String, Object>> searchList(Map<String, Object> searchMap) throws DataAccessException;
 }

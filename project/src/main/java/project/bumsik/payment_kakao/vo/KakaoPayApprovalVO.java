@@ -19,7 +19,7 @@ public class KakaoPayApprovalVO {
 	/* 추가 order_price, pay_amount, discount */
     private String order_price;
     private String pay_amount;
-    private String discount;
+    private String discount_point;
     public String getOrder_price() {
 		return order_price;
 	}
@@ -32,11 +32,11 @@ public class KakaoPayApprovalVO {
 	public void setPay_amount(String pay_amount) {
 		this.pay_amount = pay_amount;
 	}
-	public String getDiscount() {
-		return discount;
+	public String getDiscount_point() {
+		return discount_point;
 	}
-	public void setDiscount(String discount) {
-		this.discount = discount;
+	public void setDiscount_point(String discount_point) {
+		this.discount_point = discount_point;
 	}
 	
 	
