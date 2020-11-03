@@ -1,5 +1,7 @@
 package project.sungho.group_module.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -77,6 +81,7 @@ public class Group_ControllerImpl {
 	public ModelAndView groupPage(@PathVariable("key1") String key1, @RequestParam HashMap<String, Object> paramMap,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
+			request.getSession().setAttribute("group_num", key1);
 			paramMap.put("group_num", key1);
 			Map<String, Object> resultMap = group_Service.checkMemberState(paramMap);
 			resultMap.putAll(group_Service.selectOneGroup(paramMap));
@@ -107,12 +112,12 @@ public class Group_ControllerImpl {
 		}
 	}
 
-	@RequestMapping(value = "cafe/managing.user", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "cafe/managing.user", method = { RequestMethod.GET,RequestMethod.POST })
 	public ModelAndView groupManaging(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		paramMap.put("group_num", request.getSession().getAttribute("group_num"));
 		if (!group_Service.authorityCheck(paramMap, "manager")) return new ModelAndView(new RedirectView(request.getContextPath() + "/mainPage/mainPage001.do"));
 		try {
-			System.out.println(paramMap);
 			Map<String, Object> resultMap = group_Service.checkMemberState(paramMap);
 			resultMap.putAll(group_Service.selectOneGroup(paramMap));
 			ModelAndView mav = new ModelAndView("group/groupPage_managing.tiles");
@@ -194,6 +199,28 @@ public class Group_ControllerImpl {
 				});
 		return post_Service.insertReply(inputMap);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "cafe/uploadImage", method = { RequestMethod.POST })
+	public String uploadImage(MultipartHttpServletRequest mtfRequest, HttpServletRequest request) throws Exception {
+		MultipartFile mf = mtfRequest.getFile("file");
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		String attach_path = "resources/image/";
+		String path = root_path+attach_path;
+		String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+		String fileName = System.currentTimeMillis() + originFileName;
+		String safeFile = path + fileName;
+		try {
+			mf.transferTo(new File(safeFile));
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fileName;
+	}
 
 	@RequestMapping(value = "cafe/yield", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView yieldManager(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request,
@@ -240,6 +267,12 @@ public class Group_ControllerImpl {
 		ModelAndView mav = new ModelAndView(new RedirectView("" + paramMap.get("group_num")));
 		mav.addObject("signUp",group_Service.signUpCafe(paramMap));
 		return mav;
+	}
+	
+	@RequestMapping(value = "cafe/update", method = { RequestMethod.POST })
+	public ModelAndView cafeUpdate(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		group_Service.updateGroup(paramMap);
+		return new ModelAndView(new RedirectView(request.getContextPath() + "/cafe/managing.user"));
 	}
 
 }

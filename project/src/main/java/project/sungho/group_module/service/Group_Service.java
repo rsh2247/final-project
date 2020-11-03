@@ -19,4 +19,5 @@ public interface Group_Service {
 	public String signUpCafe(Map<String, Object> inputMap);
 	public void insertArticle(Map<String,Object> inputMap);
 	public boolean authorityCheck(Map<String, Object> inputMap, String ...strings);
+	public void updateGroup(Map<String,Object> inputMap);
 }

@@ -98,10 +98,8 @@ public class CustomUserController {
 		Map<String, Object> inputMap = new HashMap<String, Object>(); 
 		inputMap.put("id", "kakao-"+userInfo.get("id").toString());
 		kakao_API.checkUser(inputMap);
-		ArrayList<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-		CustomUser user = new CustomUser((String) inputMap.get("id"), "", roles);
-		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
+		CustomUser user = (CustomUser) customUser_Service.loadUserByUsername(inputMap.get("id").toString());
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:mainPage/mainPage001.do");
 	}
@@ -113,6 +111,8 @@ public class CustomUserController {
 		if(customUser_Service.checkUserId(paramMap)) return "1";
 		else return "0";
 	}
+	
+	
 }
 
 
