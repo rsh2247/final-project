@@ -61,8 +61,6 @@ public class PS_ControllerImpl implements PS_Controller {
 		ModelAndView mav = new ModelAndView("problem_solve/problem_page.tiles");
 		mav.addObject("list", list);
 		mav.addObject("list2", list2);
-		System.out.println(list);
-		System.out.println(list2);
 		return mav;
 	}
 
@@ -192,6 +190,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		String categoryId = request.getParameter("category3").split("/")[0];
 		String categoryName = request.getParameter("category3").split("/")[1];
 		searchMap.put("category_id", categoryId);
+		searchMap.put("category", categoryName);
 		List<Map<String, Object>> list = problem_Service.searchListCategory(searchMap);
 
 		ModelAndView mav = new ModelAndView("problem_make/colMake_001Page.tiles");
@@ -209,8 +208,13 @@ public class PS_ControllerImpl implements PS_Controller {
 	
 	@RequestMapping(value = "problem_solve/proEval.pro", method = {RequestMethod.POST})
 	public ModelAndView proEval(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(paramMap);
 		return new ModelAndView("problem_solve/pro_evaluate.tiles","result",paramMap);
+	}
+	
+	@RequestMapping(value = "problem_solve/evalConfirm.pro", method = {RequestMethod.POST})
+	public String proEvalConfirm(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		problem_Service.insertEval(paramMap);
+		return "redirect:c001_003.pro?category="+paramMap.get("category");
 	}
 	
 

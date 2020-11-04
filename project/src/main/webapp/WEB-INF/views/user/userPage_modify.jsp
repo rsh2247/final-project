@@ -24,7 +24,10 @@
 				    processData : false,
 				    contentType : false,
 				    success : function(data, textStatus) {
-					$('#profileimage').attr('src','${contextPath}/resources/image/'+ data);
+					$('#profileimage').attr(
+						'src',
+						'${contextPath}/resources/image/'
+							+ data);
 					$('#userImage').val(data);
 				    },
 				    error : function(data, textSatus) {
@@ -64,12 +67,11 @@
 		<div id="mainbox">
 			<form action="userInfoUpdate" method="post">
 				<div id="innerbox">
-				<sec:authentication property="principal" var="user"/>
+					<div id="maintitle">정보수정</div>
+					<sec:authentication property="principal" var="user" />
 					<ul>
 						<li>아이디
-							<div>
-								${user.username}
-							</div>
+							<div>${user.username}</div>
 						</li>
 						<li>비밀번호
 							<div>현재 비밀번호</div>

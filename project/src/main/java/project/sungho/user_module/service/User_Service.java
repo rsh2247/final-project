@@ -15,4 +15,5 @@ public interface User_Service {
 	public List<Map<String,Object>> selectUserCol() throws DataAccessException;
 	public List<Map<String,Object>> selectselectUserAnwser(Map<String,Object> inputMap) throws DataAccessException;
 	public void updateUserInfo(Map<String,Object> inputMap) throws DataAccessException;
+	public List<Map<String,Object>> selectMyProHistory() throws DataAccessException;
 }

@@ -36,6 +36,14 @@ public class User_ServiceImpl implements User_Service {
 		return proList;
 	}
 	
+	public List<Map<String,Object>> selectMyProHistory() throws DataAccessException{
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Map<String,Object> inputMap = new HashMap<String, Object>(); inputMap.put("user_id", user.getUsername());
+		List<Map<String,Object>> proList = sqlSession.selectList("selectMyProHistory",inputMap);
+		return proList;
+	}
+	
+	
 	public void updateUserInfo(Map<String,Object> inputMap) throws DataAccessException {
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		inputMap.put("user_id", user.getUsername());

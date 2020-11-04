@@ -24,6 +24,8 @@
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/calendar_main.cal"
 			access="hasRole('ROLE_USER')" />	
+		<intercept-url pattern="/*.user"
+			access="hasRole('ROLE_USER')" />	
 		<csrf disabled="true" />
 
 		<form-login login-page="/loginPage.login"

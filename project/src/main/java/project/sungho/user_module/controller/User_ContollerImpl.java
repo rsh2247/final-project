@@ -47,16 +47,18 @@ public class User_ContollerImpl implements User_Contoller {
 	@Autowired
 	UserAuthenticationService customUser_Service;
 	
-	@RequestMapping(value = "**/userPage_pro.user", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView userPage_pro(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return null;
-	}
 
 	@RequestMapping(value = "userPage_col.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userPage_col(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Map<String,Object>> list = user_Service.selectUserCol();
 		ModelAndView mav = new ModelAndView("user/userPage_col.tiles");
 		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping(value = "userPage_pro.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView userPage_pro(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("user/userPage_pro.tiles","problem",user_Service.selectMyProHistory());
 		return mav;
 	}
 	
@@ -116,5 +118,6 @@ public class User_ContollerImpl implements User_Contoller {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return new ModelAndView("redirect:userPage_modify.user");
 	}
-
+	
+	
 }

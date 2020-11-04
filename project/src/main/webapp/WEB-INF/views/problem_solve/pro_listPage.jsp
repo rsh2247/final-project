@@ -38,6 +38,15 @@
 	text-decoration: none;
 	color: black;
 }
+.star1{
+	display: inline-block;
+	height: 30px;
+	position: absolute;
+}
+.star2{
+	display: inline-block;
+	height: 30px;
+}
 </style>
 </head>
 <body>
@@ -48,17 +57,19 @@
 				<th width="100px">문제 번호</th>
 				<th width="500px">문제명</th>
 				<th width="100px">정보</th>
-				<th width="100px">난이도</th>
-				<th width="100px">평점</th>
+				<th width="200px">평점</th>
 			</tr>
 			<c:forEach var="problem" items="${list}">
+			<c:set var="num" value="${problem.SCORE*14.8}"/>
 				<tr>
 					<td></td>
 					<td>${problem.PRO_NUM}</td>
 					<td style="text-align: left; padding-left: 25px;"><a href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
 					<td>${problem.TAG_NAME}</td>
-					<td></td>
-					<td></td>
+					<td>
+					<img style="clip: rect(0px,${num}px,30px,0px);" class="star1" alt="" src="${contextPath}/resources/image/stars1.png">
+					<img class="star2" alt="" src="${contextPath}/resources/image/stars2.png">
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
