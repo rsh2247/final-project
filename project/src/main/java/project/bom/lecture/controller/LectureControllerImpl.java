@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import project.bom.lecture.service.LectService;
+import project.bom.lecture.vo.ContentVO;
 import project.bumsik.payment_main.vo.Lecture_VO;
 import project.common.Pagination;
+import project.sungho.security.member.CustomUser; 
 
 @Controller
 public class LectureControllerImpl implements LectureController {
@@ -26,6 +28,8 @@ public class LectureControllerImpl implements LectureController {
 	private LectService lectService;
 	@Autowired
 	private Lecture_VO lecture_VO;
+	@Autowired
+	private ContentVO contentVO;
 	
 	@RequestMapping("lecture/main.do")
 	public String lectInit(Model model) {
@@ -118,9 +122,9 @@ public class LectureControllerImpl implements LectureController {
 //		String resultPath = "";
 //		HttpSession session = request.getSession(false);
 //		String user_id = (String)session.getAttribute("user_id");
-		String user_id = "student1";
+		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		Map<String,String> searchParam = new HashMap<>();
-		searchParam.put("student_id", user_id);
+		searchParam.put("student_id", userId);
 		List<Lecture_VO> resultList = new ArrayList<>();
 		resultList = lectService.getLectureList(searchParam);
 		model.addAttribute("lectureList",resultList);
@@ -148,8 +152,8 @@ public class LectureControllerImpl implements LectureController {
 		// 세션에서 아이디 받아오기
 //		HttpSession session = request.getSession(false);
 //		String user_id = (String)session.getAttribute("user_id");
-		String user_id = "test1";
-		vo.setUser_id(user_id);
+		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		vo.setUser_id(userId);
 		boolean check = true;
 		while(check) {
 			String lecture_id = lectService.makeRandomString().toString();
@@ -175,5 +179,18 @@ public class LectureControllerImpl implements LectureController {
 			}
 		}
 		return "redirect:main.do";
-}
+	}
+	
+	@RequestMapping("lecture/getLectureIndex.do")
+	public String getLectureIndex(HttpServletRequest request, Model model, Lecture_VO vo, ContentVO contentVO) {
+		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		Map<String,String> resultMap = new HashMap<>();
+		return "lecture/lecturePlayer.tiles";
+	}
+	
+	@RequestMapping("lecture/getLectureLink.do")
+	public String getLectureLink(HttpServletRequest request, Model model, ContentVO contentVO) {
+		
+		return "lecture/lectureIndex.tiles";
+	}
 }
