@@ -18,7 +18,7 @@
 	width: 1100px;
 }
 #proTable {
-	margin: 100px auto 30px auto;
+	margin: 50px auto 30px auto;
 	border-collapse: collapse;
 	width: 1000px;
 	text-align: left;
@@ -43,17 +43,27 @@
 }
 
 #submitBox {
+	width: 100px;
+	line-height: 35px;
+	border: 1px solid #3E60DB;
 	margin-top: 20px;
-	border-radius: 0px;
-	border: 2px solid #ccc;
-	background-color: #FFF;
-	padding: 5px 12px 5px 12px;
-	font-size: 18px;
+	color: #fff;
+	font-size: 16px;
+	background-color: #3E60DB;
+	cursor: pointer;
+	transition: all ease 300ms 0s;
 }
 
 #submitBox:hover {
-	border: 2px solid #000;
-	cursor: pointer;
+	background-color: #2a4296;
+	border: 1px solid #2a4296;
+}
+
+#submitBox:active{
+	margin: 22px 2px 2px 2px;
+	width: 95px;
+	line-height: 32px;
+	transition: all ease 100ms 0s;
 }
 
 #tagbox {

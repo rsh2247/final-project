@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.sungho.mainController.MainControllerImpl;
+import project.sungho.paging.Paging;
 import project.sungho.pro_collection_module.service.ProCollection_Service;
 import project.sungho.problem_solve_module.service.Problem_Service;
 import project.sungho.security.member.CustomUser;
@@ -43,6 +44,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("category", category);
 		List<Map<String, Object>> list = problem_Service.searchListCategory(searchMap);
+		Paging page = new Paging(list.size(), 10, 1);
 		ModelAndView mav = new ModelAndView("problem_solve/pro_listPage.tiles");
 		mav.addObject("list", list);
 		

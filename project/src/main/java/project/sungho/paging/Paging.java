@@ -1,0 +1,74 @@
+package project.sungho.paging;
+
+public class Paging {
+	private int wholeSize,listSize,nowPage,maxPage,listNum,startNum,endNum;
+	
+	public Paging(int wholeSize, int listSize, int nowPage) {
+		super();
+		this.wholeSize = wholeSize;
+		this.listSize = listSize;
+		this.nowPage = nowPage;
+		calMax();
+	}
+	
+	public void calMax() {
+		listNum = wholeSize/listSize;
+	}
+
+	public int getWholeSize() {
+		return wholeSize;
+	}
+
+	public void setWholeSize(int wholeSize) {
+		this.wholeSize = wholeSize;
+	}
+
+	public int getListSize() {
+		return listSize;
+	}
+
+	public void setListSize(int listSize) {
+		this.listSize = listSize;
+	}
+
+	public int getNowPage() {
+		return nowPage;
+	}
+
+	public void setNowPage(int nowPage) {
+		this.nowPage = nowPage;
+	}
+
+	public int getMaxPage() {
+		return maxPage;
+	}
+
+	public void setMaxPage(int maxPage) {
+		this.maxPage = maxPage;
+	}
+
+	public int getListNum() {
+		return listNum;
+	}
+
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
+
+	public int getStartNum() {
+		return startNum;
+	}
+
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+
+	public int getEndNum() {
+		return endNum;
+	}
+
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
+	
+}
