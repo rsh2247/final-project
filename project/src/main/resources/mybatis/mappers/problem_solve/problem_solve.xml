@@ -85,11 +85,11 @@
 
 
 	<select id="selectProByCol" resultMap="result" parameterType="java.util.Map">
-		SELECT col_num ,col_list_num, p.pro_num, pro_content, pro_answer, pro_comment, cho_num, cho_content
+		SELECT col_num ,col_list_num, p.pro_num, pro_content, pro_answer, pro_comment, to_number(cho_num) as cho_num, cho_content
 		FROM col_list l, problem p, pro_choice c
 		WHERE l.pro_num = p.pro_num and l.pro_num = c.pro_num and l.col_num = #{col_num}
 		union all
-		select col_num ,col_list_num, p.pro_num, pro_content, pro_answer, pro_comment, p.pro_num, p.pro_num
+		select col_num ,col_list_num, p.pro_num, pro_content, pro_answer, pro_comment, p.pro_num, to_char(p.pro_num)
 		from col_list l, problem p
 		where l.pro_num = p.pro_num and l.col_num = #{col_num} and p.tag_ischoice = 'N'
 		order by col_list_num asc, cho_num asc
