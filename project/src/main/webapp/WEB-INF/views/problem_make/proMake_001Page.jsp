@@ -73,7 +73,7 @@
 }
 
 .choiceinput {
-	width: 120px;
+	width: 150px;
 	line-height: 30px;
 	border: 1px solid #ccc;
 	padding-left: 10px;

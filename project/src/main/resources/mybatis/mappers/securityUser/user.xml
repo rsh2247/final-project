@@ -5,7 +5,7 @@
 	</resultMap>
 
 	<insert id="insertUser" parameterType="java.util.Map">
-		INSERT INTO user_table
+		INSERT INTO user_table (user_id,user_pw,user_type,user_email,user_phone,user_nickname,user_signdate,user_enable,user_authkey)
 		VALUES(#{id},#{pw},'ROLE_USER',#{email},'test_phonenum',#{nickName},SYSTIMESTAMP,0,#{authkey})
 	</insert>
 	

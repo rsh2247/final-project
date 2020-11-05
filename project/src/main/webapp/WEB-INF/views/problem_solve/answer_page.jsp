@@ -53,7 +53,7 @@
 			<p style="margin-bottom: 50px">정답입니다.</p>
 			<form action="proEval.pro" method="post">
 				<p>
-					<button class="ansbutton" type="button" onclick="location.href='c001_003.pro?category=${problem.CATEGORY_NAME}'">다른문제 보러가기</button>
+					<button class="ansbutton" type="button" onclick="location.href='list.pro?category=${problem.CATEGORY_NAME}'">다른문제 보러가기</button>
 					<button class="ansbutton">문제 평가하기</button>
 				</p>
 				<input type="hidden" name="pro_num" value="${problem.PRO_NUM}">

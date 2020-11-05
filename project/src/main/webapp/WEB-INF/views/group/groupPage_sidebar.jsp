@@ -43,8 +43,9 @@
 
 #mainbox {
 	width: 850px;
-	height: 100%;
+	min-height: 100%;
 	margin-left: 25px;
+	margin-bottom: 30px;
 	float: left;
 }
 
