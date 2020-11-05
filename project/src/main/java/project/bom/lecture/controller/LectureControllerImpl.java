@@ -125,7 +125,6 @@ public class LectureControllerImpl implements LectureController {
 		return "lecture/mySubLectureList.tiles";
 	}
 	
-	
 	@RequestMapping("lecture/addLecture.do")
 	public String addLecture(HttpServletRequest request) {
 		// 세션에서 아이디 받아오기
@@ -141,8 +140,6 @@ public class LectureControllerImpl implements LectureController {
 //		return resultPath;
 		return "lecture/addLectureForm.tiles";
 	}
-	
-	
 	
 	@RequestMapping("lecture/insertLecture.do")
 	public String insertLecture(MultipartHttpServletRequest mtfRequest, HttpServletRequest request, Lecture_VO vo) {
@@ -176,6 +173,5 @@ public class LectureControllerImpl implements LectureController {
 			}
 		}
 		return "redirect:main.do";
-	}
-	
+}
 }

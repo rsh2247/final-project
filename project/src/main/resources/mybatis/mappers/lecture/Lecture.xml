@@ -179,5 +179,22 @@
 			VALUES (#{lecture_id},#{lecture_category},#{lecture_name},#{lecture_tuition},#{lecture_detail},#{user_id})
 		]]>
 	</insert>
+	
+	<select id="getLectureIndex" resultType="lectureVO">
+		<![CDATA[
+			SELECT A.LECTURE_ID, A.LEC_CONTENT_ID, A.LECTURE_LINK, B.LECTURE_CATEGORY, B.LECTURE_NAME
+			FROM LEC_CONTENT A, LECTURE B
+			WHERE A.LECTURE_ID = B.LECTURE_ID
+			AND A.LEC_CONTENT_ID = #{lec_content_id}
+		]]>
+	</select>
+	
+	<select id="getLectureLink" resultType="String">
+		<![CDATA[
+			SELECT LECTURE_LINK
+			FROM LEC_CONTENT
+			WHERE LEC_CONTENT_ID = #{lec_content_id}
+		]]>
+	</select>
 
 </mapper>
