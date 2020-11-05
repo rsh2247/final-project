@@ -15,15 +15,15 @@
 		<result property="point_over" column="point_over" />
 	</resultMap>
 	
-	<!-- 조인하여 강의명 받아오기 위해 -->
+	<!-- lecture table -->
 	<resultMap id="payment_lectResult01" type="java.util.HashMap">
 		<result property="lecture_id" column="lecture_id"  />
 		<result property="lecture_category" column="lecture_category" />
-		<result property="lecture_name" column="lecture_name" />
+		<result property="item_name" column="lecture_name" />
 		<result property="user_id" column="user_id" />
 		<result property="lecture_tuition" column="lecture_tuition" />
 	</resultMap>
-	<!-- point 업데이트할 정보 받기위해 -->
+	<!-- point table -->
 	<resultMap id="payment_pointResult01" type="java.util.HashMap">
 		<result property="point_date" column="point_date"  />
 		<result property="point_change" column="point_change" />
@@ -31,17 +31,50 @@
 		<result property="user_id" column="user_id" />
 		<result property="point_content" column="point_content" />
 	</resultMap>
+	<!-- pay table -->
+		<resultMap id="payment_payResult01" type="java.util.HashMap">
+		<result property="partner_order_id" column="pay_id"  />
+		<result property="pay_content" column="pay_content" />
+		<result property="payment_method_type" column="pay_way" />
+		<result property="user_id" column="user_id" />
+		<result property="approved_at" column="pay_date" />
+		<result property="pay_amount" column="pay_amount" />
+	</resultMap>
 	
 	
 	<!-- 주문번호 생성 , order sequence -->
 	<select id="seq_order" resultType="_int">
    			 select seq_order_id.NEXTVAL FROM dual
 	</select>
+
+	<!-- 강의 정보 조회 -->
+	<select id="order_lecture" resultMap="payment_lectResult01" parameterType="java.util.Map"> 
+      <![CDATA[
+         select lecture_id, lecture_category, lecture_name, user_id, lecture_tuition
+         from   lecture
+      ]]>
+	<where>
+		<if test=" lecture_id != ''  and  lecture_id != null">
+			lecture_id = #{lecture_id}
+		</if>
+	</where>
+	</select>
 	
-	<!-- orders -->
+	<!-- 초기 주문 정보 입력 (포인트 적용X) -->
+	<insert id="insertOrderInit" parameterType="java.util.Map">
+		<![CDATA[
+		insert into orders(order_id, user_id, lecture_id, order_date, 
+		                   order_price, discount_point, total_price, point_over)
+		values(#{order_id}, #{user_id}, #{lecture_id}, sysdate, #{order_price}, 
+		       0 , #{total_price}, '0')
+		]]>
+	</insert>
+	
+	<!-- 주문 정보 조회 -->
 	<select id="searchOrder" resultMap="payment_order01" parameterType="java.util.Map"> 
       <![CDATA[
-         select order_id, user_id, lecture_id, order_date, order_price, discount_point, total_price, point_over
+         select order_id, user_id, lecture_id, order_date, 
+                order_price, discount_point, total_price, point_over
          from   orders
       ]]>
 		<where>
@@ -50,51 +83,38 @@
 			</if>
 		</where>
 	</select>
-	
-	
-	<!-- point정보 제외 orders, 초기 강의 클릭시 -->
-	<insert id="insertOrder1" parameterType="java.util.Map">
-		insert into orders(order_id, user_id, lecture_id, order_date, order_price)
-		values(#{order_id}, #{p_id}, #{l_id}, sysdate, #{order_price})
-	</insert>
-	<insert id="insertOrder2" parameterType="java.util.Map">
-		insert into orders(order_id, user_id, lecture_id, order_date, order_price, discount_point, total_price, point_over)
-		values(#{order_id}, #{p_id}, #{l_id}, sysdate, #{order_price}, #{discount_point}, #{total_price}, #{point_over})
-	</insert>	
-	<!-- point사용 정보 입력 받고 적용 update -->
+		
+	<!-- 주문 정보 입력(포인트 적용O) -->
 	<update id="updateOrder" parameterType="java.util.Map">
+	  <![CDATA[
 		update orders
 		set  discount_point = #{discount_point}
 		   , total_price = #{total_price}
 		   , point_over = #{point_over}
 		where order_id = #{order_id}
+	 ]]>
 	</update>
 	
-	
-	<!-- 강의 컬럼 조회 -->
-	<select id="order_lecture" resultMap="payment_lectResult01" parameterType="java.util.Map"> 
-      <![CDATA[
-         select lecture_id, lecture_category, lecture_name, user_id, lecture_tuition
-         from   lecture
-      ]]>
-	<where>
-		<if test=" l_id != ''  and  l_id != null">
-			lecture_id = #{l_id}
-		</if>
-	</where>
-	<!-- 강의명 order&lecture lecture_name , kakao에서 String로 전부 받기 때문에 [to_char]-->
-	</select>
-	<select id="searchOrder2" resultMap="payment_order01" parameterType="java.util.Map"> 
-		select o.order_id, o.user_id, o.lecture_id, o.order_date, to_char(o.order_price) order_price, 
-        	   to_char(o.discount_point) discount_point, to_char(o.total_price) total_price, 
-        	   o.point_over, l.lecture_name
+	<!-- 강의명 추가 조회 , kakao에서 String로 전부 받기 때문에 [to_char]-->
+	<select id="searchOrderlecName" resultMap="payment_order01" parameterType="java.util.Map"> 
+	  <![CDATA[
+		select o.order_id as pay_id, 
+		       o.user_id,
+			   to_char(sysdate,'yyyy/mm/dd hh24:mi:ss') as pay_date, 
+		       to_char(o.order_price) as order_price, 
+        	   to_char(o.discount_point) as discount_point, 
+        	   to_char(o.total_price) as pay_amount, 
+        	   o.point_over, 
+        	   l.lecture_name
 		from orders o JOIN lecture l
 		ON o.lecture_id = l.lecture_id
 		and o.order_id = #{order_id}
+	 ]]>	
 	</select>
 	
 	<!-- orders&point join -->
 	<select id="serarchOrderPoint" resultMap="payment_pointResult01" parameterType="java.util.Map">
+	  <![CDATA[
 		select o.discount_point, 
 			   p.point_rest, 
 			   p.point_content, 
@@ -102,13 +122,34 @@
 		from orders o join point p 
 		on o.user_id = p.user_id
 		and o.order_id = #{order_id}
-		and p.point_date = ( select MAX(point_date) from point )
+		and p.point_date = (select MAX(point_date) from point where user_id = #{user_id})
+	  ]]>		
 	</select>
 	
 	<insert id="paymentResult" parameterType="java.util.Map">
-		insert into pay(pay_id, pay_content, pay_way, user_id, pay_date, pay_amount)
-		values(#{pay_id}, #{pay_content}, #{pay_way}, #{user_id}, sysdate, #{pay_amount})
+	  <![CDATA[
+		insert into pay(pay_id, pay_content, pay_way, 
+		               user_id, pay_date, pay_amount)
+		values(#{pay_id}, #{pay_content}, #{pay_way}, 
+		       #{user_id}, sysdate, #{pay_amount})
+	  ]]>
 	</insert>
+	
+		<!-- orders&pay join -->
+	<select id="serarchOrderPay" resultMap="payment_payResult01" parameterType="java.util.Map">
+	  <![CDATA[
+		select p.pay_id, p.pay_date, p.pay_way, o.discount_point, o.order_price, o.total_price as pay_amount, 
+        	(	
+            	select  l.lecture_name
+            	from orders o JOIN lecture l
+            	ON o.lecture_id = l.lecture_id
+            	and o.order_id = #{order_id}
+        	) item_name
+		from pay p join orders o 
+		on o.order_id = p.pay_id
+		where p.pay_id = #{order_id}
+	  ]]>		
+	</select>
 	
 	
 </mapper>

@@ -20,8 +20,10 @@ public class CustomUser extends User {
 		this.nickName = nickName;
 		this.image = image;
 	}
-	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities, String nickName, String image) {
 		super(username, password, authorities);
+		this.nickName = nickName;
+		this.image = image;
 	}
 
 	public String getNickName() {

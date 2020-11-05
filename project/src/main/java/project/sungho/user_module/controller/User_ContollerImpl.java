@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.sungho.group_module.service.Group_Service;
 import project.sungho.problem_solve_module.service.Problem_Service;
+import project.sungho.security.member.CustomUser;
+import project.sungho.security.member.UserAuthenticationService;
 import project.sungho.user_module.service.User_Service;
 
 @Controller
@@ -41,17 +44,21 @@ public class User_ContollerImpl implements User_Contoller {
 	@Autowired
 	Group_Service group_Service;
 	
-	@RequestMapping(value = "**/userPage_pro.user", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView userPage_pro(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		return null;
-	}
+	@Autowired
+	UserAuthenticationService customUser_Service;
+	
 
 	@RequestMapping(value = "userPage_col.user", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView userPage_col(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Map<String,Object>> list = user_Service.selectUserCol();
 		ModelAndView mav = new ModelAndView("user/userPage_col.tiles");
 		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping(value = "userPage_pro.user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView userPage_pro(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("user/userPage_pro.tiles","problem",user_Service.selectMyProHistory());
 		return mav;
 	}
 	
@@ -102,5 +109,15 @@ public class User_ContollerImpl implements User_Contoller {
 		}
 		return fileName;
 	}
-
+	
+	@RequestMapping(value = "/userInfoUpdate", method = {RequestMethod.POST })
+	public ModelAndView userInfoUpdate(@RequestParam Map<String, Object> inputMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		user_Service.updateUserInfo(inputMap);
+		CustomUser user = (CustomUser) customUser_Service.loadUserByUsername(inputMap.get("user_id").toString());
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		return new ModelAndView("redirect:userPage_modify.user");
+	}
+	
+	
 }

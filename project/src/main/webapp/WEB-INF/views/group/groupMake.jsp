@@ -9,7 +9,6 @@
 	font-weight: bold;
 	color: #3E60DB;
 	border-bottom: 2px solid #3E60DB;
-	color: #3E60DB;
 }
 
 #list {
@@ -46,11 +45,10 @@
 
 .inputbox {
 	width: 500px;
-	height: 20px;
 	border: 1px solid #ccc;
-	padding: 6px 0 6px 12px;
+	line-height: 35px;
+	padding-left: 10px;
 	color: #555;
-	padding: 6px 0 6px 12px;
 }
 </style>
 </head>

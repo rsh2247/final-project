@@ -19,8 +19,6 @@ public class Lecture_VO {
 	private String studentCount;
 	private String lecture_score;
 	
-	
-	
 	public String getStudentCount() {
 		return studentCount;
 	}

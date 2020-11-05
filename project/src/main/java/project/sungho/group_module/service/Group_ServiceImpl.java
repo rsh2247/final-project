@@ -157,5 +157,9 @@ public class Group_ServiceImpl implements Group_Service {
 		}
 		return result;
 	}
+	
+	public void updateGroup(Map<String,Object> inputMap) {
+		sqlSession.update("group.updateGroup", inputMap);
+	}
 
 }

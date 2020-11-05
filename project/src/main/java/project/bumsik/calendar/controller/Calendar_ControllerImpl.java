@@ -47,12 +47,10 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 		
 		/* allDay db에서 가져와서 0,1을 false,true로 치환 */		
 		for(Map<String, Object> row : calList) {
-			String getAllDay = (String) row.get("allDay");
-			if(getAllDay.equals("1")) {
-				row.put("allDay", true);
-			}else {
-				row.put("allDay", false);				
-			}
+			boolean flag = false;
+			String getAllDay = (String) row.get("allDay");			
+			flag = getAllDay.equals("1") ? true : false ;
+			row.put("allDay", flag);
 		}
 	    return calList;
 	}
@@ -62,7 +60,6 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	@RequestMapping(value="/calendar_insertEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void calendar_insertEvent(@RequestParam Map<String, Object> dataMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("calendar_insertEvent");
 		dataMap.put("user_id", getUsername());
 		calendar_Service.calendar_insertEvent(getAllDay(dataMap));
 	}
@@ -72,7 +69,6 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	@RequestMapping(value="/calendar_modifyEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void calendar_modifyEvent(@RequestParam Map<String, Object> dataMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("calendar_modifyEvent");
 		calendar_Service.calendar_modifyEvent(getAllDay(dataMap));
 	}
 
@@ -81,7 +77,6 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	@RequestMapping(value="/calendar_deleteEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void calendar_deleteEvent(@RequestParam(value="_id",required = false) String _id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("calendar_deleteEvent : "+_id);
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		dataMap.put("_id", _id);
 		calendar_Service.calendar_deleteEvent(dataMap);	
@@ -92,7 +87,6 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	@RequestMapping(value="/calendar_resizeEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void calendar_resizeEvent(@RequestParam Map<String, Object> dataMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("calendar_resizeEvent");
 		calendar_Service.calendar_resizeDragEvent(dataMap);	
 	}
 	
@@ -101,10 +95,8 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	@RequestMapping(value="/calendar_dragEvent.cal", method = { RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void calendar_dragEvent(@RequestParam Map<String, Object> dataMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("calendar_dragEvent");
 		calendar_Service.calendar_resizeDragEvent(dataMap);	
 	}
-	
 	
 	/* 유저 이름 */
 	public String getUsername() {
@@ -119,12 +111,11 @@ public class Calendar_ControllerImpl implements Calendar_Controller{
 	
 	/* ajax에서 받아와서 false,true를 0,1로 치환하여 db에 저장 */
 	public Map<String, Object> getAllDay(Map<String, Object> dataMap){
+		char flag = '0';
 		String getAllDay = (String) dataMap.get("allDay");
-		if(getAllDay.equals("false")) {
-			dataMap.put("allDay", "0");
-		}else {
-			dataMap.put("allDay", "1");
-		}
+		flag = getAllDay.equals("false") ? '0' : '1' ;
+		dataMap.put("allDay", flag);
+				
 		return dataMap;
 	}
 	

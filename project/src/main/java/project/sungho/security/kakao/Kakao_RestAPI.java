@@ -96,7 +96,6 @@ public class Kakao_RestAPI {
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpPost post = new HttpPost(RequestUrl);
 		String accessToken = getAccessToken(autorize_code);
-		System.out.println("accessToken = "+accessToken);
 		// add header
 		post.addHeader("Authorization", "Bearer " + accessToken);
 
@@ -106,7 +105,6 @@ public class Kakao_RestAPI {
 
 			final HttpResponse response = client.execute(post);
 			final int responseCode = response.getStatusLine().getStatusCode();
-			System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
 			System.out.println("Response Code : " + responseCode);
 
 			// JSON 형태 반환값 처리

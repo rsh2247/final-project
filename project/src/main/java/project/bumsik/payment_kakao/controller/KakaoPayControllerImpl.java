@@ -9,8 +9,10 @@ import project.bumsik.payment_main.service.PaymentMain_Service;
 import project.bumsik.payment_point.controller.PaymentPoint_Controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class KakaoController {
+public class KakaoPayControllerImpl implements KakaoPayController{
     
 	@Autowired
     private KakaoPay kakaopay;
@@ -38,42 +40,45 @@ public class KakaoController {
 	@Autowired
 	private PaymentPoint_Controller paymentPoint_Controller;
 	
+	@Override
 	@GetMapping("/kakaoPay")
     public void kakaoPayGet() {
         System.out.println("get");
     }
 	
-	String order_price, discount_point, lecture_name, user_id, order_ids, total_price, b_order_id;
-	Integer discount_point_int;
-	
-    @PostMapping("/kakaoPay")
+	String b_order_id;   
+	@Override
+	@PostMapping("/kakaoPay")
     public String kakaoPay(@RequestParam("order_id") String order_id) {
-        System.out.println("post : ready");
-        System.out.println("order_id : "+order_id);
+        System.out.println("post : ready, order_id : "+order_id);
         
     	//등록된 주문정보 에서 데이터 조회
 		Map<String, Object> orderMap = new HashMap<String,Object>();
 		orderMap.put("order_id", order_id);
-		b_order_id = order_id;					//주문번호 보존
+		b_order_id = order_id;					//주문번호 저장
 		
-		//강의명추가(조인) searchOrderInfo2
-    	List<Map<String, Object>> orderlist = paymentMain_Service.searchOrderInfo2(orderMap);
-    	discount_point = (String) orderlist.get(0).get("discount_point");
-    	order_price = (String) orderlist.get(0).get("order_price");  	
-    	total_price = (String)orderlist.get(0).get("total_price");
-    	
-        return "redirect:" + kakaopay.kakaoPayReady(orderlist);
+		//강의명추가(조인) searchOrderlecName
+    	orderMap = paymentMain_Service.searchOrderlecName(orderMap);
+    	orderMap = changeToLowerMapKey(orderMap);
+
+        return "redirect:" + kakaopay.kakaoPayReady(orderMap);
     }
-    
+	
+	@Override
     @GetMapping("**/kakaoPaySuccess")
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, HttpServletRequest request, HttpServletResponse response) {
         //log.info("kakaoPaySuccess get...pg_token : " + pg_token);
     	System.out.println("Success");
-    	KakaoPayApprovalVO info = kakaopay.kakaoPayInfo(pg_token);
+    	KakaoPayApprovalVO info = kakaopay.kakaoPayInfo(pg_token);  //kakaoPayInfo 호출시 토큰 이외 데이터 넘기면 에러발생
     	
-    	info.setDiscount(discount_point);
-    	info.setOrder_price(order_price);
-    	info.setPay_amount(total_price);    	
+		/* 화면 출력시 필요한 정보 info에 입력 */
+    	Map<String, Object> orderMap = new HashMap<String,Object>();
+    	orderMap.put("order_id", b_order_id);
+    	orderMap = paymentMain_Service.searchOrderlecName(orderMap);
+    	orderMap = changeToLowerMapKey(orderMap);
+    	info.setDiscount_point((String)orderMap.get("discount_point"));
+    	info.setOrder_price((String)orderMap.get("order_price"));
+    	info.setPay_amount((String)orderMap.get("pay_amount"));    	
     	info.setPayment_method_type("kakao");
     	model.addAttribute("info", info);
     	
@@ -92,18 +97,36 @@ public class KakaoController {
     	return "payment/paymentSuccess.tiles";
     }
     
+	@Override
     @GetMapping("**/kakaoPayCancel")
     public String kakaoPayCancel(@RequestParam("pg_token") String pg_token, Model model) {
         //log.info("kakaoPaySuccess get...pg_token : " + pg_token);
     	System.out.println("Cancel");
     	return "payment/paymentMain.tiles";
     }
-    
+	
+	@Override
     @GetMapping("**/kakaoPayFail")
     public String kakaoPayFail(@RequestParam("pg_token") String pg_token, Model model) {
         //log.info("kakaoPaySuccess get...pg_token : " + pg_token);
     	System.out.println("Fail");
     	return "payment/paymentMain.tiles";
     }
+	
+	//소문자로
+	@Override
+	public Map<String, Object> changeToLowerMapKey(Map<String, Object> origin){
+		   Map<String, Object> temp = new HashMap<String, Object>();  
+		   Set<String> set = origin.keySet();
+		   Iterator<String> e = set.iterator();
+
+		   while(e.hasNext()){
+		     String key = e.next();
+		     Object value = (Object) origin.get(key);
+		     temp.put(key.toLowerCase(), value);
+		   }
+		  origin = null;
+		  return temp;
+	}
 
 }

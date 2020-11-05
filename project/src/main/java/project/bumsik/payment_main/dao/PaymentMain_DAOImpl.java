@@ -20,39 +20,34 @@ public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 		int order_key =  sqlSession.selectOne(namespace+".seq_order");
 		return order_key;
 	}
-	
+	//강의정보 조회, 수강료
 	@Override
 	public List<Map<String, Object>> order_lecture(Map<String, Object> lectMap) throws DataAccessException {
 		List<Map<String, Object>> list = sqlSession.selectList(namespace+".order_lecture",lectMap);
 		return list;
 	}
-	
 	//강의 최초 선택시 
 	@Override
-	public void insertOrderInfo1(Map<String, Object> orderMap) throws DataAccessException {
-		sqlSession.selectList(namespace+".insertOrder1",orderMap);
+	public void insertOrderInit(Map<String, Object> orderMap) throws DataAccessException {
+		sqlSession.selectList(namespace+".insertOrderInit",orderMap);
 	}
-	//포인트 사용 정보 담아 insert
+	
+	
 	@Override
-	public void insertOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
-		sqlSession.selectList(namespace+".insertOrder2",orderMap);
-	}
-	@Override
-	public List<Map<String, Object>> searchOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
+	public List<Map<String, Object>> searchOrder(Map<String, Object> orderMap) throws DataAccessException {
 		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchOrder",orderMap);
 		return list;
 	}
 	@Override
-	public void updateOrderInfo(Map<String, Object> orderMap) throws DataAccessException {
+	public void updateOrder(Map<String, Object> orderMap) throws DataAccessException {
 		sqlSession.selectList(namespace+".updateOrder",orderMap);
 		
 	}
 	
 	//order join lecture 강의명 추가
 	@Override
-	public List<Map<String, Object>> searchOrderInfo2(Map<String, Object> orderMap) throws DataAccessException {
-		List<Map<String, Object>> list = sqlSession.selectList(namespace+".searchOrder2",orderMap);
-		return list;
+	public Map<String, Object> searchOrderlecName(Map<String, Object> orderMap) throws DataAccessException {
+		return sqlSession.selectOne(namespace+".searchOrderlecName",orderMap);
 	}
 	//order join point
 	@Override
@@ -65,5 +60,9 @@ public class PaymentMain_DAOImpl implements PaymentMain_DAO{
 	@Override
 	public void paymentResult(Map<String, Object> resultMap) throws DataAccessException {
 		sqlSession.selectList(namespace+".paymentResult",resultMap);	
+	}
+	@Override
+	public Map<String, Object> serarchOrderPay(Map<String, Object> resultMap2) {
+		return sqlSession.selectOne(namespace+".serarchOrderPay",resultMap2);
 	}
 }

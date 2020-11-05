@@ -56,7 +56,7 @@
 			<td><a href="userPage_col.user">문제집오답</a></td>
 		</tr>
 		<tr>
-			<td><a>문제오답</a></td>
+			<td><a href="userPage_pro.user">문제오답</a></td>
 		</tr>
 		<tr>
 			<td><a href="userGroup.user">그룹목록</a></td>

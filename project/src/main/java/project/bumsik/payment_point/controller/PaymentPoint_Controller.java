@@ -15,6 +15,6 @@ import project.bumsik.payment_point.vo.PaymentPoint_VO;
 public interface PaymentPoint_Controller {
 	public List<Map<String, Object>> searchPoint(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public String insertPoint(String order_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ResponseEntity updatePoint(String p_id, int usepoint, HttpServletRequest request,
+	public ResponseEntity updatePoint(String user_id, int usepoint, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 }

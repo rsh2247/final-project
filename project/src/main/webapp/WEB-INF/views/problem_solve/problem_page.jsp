@@ -11,11 +11,14 @@
 }
 
 .example li {
-	display: inline;
+	display: block;
+	padding: 5px 0 5px 0 ;
 }
-
+#contentbox{
+	width: 1100px;
+}
 #proTable {
-	margin: 100px auto 50px auto;
+	margin: 100px auto 30px auto;
 	border-collapse: collapse;
 	width: 1000px;
 	text-align: left;
@@ -52,46 +55,60 @@
 	border: 2px solid #000;
 	cursor: pointer;
 }
+
+#tagbox {
+	color: #555;
+	margin: 15px 0 15px 0;
+}
+
+#toptitle {
+	font-size: xx-large;
+	margin-left: 20px;
+}
 </style>
 </head>
 <body>
-	<table id="proTable">
-		<c:forEach var="problem" items="${list}">
-			<tr>
-				<td style="height: 40px">${problem.PRO_NAME}</td>
-			</tr>
-			<tr>
-				<td class="pro_td">문제</td>
-			</tr>
-			<tr>
-				<td style="padding: 40px 0 40px 5px; text-align: left;">${problem.PRO_CONTENT}</td>
-			</tr>
-			<c:if test="${problem.TAG_ISCHOICE ne 'N'}">
+	<div id="contentbox">
+		<table id="proTable">
+			<c:forEach var="problem" items="${list}">
 				<tr>
-					<td class="pro_td">보기</td>
+					<td style="height: 40px"><div id="tagbox">${problem.CATEGORY_NAME} | ${problem.TAG_NAME}</div>
+						<div id="toptitle">${problem.PRO_NAME}</div></td>
 				</tr>
-			</c:if>
-			<c:if test="${problem.TAG_ISCHOICE eq 'N'}">
-				<td class="pro_td">정답입력</td>
-			</c:if>
-		</c:forEach>
-	</table>
-	<form action="check_answer.pro" method="post" style="margin-bottom: 100px;">
-		<c:forEach var="problem" items="${list}">
-			<c:if test="${problem.TAG_ISCHOICE ne 'N'}">
-				<ul class="example">
-					<c:forEach var="example" items="${list2}">
-						<li><input type="radio" value="${example.CHO_NUM}" name="answer"> ${example.CHO_NUM}</li>
-						<li>${example.CHO_CONTENT}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
-			<c:if test="${problem.TAG_ISCHOICE eq 'N'}">
-				<input name="answer" id="answerBox" type="text">
-			</c:if>
-			<input type="hidden" name="proNum" value="${problem.PRO_NUM}">
-		</c:forEach>
-		<input id="submitBox" type="submit" value="확인">
-	</form>
+				<tr>
+					<td class="pro_td">문제</td>
+				</tr>
+				<tr>
+					<td style="padding: 40px 0 40px 5px; text-align: left;">${problem.PRO_CONTENT}</td>
+				</tr>
+				<c:if test="${problem.TAG_ISCHOICE ne 'N'}">
+					<tr>
+						<td class="pro_td">보기</td>
+					</tr>
+				</c:if>
+				<c:if test="${problem.TAG_ISCHOICE eq 'N'}">
+					<td class="pro_td">정답입력</td>
+				</c:if>
+			</c:forEach>
+		</table>
+		<form action="check_answer.pro" method="post" style="margin-bottom: 100px;">
+			<c:forEach var="problem" items="${list}">
+				<c:if test="${problem.TAG_ISCHOICE ne 'N'}">
+					<div style="text-align: left; width: 1000px; margin-left: 60px;">
+						<ul class="example">
+							<c:forEach var="example" items="${list2}">
+								<li><label><input type="radio" value="${example.CHO_NUM}" name="answer"> ${example.CHO_NUM} ${example.CHO_CONTENT}</label></li>
+							</c:forEach>
+						</ul>
+					</div>
+				</c:if>
+				<c:if test="${problem.TAG_ISCHOICE eq 'N'}">
+					<input name="answer" id="answerBox" type="text">
+				</c:if>
+				<input type="hidden" name="proNum" value="${problem.PRO_NUM}">
+			</c:forEach>
+			<input id="submitBox" type="submit" value="확인">
+		</form>
+	</div>
 </body>
 </html>

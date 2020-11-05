@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,6 @@
 	height: 100%;
 	margin-left: 25px;
 	float: left;
-	background-color: #eee;
 	text-align: left;
 }
 
@@ -48,7 +48,7 @@
 
 .desc{
 	width: inherit;
-	margin: 10px 0px 5px 0px;
+	margin: 10px 0px 10px 0px;
 }
 
 .inputtext{
@@ -73,6 +73,11 @@
 
 .boardbtn:hover {
 	background-color: #fff;
+}
+#imgpreview{
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
 }
 
 #tablebox {
@@ -167,7 +172,7 @@
 						complete : function(data, textSatus) {
 						}
 					});
-			})
+			});
 
 			$('#del').click(function() {
 			    $('.selectedboard').parent().remove();
@@ -186,9 +191,37 @@
 				complete : function(data, textSatus) {
 				}
 			});
-			})
+			});
 			
-		    })
+			$('#file').change(
+			function(e) {
+			    var formData = new FormData($('#fileform')[0]);
+			    if ($('#file').val() != '') {
+				$.ajax({
+				    type : "post",
+				    enctype : 'multipart/form-data',
+				    url : "uploadImage",
+				    data : formData,
+				    processData : false,
+				    contentType : false,
+				    success : function(data, textStatus) {
+					$('#imgpreview').attr('src','${contextPath}/resources/image/'+ data);
+					$('#group_icon').val(data);
+				    },
+				    error : function(data, textSatus) {
+					alert("에러가 발생");
+				    },
+				    complete : function(data, textSatus) {
+				    }
+				});
+			    }
+
+			})
+		$('#imgbtn').click(function() {
+		    $('#file').trigger('click');
+		});
+			
+		    });
     function select(e) {
 	if ($(e).attr('class') == 'selectboard') {
 	    $(e).attr('class', 'selectedboard');
@@ -208,6 +241,9 @@
 </script>
 </head>
 <body>
+<form action="uploadImage" id="fileform" enctype="multipart/form-data" method="post">
+	<input type="file" name="file" id="file" style="display: none;">
+</form>
 	<div id="contentbox">
 		<jsp:include page="groupPage_sidebar.jsp"></jsp:include>
 		<div id="mainbox">
@@ -215,23 +251,27 @@
 					<div class="divheader">
 						<label class="colname">카페관리</label>
 					</div>
-					<form action="" method="post">
+					<form action="update" method="post">
 					<ul class="ulbox">
 						<li><div class='desc'>카페이름</div>
 							<div class="inputbox">
-								<input type="text" class="inputtext" name="group_name">
+								<input type="text" class="inputtext" name="group_name" value="${result.GROUP_NAME}">
 							</div></li>
 						<li><div class='desc'>카페설명</div>
 							<div class="inputbox">
-								<input type="text" class="inputtext" name="group_desc">
+								<input type="text" class="inputtext" name="group_desc" value="${result.GROUP_DESC }">
 							</div></li>
 						<li><div class='desc'>가입방식</div>
 							<div class="inputbox">
-								<input type="radio" name="group_joinmanner" value="free"> 가입 신청시 바로 가입가능
+								<input type="radio" name="group_joinmanner" value="free" checked="checked"> 가입 신청시 바로 가입가능
 								<input type="radio" name="group_joinmanner" value="need"> 가입 신청후 승인 필요
 							</div></li>
+						<li><div class="desc">카페아이콘</div><img id="imgpreview" alt="" src="${contextPath}/resources/image/${result.GROUP_ICON}"></li>
+						<li><button id="imgbtn" type="button">업로드</button></li>
 						<li><div><button>확인</button></div></li>
 					</ul>
+					<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
+					<input type="hidden" id="group_icon" name="group_icon" value="${result.GROUP_ICON}">
 					</form>
 				</div>
 				<div class="divbox">

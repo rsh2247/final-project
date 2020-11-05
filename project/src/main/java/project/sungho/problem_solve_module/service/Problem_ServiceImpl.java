@@ -192,5 +192,20 @@ public class Problem_ServiceImpl implements Problem_Service {
 		inputMap.put("user_id", user.getUsername());
 		problem_DAO.insertUserAnswer(inputMap);
 	}
+	
+	public List<Map<String, Object>> selectEval(List<Map<String, Object>> list) throws DataAccessException{
+		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
+		for(Map map : list) {
+		}
+		return list;
+	}
+	
+	public void insertEval(Map<String, Object> inputMap) throws DataAccessException {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		inputMap.put("user_id", user.getUsername());
+		if(sqlSession.selectOne("checkEval", inputMap)==null) sqlSession.update("insertEval",inputMap);
+		else sqlSession.update("updateEval",inputMap);
+		
+	}
 
 }

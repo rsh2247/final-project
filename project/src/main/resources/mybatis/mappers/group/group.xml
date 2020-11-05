@@ -46,7 +46,7 @@
 	<select id="selectWholeGroup" resultMap="result"
 		parameterType="java.util.Map">
 		SELECT
-		GROUP_NUM,GROUP_NAME,GROUP_LEADER,GROUP_CATEGORY,GROUP_DATE,GROUP_DESC,
+		GROUP_NUM,GROUP_NAME,GROUP_LEADER,GROUP_CATEGORY,GROUP_DATE,GROUP_DESC,GROUP_ICON,
 		(select count(user_id)
 		from join_group_list l
 		where l.group_num =
@@ -66,7 +66,7 @@
 	</select>
 
 	<select id="selectMyGroup" resultMap="result" parameterType="java.util.Map">
-		SELECT t.GROUP_NUM,GROUP_NAME,GROUP_LEADER,GROUP_CATEGORY,GROUP_DATE,GROUP_DESC,
+		SELECT t.GROUP_NUM,GROUP_NAME,GROUP_LEADER,GROUP_CATEGORY,GROUP_DATE,GROUP_DESC,GROUP_ICON,
 		(select count(l.user_id)
 		from join_group_list l
 		WHERE l.group_num =
@@ -125,6 +125,12 @@
 	<update id="updateGroupManager" parameterType="java.util.Map">
 		UPDATE group_table
 		SET group_leader = #{user_id}
+		WHERE group_num = #{group_num}
+	</update>
+	
+	<update id="updateGroup">
+		UPDATE group_table
+		SET group_icon = #{group_icon}, group_name=#{group_name}, group_desc = #{group_desc}, group_joinmanner = #{group_joinmanner}
 		WHERE group_num = #{group_num}
 	</update>
 	

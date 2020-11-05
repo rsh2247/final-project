@@ -40,20 +40,16 @@ public class PaymentPoint_ControllerImpl implements PaymentPoint_Controller{
 	@Autowired
 	private PaymentMain_Service paymentMain_Service;
 	
+	/* 포인트 조회 */
 	@Override
 	@RequestMapping(value="/searchPoint", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public List<Map<String, Object>> searchPoint(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("searchPoint진입");
 		Map<String, Object> searchMap = new HashMap<String,Object>();
-			
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userId = user.getUsername();
-		searchMap.put("p_id", userId);
-		System.out.println("search searchMap : "+searchMap);
-		
+		searchMap.put("user_id", user.getUsername());
 		List<Map<String, Object>> list = paymentPoint_Service.searchList(searchMap);
-		System.out.println("list : "+list);
 		
 		return list;
 	}
@@ -66,11 +62,12 @@ public class PaymentPoint_ControllerImpl implements PaymentPoint_Controller{
 		System.out.println("order_id :"+order_id);
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-
 			/* point결제시 필요한 정보 조회 */
 			Map<String, Object> searchMap = new HashMap<String,Object>();
 			searchMap.put("order_id", order_id);
+			searchMap.put("user_id", user.getUsername());
 			List<Map<String, Object>> list = paymentMain_Service.serarchOrderPoint(searchMap);
+			System.out.println("list : "+list);
 			int discount_point = ((BigDecimal)list.get(0).get("DISCOUNT_POINT")).intValue() * -1;	//변동될 금액(point_change, - 금액)
 			int current_point_rest = ((BigDecimal)list.get(0).get("point_rest")).intValue();
 			int point_rest = current_point_rest + discount_point;								//point_rest
@@ -87,11 +84,9 @@ public class PaymentPoint_ControllerImpl implements PaymentPoint_Controller{
 			String point_time = vans.format(now);
 			String point_content = "포인트 사용 시각 : "+point_time+"\n 사용금액 : "+ (discount_point*-1) +"\n 포인트 잔액 : "+point_rest;
 			insertMap.put("point_content",point_content);
-			insertMap.put("p_id", user.getUsername());
+			insertMap.put("user_id", user.getUsername());
 
-			System.out.println("insertMap : "+insertMap);
 			paymentPoint_Service.insertPoint(insertMap);
-			System.out.println("33");			
 			return "forward:/paymentSuccess.pay";
 	}
 	
@@ -99,11 +94,11 @@ public class PaymentPoint_ControllerImpl implements PaymentPoint_Controller{
 	@Override
 	@RequestMapping(value="/updatePoint", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public ResponseEntity updatePoint(@RequestParam(value="p_id",required = false) String p_id, @RequestParam(value="usePoint") int usePoint ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ResponseEntity updatePoint(@RequestParam(value="user_id",required = false) String user_id, @RequestParam(value="usePoint") int usePoint ,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("updatePoint 진입");
 
 		Map<String, Object> searchMap = new HashMap<String,Object>();
-		searchMap.put("p_id", p_id);
+		searchMap.put("user_id", user_id);
 		List<Map<String, Object>> list = paymentPoint_Service.searchList(searchMap);
 		
 		Map<String, Object> resultMap = new HashMap<String,Object>();
@@ -119,7 +114,7 @@ public class PaymentPoint_ControllerImpl implements PaymentPoint_Controller{
 			if(point_rest > usePoint ) {
 				point_rest = point_rest - usePoint;
 				System.out.println("연산후 point_rest : "+point_rest);
-				resultMap.put("p_id", p_id);
+				resultMap.put("user_id", user_id);
 				resultMap.put("point_change", usePoint);
 				resultMap.put("point_rest", point_rest);
 				paymentPoint_Service.updatePoint(resultMap);

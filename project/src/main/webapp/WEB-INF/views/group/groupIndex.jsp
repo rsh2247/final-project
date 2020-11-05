@@ -28,6 +28,7 @@
 	cursor: pointer;
 	font-family: Inter, "Noto Sans KR", "Noto Sans JP", "Malgun Gothic", "맑은 고딕", sans-serif;
 	transition: background-color 0.3s ease 0s, border-color 0.3s ease 0s;
+	font-size: 15px;
 }
 
 .selectedbtn{

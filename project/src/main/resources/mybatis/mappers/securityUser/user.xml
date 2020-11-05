@@ -38,6 +38,12 @@
 		WHERE user_email = #{email} and user_authkey = #{authKey}
 	</select>
 	
+	<update id="updateUserInfo">
+		UPDATE user_table
+		SET user_image = #{user_image}
+		WHERE user_id = #{user_id}
+	</update>
+	
 	<update id="updateUserEnable" parameterType="java.util.Map">
 		UPDATE user_table
 		SET user_enable = 1

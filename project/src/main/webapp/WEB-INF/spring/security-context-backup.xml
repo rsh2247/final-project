@@ -20,9 +20,11 @@
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/cafe/*.user"
 			access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/order"
+		<intercept-url pattern="/orderInit.pay"
 			access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/calendar/calendar.do"
+		<intercept-url pattern="/calendar_main.cal"
+			access="hasRole('ROLE_USER')" />	
+		<intercept-url pattern="/*.user"
 			access="hasRole('ROLE_USER')" />	
 		<csrf disabled="true" />
 

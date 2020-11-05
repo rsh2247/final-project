@@ -40,10 +40,10 @@ public class UserAuthenticationService implements UserDetailsService {
 		List<GrantedAuthority> gas = new ArrayList<GrantedAuthority>();
 		gas.add(new SimpleGrantedAuthority(user.get("AUTHORITY").toString()));
 		String image = "noimage.png";
-		if(user.get("USER_IMAGE")!=null) {
-			image = user.get("USER_IMAGE").toString();
-		}
-		return new CustomUser(user.get("USERNAME").toString(), user.get("PASSWORD").toString(), enable, true, true, true, gas,user.get("EMAIL").toString(),"testnickname",image);
+		String email = "noEmial";
+		if(user.get("EMAIL")!=null) email = user.get("EMAIL").toString();
+		if(user.get("USER_IMAGE")!=null) image = user.get("USER_IMAGE").toString();
+		return new CustomUser(user.get("USERNAME").toString(), user.get("PASSWORD").toString(), enable, true, true, true, gas,email,"testnickname",image);
 	}
 	
 	public UserAuthenticationService() {
@@ -70,6 +70,10 @@ public class UserAuthenticationService implements UserDetailsService {
 	public boolean checkUserId(Map<String,Object> inputMap) {
 		if(userDao.selectUser(inputMap) == null) return false;
 		else return true;
+	}
+	
+	public void refresh() {
+		
 	}
 
 }
