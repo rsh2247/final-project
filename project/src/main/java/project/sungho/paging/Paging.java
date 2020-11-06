@@ -11,10 +11,23 @@ public class Paging {
 		calMax();
 	}
 	
+	public Paging(int wholeSize, int listSize, int nowPage, String reverse) {
+		super();
+		this.wholeSize = wholeSize;
+		this.listSize = listSize;
+		this.nowPage = nowPage;
+		calMin();
+	}
+	
 	public void calMax() {
 		listNum = (wholeSize/listSize) + 1;
 		endNum = wholeSize - (nowPage-1)*listSize;
 		startNum = endNum - listSize + 1; if(startNum<1) startNum = 1;
+	}
+	public void calMin() {
+		listNum = (wholeSize/listSize) + 1;
+		startNum = 1 + listSize*(nowPage-1);
+		endNum = startNum + listSize - 1; if(endNum>wholeSize) endNum = wholeSize;
 	}
 
 	public int getWholeSize() {

@@ -119,13 +119,28 @@ public class PS_ControllerImpl implements PS_Controller {
 	}
 	
 	@RequestMapping(value = "problem_solve/col_problemPage.pro", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView collection(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView collection(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String col_num = request.getParameter("colNum");
-		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", col_num);
-		List<Map<String, Object>> list = problem_Service.selectProByCol(searchMap);
+		System.out.println(paramMap);
+		List<Map<String, Object>> list = problem_Service.selectProByCol(paramMap);
+		if(!paramMap.containsKey("pageNum")) paramMap.put("pageNum", (String)"1");
+		Paging page = new Paging(list.size(), 5, Integer.parseInt((String)paramMap.get("pageNum")),"reverse");
 		ModelAndView mav = new ModelAndView("problem_solve/col_problemPage.tiles");
+		mav.addObject("page", page);
 		mav.addObject("list",list);
+		mav.addObject("result",paramMap);
+		return mav;
+	}
+	
+	@RequestMapping(value = "problem_solve/col_problemRefresh", method = { RequestMethod.POST })
+	public ModelAndView col_problemRefresh(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println(paramMap);
+		List<Map<String, Object>> list = problem_Service.selectProByCol(paramMap);
+		Paging page = new Paging(list.size(), 5, Integer.parseInt((String)paramMap.get("pageNum")),"reverse");
+		ModelAndView mav = new ModelAndView("problem_solve/col_problemAjax.tiles");
+		mav.addObject("list",list);
+		mav.addObject("page",page);
+		mav.addObject("result",paramMap);
 		return mav;
 	}
 	

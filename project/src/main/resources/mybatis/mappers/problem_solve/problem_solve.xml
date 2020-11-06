@@ -29,7 +29,7 @@
 	</select>
 
 	<select id="searchListCategory" resultMap="result" parameterType="java.util.Map"> 
-		SELECT distinct p.pro_num as pro_num,pro_name,pro_content,pro_answer,tag_name,p.user_id as user_id, avg(pro_eval_score) over(partition by e.pro_num) as score
+		SELECT distinct rownum, p.pro_num as pro_num,pro_name,pro_content,pro_answer,tag_name,p.user_id as user_id, avg(pro_eval_score) over(partition by e.pro_num) as score
 		from pro_eval e
 		full outer join problem p
 		on e.pro_num = p.pro_num

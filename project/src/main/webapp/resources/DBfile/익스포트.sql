@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 목요일-11월-05-2020   
+--  파일이 생성됨 - 금요일-11월-06-2020   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table BOARD
@@ -125,7 +125,7 @@
   CREATE TABLE "YUSUNGHO"."COL_LIST" 
    (	"PRO_NUM" NUMBER, 
 	"COL_NUM" NUMBER, 
-	"COL_LIST_NUM" VARCHAR2(50 BYTE), 
+	"COL_LIST_NUM" NUMBER, 
 	"COL_LIST_POINT" NUMBER
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
@@ -347,7 +347,7 @@
    (	"POST_NUM" NUMBER, 
 	"BOARD_NUM" NUMBER, 
 	"USER_ID" VARCHAR2(30 BYTE), 
-	"POST_TITLE" VARCHAR2(100 BYTE), 
+	"POST_TITLE" VARCHAR2(500 BYTE), 
 	"POST_CONTENT" VARCHAR2(4000 BYTE), 
 	"POST_DATE" DATE, 
 	"POST_CATEGORY" VARCHAR2(50 BYTE), 
@@ -506,7 +506,8 @@
 	"TAG_ID" VARCHAR2(50 BYTE), 
 	"TAG_NAME" VARCHAR2(50 BYTE), 
 	"TAG_ISCHOICE" VARCHAR2(10 BYTE), 
-	"USER_ID" VARCHAR2(30 BYTE)
+	"USER_ID" VARCHAR2(30 BYTE), 
+	"PRO_DATE" DATE
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -525,6 +526,7 @@
    COMMENT ON COLUMN "YUSUNGHO"."PROBLEM"."TAG_NAME" IS '태그이름';
    COMMENT ON COLUMN "YUSUNGHO"."PROBLEM"."TAG_ISCHOICE" IS '태그객관식여부';
    COMMENT ON COLUMN "YUSUNGHO"."PROBLEM"."USER_ID" IS '제작자아이디';
+   COMMENT ON COLUMN "YUSUNGHO"."PROBLEM"."PRO_DATE" IS '만든날짜';
    COMMENT ON TABLE "YUSUNGHO"."PROBLEM"  IS '문제';
 --------------------------------------------------------
 --  DDL for Table SCORE
@@ -648,12 +650,32 @@ REM INSERTING into YUSUNGHO.CALENDER
 SET DEFINE OFF;
 REM INSERTING into YUSUNGHO.COL_ANSWER
 SET DEFINE OFF;
+Insert into YUSUNGHO.COL_ANSWER (USER_ID,COL_NUM,COL_SOLVEDATE,COL_WRONGCONTENT,COL_REALANSWER,PRO_NUM,COL_LIST_NUM) values ('kakao-1515179669',1,'2020-11-06 16:46:41:04','null','1',16,'1');
+Insert into YUSUNGHO.COL_ANSWER (USER_ID,COL_NUM,COL_SOLVEDATE,COL_WRONGCONTENT,COL_REALANSWER,PRO_NUM,COL_LIST_NUM) values ('kakao-1515179669',1,'2020-11-06 16:46:41:04','null','1',15,'2');
+Insert into YUSUNGHO.COL_ANSWER (USER_ID,COL_NUM,COL_SOLVEDATE,COL_WRONGCONTENT,COL_REALANSWER,PRO_NUM,COL_LIST_NUM) values ('kakao-1515179669',1,'2020-11-06 16:46:41:04','null','3',14,'3');
+Insert into YUSUNGHO.COL_ANSWER (USER_ID,COL_NUM,COL_SOLVEDATE,COL_WRONGCONTENT,COL_REALANSWER,PRO_NUM,COL_LIST_NUM) values ('kakao-1515179669',1,'2020-11-06 16:46:41:04','null','2',13,'4');
+Insert into YUSUNGHO.COL_ANSWER (USER_ID,COL_NUM,COL_SOLVEDATE,COL_WRONGCONTENT,COL_REALANSWER,PRO_NUM,COL_LIST_NUM) values ('kakao-1515179669',1,'2020-11-06 16:46:41:04','null','3',11,'5');
+Insert into YUSUNGHO.COL_ANSWER (USER_ID,COL_NUM,COL_SOLVEDATE,COL_WRONGCONTENT,COL_REALANSWER,PRO_NUM,COL_LIST_NUM) values ('kakao-1515179669',1,'2020-11-06 16:46:41:04','null','4',10,'6');
+Insert into YUSUNGHO.COL_ANSWER (USER_ID,COL_NUM,COL_SOLVEDATE,COL_WRONGCONTENT,COL_REALANSWER,PRO_NUM,COL_LIST_NUM) values ('kakao-1515179669',1,'2020-11-06 16:46:41:04','null','3',9,'7');
 REM INSERTING into YUSUNGHO.COL_EVAL
 SET DEFINE OFF;
 REM INSERTING into YUSUNGHO.COL_HISTORY
 SET DEFINE OFF;
+Insert into YUSUNGHO.COL_HISTORY (COL_SOLVEDATE,USER_ID,COL_NUM,COL_SCORE) values ('2020-11-06 16:46:41:04','kakao-1515179669',1,'0');
 REM INSERTING into YUSUNGHO.COL_LIST
 SET DEFINE OFF;
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (2,2,2,2);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (3,2,3,3);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (4,2,4,4);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (5,2,5,5);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (16,1,1,5);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (15,1,2,5);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (14,1,3,5);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (13,1,4,5);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (11,1,5,5);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (10,1,6,5);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (9,1,7,5);
+Insert into YUSUNGHO.COL_LIST (PRO_NUM,COL_NUM,COL_LIST_NUM,COL_LIST_POINT) values (1,2,1,1);
 REM INSERTING into YUSUNGHO.GROUP_TABLE
 SET DEFINE OFF;
 Insert into YUSUNGHO.GROUP_TABLE (GROUP_NUM,GROUP_NAME,GROUP_LEADER,GROUP_CATEGORY,GROUP_ICON,GROUP_JOINMANNER,GROUP_DESC,GROUP_DATE) values (1,'123','123','123','noimagecafe.png','free','123',to_date('20/10/22','RR/MM/DD'));
@@ -738,9 +760,83 @@ Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,PO
 Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (24,6,'test','첫글','<p>ㅎ</p>
 ',to_date('20/10/26','RR/MM/DD'),null,null);
 Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (27,5,'kakao-1515179669',null,'ㅋ',to_date('20/10/30','RR/MM/DD'),null,'26');
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (28,8,'kakao-1515179669','123','<p>12345</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (29,8,'kakao-1515179669','sadf','<p>asdfsf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (30,8,'kakao-1515179669','safd','<p>sdfadsfads</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (31,8,'kakao-1515179669','asdf','<p>sdafasdfasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (32,8,'kakao-1515179669','asdf','<p>asfdsafd</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (33,8,'kakao-1515179669','asdfas','<p>dsadfasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (34,8,'kakao-1515179669','asdf','<p>sdfdasf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (35,8,'kakao-1515179669','asdf','<p>sadfsdaf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (36,8,'kakao-1515179669','asdf','<p>asdfsadf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
 Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (18,0,'test',null,'123',to_date('20/10/22','RR/MM/DD'),null,'17');
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (37,8,'kakao-1515179669','asdf','<p>asdfasd</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (38,8,'kakao-1515179669','asdf','<p>asdfdasf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (39,8,'kakao-1515179669','asdfad','<p>sfsdaf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (40,8,'kakao-1515179669','asdf','<p>asdfasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (41,8,'kakao-1515179669','asdf','<p>asdfadsf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (42,8,'kakao-1515179669','asdfasd','<p>fdasfdasf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (43,8,'kakao-1515179669','asdf','<p>asdfdsaf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (44,8,'kakao-1515179669','asdf','<p>safasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (45,8,'kakao-1515179669','adsf','<p>asdfsdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (46,8,'kakao-1515179669','asdf','<p>asfsadfdsa</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (47,8,'kakao-1515179669','asdf','<p>asdfsadf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (48,8,'kakao-1515179669','asdf','<p>asfasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (51,8,'kakao-1515179669','asdfsadf','<p>sadfsdaf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (49,8,'kakao-1515179669','ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ','<p>ㅋㅋ</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (50,8,'kakao-1515179669','asdfads','<p>fsdafdasf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (52,8,'kakao-1515179669','asfdasd','<p>fdsafdsafasdfasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (53,8,'kakao-1515179669','asdfasd','<p>fasdfsdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (54,8,'kakao-1515179669','asdfsadfasdf','<p>asdfadsfasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (55,8,'kakao-1515179669','asdfsadf','<p>sadfsadfsdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
 Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (19,5,'test','안녕하세요','<p>안녕하세요.</p>
 ',to_date('20/10/26','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (56,8,'kakao-1515179669','sadfasdf','<p>sdafsdaf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (57,8,'kakao-1515179669','asdfasd','<p>fasfasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (58,8,'kakao-1515179669','fsdfsad','<p>fsdafdsaf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (59,8,'kakao-1515179669','asdfasdfsad','<p>fsadfasdfasdf</p>
+',to_date('20/11/05','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (60,8,'kakao-1515179669',null,'왜쪼개냐',to_date('20/11/05','RR/MM/DD'),null,'49');
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (61,8,'kakao-1515179669','1',null,to_date('20/11/06','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (62,8,'kakao-1515179669','2',null,to_date('20/11/06','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (63,8,'kakao-1515179669','3',null,to_date('20/11/06','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (64,8,'kakao-1515179669','4',null,to_date('20/11/06','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (65,8,'kakao-1515179669','5',null,to_date('20/11/06','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (66,8,'kakao-1515179669','6',null,to_date('20/11/06','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (67,8,'kakao-1515179669','7',null,to_date('20/11/06','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (68,8,'kakao-1515179669','8',null,to_date('20/11/06','RR/MM/DD'),null,null);
+Insert into YUSUNGHO.POST (POST_NUM,BOARD_NUM,USER_ID,POST_TITLE,POST_CONTENT,POST_DATE,POST_CATEGORY,POST_PARENT) values (69,8,'kakao-1515179669','9',null,to_date('20/11/06','RR/MM/DD'),null,null);
 REM INSERTING into YUSUNGHO.POST_FILE
 SET DEFINE OFF;
 REM INSERTING into YUSUNGHO.PRO_CATEGORY
@@ -792,48 +888,95 @@ Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('whether?o
 Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('whether?to?see?or?not',11,'2');
 Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('whether?or?not?to?see',11,'3');
 Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('whether?or?not?seeing',11,'4');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('which',12,'1');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('by',12,'2');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('for?whom',12,'3');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('at?which',12,'4');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('Uneducated?are',13,'1');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('The?uneducated?are',13,'2');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('The?uneducated?is',13,'3');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('The?uneducated?people',13,'4');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('dilution',14,'1');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('solution',14,'2');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('a?solution',14,'3');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('dissolution',14,'4');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('import',15,'1');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('importantly',15,'2');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('important',15,'3');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('importance',15,'4');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('loyalty',16,'1');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('loyalties',16,'2');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('loyal',16,'3');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('loyalism',16,'4');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('hope',17,'1');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('wishing',17,'2');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('wants',17,'3');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('going',17,'4');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('public',18,'1');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('publicity',18,'2');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('publicly',18,'3');
+Insert into YUSUNGHO.PRO_CHOICE (CHO_CONTENT,PRO_NUM,CHO_NUM) values ('publicize',18,'4');
 REM INSERTING into YUSUNGHO.PRO_COLLECTION
 SET DEFINE OFF;
+Insert into YUSUNGHO.PRO_COLLECTION (COL_NUM,USER_ID,COL_NAME,COL_TAG,CATEGORY_ID,CATEGORY_NAME,COL_MAXSCORE) values (1,'kakao-1515179669','문제집','창작','1001','TOEIC','35');
+Insert into YUSUNGHO.PRO_COLLECTION (COL_NUM,USER_ID,COL_NAME,COL_TAG,CATEGORY_ID,CATEGORY_NAME,COL_MAXSCORE) values (2,'kakao-1515179669','ㅁㄴㅇㄹ','창작','1001','TOEIC','15');
 REM INSERTING into YUSUNGHO.PRO_EVAL
 SET DEFINE OFF;
+Insert into YUSUNGHO.PRO_EVAL (PRO_EVAL_CONTENT,PRO_EVAL_SCORE,USER_ID,PRO_NUM,PRO_EVAL_DATE) values ('<p>나쁘지 않은듯</p>
+','5','kakao-1515179669',16,to_date('20/11/06','RR/MM/DD'));
+Insert into YUSUNGHO.PRO_EVAL (PRO_EVAL_CONTENT,PRO_EVAL_SCORE,USER_ID,PRO_NUM,PRO_EVAL_DATE) values (null,'10','kakao-1515179669',18,to_date('20/11/05','RR/MM/DD'));
 REM INSERTING into YUSUNGHO.PRO_TAG
 SET DEFINE OFF;
 Insert into YUSUNGHO.PRO_TAG (CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE) values ('1001','TOEIC','100101','TOEIC 객관식','4');
 Insert into YUSUNGHO.PRO_TAG (CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE) values ('1001','TOEIC','100102','주관식','N');
 REM INSERTING into YUSUNGHO.PROBLEM
 SET DEFINE OFF;
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (3,'0','문제3','<p>The&nbsp;highest&nbsp;form&nbsp;of&nbsp;courage&nbsp;is&nbsp;not&nbsp;always&nbsp;_______________&nbsp;exhibited&nbsp;on&nbsp;the&nbsp;battle&nbsp;field.</p>
-','3','3','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (4,'0','문제4','<p>Health&nbsp;is&nbsp;more&nbsp;valuable&nbsp;than&nbsp;wealth.&nbsp;_______________&nbsp;cannot&nbsp;give&nbsp;such&nbsp;true&nbsp;happiness&nbsp;as&nbsp;that.</p>
-','1','1','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (5,'0','문제5','<p>This&nbsp;kind&nbsp;of&nbsp;bread&nbsp;is&nbsp;different&nbsp;from&nbsp;_______________&nbsp;.</p>
-','2','that?kind?대신?쓸?수?있는?말은?that?one이다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (6,'0','문제6','<p>When&nbsp;inflation&nbsp;is&nbsp;rampant,&nbsp;many&nbsp;families&nbsp;find&nbsp;_____________&nbsp;difficult&nbsp;to&nbsp;maintain&nbsp;the&nbsp;life&nbsp;style&nbsp;to&nbsp;which&nbsp;they&nbsp;are&nbsp;accustomed.</p>
-','4','to?maintain?이하를?받는?가목적어?it가?필요하다.?이?문장의?주절은?find?it?difficult?to?do(~?하는?것이?어렵다는?것을?알다)의?구문이다.?to?which?they?are?accustomed는?관계대명사가?이끄는?형용사절로서,?which의?선행사는?the?life?style이고,?they는?many?families를?받는다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (7,'0','문제7','<p>90.&nbsp;&nbsp;Parents&nbsp;are&nbsp;_______________&nbsp;who&nbsp;we&nbsp;believe&nbsp;ought&nbsp;to&nbsp;insist&nbsp;upon&nbsp;their&nbsp;children&#39;s&nbsp;obeying&nbsp;orders.</p>
-','2','이?문장은?Parents?are?____.로?끝나는?아주?간단한?문장이다.?who?we?believe?ought?~?orders는?모두?밑줄?친?부분에?들어가는?말을?수식하는?관계대명사절이다.?동사가?복수형?are이므로?빈칸에는?복수형?대명사가?와야?하고,?이것은?다시?who이하?형용사절의?수식을?받으므로?the?ones가?가장?적합하다.?who이하는?who?(we?believe)?ought?to?~와?같이?we?believe를?삽입어구로?취급하여야?쉽게?이해가?갈?것이다.','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (1,'0','문제1','<p>No&nbsp;English&nbsp;writer&nbsp;has&nbsp;written&nbsp;better&nbsp;about&nbsp;_______________&nbsp;than&nbsp;has&nbsp;Dickens.</p>
-','2','2','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (2,'0','문제2','<p>Dr.&nbsp;Brown&nbsp;was&nbsp;_______________&nbsp;of&nbsp;Foreign&nbsp;Affairs&nbsp;from&nbsp;1991&nbsp;till&nbsp;1996.</p>
-','2','2','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (8,'0','문제8','<p>In&nbsp;bacteria&nbsp;and&nbsp;in&nbsp;other&nbsp;organisms,&nbsp;_______________&nbsp;the&nbsp;nucleic&nbsp;acid&nbsp;DNA that&nbsp;provides&nbsp;the&nbsp;genetic&nbsp;information.</p>
-','2','(A)와?(D)에는?is?앞에?주어가?없고,?(C)의?경우는?who의?선행사가?되는?말이?없으므로?문장?구성이?되지?않는다.?이?문장은?주어인?the?nucleic?acid?DNA가?강조된?It?is?~?that?강조구문이다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (9,'0','문제9','<p>We&nbsp;____________&nbsp;repine,&nbsp;but&nbsp;we&nbsp;may&nbsp;lawfully&nbsp;struggle&nbsp;for&nbsp;a&nbsp;better&nbsp;living.</p>
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (3,'0','문제3','<p>The&nbsp;highest&nbsp;form&nbsp;of&nbsp;courage&nbsp;is&nbsp;not&nbsp;always&nbsp;_______________&nbsp;exhibited&nbsp;on&nbsp;the&nbsp;battle&nbsp;field.</p>
+','3','3','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (4,'0','문제4','<p>Health&nbsp;is&nbsp;more&nbsp;valuable&nbsp;than&nbsp;wealth.&nbsp;_______________&nbsp;cannot&nbsp;give&nbsp;such&nbsp;true&nbsp;happiness&nbsp;as&nbsp;that.</p>
+','1','1','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (5,'0','문제5','<p>This&nbsp;kind&nbsp;of&nbsp;bread&nbsp;is&nbsp;different&nbsp;from&nbsp;_______________&nbsp;.</p>
+','2','that?kind?대신?쓸?수?있는?말은?that?one이다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (6,'0','문제6','<p>When&nbsp;inflation&nbsp;is&nbsp;rampant,&nbsp;many&nbsp;families&nbsp;find&nbsp;_____________&nbsp;difficult&nbsp;to&nbsp;maintain&nbsp;the&nbsp;life&nbsp;style&nbsp;to&nbsp;which&nbsp;they&nbsp;are&nbsp;accustomed.</p>
+','4','to?maintain?이하를?받는?가목적어?it가?필요하다.?이?문장의?주절은?find?it?difficult?to?do(~?하는?것이?어렵다는?것을?알다)의?구문이다.?to?which?they?are?accustomed는?관계대명사가?이끄는?형용사절로서,?which의?선행사는?the?life?style이고,?they는?many?families를?받는다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (7,'0','문제7','<p>Parents&nbsp;are&nbsp;_______________&nbsp;who&nbsp;we&nbsp;believe&nbsp;ought&nbsp;to&nbsp;insist&nbsp;upon&nbsp;their&nbsp;children&#39;s&nbsp;obeying&nbsp;orders.</p>
+','2','이?문장은?Parents?are?____.로?끝나는?아주?간단한?문장이다.?who?we?believe?ought?~?orders는?모두?밑줄?친?부분에?들어가는?말을?수식하는?관계대명사절이다.?동사가?복수형?are이므로?빈칸에는?복수형?대명사가?와야?하고,?이것은?다시?who이하?형용사절의?수식을?받으므로?the?ones가?가장?적합하다.?who이하는?who?(we?believe)?ought?to?~와?같이?we?believe를?삽입어구로?취급하여야?쉽게?이해가?갈?것이다.','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (1,'0','문제1','<p>No&nbsp;English&nbsp;writer&nbsp;has&nbsp;written&nbsp;better&nbsp;about&nbsp;_______________&nbsp;than&nbsp;has&nbsp;Dickens.</p>
+','2','2','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (2,'0','문제2','<p>Dr.&nbsp;Brown&nbsp;was&nbsp;_______________&nbsp;of&nbsp;Foreign&nbsp;Affairs&nbsp;from&nbsp;1991&nbsp;till&nbsp;1996.</p>
+','2','2','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (8,'0','문제8','<p>In&nbsp;bacteria&nbsp;and&nbsp;in&nbsp;other&nbsp;organisms,&nbsp;_______________&nbsp;the&nbsp;nucleic&nbsp;acid&nbsp;DNA that&nbsp;provides&nbsp;the&nbsp;genetic&nbsp;information.</p>
+','2','(A)와?(D)에는?is?앞에?주어가?없고,?(C)의?경우는?who의?선행사가?되는?말이?없으므로?문장?구성이?되지?않는다.?이?문장은?주어인?the?nucleic?acid?DNA가?강조된?It?is?~?that?강조구문이다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (9,'0','문제9','<p>We&nbsp;____________&nbsp;repine,&nbsp;but&nbsp;we&nbsp;may&nbsp;lawfully&nbsp;struggle&nbsp;for&nbsp;a&nbsp;better&nbsp;living.</p>
 
 <p>&nbsp;</p>
-','3','의무를?나타내는?「be+to부정사」의?용법이다.?to부정사의?부정은?to?앞에?부정어를?붙이면?되므로?「be+to부정사」의?부정형은?「be+not?to부정사」의?형태가?된다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (10,'0','문제10','<p>We&nbsp;are&nbsp;glad&nbsp;to&nbsp;_______________&nbsp;when&nbsp;you&nbsp;needed&nbsp;our&nbsp;help.</p>
+','3','의무를?나타내는?「be+to부정사」의?용법이다.?to부정사의?부정은?to?앞에?부정어를?붙이면?되므로?「be+to부정사」의?부정형은?「be+not?to부정사」의?형태가?된다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (10,'0','문제10','<p>We&nbsp;are&nbsp;glad&nbsp;to&nbsp;_______________&nbsp;when&nbsp;you&nbsp;needed&nbsp;our&nbsp;help.</p>
 
 <p>&nbsp;</p>
-','4','이?문장에서?when?you?needed?our?help(당신이?우리?도움을?필요로?했을?때)라고?과거의?사실을?언급하고?있다.?따라서?완료부정사가?필요하다는?것을?알?수?있다.','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
-Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID) values (11,'0','문제11','<p>He&nbsp;is&nbsp;wondering&nbsp;_______________&nbsp;a&nbsp;doctor.</p>
+','4','이?문장에서?when?you?needed?our?help(당신이?우리?도움을?필요로?했을?때)라고?과거의?사실을?언급하고?있다.?따라서?완료부정사가?필요하다는?것을?알?수?있다.','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (11,'0','문제11','<p>He&nbsp;is&nbsp;wondering&nbsp;_______________&nbsp;a&nbsp;doctor.</p>
 
 <p>&nbsp;</p>
 
 <p>&nbsp;</p>
 
 <p>&nbsp;</p>
-','3','부정사의?부정은?to?앞에?not이나?never를?붙이면?된다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669');
+','3','부정사의?부정은?to?앞에?not이나?never를?붙이면?된다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (13,'0','문제13','<p>20.&nbsp;&nbsp;_______________&nbsp;more&nbsp;to&nbsp;be&nbsp;pitied&nbsp;than&nbsp;blamed.</p>
+','2','주어와?동사가?보이지?않으므로?빈?칸에?주어와?동사가?들어가야?한다.?따라서?(D)는?일단?제외된다.?또「the+형용사」는?복수명사의?의미가?되므로?is가?쓰인?(C)도?정답이?될?수?없다.?나머지?둘?중에서?형용사가?주어로?쓰인?(A)는?명백한?오류이다.?이?문장을?다시?쓰면?The?uneducated?are?more?to?be?pitied?than?(to?be)?blamed.가?된다.?more?A?than?B?(B라기보다는?오히려?A인)구문과「~?해야?한다」는?당위의?의미를?갖는「be+to?부정사」의?구문이?합쳐진?형태의?구문이다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (14,'0','문제14','<p>Can&nbsp;you&nbsp;suggest&nbsp;___________&nbsp;to&nbsp;this&nbsp;problem?</p>
+
+<p>&nbsp;</p>
+','3','dilution(희석),?solution(해결),?dissolution(용해,?분해)는?모두?셀?수?없는?명사이다.?문맥?상으로?보아「해결책을?제시하다」는?뜻이?되어야?하므로?solution이?와야?한다.?그러나?solution이「해결책」이라는?뜻이?되면?보통명사화한?것이?되므로?앞에?부정관사가?쓰이거나?복수형이?되어야?한다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (15,'0','문제15','<p>Capital&nbsp;and&nbsp;labor&nbsp;are&nbsp;of&nbsp;equal&nbsp;___________&nbsp;in&nbsp;the&nbsp;modern&nbsp;corporation.</p>
+','1','여기에서는「of+추상명사」가?형용사적?의미를?갖는?용법을?알고?있으면?된다.?즉?of?equal?다음에?명사?importance가?오면?된다.?equal은?다음에?오는?importance를?수식하는?형용사이다.?of?equal?importance는?equally?important의?뜻이?된다.','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (16,'0','문제16','<p>His&nbsp;character&nbsp;was&nbsp;all&nbsp;___________&nbsp;and&nbsp;patriotism,&nbsp;and&nbsp;the&nbsp;will&nbsp;and&nbsp;effort&nbsp;to&nbsp;promote&nbsp;the&nbsp;welfare&nbsp;of&nbsp;the&nbsp;state&nbsp;was&nbsp;his&nbsp;true&nbsp;ideal.</p>
+','1','「all+추상명사」가?「very+형용사」의?의미를?갖는다는?것을?이해하고?있는지가?문제?풀이의?관건이?된다.?「충성,?충의」라는?뜻의?낱말은?loyalty이므로,?all?loyalty?and?patriotism은?very?loyal?and?patriotic(아주?충직하고?애국적인)의?뜻이?된다.?to?promote?the?welfare?of?the?state는?부정사가?이끄는?형용사구로서,?두번째?문장의?주어인?the?will?and?effort를?수식하고?있다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (17,'0','문제17','<p>They&nbsp;___________&nbsp;to&nbsp;open&nbsp;a&nbsp;branch&nbsp;in&nbsp;New&nbsp;York&nbsp;City&nbsp;next&nbsp;year.</p>
+','1','주어가?복수이므로?C는?적합치?않고,?be동사가?없으므로?진행형을?만드는?현재분사가?올?수?없다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
+Insert into YUSUNGHO.PROBLEM (PRO_NUM,PRO_FIELD,PRO_NAME,PRO_CONTENT,PRO_ANSWER,PRO_COMMENT,CATEGORY_ID,CATEGORY_NAME,TAG_ID,TAG_NAME,TAG_ISCHOICE,USER_ID,PRO_DATE) values (18,'0','문제18','<p>We&nbsp;could&nbsp;call&nbsp;the&nbsp;radio&nbsp;station&nbsp;and&nbsp;___________&nbsp;our&nbsp;charity&nbsp;bazaar.</p>
+','4','public은「공공의,?대중의」,?publicity는「선전,?공표」,?publicly는「공공연히」,?그리고?publicize는「선전하다,?발표하다」라는?뜻이다.?여기에서는?문맥상?동사가?필요하다.?','1001','TOEIC','100101','TOEIC 객관식','4','kakao-1515179669',null);
 REM INSERTING into YUSUNGHO.SCORE
 SET DEFINE OFF;
 REM INSERTING into YUSUNGHO.STUDENT
@@ -844,12 +987,25 @@ Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DA
 Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('3','kakao-1515179669',10,'2020.11.05 10:47:14:60','false');
 Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('1','kakao-1515179669',10,'2020.11.05 10:47:16:96','false');
 Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('4','kakao-1515179669',10,'2020.11.05 10:47:18:96','true');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('2','kakao-1515179669',17,'2020.11.05 14:18:37:29','false');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('4','kakao-1515179669',18,'2020.11.05 16:15:26:03','true');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('4','kakao-1515179669',18,'2020.11.05 16:15:42:61','true');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('4','kakao-1515179669',18,'2020.11.05 16:26:17:98','true');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('4','kakao-1515179669',18,'2020.11.05 16:27:41:44','true');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('4','kakao-1515179669',18,'2020.11.05 16:29:15:59','true');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('3','kakao-1515179669',16,'2020.11.05 16:37:39:10','false');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('1','kakao-1515179669',16,'2020.11.05 16:37:41:84','true');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('2','kakao-1515179669',16,'2020.11.05 18:04:35:04','false');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('1','kakao-1515179669',16,'2020.11.05 18:04:39:84','true');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('2','kakao-1515179669',16,'2020.11.06 16:40:33:16','false');
+Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('1','kakao-1515179669',16,'2020.11.06 16:40:37:41','true');
 Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('2','kakao-1515179669',10,'2020.11.05 10:46:51:84','false');
 Insert into YUSUNGHO.USER_PRO_HISTORY (HISTORY_ANSWER,USER_ID,PRO_NUM,HISTORY_DATE,HISTORY_OX) values ('1','kakao-1515179669',10,'2020.11.05 10:47:03:18','false');
 REM INSERTING into YUSUNGHO.USER_PRO_LIST
 SET DEFINE OFF;
 REM INSERTING into YUSUNGHO.USER_TABLE
 SET DEFINE OFF;
+Insert into YUSUNGHO.USER_TABLE (USER_ID,USER_PW,USER_TYPE,USER_EMAIL,USER_PHONE,USER_NICKNAME,USER_SIGNDATE,USER_ENABLE,USER_AUTHKEY,USER_IMAGE) values ('qwerty','{bcrypt}$2a$10$KTaTwDdAM.F61qWjflswGOG6wKivBM6rlBRiB.wbHcFLceYf2DAVW','ROLE_USER','ryusungho@naver.com','test_phonenum','fasdfasdf',to_date('20/11/05','RR/MM/DD'),'1','827440',null);
 Insert into YUSUNGHO.USER_TABLE (USER_ID,USER_PW,USER_TYPE,USER_EMAIL,USER_PHONE,USER_NICKNAME,USER_SIGNDATE,USER_ENABLE,USER_AUTHKEY,USER_IMAGE) values ('kakao-1515179669','{bcrpyt}$2a$10$gYoTcP/zZ8SBJQdrMiOmV.y8bjoE8nWonDwvBJP0E3ZRI7tDHFcH6','ROLE_USER',null,null,null,to_date('20/10/29','RR/MM/DD'),'1',null,'1604369379487Koala.jpg');
 Insert into YUSUNGHO.USER_TABLE (USER_ID,USER_PW,USER_TYPE,USER_EMAIL,USER_PHONE,USER_NICKNAME,USER_SIGNDATE,USER_ENABLE,USER_AUTHKEY,USER_IMAGE) values ('yusungho','{bcrypt}$2a$10$DzsFrDrbbG56tXFydqd92e.6Y6uRA38BZSFqH923GEQmDlxh5gBqO','ROLE_USER','ryusungho@naver.com','test_phonenum','1234',to_date('20/10/30','RR/MM/DD'),'1','255671',null);
 Insert into YUSUNGHO.USER_TABLE (USER_ID,USER_PW,USER_TYPE,USER_EMAIL,USER_PHONE,USER_NICKNAME,USER_SIGNDATE,USER_ENABLE,USER_AUTHKEY,USER_IMAGE) values ('test','{noop}1234','ROLE_USER','efwe@fewef.com','test_phonenum','123456',to_date('20/10/30','RR/MM/DD'),'1','624898',null);

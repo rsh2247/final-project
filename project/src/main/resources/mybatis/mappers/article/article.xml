@@ -76,7 +76,7 @@
 		b.board_num = p2.board_num and group_num = #{group_num} and post_parent is null
 		</where>
 		group by rownum, post_num, board_name, user_id, post_title, post_content, post_category, post_date
-		order by post_num desc
+		order by rownum desc
 	</select>
 	
 	
@@ -93,7 +93,7 @@
 		b.board_num = #{board_num} and b.board_num = p2.board_num and post_parent is null
 		</where>
 		group by rownum, post_num, board_name, user_id, post_title, post_content, post_category, post_date
-		order by post_num desc
+		order by rownum desc
 	</select>
 	
 	<select id="selectBoardName" resultMap="result" parameterType="java.util.Map">
