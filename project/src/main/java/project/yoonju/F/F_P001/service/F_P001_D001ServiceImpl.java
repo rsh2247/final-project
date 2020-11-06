@@ -50,8 +50,24 @@ public class F_P001_D001ServiceImpl  implements F_P001_D001Service{
         return scoreList;
 	}
 	
+	public List<F_P001_D001VO> categoryInfo1(String score_category) throws DataAccessException{
+		List<F_P001_D001VO> scoreList =  scoreDAO.categoryInfo1(score_category);
+		return scoreList;
+	}
+	
+	public List<F_P001_D001VO> categoryInfo2(String score_category) throws DataAccessException{
+		List<F_P001_D001VO> scoreList =  scoreDAO.categoryInfo2(score_category);
+		return scoreList;
+	}
+	
 	public List<F_P001_D001VO> searchUser(String user_id) throws Exception{
 		List<F_P001_D001VO> scoreList = scoreDAO.searchUser(user_id);
 		return scoreList;
 	}
+	
+	public List<F_P001_D001VO> selectUserInfo(String user_id) throws DataAccessException{
+		List<F_P001_D001VO> scoreList = scoreDAO.selectUserInfo(user_id);
+		return scoreList;
+	}
+	
 }

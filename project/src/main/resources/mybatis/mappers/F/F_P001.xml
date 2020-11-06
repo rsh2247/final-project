@@ -6,7 +6,6 @@
 <mapper namespace="yoonju.F.F_P001.F_P001_D001DAO">
 <resultMap id="scoreResult" type="scoreVO">
 
-
     <result property="score_content" column = "score_content" />
     <result property="score_date" column = "score_date" />
     <result property="score_point" column = "score_point" />
@@ -14,48 +13,116 @@
     <result property="score_category" column = "score_category" />
     <result property="score_rank" column = "score_rank" />
     <result property="score_totalPoint" column = "score_totalPoint" />
+    <result property="pro_num" column = "pro_num"/>
+    <result property="user_email" column = "user_email"/>
+    <result property="user_image" column = "user_image"/>
+    <result property="user_signdate" column = "user_signdate"/>
 
   </resultMap> 
   
 
   <select id="selectAllScoreList" resultType="scoreVO"   >		<!-- 종합순위 -->
     <![CDATA[
-      SELECT   user_id, SUM(score_point) AS score_totalPoint
-	  FROM     score 
-	  GROUP BY user_id
-	  ORDER BY score_totalPoint DESC
+     SELECT user_id, user_image, score_totalPoint,  RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
+	  FROM(
+      		SELECT  a.user_id, u.user_image, (
+      											SELECT  SUM(score_point) AS score_totalPoint
+	  											FROM     score
+            									WHERE user_id = a.user_id
+	  											GROUP BY user_id
+     	   									  ) as score_totalPoint
+	  		FROM  user_table u,(
+                 				SELECT user_id, sum(score_point) AS score_totalPoint
+                  				FROM score s
+                  				GROUP BY user_id
+                  				) a
+      WHERE u.user_id = a.user_id
+      )
     ]]>
   </select>
   
   
-   <select id = "selectScorelist_categoryScore" resultType = "scoreVO">	<!-- 1번 카테고리 순위 (문제출제)  -->
+   <select id = "selectScorelist_categoryScore" resultType = "scoreVO">	<!-- 카테고리 순위 (문제출제)  -->
   	<![CDATA[
-  		SELECT   score_category, user_id, SUM(score_point) as score_totalPoint
-  		FROM     score 
-		WHERE    score_category = #{score_category}
-		GROUP BY user_id, score_category
-		ORDER BY score_totalPoint DESC
+		SELECT score_category, user_id, score_totalPoint, RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
+		FROM(
+           	 SELECT   score_category, user_id, SUM(score_point) AS score_totalPoint
+           	 FROM     score 
+           	 GROUP BY user_id, score_category
+           	 HAVING score_category = #{score_category}
+           	 )
   	]]>
   </select>
   
-  <select id = "viewUser_score" resultType = "scoreVO" parameterType = "String"> <!-- 유저정보 -->
+  
+  <select id = "categoryInfo1" resultType = "scoreVO" > <!-- 1번 카테고리 정보 -->
   	<![CDATA[
-  		SELECT   *
-		FROM  	 score
-		WHERE  	 user_id = #{user_id}
+		SELECT user_id, score_point, score_content, score_category, score_date
+		FROM   (
+        	    SELECT  user_id, score_point, score_content, score_category, score_date
+         	   FROM   score
+          	  WHERE user_id = #{user_id}
+           		)
+		WHERE score_category = 1
 		ORDER BY score_date DESC
   	]]>
   </select>
   
-  <select id="searchUser" resultType = "scoreVO">	<!-- 유저검색 -->
+  
+    <select id = "categoryInfo2" resultType = "scoreVO" > <!-- 2번 카테고리 정보 -->
   	<![CDATA[
-  		SELECT   user_id, SUM(score_point) AS score_totalPoint
-		FROM     score 
-		WHERE 	 user_id LIKE '%'||#{user_id}||'%'  
-		GROUP BY user_id
+		SELECT user_id, score_point, score_content, score_category, score_date
+		FROM   (
+        	    SELECT  user_id, score_point, score_content, score_category, score_date
+         	   FROM   score
+          	  WHERE user_id = #{user_id}
+           		)
+		WHERE score_category = 2
+		ORDER BY score_date DESC
+  	]]>
+  </select>
+  
+  
+  <select id = "viewUser_score" resultType = "scoreVO" parameterType = "String"> <!-- 유저 score 정보 -->
+  	<![CDATA[
+		SELECT u.user_id, u.user_image, (
+		        	     				 SELECT  SUM(score_point) AS score_totalPoint
+		           		 				 FROM  score
+		                				  WHERE user_id = u.user_id
+		             	 				 GROUP BY user_id
+		                 				 ) as score_totalPoint
+		FROM    user_table u, score s
+		WHERE   u.user_id = s.user_id
+		AND      u.user_id = #{user_id}
+  	]]>
+  </select>
+   
+  
+  <select id="searchUser" resultType = "scoreVO">	<!-- 유저 score 검색 -->
+  	<![CDATA[		
+		SELECT   user_id, score_totalPoint, score_rank
+		FROM     (
+ 		          SELECT user_id, score_totalPoint, RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
+ 		          FROM (
+                        SELECT   user_id, SUM(score_point) AS score_totalPoint
+                        FROM     score
+                        GROUP BY user_id
+                        )
+             	 )
+		WHERE LOWER(user_id) LIKE '%'|| LOWER (#{user_id}) ||'%'
+		GROUP BY user_id, score_totalPoint, score_rank
 		ORDER BY score_totalPoint DESC
   	]]>
   </select>
   
+
+    <select id= "selectUserInfo" resultType = "scoreVO">	<!-- 유저 정보 검색 -->
+  	<![CDATA[		
+		SELECT	user_id, user_email, user_image ,user_signdate
+		FROM	user_table
+		WHERE	user_id= #{user_id}
+  	]]>
+  </select>
+
 
 </mapper>

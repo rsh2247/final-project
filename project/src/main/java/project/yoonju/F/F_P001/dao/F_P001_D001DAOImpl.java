@@ -51,6 +51,20 @@ public class F_P001_D001DAOImpl implements F_P001_D001DAO {
 		return scoreList;
 	}
 	
+	
+	@Override
+	public List<F_P001_D001VO> categoryInfo1(String score_category) throws DataAccessException{
+		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.categoryInfo1", score_category);
+		return scoreList;
+	}
+	
+	@Override
+	public List<F_P001_D001VO> categoryInfo2(String score_category) throws DataAccessException{
+		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.categoryInfo2", score_category);
+		return scoreList;
+	}
+	
+	
 	@Override
 	public List<F_P001_D001VO> searchUser(String user_id) throws DataAccessException{
 		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.searchUser", user_id);
@@ -58,14 +72,11 @@ public class F_P001_D001DAOImpl implements F_P001_D001DAO {
 	}
 	
 	
-	
-/*	@Override
-	public List<F_P001_D001VO> searchUser(F_P001_D001VO2 search) throws DataAccessException{
-		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001_D001DAO.searchUser", search);
-		
+	@Override
+	public List<F_P001_D001VO> selectUserInfo(String user_id) throws DataAccessException{
+		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.selectUserInfo", user_id);
 		return scoreList;
-		
-	}*/
+	}
 	
 	
 }
