@@ -82,6 +82,11 @@ ul {
 .label:first-child {
 	display: inline-block;
 }
+.pro_content {
+	margin-bottom: 20px;
+	display: flex;
+	word-break: break-all;
+}
 </style>
 </head>
 <body>
@@ -93,7 +98,7 @@ ul {
 			<div id="maincontent">
 				<ul style="text-align: left; margin-left: 10px;">
 					<c:forEach var="list" items="${proList}">
-						<li style="margin: 15px 0 15px 0;">${list.COL_LIST_NUM}<label class="label"> ${list.PRO_CONTENT}</label></li>
+						<li style="margin: 15px 0 15px 0;"><div style="float: left; padding-right: 10px;">${list.COL_LIST_NUM}.</div> <div class="pro_content">${list.PRO_CONTENT}</div></li>
 						<c:forEach var="cho_list" items="${list.ordList}">
 							<li style="padding-bottom: 2px"><label style="padding: 0.7em 0.5em 0.7em 1em">${cho_list.cho_num}</label>${cho_list.cho_content}</li>
 						</c:forEach>

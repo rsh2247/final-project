@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -9,40 +11,40 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(
-	    function() {
-		$('#file').change(
-			function(e) {
-			    var formData = new FormData($('#fileform')[0]);
-			    console.log('filename : ' + $('#file').val());
-			    if ($('#file').val() != '') {
-				$.ajax({
-				    type : "post",
-				    enctype : 'multipart/form-data',
-				    url : "uploadImage",
-				    data : formData,
-				    processData : false,
-				    contentType : false,
-				    success : function(data, textStatus) {
-					$('#profileimage').attr(
-						'src',
-						'${contextPath}/resources/image/'
-							+ data);
-					$('#userImage').val(data);
-				    },
-				    error : function(data, textSatus) {
-					alert("에러가 발생");
-				    },
-				    complete : function(data, textSatus) {
-				    }
-				});
-			    }
+	$(document).ready(
+			function() {
+				$('#file').change(
+						function(e) {
+							var formData = new FormData($('#fileform')[0]);
+							console.log('filename : ' + $('#file').val());
+							if ($('#file').val() != '') {
+								$.ajax({
+									type : "post",
+									enctype : 'multipart/form-data',
+									url : "uploadImage",
+									data : formData,
+									processData : false,
+									contentType : false,
+									success : function(data, textStatus) {
+										$('#profileimage').attr(
+												'src',
+												'${contextPath}/resources/image/'
+														+ data);
+										$('#userImage').val(data);
+									},
+									error : function(data, textSatus) {
+										alert("에러가 발생");
+									},
+									complete : function(data, textSatus) {
+									}
+								});
+							}
 
+						})
+				$('#imgbtn').click(function() {
+					$('#file').trigger('click');
+				})
 			})
-		$('#imgbtn').click(function() {
-		    $('#file').trigger('click');
-		})
-	    })
 </script>
 <style type="text/css">
 * {
@@ -59,6 +61,44 @@
 #innerbox {
 	text-align: left;
 }
+
+#itemlist {
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 15px 0 15px 0;
+}
+
+#itemlist li {
+	margin: 0 25px 0 25px;
+	padding: 25px 0 25px 15px;
+	border-bottom: 1px solid #eee;
+}
+
+.itemname {
+	display: inline-block;
+	width: 160px;
+	height: 30px;
+	border-right: 1px solid #ddd;
+}
+
+.item {
+	display: inline-block;
+	padding-left: 20px;
+	height: 30px;
+}
+
+#submitbtn {
+	width: 100px;
+	line-height: 35px;
+	border: 2px solid #3e60db;
+	border-radius: 5px;
+	margin-top: 15px;
+	background-color: #3e60db;
+	color: #fff;
+	cursor: pointer;
+	font-size: 16px;
+	transition: ease 250ms;
+}
 </style>
 </head>
 <body>
@@ -69,32 +109,31 @@
 				<div id="innerbox">
 					<div id="maintitle">정보수정</div>
 					<sec:authentication property="principal" var="user" />
-					<ul>
-						<li>아이디
-							<div>${user.username}</div>
-						</li>
-						<li>비밀번호
-							<div>현재 비밀번호</div>
-							<div>
-								<input type="password" id="pw1">
+					<ul id="itemlist">
+						<li><div class="itemname">아이디</div>
+							<div class="item">${user.username}</div></li>
+						<li><div class="itemname">비밀번호 변경</div></li>
+						<li><div class="itemname">이메일</div>
+							<div class="item">${user.email}</div></li>
+						<li><div class="itemname">핸드폰 번호</div>
+							<div class="item">null</div></li>
+						<li style="height: 155px;"><div class="itemname"
+								style="height: 100px; position: relative; top: -80px">프로필이미지</div>
+							<div class="item">
+								<img alt="" src="${contextPath}/resources/image/${user.image}"
+									id="profileimage">
 							</div>
-							<div>변경할 비밀번호</div>
-							<div>
-								<input type="password" id="pw2">
-							</div>
+							<button id="imgbtn" type="button">업로드</button></li>
+						<li style="border-bottom: 0px;">
+							<button id="submitbtn">확인</button>
 						</li>
-						<li>프로필이미지
-							<div>
-								<img alt="" src="${contextPath}/resources/image/${user.image}" id="profileimage">
-							</div>
-							<button id="imgbtn" type="button">업로드</button>
-						</li>
-						<li><button>확인</button></li>
 					</ul>
 				</div>
-				<input type="hidden" name="user_image" id="userImage" value="${user.image}">
+				<input type="hidden" name="user_image" id="userImage"
+					value="${user.image}">
 			</form>
-			<form action="uploadImage" id="fileform" enctype="multipart/form-data" method="post">
+			<form action="uploadImage" id="fileform"
+				enctype="multipart/form-data" method="post">
 				<input type="file" name="file" id="file" style="display: none;">
 			</form>
 		</div>
