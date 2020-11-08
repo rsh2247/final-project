@@ -12,7 +12,9 @@ public class Paging {
 	}
 	
 	public void calMax() {
-		listNum = wholeSize/listSize;
+		listNum = (wholeSize/listSize) + 1;
+		endNum = wholeSize - (nowPage-1)*listSize;
+		startNum = endNum - listSize + 1; if(startNum<1) startNum = 1;
 	}
 
 	public int getWholeSize() {

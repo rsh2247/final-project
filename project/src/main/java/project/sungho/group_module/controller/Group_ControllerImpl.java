@@ -32,6 +32,7 @@ import com.ibleaders.utility.ib_json.parser.JSONParser;
 
 import project.sungho.group_module.service.Group_Service;
 import project.sungho.group_module.service.Group_ServiceImpl;
+import project.sungho.paging.Paging;
 import project.sungho.post_module.service.Post_Service;
 
 @Controller
@@ -83,6 +84,7 @@ public class Group_ControllerImpl {
 		try {
 			request.getSession().setAttribute("group_num", key1);
 			paramMap.put("group_num", key1);
+			if(!paramMap.containsKey("pageNum"))paramMap.put("pageNum", (String)"1");
 			Map<String, Object> resultMap = group_Service.checkMemberState(paramMap);
 			resultMap.putAll(group_Service.selectOneGroup(paramMap));
 			ModelAndView mav = new ModelAndView("group/groupPage_main.tiles");
@@ -100,14 +102,23 @@ public class Group_ControllerImpl {
 				mav.addObject("reply", post_Service.selectReplyList(paramMap));
 				mav.setViewName("group/groupPage_article.tiles");
 			} else if (paramMap.containsKey("board_num")) {
-				mav.addObject("postList", post_Service.selectArticleByBoard(paramMap));
+				List<Map<String, Object>> list = post_Service.selectArticleByBoard(paramMap);
+				mav.addObject("postList", list);
+				mav.addObject("board", paramMap);
+				Paging page = new Paging(list.size(), 15, Integer.parseInt((String)paramMap.get("pageNum")));
+				mav.addObject("page", page);
 				mav.addObject("boardname", post_Service.selectBoardName(paramMap));
 				mav.setViewName("group/groupPage_board.tiles");
 			} else {
-				mav.addObject("postList", post_Service.selectArticleByGroup(paramMap));
+				List<Map<String, Object>> list = post_Service.selectArticleByGroup(paramMap);
+				mav.addObject("postList", list);
+				Paging page = new Paging(list.size(), 15, Integer.parseInt((String)paramMap.get("pageNum")));
+				mav.addObject("page", page);
 			}
+			
 			return mav;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ModelAndView(new RedirectView(request.getContextPath() + "/mainPage/mainPage001.do"));
 		}
 	}

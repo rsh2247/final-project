@@ -93,7 +93,7 @@
 		<div id="listbox">
 			<ul>
 				<li>
-					<button class="btn" onclick="location.href='c001_003.pro?category=${category}'">
+					<button class="btn" onclick="location.href='list.pro?category=${category}&pageNum=1'">
 						<p class="btnName">커스텀 문제</p>
 						<p class="desc">사이트 회원들이 만든 문제들입니다.</p>
 					</button>
