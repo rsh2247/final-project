@@ -106,12 +106,12 @@
 </head>
 <body>
 	<div id="contentbox">
-		<form action="evalConfirm.pro" method="post">
+		<form action="colEvalConfirm.pro" method="post">
 			<div style="width: 800px; margin: 0 auto 0 auto;">
 				<div id="titlebox">
-					<div id="title">문제평가</div>
-					<div id="titledesc">${result.category_name} | ${result.tag_name}</div>
-					<div id="proname">${result.pro_name}</div>
+					<div id="title">문제집평가</div>
+					<div id="titledesc">${result.col_name} | ${result.category_name}</div>
+					<div id="proname"></div>
 					<div id="starRev">
 						<span class="starR1 on">별1_왼쪽</span> <span class="starR2">별1_오른쪽</span> <span class="starR1">별2_왼쪽</span> <span class="starR2">별2_오른쪽</span> <span class="starR1">별3_왼쪽</span> <span class="starR2">별3_오른쪽</span> <span class="starR1">별4_왼쪽</span> <span class="starR2">별4_오른쪽</span> <span
 							class="starR1"
@@ -119,10 +119,10 @@
 					</div>
 				</div>
 				<div id="textbox">
-					<textarea id="editor" name="col_eval_content"></textarea>
+					<textarea id="editor" name="pro_eval_content"></textarea>
 				</div>
-				<input type="hidden" name="pro_eval_score" id="score" value="1">
-				<input type="hidden" name="pro_num" value="${result.pro_num}">
+				<input type="hidden" name="col_eval_score" id="score" value="1">
+				<input type="hidden" name="col_num" value="${result.col_num}">
 				<input type="hidden" name="category" value="${result.category_name}">
 				<button id="confirmbtn">확인</button>
 			</div>

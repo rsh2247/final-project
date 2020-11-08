@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -30,16 +31,29 @@
 	margin: 50px auto 0 auto;
 }
 
-#contentbox a {
-	text-decoration: none;
-	color: black;
-	padding-left: 20px;
-}
 .elipse{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	width: 130px;
+}
+.star1 {
+	display: inline-block;
+	height: 25px;
+	position: absolute;
+}
+
+.star2 {
+	display: inline-block;
+	height: 25px;
+}
+.col_title{
+	text-decoration: none;
+    color: black;
+    padding-left: 20px;
+}
+.col_title:hover{
+	text-decoration: underline;
 }
 </style>
 </head>
@@ -54,12 +68,13 @@
 				<th width="200px">평점</th>
 			</tr>
 			<c:forEach items="${list}" var="list">
+				<c:set var="num" value="${list.SCORE*12.2}" />
 				<tr style="border-bottom: 1px solid #ccc; height: 30px;">
 					<td></td>
 					<td>${list.COL_NUM}</td>
-					<td style="text-align: left; padding-left: 10px;"><a href="col_problemPage.pro?col_num=${list.COL_NUM}">${list.COL_NAME}</a></td>
+					<td style="text-align: left; padding-left: 10px;"><a class="col_title" href="col_problemPage.pro?col_num=${list.COL_NUM}">${list.COL_NAME}</a></td>
 					<td><div class="elipse">${list.USER_ID}</div></td>
-					<td></td>
+					<td><img style="clip: rect(0px,${num}px,30px,0px);" class="star1" alt="" src="${contextPath}/resources/image/stars1.png"> <img class="star2" alt="" src="${contextPath}/resources/image/stars2.png"></td>
 				</tr>
 			</c:forEach>
 		</table>

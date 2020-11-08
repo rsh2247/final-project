@@ -87,6 +87,13 @@ ul {
 	display: flex;
 	word-break: break-all;
 }
+#index tr:nth-child(1) td {
+	background-color: #3E60DB;
+	border: 1px solid #3E60DB;
+}
+#index tr:nth-child(1) a {
+	color: #fff;
+}
 </style>
 </head>
 <body>

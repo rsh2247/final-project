@@ -10,7 +10,7 @@
 <style type="text/css">
 #loginTable {
 	border-collapse: collapse;
-	margin: 150px auto 100px auto;
+	margin: 150px auto 50px auto;
 }
 
 .infoinput {
@@ -33,10 +33,10 @@
 
 .submit {
 	width: 380px;
-	height: 57px;
+	height: 56px;
 	padding:;
 	margin: 8px 0 8px 0;
-	border: 1px solid #ccc;
+	border: 1px solid #3E60DB;
 	border-radius: 5px;
 	box-sizing: border-box;
 	outline: 0;
@@ -62,6 +62,12 @@
 	box-sizing: border-box;
 	cursor: pointer;
 	outline: 0;
+}
+#cacaologin{
+	width: 380px;
+    height: 56px;
+    border: 0px;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -95,6 +101,6 @@
 		</table>
 		<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
 	</form>
-	<button onclick="location.href='${kakao_url}'">카카오로그인</button>
+	<button id="cacaologin" onclick="location.href='${kakao_url}'" style="background-image: url('${contextPath}/resources/image/kakao_login_large_wide.png');"></button>
 </body>
 </html>
