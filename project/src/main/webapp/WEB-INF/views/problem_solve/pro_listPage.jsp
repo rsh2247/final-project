@@ -88,10 +88,10 @@
 			</tr>
 			<c:forEach var="problem" items="${list}">
 				<c:set var="num" value="${problem.SCORE*12.2}" />
-				<c:if test="${problem.PRO_NUM >= page.startNum && problem.PRO_NUM <= page.endNum}">
+				<c:if test="${problem.ROWNUM >= page.startNum && problem.ROWNUM <= page.endNum}">
 					<tr>
 						<td></td>
-						<td>${problem.PRO_NUM}</td>
+						<td>${problem.ROWNUM}</td>
 						<td style="text-align: left; padding-left: 25px;"><a href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
 						<td>${problem.TAG_NAME}</td>
 						<td><img style="clip: rect(0px,${num}px,30px,0px);" class="star1" alt="" src="${contextPath}/resources/image/stars1.png"> <img class="star2" alt="" src="${contextPath}/resources/image/stars2.png"></td>

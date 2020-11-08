@@ -26,4 +26,5 @@ public interface Problem_Service {
 	 
 	 public List<Map<String, Object>> selectEval(List<Map<String, Object>> list) throws DataAccessException;
 	 public void insertEval(Map<String, Object> inputMap) throws DataAccessException;
+	 public Map<String, Object> selectOneCol(Map<String, Object> searchMap) throws DataAccessException;
 }

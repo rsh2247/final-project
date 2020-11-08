@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="groupRank">
+	<resultMap id="board_result01" type="java.util.HashMap">
+		<result property="board_num" column="board_num"  />
+		<result property="group_num" column="group_num" />
+		<result property="board_name" column="board_name" />
+	</resultMap>
+	<resultMap id="group_result01" type="java.util.HashMap">
+		<result property="group_num" column="group_num"  />
+		<result property="group_name" column="group_name" />
+		<result property="group_leader" column="group_leader" />
+		<result property="group_category" column="group_category" />
+		<result property="group_icon" column="group_icon" />
+		<result property="group_joinmanner" column="group_joinmanner" />
+		<result property="group_desc" column="group_desc" />
+		<result property="group_date" column="group_date" />
+	</resultMap>
+	<resultMap id="post_result01" type="java.util.HashMap">
+		<result property="post_num" column="post_num"  />
+		<result property="board_num" column="board_num" />
+		<result property="user_id" column="user_id" />
+		<result property="post_title" column="post_title" />
+		<result property="post_content" column="post_content" />
+		<result property="post_date" column="post_date" />
+		<result property="post_category" column="post_category" />
+		<result property="post_parent" column="post_parent" />
+	</resultMap>
+
+	
+	<!-- 그룹별 게시물 수과 댓글 수  -->
+	<select id="board_num" resultMap="board_result01" parameterType="java.util.Map"> 
+	  <![CDATA[
+			SELECT G.group_name, G.group_num, COUNT(b.board_num) BCnt
+			FROM board b 
+			JOIN group_table G ON b.group_num = G.group_num
+			JOIN post P ON b.board_num = P.board_num
+			GROUP BY b.group_num,G.group_name, G.group_num
+			ORDER BY BCnt DESC
+	 ]]>	
+	</select>
+	
+	
+	
+	
+</mapper>

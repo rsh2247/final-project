@@ -57,7 +57,7 @@
 				<tr style="border-bottom: 1px solid #ccc; height: 30px;">
 					<td></td>
 					<td>${list.COL_NUM}</td>
-					<td style="text-align: left; padding-left: 10px;"><a href="col_problemPage.pro?colNum=${list.COL_NUM}">${list.COL_NAME}</a></td>
+					<td style="text-align: left; padding-left: 10px;"><a href="col_problemPage.pro?col_num=${list.COL_NUM}">${list.COL_NAME}</a></td>
 					<td><div class="elipse">${list.USER_ID}</div></td>
 					<td></td>
 				</tr>

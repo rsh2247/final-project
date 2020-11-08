@@ -57,6 +57,11 @@ public class Problem_ServiceImpl implements Problem_Service {
 		List<Map<String, Object>> list = problem_DAO.selectCollection(searchMap);
 		return list;
 	}
+	@Override
+	public Map<String, Object> selectOneCol(Map<String, Object> searchMap) throws DataAccessException {
+		Map<String, Object> list = sqlSession.selectOne("pr.pro_collection.searchList", searchMap);
+		return list;
+	}
 
 	//collection_num 이용해서 각각 probelm의 choice 전부 불러옴.
 	@Override

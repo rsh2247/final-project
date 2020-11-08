@@ -30,7 +30,7 @@
       </where>
 	</select>
 	
-	<select id="searchList" resultMap="pro_collection_result" parameterType="java.util.Map"> 
+	<select id="searchList" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
          select *
          from   pro_collection

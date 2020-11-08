@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class F_P001_D001VO {
-	
+	//score 테이블
 	String score_content;	// 내역
 	Date score_date;		// 시각
 	String score_point;		// 점수
@@ -16,8 +16,35 @@ public class F_P001_D001VO {
 	String score_category;	// 분류
 	String score_rank;		//아직 안써용
 	String score_totalPoint;// 합계 점수
+	
+	// user_table 테이블
+	String user_email;		//이메일
+	String user_image;		//유저 사진
+	Date user_signdate;		//유저 가입일
+	
 
 	
+	
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
+	public String getUser_image() {
+		return user_image;
+	}
+	public void setUser_image(String user_image) {
+		this.user_image = user_image;
+	}
+	public Date getUser_signdate() {
+		return user_signdate;
+	}
+	public void setUser_signdate(Date user_signdate) {
+		this.user_signdate = user_signdate;
+	}
+	
+
 	
 	public String getScore_totalPoint() {
 		return score_totalPoint;
