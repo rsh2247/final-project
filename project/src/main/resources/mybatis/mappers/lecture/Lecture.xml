@@ -17,6 +17,12 @@
 			select="getLectureThumbnail" ofType="java.util.Map"></collection>
 	</resultMap>
 	
+<!-- 	<resultMap id="lecContentResult" type="ContentVO">
+	   <result property="lecture_id" column="lecture_id" />
+	   <result property="lec_content_id" column="lec_content_id" />
+	   <result property="lec_link" column="lec_link" />
+	</resultMap> -->
+	
 	<resultMap id="lecture_clobMap" type="java.util.Map">
 		<result property="lecture_thumbnailEncoder" column="lecture_thumbnail" javaType="[B" jdbcType="BLOB" />
 	</resultMap>
@@ -31,7 +37,7 @@
 	
 	<select id="getLectureList" resultMap="Lecture.lectureResult" parameterType="java.util.Map">
 		<![CDATA[
-		SELECT RESULT.LECTURE_ID, RESULT.LECTURE_CATEGORY, RESULT.LECTURE_NAME, RESULT.USER_ID, RESULT.LECTURE_TUITION, RESULT.LECTURE_DETAIL, RESULT.LECTURE_THUMBNAIL, DECODE(LECTURE_SCORE,NULL,0,LECTURE_SCORE)AS LECTURE_SCORE, STUDENTCOUNT
+		SELECT RESULT.LECTURE_ID, RESULT.LECTURE_CATEGORY, RESULT.LECTURE_NAME, RESULT.USER_ID, RESULT.LECTURE_TUITION, RESULT.LECTURE_DETAIL, RESULT.LECTURE_THUMBNAIL, DECODE(LECTURE_SCORE,NULL,'0',LECTURE_SCORE)AS LECTURE_SCORE, STUDENTCOUNT
 		FROM
 		(
 			SELECT A.LECTURE_ID, A.LECTURE_CATEGORY, A.LECTURE_NAME, A.USER_ID, A.LECTURE_TUITION, A.LECTURE_DETAIL, A.LECTURE_THUMBNAIL, LECTURE_SCORE, STUDENTCOUNT
@@ -180,7 +186,7 @@
 		]]>
 	</insert>
 	
-	<select id="getLectureIndex" resultType="lectureVO">
+<!--  	<select id="getLectureIndex" resultType="String">
 		<![CDATA[
 			SELECT A.LECTURE_ID, A.LEC_CONTENT_ID, A.LECTURE_LINK, B.LECTURE_CATEGORY, B.LECTURE_NAME
 			FROM LEC_CONTENT A, LECTURE B
@@ -189,12 +195,12 @@
 		]]>
 	</select>
 	
-	<select id="getLectureLink" resultType="String">
+	<select id="getLectureLink" resultMap="Lecture.lecContentResult">
 		<![CDATA[
 			SELECT LECTURE_LINK
 			FROM LEC_CONTENT
 			WHERE LEC_CONTENT_ID = #{lec_content_id}
 		]]>
-	</select>
+	</select> -->
 
 </mapper>

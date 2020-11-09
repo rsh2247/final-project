@@ -3,6 +3,7 @@ package project.bom.lecture.dao;
 import java.util.List;
 import java.util.Map;
 
+import project.bom.lecture.vo.ContentVO;
 import project.bumsik.payment_main.vo.Lecture_VO;
 
 public interface LectureDAO {
@@ -12,4 +13,5 @@ public interface LectureDAO {
 	public void updateThumbnail(Lecture_VO vo);
 	public int checkOverlapLectureId(String lecture_id);
 	public void insertLecture(Lecture_VO vo);
+	public List<ContentVO> getLectureIndex(Map<String,String> searchParam);
 }

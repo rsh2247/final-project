@@ -3,6 +3,7 @@ package project.bom.lecture.service;
 import java.util.List;
 import java.util.Map;
 
+import project.bom.lecture.vo.ContentVO;
 import project.bumsik.payment_main.vo.Lecture_VO;
 
 public interface LectService {
@@ -14,4 +15,5 @@ public interface LectService {
 	public StringBuffer makeRandomString();
 	public int checkOverlapLectureId(String lecture_id);
 	public void insertLecture(Lecture_VO vo);
-}
+	public List<ContentVO> getLectureIndex(Map<String,String> searchParam);
+ }

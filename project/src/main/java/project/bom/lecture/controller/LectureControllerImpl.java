@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.bom.lecture.service.LectService;
 import project.bom.lecture.vo.ContentVO;
@@ -134,16 +135,18 @@ public class LectureControllerImpl implements LectureController {
 	@RequestMapping("lecture/addLecture.do")
 	public String addLecture(HttpServletRequest request) {
 		// 세션에서 아이디 받아오기
-//		String resultPath = "";
+		String resultPath = "";
 //		HttpSession session = request.getSession(false);
 //		String user_id = (String)session.getAttribute("user_id");
+//		return resultPath;
+//		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 //		// 로그인 체크
-//		if(user_id == null || user_id.equals("")) {
+//		if(userId == null || userId.equals("")) {
 //			resultPath = "로그인페이지";
 //		}else {
 //			resultPath = "등록 양식 폼 페이지";
+//			return resultPath;
 //		}
-//		return resultPath;
 		return "lecture/addLectureForm.tiles";
 	}
 	
@@ -181,16 +184,18 @@ public class LectureControllerImpl implements LectureController {
 		return "redirect:main.do";
 	}
 	
-	@RequestMapping("lecture/getLectureIndex.do")
-	public String getLectureIndex(HttpServletRequest request, Model model, Lecture_VO vo, ContentVO contentVO) {
-		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-		Map<String,String> resultMap = new HashMap<>();
-		return "lecture/lecturePlayer.tiles";
-	}
-	
-	@RequestMapping("lecture/getLectureLink.do")
-	public String getLectureLink(HttpServletRequest request, Model model, ContentVO contentVO) {
-		
-		return "lecture/lectureIndex.tiles";
-	}
+//	@RequestMapping("lecture/getLectureIndex.do")
+//	public String getLectureIndex(@RequestParam String lecture_id, Model model) {
+//		Map<String,String> searchParam = new HashMap<>();
+//		searchParam.put("lecture_id", lecture_id);
+//		Lecture_VO vo = lectService.getLecture(searchParam);
+//		model.addAttribute("lecture",vo);
+//		return "lecture/lectureIndex.tiles";
+//	}
+//	
+//	@RequestMapping("lecture/getLectureLink.do")
+//	public String getLectureLink(HttpServletRequest request, Model model, ContentVO contentVO) {
+//		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+//		return "lecture/lecturePlayer.tiles";
+//	}
 }

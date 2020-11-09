@@ -44,6 +44,7 @@
 		<tr><td colspan="2">${lecture.lecture_score }</td></tr>
 		<tr><td colspan="2">${lecture.studentCount }</td></tr>
 		<tr><td colspan="2">${lecture.lecture_detail }</td></tr>
+		<tr><a href="#" button type="button" class="btn btn-primary" onClick="">수강신청</button></a></tr>
 	</table>
 </body>
 </html>

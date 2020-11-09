@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.bom.lecture.dao.LectureDAO;
+import project.bom.lecture.vo.ContentVO;
 import project.bumsik.payment_main.vo.Lecture_VO;
 
 
@@ -69,5 +70,10 @@ public class LectServiceImpl implements LectService {
 	@Override
 	public void insertLecture(Lecture_VO vo) {
 		lectureDAO.insertLecture(vo);
+	}
+	
+	@Override
+	public List<ContentVO> getLectureIndex(Map<String,String> searchParam) {
+		return lectureDAO.getLectureIndex(searchParam);
 	}
 }
