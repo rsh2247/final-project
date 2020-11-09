@@ -9,6 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="<c:url value="/resources/fonts/font-awesome.min.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/xeicon.min.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
+<script src="https://kit.fontawesome.com/1299206db1.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -32,7 +37,15 @@
 		$('#startbtn').click(function() {
 
 		})
+				
 	})
+		function pageMove(action) {
+			var form = document.createElement("form");
+			form.setAttribute("method","post");
+			form.setAttribute("action","${contextPath}/"+action);
+			document.body.appendChild(form);	
+			form.submit();
+		}
 </script>
 </head>
 <style>
@@ -43,242 +56,21 @@
 		'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue',
 		'Helvetica', 'Arial', sans-serif;
 }
-
-ul, li {
-	list-style: none;
-}
-
-#slide {
-	height: 600px;
-	position: relative;
-	overflow: hidden;
-}
-
-#slide ul {
-	width: 400%;
-	height: 100%;
-	transition: 1s;
-}
-
-#slide ul:after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-#slide li {
-	float: left;
-	width: 25%;
-	height: 100%;
-}
-
-#slide li:nth-child(1) {
-	background: #faa;
-}
-
-#slide li:nth-child(2) {
-	background: #ffa;
-}
-
-#slide li:nth-child(3) {
-	background: #faF;
-}
-
-#slide li:nth-child(4) {
-	background: #aaf;
-}
-
-#slide input {
-	display: none;
-}
-
-#slide label {
-	display: inline-block;
-	vertical-align: middle;
-	width: 10px;
-	height: 10px;
-	border: 2px solid #666;
-	background: #fff;
-	transition: 0.3s;
-	border-radius: 50%;
-	cursor: pointer;
-}
-
-#slide .pos {
-	text-align: center;
-	position: absolute;
-	bottom: 10px;
-	left: 0;
-	width: 100%;
-	text-align: center;
-}
-
-#pos1:checked ~ul {
-	margin-left: 0%;
-}
-
-#pos2:checked ~ul {
-	margin-left: -100%;
-}
-
-#pos3:checked ~ul {
-	margin-left: -200%;
-}
-
-#pos4:checked ~ul {
-	margin-left: -300%;
-}
-
-#pos1:checked ~.pos>label:nth-child(1) {
-	background: #666;
-}
-
-#pos2:checked ~.pos>label:nth-child(2) {
-	background: #666;
-}
-
-#pos3:checked ~.pos>label:nth-child(3) {
-	background: #666;
-}
-
-#pos4:checked ~.pos>label:nth-child(4) {
-	background: #666;
-}
-
 #wholebox {
 	overflow: hidden;
 	width: 100%;
-	height: 892px;
 	background: linear-gradient(to bottom, rgb(77 76 107/ 19%) 0%, #1d1d25cc
 		100%), url(${contextPath}/resources/image/woman-working-office.jpg);
-	height: 892px;
+	height: 875px;
 	background: linear-gradient(to bottom, rgb(77 76 107/ 19%) 0%, #1d1d25cc
 		100%), url(${contextPath}/resources/image/woman-working-office.jpg);
 	position: absolute;
 }
-
-#backimage {
-	z-index: -2;
-}
-
-#titlebox {
-	width: 100%;
-	padding: 20px 0 20px 0;
-	margin: 230px auto 50px auto;
-}
-
-#title {
-	font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont,
-		"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-		"Noto Color Emoji";
-	font-size: 3rem;
-	color: #eee;
-}
-
-#titledesc {
-	font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK KR',
-		'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue',
-		'Helvetica', 'Arial', sans-serif;
-	color: #eee;
-}
-
-#startbtn {
-	width: 120px;
-	height: 50px;
-	border: 2px solid #3E60DB;
-	background-color: #3E60DB;
-	color: #fff;
-	border-radius: 25px;
-	font: var(- -font);
-	font-size: 22px;
-	cursor: pointer;
-}
-
-#contentbox {
-	height: 892px;
-	background-color: #eee;
-	text-align: left;
-	display: none;
-}
-
-#contentinnerbox {
-	width: 1200px;
-	height: 100%;
-	background-color: #fff;
-	margin: 0 auto 0 auto;
-}
-
-.dropdown {
-	display: none;
-}
-
-.dropdown_open {
-	display: block;
-}
-
-.dropdown-toggle {
-	display: block;
-	cursor: pointer;
-}
-
-#searchbox {
-	width: 1150px;
-	height: 80px;
-	margin: 20px 25px 0 25px;
-	background-color: #ccc;
-	display: table-caption;
-}
-
-#search {
-	width: 800px;
-	height: 35px;
-	margin: 20px 25px auto 25px;
-	display: inline-block;
-}
-
-#searchbtn{
-	width: 75px;
-	height: 39px;
-}
-
-#menubox {
-	background-color: #eee;
-	width: 625px;
-	height: 300px;
-	margin: 20px 25px 20px 25px;
-	float: left;
-}
-
-#prolist {
-	border-collapse: collapse;
-	width: 90%;
-}
-
-#date {
-	float: left;
-	width: 500px;
-	height: 300px;
-	margin: 20px 25px 20px 0px;
-	background-color: #ccc;
-}
-
-#datelist {
-	width: 90%;
-	margin: 20px auto;
-}
-
-#article {
-	width: 1150px;
-	height: 400px;
-	margin: 0 25px 0 25px; background-color : #ccc;
-	display: flex;
-	background-color: #ccc;
-}
 </style>
+
 <body>
 	<c:set var="title" value="Practice Everyday" />
-	<div id="wholebox">
+	<div class="wholebox" id="wholebox">
 		<div id="titlebox">
 			<p id="title">${title}</p>
 			<hr
@@ -289,54 +81,216 @@ ul, li {
 			<!-- - <input type="text" id="search" name="search">-->
 			<button id="startbtn">시작</button>
 		</div>
+		
+			
 	</div>
 	<div id="contentbox">
 		<div id="contentinnerbox">
-			<div id="searchbox">
-				<form action="">
-					<input type="text" id="search" name="search"><button id="searchbtn">문제 검색</button>
-				</form>
-			</div>
-			<div id="menubox">
-				<table id="prolist">
-					<tr style="border: 1px solid #fff;">
-						<th colspan="2">최근 등록된 문제</th>
-					</tr>
-					<tr>
-						<td>문제1</td>
-						<td>문제2</td>
-					</tr>
-					<tr>
-						<td>문제1</td>
-						<td>문제2</td>
-					</tr>
-					<tr>
-						<td>문제1</td>
-						<td>문제2</td>
-					</tr>
-					<tr>
-						<td>문제1</td>
-						<td>문제2</td>
-					</tr>
-				</table>
-			</div>
-			<div id="date">
-				<ul id="datelist">
-					<li>다가오는 일정</li>
-					<li>토익시험 2020 10 19일</li>
-					<li>토플시험 2020 10 23일</li>
-					<li>토익시험 2020 10 19일</li>
-				</ul>
+		
+		<div class="row" style="height:10px;background-color:#eee"></div>
+		<section class="whiteSection">
+			<div class="row">
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="col-xs-10 text-left">
+						<span style="font-weight:bold;"><i class="xi-announce"></i>문제풀기</span>
+					</div>
+					<div class="text-right col-xs-2">
+					<a href=""><i class="fas fa-plus"></i></a>&nbsp;
+					</div>
+					<div class="clearfix"></div>
+					 <table class="table">
+						<tbody>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="어학시험" data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="javascript:pageMove('problem_solve/c001_003.pro?category=TOEIC')">공인 어학시험 TOEIC</a> </td>
+							<!-- <a href="${contextPath}">공인 어학시험 TOEIC</a> </td> -->
+							<!-- <a href="https://quz.co.kr/?pid=2&amp;bid=1&amp;subid=v&amp;n=11163&amp;nt=1">2020년 추석연휴에 따른 교재배송 안내</a> </td> -->
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="어학시험" data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+						  	<a href="javascript:pageMove('problem_solve/c001_003.pro?category=TOEFL')">공인 어학시험 TOEFL</a> </td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="어학시험" data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+						  	<a href="javascript:pageMove('problem_solve/c001_003.pro?category=TEPS')">공인 어학시험 TEPS</a> </td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="어학시험" data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="javascript:pageMove('problem_solve/c001_003.pro?category=HSK')">공인 어학시험 HSK</a> </td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="어학시험" data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+						  	<a href="javascript:pageMove('problem_solve/c001_003.pro?category=JLPT')">공인 어학 시험 JLPT</a> </td>
+						</tr>
+						</tbody>
+					</table>
+				<hr>			
+				</div>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="col-xs-10 text-left">
+						<span style="font-weight:bold;"><i class="far fa-calendar"></i>강의</span>
+					</div>
+					<div class="text-right col-xs-2">
+					<a href=""><i class="fas fa-plus"></i></a>&nbsp;
+					</div>
+					<div class="clearfix"></div>
+					 <table class="table">
+						<tbody>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						      <i class="far fa-calendar" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">2020년 추석연휴에 따른 교재배송 안내</a></td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						      <i class="far fa-calendar" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">9월 카드사 무이자 할부 이벤트 안내</a></td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						      <i class="far fa-calendar" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">2020년 국가기술자격시험 3회, 4회 시행계획 변경 및 수시 5회…</a></td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						     <i class="far fa-calendar" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">택배없는날  관련 배송안내</a></td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="결제관련" data-original-title="" title="">
+						      <i class="fa fa-krw" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">8월 카드사 무이자 할부 이벤트 안내</a></td>
+						</tr>
+						</tbody>
+					</table>
+				<hr>			
+				</div>
+				
+				<!-- 3 -->
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="col-xs-10 text-left">
+						<span style="font-weight:bold;"><i class="xi-announce"></i>그룹랭킹!</span>
+					</div>
+					<div class="text-right col-xs-2">
+					<a href="${contextPath}/group/groupmain"><i class="fas fa-plus"></i></a>&nbsp;
+					</div>
+					<div class="clearfix"></div>
+					 <table class="table">
+						<tbody>
+					
+					<c:forEach items="${groupList}" var="list" begin="0" end="4" varStatus="status">
+						<tr style="border-bottom: 1px solid #ccc; height: 30px;">
+							<td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="${contextPath}/cafe/${list.group_num}">${list.GROUP_NAME} 그룹 ${status.count} 위 입니다.</a> </td>
+						</tr>
+					</c:forEach>
 
+						</tbody>
+					</table>
+				<hr>			
+				</div> <!-- 그룹랭킹 끝 -->
+				
+				<!-- 4 -->
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="col-xs-10 text-left">
+						<span style="font-weight:bold;"><i class="xi-announce"></i>유저랭킹!</span>
+					</div>
+					<div class="text-right col-xs-2">
+					<a href=""><i class="fas fa-plus"></i></a>&nbsp;
+					</div>
+					<div class="clearfix"></div>
+					 <table class="table">
+						<tbody>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">2020년 추석연휴에 따른 교재배송 안내</a> </td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">9월 카드사 무이자 할부 이벤트 안내</a> </td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">2020년 국가기술자격시험 3회, 4회 시행계획 변경 및 수시 5회…</a> </td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">택배없는날  관련 배송안내</a> </td>
+						</tr>
+						<tr>
+						  <td class="text-center" style="width:10%">
+						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="결제관련" data-original-title="" title="">
+						      <i class="fa fa-krw" aria-hidden="true"></i>
+						    </a></td>
+						  <td class="main_board_text" style="width:90%">
+							<a href="">8월 카드사 무이자 할부 이벤트 안내</a> </td>
+						</tr>
+						</tbody>
+					</table>
+				<hr>			
+				</div> <!-- 강의 끝 -->
 			</div>
-			<div id="article">
-				<div></div>
-
-			</div>
+		
+		</section>
+		<div class="row" style="height:10px;background-color:#eee"></div>
+		
 		</div>
-
 	</div>
-
 	<!--  
 	<div id="slide">
 		<input type="radio" name="pos" id="pos1" checked> <input type="radio" name="pos" id="pos2"> <input type="radio" name="pos" id="pos3"> <input type="radio" name="pos" id="pos4">

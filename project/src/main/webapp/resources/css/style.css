@@ -1,14 +1,244 @@
 @charset "utf-8";
 /* CSS Document */
-@import url('common.css');
-@import url('reset.css');
-@import url('font.css');
-@import url('button.css');
-@import url('sub.css');
-@import url('jquery.treeview.css');
 
 
+ul, li {
+	list-style: none;
+}
 
+#slide {
+	height: 600px;
+	position: relative;
+	overflow: hidden;
+}
 
+#slide ul {
+	width: 400%;
+	height: 100%;
+	transition: 1s;
+}
+
+#slide ul:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+#slide li {
+	float: left;
+	width: 25%;
+	height: 100%;
+}
+
+#slide li:nth-child(1) {
+	background: #faa;
+}
+
+#slide li:nth-child(2) {
+	background: #ffa;
+}
+
+#slide li:nth-child(3) {
+	background: #faF;
+}
+
+#slide li:nth-child(4) {
+	background: #aaf;
+}
+
+#slide input {
+	display: none;
+}
+
+#slide label {
+	display: inline-block;
+	vertical-align: middle;
+	width: 10px;
+	height: 10px;
+	border: 2px solid #666;
+	background: #fff;
+	transition: 0.3s;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+#slide .pos {
+	text-align: center;
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+
+#pos1:checked ~ul {
+	margin-left: 0%;
+}
+
+#pos2:checked ~ul {
+	margin-left: -100%;
+}
+
+#pos3:checked ~ul {
+	margin-left: -200%;
+}
+
+#pos4:checked ~ul {
+	margin-left: -300%;
+}
+
+#pos1:checked ~.pos>label:nth-child(1) {
+	background: #666;
+}
+
+#pos2:checked ~.pos>label:nth-child(2) {
+	background: #666;
+}
+
+#pos3:checked ~.pos>label:nth-child(3) {
+	background: #666;
+}
+
+#pos4:checked ~.pos>label:nth-child(4) {
+	background: #666;
+}
+
+#backimage {
+	z-index: -2;
+}
+ 
+#titlebox {
+	width: 100%;
+	padding: 20px 0 20px 0;
+	margin: 230px auto 50px auto;
+}
+
+#title {
+	font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
+	font-size: 3rem;
+	color: #eee;
+}
+
+#titledesc {
+	font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK KR',
+		'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue',
+		'Helvetica', 'Arial', sans-serif;
+	color: #eee;
+}
+
+#startbtn {
+	width: 120px;
+	height: 50px;
+	border: 2px solid #3E60DB;
+	background-color: #3E60DB;
+	color: #fff;
+	border-radius: 25px;
+	font: var(- -font);
+	font-size: 22px;
+	cursor: pointer;
+}
+
+#contentbox {
+	height: 892px;
+	background-color: #eee;
+	text-align: left;
+	display: none;
+}
+
+#contentinnerbox {
+	width: 1200px;
+	height: 100%;
+	background-color: #fff;
+	margin: 0 auto 0 auto;
+}
+
+.dropdown {
+	display: none;
+}
+
+.dropdown_open {
+	display: block;
+}
+
+.dropdown-toggle {
+	display: block;
+	cursor: pointer;
+}
+
+#searchbox {
+	width: 1150px;
+	height: 80px;
+	margin: 20px 25px 0 25px;
+	background-color: #ccc;
+	display: table-caption;
+}
+
+#search {
+	width: 800px;
+	height: 35px;
+	margin: 20px 25px auto 25px;
+	display: inline-block;
+}
+
+#searchbtn{
+	width: 75px;
+	height: 39px;
+}
+
+#menubox {
+	background-color: #eee;
+	width: 625px;
+	height: 300px;
+	margin: 20px 25px 20px 25px;
+	float: left;
+}
+
+#prolist {
+	border-collapse: collapse;
+	width: 90%;
+}
+
+#date {
+	float: left;
+	width: 500px;
+	height: 300px;
+	margin: 20px 25px 20px 0px;
+	background-color: #ccc;
+}
+
+#datelist {
+	width: 90%;
+	margin: 20px auto;
+}
+
+#article {
+	width: 1150px;
+	height: 400px;
+	margin: 0 25px 0 25px; background-color : #ccc;
+	display: flex;
+	background-color: #ccc;
+}
+
+.fa-desktop:before{content:"\f108"}
+ 
+ 
+.row{
+	width: 100%;
+	top:200px;
+	left:40px;
+	padding-top: 15px;
+	position: relative;
+}
+
+body {
+  font-family: 'Nanum Gothic',  'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+  color: #666666;
+  font-weight: 400;
+}
 
 
