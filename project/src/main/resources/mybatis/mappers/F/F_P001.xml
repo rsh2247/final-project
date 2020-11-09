@@ -44,13 +44,17 @@
   
    <select id = "selectScorelist_categoryScore" resultType = "scoreVO">	<!-- 카테고리 순위 (문제출제)  -->
   	<![CDATA[
-		SELECT score_category, user_id, score_totalPoint, RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
-		FROM(
-           	 SELECT   score_category, user_id, SUM(score_point) AS score_totalPoint
-           	 FROM     score 
-           	 GROUP BY user_id, score_category
-           	 HAVING score_category = #{score_category}
-           	 )
+     SELECT score_category, user_id, user_image, score_totalPoint,  RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
+	  FROM(
+      		SELECT  a.user_id, a.score_category , u.user_image, a.score_totalPoint
+	  		FROM  user_table u,(
+                 				SELECT score_category, user_id, sum(score_point) AS score_totalPoint
+                  				FROM score s
+                  				GROUP BY user_id, score_category
+                                HAVING score_category = #{score_category}
+                  				) a
+      WHERE u.user_id = a.user_id
+      )
   	]]>
   </select>
   

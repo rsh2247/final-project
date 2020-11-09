@@ -31,11 +31,14 @@
   <meta charset="UTF-8">
   <title>랭킹</title>
 </head>
-
-	<h1>PRACTICE EVERYDAY RANKING</h1>
+	<div  style ="align: center; width: 1100px; margin:auto;">
+		<h1>PRACTICE EVERYDAY RANKING</h1>
+		<h3>USER SCORE INFOMATION</h3>
+	</div>
 	<br>
+	
 <body>
-	<div>
+	<div style ="align: center; width: 1100px; margin:auto;">
 		<ul class="score_highest_list">
 			<li class="ranking-highest__item ranking-highest__item--big"> <!-- 유저 정보 -->
 				<c:forEach
@@ -84,7 +87,7 @@
 
 
 
-	<div>	<!-- 카테고리1 리스트 -->
+	<div style ="align: center; width: 1100px; margin:auto;">	<!-- 카테고리1 리스트 -->
 		<h3>문제출제정보</h3>
 		<table class="score_table">	<!-- 6위부터의 정보 -->
 				<tr>
@@ -110,7 +113,7 @@
 		</div>
 <br>
 
-	<div>	<!-- 카테고리2 리스트 -->
+	<div style ="align: center; width: 1100px; margin:auto;">	<!-- 카테고리2 리스트 -->
 		<br> <br>
 		<h3>문제풀이정보</h3>
 		<table class="score_table">	<!-- 6위부터의 정보 -->
@@ -136,6 +139,7 @@
 		</table>
 		</div>
     <br>
+	<div  style ="align: center; width: 1100px; margin:auto;">
     		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1" >문제출제랭킹</a>
     		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>
     		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2" >문제풀이랭킹</a>
@@ -145,5 +149,6 @@
     			<input type = "submit" name = "search" value = "검 색" />
     		</form>
  		</div>
+ 	</div>	
 </body>
 </html>
