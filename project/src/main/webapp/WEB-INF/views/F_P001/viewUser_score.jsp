@@ -31,23 +31,23 @@
   <meta charset="UTF-8">
   <title>랭킹</title>
 </head>
-	<div  style ="align: center; width: 1100px; margin:auto;">
+	<div  style ="align: center; width: 1100px; margin:auto; color:#5573C9;">
 		<h1>PRACTICE EVERYDAY RANKING</h1>
-		<h3>USER SCORE INFOMATION</h3>
+		<h2>USER SCORE INFOMATION</h2>
 	</div>
 	<br>
 	
 <body>
 	<div style ="align: center; width: 1100px; margin:auto;">
 		<ul class="score_highest_list">
-			<li class="ranking-highest__item ranking-highest__item--big"> <!-- 유저 정보 -->
+			<li class="ranking-highest__item ranking-highest__item--big">
 				<c:forEach
 					var="score" items="${scoreList}" begin="0" end="0">
 					<div class="ranking-highest__rank">1</div>
 					<div class="ranking-highest__icon">
 					<img src="${contextPath}/resources/image/${score.user_image}"
 						 class="ranking-highest__image">
-						<h3 align= "center">${score.user_id}</h3> <!-- 유저 아이디 -->
+						<h3 align= "center">${score.user_id}</h3>
 					</div>
 					<div>
 						<table>
@@ -87,9 +87,9 @@
 
 
 
-	<div style ="align: center; width: 1100px; margin:auto;">	<!-- 카테고리1 리스트 -->
+	<div style ="align: center; width: 1100px; margin:auto;">
 		<h3>문제출제정보</h3>
-		<table class="score_table">	<!-- 6위부터의 정보 -->
+		<table class="score_table">
 				<tr>
 					<th class="score_header">구분</th>
 					<th class="score_header">문제내역</th>
@@ -101,10 +101,10 @@
 				<c:when test="${categoryInfo1 !=null }">
 					<c:forEach var="list1" items="${categoryInfo1}" varStatus="scoreNum">
 						<tr align="center">
-							<td class="score_cell">${scoreNum.count}</td>			<!-- 구분 -->
-							<td class="score_cell">${list1.score_content}</td>		<!-- 문제내역 -->
-							<td class="score_cell">${list1.score_point}</td>		<!-- 획득점수 -->
-							<td class="score_cell">${list1.score_date}</td>				<!-- 획득날짜 -->
+							<td class="score_cell">${scoreNum.count}</td>	
+							<td class="score_cell">${list1.score_content}</td>
+							<td class="score_cell">${list1.score_point}</td>
+							<td class="score_cell">${list1.score_date}</td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -113,10 +113,10 @@
 		</div>
 <br>
 
-	<div style ="align: center; width: 1100px; margin:auto;">	<!-- 카테고리2 리스트 -->
+	<div style ="align: center; width: 1100px; margin:auto;">
 		<br> <br>
 		<h3>문제풀이정보</h3>
-		<table class="score_table">	<!-- 6위부터의 정보 -->
+		<table class="score_table">	
 				<tr>
 					<th class="score_header">구분</th>
 					<th class="score_header">문제내역</th>
@@ -128,10 +128,10 @@
 				<c:when test="${categoryInfo2 !=null }">
 					<c:forEach var="list2" items="${categoryInfo2 }" varStatus="scoreNum">
 						<tr align="center">
-							<td class="score_cell">${scoreNum.count}</td>			<!-- 구분 -->
-							<td class="score_cell">${list.score_content}</td>		<!-- 문제내역 -->
-							<td class="score_cell">${list2.score_point}</td>		<!-- 획득점수 -->
-							<td class="score_cell">${list2.score_date}</td>				<!-- 획득날짜 -->
+							<td class="score_cell">${scoreNum.count}</td>
+							<td class="score_cell">${list.score_content}</td>
+							<td class="score_cell">${list2.score_point}</td>
+							<td class="score_cell">${list2.score_date}</td>
 						</tr>
 					</c:forEach>
 				</c:when>

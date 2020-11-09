@@ -17,7 +17,6 @@
 	function user_idSearch(){
 		if(loopSearch == false)
 			return;
-			
 			var value = document.frmSearch.searchUser.value;
 				$.ajax({
 					type   : "get",
@@ -31,7 +30,6 @@
 						alert("에러가 발생했습니다." + data);
 					},
 					complete : function(data, textStatus){
-						
 					}
 				});
 		}
@@ -50,22 +48,21 @@
 .score_highest_box_big+score_highest_box{margin:0;}
 .score_highest_box:after{visibility:hidden;display:block;font-size:0;content:"";clear:both;height:0;}
 .score_highest_rank{width:30px;background:#bdbbbb;padding:3px 0;line-height:24px;font-family:Helvetica,AppleSDGothic,"Apple SD Gothic Neo",AppleGothic,Arial,Tahoma;font-size:21px;text-align:center;color:#fff;}.ranking-highest__item .ranking-highest__rank{position:absolute;top:0;left:0;margin-top:-2px;margin-left:-2px;}
-
 .highest-rank{border-radius: 100px; }
 </style>
 
 <link href="<c:url value="/resources/css/rankScore.css" />" rel="stylesheet">
   <title>랭킹</title>
 </head>
-	<div  style ="align: center; width: 1100px; margin:auto;">
+	<div  style ="align: center; width: 1100px; margin:auto; color:#5573C9;">
 		<h1>PRACTICE EVERYDAY RANKING</h1>
-		<h3>ALL USER SCORE</h3>
+		<h2>ALL USER SCORE</h2>
 	</div>	
 	<br>
 <body>
 	<div style ="align: center; width: 1100px; margin:auto;">
 		<ul class="score_highest_list">
-			<li class="ranking-highest__item ranking-highest__item--big"> <!-- 1위 정보 -->
+			<li class="ranking-highest__item ranking-highest__item--big">
 				<c:forEach
 					var="score" items="${scoreList}" begin="0" end="0">
 					<div class="ranking-highest__rank">1</div>
@@ -113,7 +110,7 @@
 		</ul>
 	</div>
 <div style ="width: 1100px; margin:auto;">
-	<li class="ranking-highest__item"> <!-- 2위 정보 -->
+	<li class="ranking-highest__item">
 		<c:forEach var="score" items="${scoreList}" begin="1" end="1">
 			<div class="ranking-highest__rank">2</div>
 			<div class="ranking-highest__icon" >
@@ -124,7 +121,7 @@
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
 						</tr>
 						<tr>
 							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
@@ -152,7 +149,7 @@
 		</c:forEach>
 	</li>
 
-	<li class="ranking-highest__item"> <!-- 3위 정보 -->
+	<li class="ranking-highest__item">
 		<c:forEach var="score"
 			items="${scoreList}" begin="2" end="2">
 			<div class="ranking-highest__rank">3</div>
@@ -164,7 +161,7 @@
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
 						</tr>
 						<tr>
 							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
@@ -192,7 +189,7 @@
 		</c:forEach>
 	</li>
 
-	<li class="ranking-highest__item"> <!-- 4위 정보 -->
+	<li class="ranking-highest__item"> 
 		<c:forEach var="score"
 			items="${scoreList}" begin="3" end="3">
 			<div class="ranking-highest__rank">4</div>
@@ -204,7 +201,7 @@
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
 						</tr>
 						<tr>
 							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
@@ -232,7 +229,7 @@
 		</c:forEach>
 	</li>
 
-	<li class="ranking-highest__item"> <!-- 5위 정보 -->
+	<li class="ranking-highest__item"> 
 		<c:forEach var="score"
 			items="${scoreList}" begin="4" end="4">
 			<div class="ranking-highest__rank">5</div>
@@ -244,7 +241,7 @@
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> 
 						</tr>
 						<tr>
 							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
@@ -274,7 +271,7 @@
 </div>	
 	<div style ="align: center; width: 1100px; margin:auto;">
 		<br> <br>
-		<table class="score_table">	<!-- 6위부터의 정보 -->
+		<table class="score_table">	
 			<thead>
 				<tr>
 					<th class="score_header">순위</th>
@@ -290,9 +287,7 @@
 						begin="5">
 						<tr align="center">
 							<td class="score_cell">${score.score_rank}</td>
-							<!-- 카운트 -->
 							<td class="score_cell">${score.user_id }</td>
-							<!-- 유저 아이디 -->
 							<td class="score_cell">${score.score_totalPoint}</td>
 							<td class="score_cell"><a
 								href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id }">보기</a>
@@ -305,7 +300,7 @@
 	</div>
 	
 <div style ="align: center; width: 1100px; margin:auto;"><br>
-    <table> <!-- 하위 메뉴 -->
+    <table>
     	<div>
     		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1" >문제출제랭킹</a>
     		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>

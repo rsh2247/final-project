@@ -15,16 +15,6 @@ import project.yoonju.F.F_P001.dao.F_P001_D001DAO;
 import project.yoonju.F.F_P001.vo.F_P001_D001VO;
 import project.yoonju.F.F_P001.vo.F_P001_D001VO2;
 
-/*import project.yoonju.H.H_P001.dao.H_p001_d001DAO;
-import project.yoonju.H.H_P001.vo.H_p001_d001VO;
-import project.yoonju.H.H_P001.vo.ImageVO;*/
-
-/*import com.myspring.pro30.board.dao.H_p001_d001DAO;
-import com.myspring.pro30.board.vo.H_p001_d001VO;
-import com.myspring.pro30.board.vo.ImageVO;*/
-
-
-
 @Service("scoreService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class F_P001_D001ServiceImpl  implements F_P001_D001Service{
@@ -37,14 +27,11 @@ public class F_P001_D001ServiceImpl  implements F_P001_D001Service{
         return scoreList;
 	}
 
-	
 	public List<F_P001_D001VO> selectScorelist_categoryScore(String score_category) throws Exception{
 		List<F_P001_D001VO> scoreList =  scoreDAO.selectScorelist_categoryScore(score_category);
-        return scoreList;
-		
+        return scoreList;	
 	}
 	
-
 	public List<F_P001_D001VO> viewUser_Score(String user_id) throws Exception{
 		List<F_P001_D001VO> scoreList =  scoreDAO.viewUser_score(user_id);
         return scoreList;

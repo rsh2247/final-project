@@ -27,15 +27,15 @@
   <meta charset="UTF-8">
   <title>랭킹</title>
 </head>
-	<div  style ="align: center; width: 1100px; margin:auto;">
-		<h1 style ="align: center; width: 1100px; margin:auto;">PRACTICE EVERYDAY RANKING</h1>
-		<h3>CATEGORY SCORE</h3>
+	<div  style ="align: center; width: 1100px; margin:auto; color:#5573C9;">
+		<h1>PRACTICE EVERYDAY RANKING</h1>
+		<h2>CATEGORY SCORE</h2>
 	</div>	
 	<br>
 <body>
 	<div style ="align: center; width: 1100px; margin:auto;">
 		<ul class="score_highest_list">
-			<li class="ranking-highest__item ranking-highest__item--big"> <!-- 1위 정보 -->
+			<li class="ranking-highest__item ranking-highest__item--big">
 				<c:forEach
 					var="score" items="${scoreList}" begin="0" end="0">
 					<div class="ranking-highest__rank">1</div>
@@ -51,17 +51,6 @@
 									<h3>${score.user_id}</h3>
 									</a>
 								</tr>
-<%-- 								<tr>
-								<c:forEach var = "userInfo" items = "${userInfo}">
-									<c:if test = "${score.user_id eq userInfo.user_id}">
-										<th>가  입  일: </th><td> &nbsp; &nbsp;${userInfo.user_signdate}</td>
-									</c:if>
-								</c:forEach>		
-								</tr> --%>
-								<%-- <tr>
-									<th>종 합 점 수: </th><td class="ranking-highest-champion__winratio--red"> &nbsp; &nbsp;${score.score_totalPoint}</td>
-								</tr>
-								<tr> --%>
 								<c:forEach var="category1" items="${categoryList1}">
 									<c:if test="${score.user_id eq category1.user_id}">
 										<th>문제출제점수: </th><td> &nbsp; &nbsp;${category1.score_totalPoint}</td>
@@ -83,7 +72,7 @@
 		</ul>
 	</div>
 <div  style ="align: center; width: 1100px; margin:auto;">
-	<li class="ranking-highest__item"> <!-- 2위 정보 -->
+	<li class="ranking-highest__item">
 		<c:forEach var="score" items="${scoreList}" begin="1" end="1">
 			<div class="ranking-highest__rank">2</div>
 			<div class="ranking-highest__icon" >
@@ -94,12 +83,8 @@
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
 						</tr>
-						<%-- <tr>
-							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
-							<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--red">&nbsp;${score.score_totalPoint}</td>
-						</tr> --%>
 						<tr>
 							<c:forEach var="category1" items="${categoryList1}">
 								<c:if test="${score.user_id eq category1.user_id}">
@@ -122,7 +107,7 @@
 		</c:forEach>
 	</li>
 
-	<li class="ranking-highest__item"> <!-- 3위 정보 -->
+	<li class="ranking-highest__item">
 		<c:forEach var="score"
 			items="${scoreList}" begin="2" end="2">
 			<div class="ranking-highest__rank">3</div>
@@ -136,10 +121,6 @@
 						<tr>
 							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
 						</tr>
-						<%-- <tr>
-							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
-							<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--red">&nbsp;${score.score_totalPoint}</td>
-						</tr> --%>
 						<tr>
 							<c:forEach var="category1" items="${categoryList1}">
 								<c:if test="${score.user_id eq category1.user_id}">
@@ -162,7 +143,7 @@
 		</c:forEach>
 	</li>
 
-	<li class="ranking-highest__item"> <!-- 4위 정보 -->
+	<li class="ranking-highest__item"> 
 		<c:forEach var="score"
 			items="${scoreList}" begin="3" end="3">
 			<div class="ranking-highest__rank">4</div>
@@ -174,12 +155,8 @@
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
 						</tr>
-					<%--<tr>
-							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
-							<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--red">&nbsp;${score.score_totalPoint}</td>
-						</tr> --%>
 						<tr>
 							<c:forEach var="category1" items="${categoryList1}">
 								<c:if test="${score.user_id eq category1.user_id}">
@@ -202,7 +179,7 @@
 		</c:forEach>
 	</li>
 
-	<li class="ranking-highest__item"> <!-- 5위 정보 -->
+	<li class="ranking-highest__item">
 		<c:forEach var="score"
 			items="${scoreList}" begin="4" end="4">
 			<div class="ranking-highest__rank">5</div>
@@ -214,12 +191,8 @@
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
 						</tr>
-						<%-- <tr>
-							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
-							<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--red">&nbsp;${score.score_totalPoint}</td>
-						</tr> --%>
 						<tr>
 							<c:forEach var="category1" items="${categoryList1}">
 								<c:if test="${score.user_id eq category1.user_id}">
@@ -267,8 +240,8 @@
 		<c:when test="${scoreList !=null }" >
 	    		<c:forEach  var="score" items="${scoreList }" varStatus="scoreNum"  begin= "5">
    	  			<tr align="center">
-					<td class= "score_cell">${score.score_rank}</td>			<!-- 카운트 -->
-					<td class= "score_cell">${score.user_id }</td>		<!-- 유저 아이디 -->	
+					<td class= "score_cell">${score.score_rank}</td>
+					<td class= "score_cell">${score.user_id }</td>
 					<td class= "score_cell">${score.score_totalPoint}</td>
 					<td class= "score_cell">
 						<a href= "${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id }">보기</a>

@@ -42,26 +42,24 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	F_P001_D001Service scoreService;
 	@Autowired
 	F_P001_D001VO f_p001_d001vo;
-	
-	
+
 	@Override
 	@RequestMapping(value = "F/F_P001/listScore.page", method = { RequestMethod.GET, RequestMethod.POST })				//전체랭킹 보기
 	public ModelAndView listScore(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = "/F_P001/listScore.tiles";
-		System.out.println("뷰네임-------------" + viewName);
-		List<F_P001_D001VO> scoreList = scoreService.allScoreList();	//모든 유저의 종합점수
-		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");	//모든 유저의 카테고리 1 종합점수
-		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");	//모든 유저의 카테고리 2 종합점수
+		
+		List<F_P001_D001VO> scoreList = scoreService.allScoreList();
+		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");
+		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");
 
-		System.out.println("CON===============>>" + scoreList.size());
+		System.out.println("CTRL===============>>" + scoreList.size());
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("categoryList1",categoryList1);
 		mav.addObject("categoryList2",categoryList2);
 		mav.addObject("scoreList", scoreList);
-		System.out.println(scoreList.toString());
 		
-		System.out.println("카테고리리스트1에 담긴 것--------->" + categoryList1);
-		System.out.println("스코어리스트에 담긴 것--------->" + scoreList);
+		System.out.println(scoreList.toString());
+
 		return mav;
 	}
 
@@ -71,14 +69,14 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 			HttpServletResponse response) throws Exception {
 		
 		String viewName = "/F_P001/categoryScore.tiles";
-		System.out.println("뷰네임-------------" + viewName);
-		List<F_P001_D001VO> scoreList = scoreService.selectScorelist_categoryScore(score_category);
-		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");	//모든 유저 1 카테고리 접수 합계
-		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");	//모든 유저 2 카테고리 점수 합계
-		List<F_P001_D001VO> allScoreList = scoreService.allScoreList();	//모든 유저의 종합점수
-		
 
-		System.out.println("CON===============>>" + scoreList.size());
+		List<F_P001_D001VO> scoreList = scoreService.selectScorelist_categoryScore(score_category);
+		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");
+		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");
+		List<F_P001_D001VO> allScoreList = scoreService.allScoreList();
+		
+		System.out.println("CTRL===============>>" + scoreList.size());
+		
 		ModelAndView mav = new ModelAndView(viewName);
 		
 		mav.addObject("scoreList", scoreList);
@@ -96,16 +94,18 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	public ModelAndView viewUser_score(@RequestParam("user_id") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		String viewName = "/F_P001/viewUser_score.tiles";
-		System.out.println("뷰네임-------------" + viewName);
-		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");	//모든 유저 1 카테고리 접수 합계
-		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");	//모든 유저 2 카테고리 점수 합계
-		List<F_P001_D001VO> categoryInfo1 = scoreService.categoryInfo1(user_id);	//셀렉 유저 1 카테고리 문제 리스트
-		List<F_P001_D001VO> categoryInfo2 = scoreService.categoryInfo2(user_id);	//셀렉 유저 2 카테고리 문제 리스트
-		List<F_P001_D001VO> scoreList = scoreService.viewUser_Score(user_id);	//셀렉 유저 스코어 정보(유저 아이디. 유저 이미지, 유저 종합 점수)
-		List<F_P001_D001VO> userInfo = scoreService.selectUserInfo(user_id);	// 셀렉 유저 정보(유저 아이디, 유저 이메일, 유저 이미지, 유저 가입날짜)
+
+		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");
+		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");
+		List<F_P001_D001VO> categoryInfo1 = scoreService.categoryInfo1(user_id);
+		List<F_P001_D001VO> categoryInfo2 = scoreService.categoryInfo2(user_id);
+		List<F_P001_D001VO> scoreList = scoreService.viewUser_Score(user_id);
+		List<F_P001_D001VO> userInfo = scoreService.selectUserInfo(user_id);
 		
-		System.out.println("CON===============>>" + scoreList.size());
+		System.out.println("CTRL===============>>" + scoreList.size());
+
 		ModelAndView mav = new ModelAndView(viewName);
+		
 		mav.addObject("scoreList", scoreList);
 		mav.addObject("categoryList1",categoryList1);
 		mav.addObject("categoryList2",categoryList2);
@@ -113,9 +113,6 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 		mav.addObject("categoryInfo2", categoryInfo2);
 		mav.addObject("userInfo", userInfo);
 
-		 for(F_P001_D001VO a : scoreList) {
-			 System.out.println("user_image : "+a.getUser_image()); 
-		 	}
 		System.out.println(scoreList.toString());
 		return mav;
 	}
@@ -128,8 +125,7 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 		List<F_P001_D001VO> scoreList = scoreService.searchUser(user_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("scoreList", scoreList);
-		System.out.println("CON===============>>" + scoreList.size());
-		System.out.println("뷰네임-------------" + viewName);
+
 		return mav;
 		
 	}

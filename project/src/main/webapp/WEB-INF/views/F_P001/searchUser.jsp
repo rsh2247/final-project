@@ -17,7 +17,7 @@
 	function user_idSearch(){
 		if(loopSearch == false)
 			return;
-			
+		
 			var value = document.frmSearch.searchUser.value;
 				$.ajax({
 					type   : "get",
@@ -52,7 +52,7 @@
   <meta charset="UTF-8">
   <title>랭킹</title>
 </head>
-	<div  style ="align: center; width: 1100px; margin:auto;">
+	<div  style ="align: center; width: 1100px; margin:auto; color:#5573C9;">
 		<h1>PRACTICE EVERYDAY RANKING</h1>
 		<h2>SEARCHING USER</h2>
 	</div>	

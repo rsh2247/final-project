@@ -8,23 +8,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class F_P001_D001VO {
-	//score 테이블
+
 	String score_content;	// 내역
 	Date score_date;		// 시각
 	String score_point;		// 점수
 	String user_id;			// 아이디
 	String score_category;	// 분류
-	String score_rank;		//아직 안써용
+	String score_rank;		// 순위
 	String score_totalPoint;// 합계 점수
 	
-	// user_table 테이블
 	String user_email;		//이메일
 	String user_image;		//유저 사진
 	Date user_signdate;		//유저 가입일
-	
 
-	
-	
 	public String getUser_email() {
 		return user_email;
 	}
@@ -43,9 +39,6 @@ public class F_P001_D001VO {
 	public void setUser_signdate(Date user_signdate) {
 		this.user_signdate = user_signdate;
 	}
-	
-
-	
 	public String getScore_totalPoint() {
 		return score_totalPoint;
 	}
@@ -88,7 +81,4 @@ public class F_P001_D001VO {
 	public void setScore_category(String score_category) {
 		this.score_category = score_category;
 	}
-	
-	
-	
 }

@@ -4,7 +4,6 @@ public class F_P001_D001VO2 extends F_P001_D001VO {
 	private String searchType;
 	private String keyword;
 	
-	
 	public String getSearchType() {
 		return searchType;
 	}

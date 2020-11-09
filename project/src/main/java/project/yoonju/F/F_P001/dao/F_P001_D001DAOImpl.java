@@ -13,16 +13,6 @@ import org.springframework.stereotype.Repository;
 import project.yoonju.F.F_P001.vo.F_P001_D001VO;
 import project.yoonju.F.F_P001.vo.F_P001_D001VO2;
 
-/*
-import project.yoonju.H.H_P001.vo.H_p001_d001VO;
-import project.yoonju.H.H_P001.vo.ImageVO;
-
-import com.myspring.pro30.board.vo.H_p001_d001VO;
-import com.myspring.pro30.board.vo.ImageVO;*/
-
-
-
-
 @Repository("scoreDAO")
 public class F_P001_D001DAOImpl implements F_P001_D001DAO {
 	@Autowired
@@ -32,9 +22,6 @@ public class F_P001_D001DAOImpl implements F_P001_D001DAO {
 	@Override
 	public List<F_P001_D001VO> selectAllScoreList() throws DataAccessException {
 		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.selectAllScoreList");
-		System.out.println("DAO=========>" + scoreList.size());
-		System.out.println("DAO=========>" + scoreList.isEmpty());
-		System.out.println("DAO=========>" + scoreList.toString());
 		return scoreList;
 	}
 
