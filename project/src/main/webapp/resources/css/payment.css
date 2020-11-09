@@ -30,9 +30,6 @@
 .payment_wrap .sale_pay dd li.total_price  em {color:#5573C9;}
 
 .payment_wrap div.total_order {float:left; width:496px; margin:28px 0 0 20px; _margin-left:10px; display:inline-block;}
-.payment_wrap div.total_order .point_coupon {width:472px; height:30px; margin:13px 0 5px; text-align:center; background:#f9f9f9; border:1px solid #dae0e4;display:inline-block;}
-.payment_wrap div.total_order .point_coupon span {display:inline-block; margin:8px 13px 0 0; padding:0 0 0 8px; color:#597b97; font-weight:bold; background:url(../img/bullet/triangle03.gif) 0 3px no-repeat;}
-.payment_wrap div.total_order .point_coupon span em {color:#2a2a2a;}
 .payment_wrap div.total_order table.board_list {width:474px; display:inline-block;}
 .payment_wrap div.total_order th {padding-bottom:15px;}
 .payment_wrap div.total_order th.last {background:url(/img/board/th_bgX133.gif) right top no-repeat;}
@@ -85,9 +82,6 @@
 .sale_coupon table {text-align:center;}
 .sale_coupon h3 {position:relative; margin:15px 0 26px;}
 .sale_coupon h3 a {position:absolute; top:-10px; right:5px;}
-.sale_coupon p.own_coupon {padding:0 0 7px 8px; color:#597b97; font-weight:bold; background:url(../img/bullet/triangle03.gif) 0 7px no-repeat;}
-.sale_coupon p.own_coupon em {color:#2b2b2b;}
-.sale_coupon p.own_coupon img {position:relative; top:-3px; left:16px; vertical-align:middle;}
 .sale_coupon table.board_list {width:700px; margin:0 23px 0 0;} 
 .sale_coupon table.board_list th {padding-bottom:12px;}
 .sale_coupon table.board_list th img {margin:0}
@@ -104,17 +98,6 @@
 .payment_wrap .coupon fieldset p {padding:10px 0 9px 27px;}
 .payment_wrap .coupon fieldset input {width:261px; height:19px; margin:0 39px 0 11px; font-size:12px; border:1px solid #dedede;}
 .payment_wrap .coupon .btn {float:left; display:block; width:100%; margin:0; padding:15px 0; text-align:center;}
-
-/* 결제완료 */
-.payment_finish .deposit_box {position:relative; float:left; width:100%; margin:10px 0 0; background:url(../img/payment/bank_finishBg.gif) no-repeat;}
-.deposit_box .deadline {margin:99px 0 0 189px; font-weight:bold; color:#000; text-align:left;}
-.deposit_box .deadline em {color:#cc0000;}
-.deposit_box .bankbook_info {margin:20px 0 0 0px;}
-.deposit_box .bankbook_info dt {width:723px; padding:6px 0 4px; background:#fff; font-size:14px; color:#597b97; font-weight:bold; text-align:center; border:3px solid #dae0e4;}
-.deposit_box .bankbook_info dd {width:723px; margin:4px 0 0; background:#fff; border:3px solid #e7ecf0; padding: 0px 0px; }
-.deposit_box .bankbook_info dd span {display:inline-block; margin:20px 40px 20px 40px; padding:0 0 0 8px; color:#597b97; font-weight:bold; background:url(../img/bullet/triangle03.gif) 0 50% no-repeat;}
-.deposit_box .bankbook_info dd span em {color:#71757a;}
-.deposit_box p.text {margin:0 0 0 40px; padding:8px 0 0 0;}
 
 .payment_finish table.board_list {float:left; margin-bottom:0;}
 .payment_finish table.board_list td.title {text-align:left; padding-left:33px;}
@@ -153,12 +136,6 @@ ul.orderEtc li {position:relative; margin-top:15px; padding:0 0 0 17px; color:#9
 ul.orderEtc li span {position:absolute; top:-1px; left:0;}
 
 .confirm_btn {padding:2px;background-color:#CC0000;color:#ffffff;font-size:12px;}
-
-/* 결제/배송 안내 */
-.guideWay {border:3px solid #dae0e4; margin-bottom: 20px; padding:17px 24px 17px 35px;}
-.guideWay p {color: #939292; text-align: left; line-height: 16px;}
-.guideEtc {margin: 0 0 0 16px;}
-.guideEtc li {padding-top:9px; list-style-type: circle; text-align: left; color: #939292; line-height: 16px;}
 
 /* 상품 유의사항 */
 .payment_wrap .order_info .useguide_btn{display: block; margin: 0 0 10px 0; line-height: 40px; font-size: 13px; font-weight: bold;  background: #eceff1; text-align: center; border: 3px solid #dae0e4; box-sizing: border-box; cursor: pointer;}

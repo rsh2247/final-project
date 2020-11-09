@@ -221,7 +221,7 @@ h3 {
 		</div>
 		<nav id="navi">
 			<img id="image" src="${contextPath}/resources/image/logo2.png"
-				onclick="location.href='${contextPath}/mainPage/mainPage001.do'" />
+				onclick="location.href='${contextPath}/mainPage.main'" />
 			<ul class="one">
 				<li><a href="#" class="link">문제풀기</a>
 					<ul class="two">
