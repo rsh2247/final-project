@@ -30,6 +30,9 @@ public class MainControllerImpl implements MainController {
 	
 	
 	
-
+	@RequestMapping(value = "problem_make/colMake_mainPage", method = { RequestMethod.GET })
+	public ModelAndView colMake_mainPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new ModelAndView("problem_make/colMake_mainPage.tiles");
+	}
 
 }

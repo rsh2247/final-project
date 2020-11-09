@@ -30,7 +30,7 @@
       </where>
 	</select>
 	
-	<select id="searchList" resultMap="pro_collection_result" parameterType="java.util.Map"> 
+	<select id="searchList" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
          select *
          from   pro_collection
@@ -50,8 +50,12 @@
 	</select>
 	
 	<insert id="insertUserColHistory">
+		<selectKey resultType="string" keyProperty="col_time" order="BEFORE">
+		SELECT to_char(systimestamp, 'YYYY-MM-DD HH24:MI:SS:FF2')
+		FROM DUAL
+		</selectKey>
 		INSERT INTO COL_HISTORY(col_solvedate,user_id,col_num) 
-		VALUES(to_char(systimestamp, 'YYYY-MM-DD HH24:MI:SS:FF2'),#{user_id},#{col_num})
+		VALUES(#{col_time},#{user_id},#{col_num})
 	</insert>
 	
 	<select id="selectRecentHistory" resultMap="result" parameterType="java.util.Map">

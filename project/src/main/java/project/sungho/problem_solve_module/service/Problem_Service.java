@@ -14,6 +14,8 @@ public interface Problem_Service {
 	 public List<Map<String, Object>> searchProblem(Map<String, Object> searchMap) throws DataAccessException;
 	 public List<Map<String, Object>> searchExample(Map<String, Object> searchMap) throws DataAccessException;
 	 public List<Map<String, Object>> selectCollection(Map<String, Object> searchMap) throws DataAccessException;
+	 public List<Map<String, Object>> selectPastCollection(Map<String, Object> searchMap) throws DataAccessException;
+	 
 	 public List<Map<String, Object>> selectProByCol(Map<String, Object> searchMap) throws DataAccessException;
 	 public List<Map<String, Object>> checkColAnswer(List<Map<String, Object>> list, Map<String,Object> answerMap) throws DataAccessException;
 	 public List<Map<String, String>> selectCategory(Map<String, Object> searchMap) throws DataAccessException;
@@ -26,4 +28,6 @@ public interface Problem_Service {
 	 
 	 public List<Map<String, Object>> selectEval(List<Map<String, Object>> list) throws DataAccessException;
 	 public void insertEval(Map<String, Object> inputMap) throws DataAccessException;
+	 public void insertColEval(Map<String, Object> inputMap) throws DataAccessException;
+	 public Map<String, Object> selectOneCol(Map<String, Object> searchMap) throws DataAccessException;
 }

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
@@ -21,14 +22,14 @@
 #problembox {
 	width: 1100px;
 	min-height: 1050px;
-	margin: 30px auto 50px auto;
+	margin: 20px auto 50px auto;
 	border: 1px solid #eee;
 	border-radius: 20px;
 	display: flex;
 }
 
 #topbar {
-	height: 150px;
+	height: 120px;
 	margin: 50px auto 0 auto;
 	border: 1px solid #eee;
 	border-radius: 20px;
@@ -97,20 +98,27 @@
 }
 
 #confirmbtn {
-	width: 200px;
+	width: 170px;
 	line-height: 35px;
-	border: 1px solid #ccc;
-	background-color: #fff;
+	border: 2px solid #3e60db;
+	border-radius: 35px;
+	margin-top: 15px;
+	background-color: #3e60db;
+	color: #fff;
 	cursor: pointer;
 	font-size: 16px;
+	transition: ease 250ms;
 }
 
 #confirmbtn:hover {
-	background-color: #ccc;
+	background-color: #213a92;
+	border-color: #213a92;
 }
 
 #confirmbtn:active {
 	background-color: #fff;
+	color: #3e60db;
+	border: 2px solid #3e60db;
 }
 
 #navibar {
@@ -132,25 +140,66 @@
 .arrow:hover {
 	background-color: #ccc;
 }
-.bignum{
+
+.bignum {
 	font-size: 28px;
 }
-#clock{
+
+#clock {
 	width: 200px;
-    height: 100%;
-    padding-top: 24px;
-    float: right;
-    position: relative;
-    border-left: 1px solid #eee;
+	height: 100%;
+	padding-top: 24px;
+	float: right;
+	position: relative;
+	border-left: 1px solid #eee;
 }
-#clockbox{
-	margin-bottom: 15px;
+
+#titlebox {
+	width: 850px;
+	display: inline-block;
+	text-align: left;
+	padding: 10px 0 0 0;
 }
-.clockbtn{
+#title1{
+	font-size: 20px;
+	padding-left: 5px;
+}
+#title2{
+	margin-top: 10px;
+	font-size: 26px;
+}
+#clockbox {
+	margin-bottom: 10px;
+}
+
+.clockbtn {
 	width: 75px;
 	line-height: 28px;
-	border: 1px solid #ccc;
+	border: 2px solid #3e60db;
+	border-radius: 15px;
+	color: #3e60db;
+	background-color: #fff;
 	cursor: pointer;
+	transition: all ease 300ms;
+}
+.clockbtn:disabled {
+	background-color: #3e60db2e;
+    border: 2px solid #0635dc00;
+    color: #ffffff;
+}
+.clockbtn:disabled:hover {
+	background-color: #3e60db2e;
+    border: 2px solid #0635dc00;
+    color: #ffffff;
+    cursor: default;
+}
+.clockbtn:hover {
+	background-color: #3e60db;
+	color: #fff;
+}
+.clockbtn:active {
+	color: #3e60db;
+	background-color: #fff;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -223,13 +272,13 @@ $(document).ready(function () {
 	}
     });
     }
-
 	function check() {
 		var maxnum = ${fn:length(list)};
 		var pass = false;
 		for (var j = 1; j <= maxnum; j++) {
 			var bool = false;
 			var chk_radio = document.getElementsByName('answer'+j);
+				console.log(chk_radio.length);
 			for (var i = 0; i < chk_radio.length; i++) {
 				if (chk_radio[i].checked == true) {
 					bool = true;
@@ -257,10 +306,14 @@ $(document).ready(function () {
 <body>
 	<div id="contentbox">
 		<div id="topbar">
-			<div></div>
+			<div id="titlebox">
+				<div id="title1">${result.CATEGORY_NAME}</div>
+				<div id="title2">${result.COL_NAME}</div>
+			</div>
 			<div id="clock">
 				<div id="clockbox">
-					<span id="postTestHour" class="bignum">00</span> : <span id="postTestMin" class="bignum">00</span>
+					<span id="postTestHour" class="bignum">00</span> : <span
+						id="postTestMin" class="bignum">00</span>
 					<!-- 분 -->
 					<span>:</span> <span id="postTestSec" class="bignum">00</span>
 					<!--초-->
@@ -279,15 +332,19 @@ $(document).ready(function () {
 			<div id="problem">
 				<ul class="list">
 					<c:forEach var="list" items="${list}">
-						<c:if test="${list.COL_LIST_NUM >= page.startNum &&  list.COL_LIST_NUM <= page.endNum}">
+						<c:if
+							test="${list.COL_LIST_NUM >= page.startNum &&  list.COL_LIST_NUM <= page.endNum}">
 							<li>
-								<div style="padding: 15px 0 15px 0; border-bottom: 1px solid #ccc;">
+								<div
+									style="padding: 15px 0 15px 0; border-bottom: 1px solid #ccc;">
 									<div style="float: left; margin-right: 10px;">${list.COL_LIST_NUM}.</div>
 									<div class="pro_content">${list.PRO_CONTENT}</div>
 									<div style="margin-left: 20px;">
 										<ul class="list">
 											<c:forEach var="ordList" items="${list.ordList}">
-												<li style="padding-bottom: 3px;"><label style="cursor: pointer;" for="${list.PRO_NUM}-${ordList.cho_num}"><div class="proNum">(${ordList.cho_num})</div>${ordList.cho_content}</label></li>
+												<li style="padding-bottom: 3px;"><label
+													style="cursor: pointer;"
+													for="${list.COL_LIST_NUM}-${ordList.cho_num}"><div class="proNum">(${ordList.cho_num})</div>${ordList.cho_content}</label></li>
 											</c:forEach>
 										</ul>
 									</div>
@@ -296,13 +353,18 @@ $(document).ready(function () {
 						</c:if>
 					</c:forEach>
 				</ul>
-				<input type="hidden" id="col_num" name="col_num" value="${result.col_num}"> <input type="hidden" id="nextNum" value="${page.nowPage}"> <input type="hidden" id="prevNum" value="${page.nowPage-1}">
+				<input type="hidden" id="col_num" name="col_num"
+					value="${result.COL_NUM}"> <input type="hidden"
+					id="nextNum" value="${page.nowPage}"> <input type="hidden"
+					id="prevNum" value="${page.nowPage-1}">
 				<div id="navibar">
 					<c:if test="${page.nowPage != 1}">
-						<button class="arrow" onclick="arrow(-1)" style="background-image: url('${contextPath}/resources/image/left.png');"></button>
+						<button class="arrow" onclick="arrow(-1)"
+							style="background-image: url('${contextPath}/resources/image/left.png');"></button>
 					</c:if>
 					<c:if test="${page.nowPage != page.listNum}">
-						<button class="arrow" onclick="arrow(1)" style="background-image: url('${contextPath}/resources/image/right.png');"></button>
+						<button class="arrow" onclick="arrow(1)"
+							style="background-image: url('${contextPath}/resources/image/right.png');"></button>
 					</c:if>
 				</div>
 			</div>
@@ -310,15 +372,21 @@ $(document).ready(function () {
 				<form action="check_colAnswer.pro" method="post" id="answerlist">
 					<ul id="panel_ul">
 						<c:forEach var="list" items="${list}">
-							<li>${list.COL_LIST_NUM}<c:set var="num" value="1" /> <c:forEach var="ordList" items="${list.ordList}">
-									<input type="radio" value="${ordList.cho_num}" id="${list.PRO_NUM}-${ordList.cho_num}" name="answer${list.PRO_NUM}" class="panelRadio">
-									<label class="answerLabel" for="${list.PRO_NUM}-${ordList.cho_num}">${num}<c:set var="num" value="${num+1}" />
+							<li>${list.COL_LIST_NUM}<c:set var="num" value="1" /> <c:forEach
+									var="ordList" items="${list.ordList}">
+									<input type="radio" value="${ordList.cho_num}"
+										id="${list.COL_LIST_NUM}-${ordList.cho_num}"
+										name="answer${list.COL_LIST_NUM}" class="panelRadio">
+									<label class="answerLabel"
+										for="${list.COL_LIST_NUM}-${ordList.cho_num}">${num}<c:set
+											var="num" value="${num+1}" />
 									</label>
 								</c:forEach>
 							</li>
 						</c:forEach>
 					</ul>
-					<input type="hidden" value="${list[0].COL_NUM}" name="col_num"> <input type="hidden" value="${fn:length(list)}" name="max_num">
+					<input type="hidden" value="${list[0].COL_NUM}" name="col_num">
+					<input type="hidden" value="${fn:length(list)}" name="max_num">
 				</form>
 				<button onclick="check()" id="confirmbtn">답안 제출하기</button>
 			</div>

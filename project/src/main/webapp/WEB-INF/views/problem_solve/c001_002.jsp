@@ -103,7 +103,7 @@
 						<p class="desc">회원들이 만든 문제들로 만든 문제집입니다.</p>
 					</button>
 					<hr class="vertical_bar"></hr>
-					<button class="btn" onclick="location.href='colselect_page.pro?category=${category}'">
+					<button class="btn" onclick="location.href='pastColselect_page.pro?category=${category}'">
 						<p class="btnName">기출 문제집</p>
 						<p class="desc">회원들이 만든 문제들로 만든 문제집입니다.</p>
 					</button>

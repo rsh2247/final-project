@@ -20,12 +20,12 @@ public class Paging {
 	}
 	
 	public void calMax() {
-		listNum = (wholeSize/listSize) + 1;
+		listNum = (int) Math.ceil((double)wholeSize/(double)listSize);
 		endNum = wholeSize - (nowPage-1)*listSize;
 		startNum = endNum - listSize + 1; if(startNum<1) startNum = 1;
 	}
 	public void calMin() {
-		listNum = (wholeSize/listSize) + 1;
+		listNum = (int) Math.ceil((double)wholeSize/(double)listSize);
 		startNum = 1 + listSize*(nowPage-1);
 		endNum = startNum + listSize - 1; if(endNum>wholeSize) endNum = wholeSize;
 	}

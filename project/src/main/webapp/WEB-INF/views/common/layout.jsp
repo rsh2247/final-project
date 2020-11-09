@@ -26,8 +26,9 @@
       }
       #content {
         width: 100%;
-        min-height: 1200px;
+        min-height: 1000px;
         margin:auto;
+        margin-bottom: 100px;
         float: left;
       }
       #contentbox{
@@ -40,7 +41,7 @@
         padding: 5px;
         border: 0px solid #bcbcbc;
         background-color: #252525;
-        height: 300px;
+        height: 250px;
         margin-top: 200px;
       }
       

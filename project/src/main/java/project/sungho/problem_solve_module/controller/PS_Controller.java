@@ -12,7 +12,7 @@ public interface PS_Controller {
 	public ModelAndView searchCategory(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView searchProblem(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView checkAnswer(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView userColSelectPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView userColSelectPage(@RequestParam HashMap<String, Object> inputMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView collectionPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView check_colAnswer(HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	

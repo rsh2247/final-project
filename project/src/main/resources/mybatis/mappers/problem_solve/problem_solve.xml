@@ -28,13 +28,20 @@
       ]]>
 	</select>
 
-	<select id="searchListCategory" resultMap="result" parameterType="java.util.Map"> 
-		SELECT distinct rownum, p.pro_num as pro_num,pro_name,pro_content,pro_answer,tag_name,p.user_id as user_id, avg(pro_eval_score) over(partition by e.pro_num) as score
+	<select id="searchListCategory" resultMap="result" parameterType="java.util.Map">
+	 	<![CDATA[
+		SELECT distinct rownum,  x.*
+		FROM
+		]]>
+        (
+        SELECT p.pro_num as pro_num,pro_name,pro_content,pro_answer,tag_name,p.user_id as user_id, avg(pro_eval_score) over(partition by e.pro_num) as score
 		from pro_eval e
 		full outer join problem p
 		on e.pro_num = p.pro_num
-		WHERE p.category_name = #{category}
-		order by pro_num DESC
+		WHERE p.category_name = 'TOEIC'
+        order by pro_num asc
+        ) x
+        order by rownum desc
 	</select>
 	
 	<select id="selectMyProHistory" resultMap="result" parameterType="java.util.Map">
@@ -72,15 +79,33 @@
 
 	<select id="selectCollection" resultMap="result"
 		parameterType="java.util.Map"> 
+	     <![CDATA[
+			SELECT distinct rownum,  x.*
+			FROM
+			]]>
+	        (
+		    SELECT c.col_num as col_num,col_name,c.user_id as user_id, avg(col_eval_score) over(partition by e.col_num) as score
+			from col_eval e
+			full outer join pro_collection c
+			on e.col_num = c.col_num
+			WHERE c.category_name = #{category} and col_tag = #{col_tag}
+	        order by col_num asc
+	        ) x
+	        order by rownum desc
+	</select>
+	
+	<select id="selectPastCollection" resultMap="result"
+		parameterType="java.util.Map"> 
       <![CDATA[
          select *
          from   pro_collection
       ]]>
 		<where>
 			<if test=" category != ''  and  category != null">
-				category_name = #{category} and col_tag = '창작'
+				category_name = #{category} and col_tag = '기출'
 			</if>
 		</where>
+		order by col_name desc
 	</select>
 
 
@@ -117,19 +142,43 @@
 		WHERE pro_num = #{pro_num}
 	</select>
 	
+	<select id="selectColEval" resultMap="result" parameterType="java.util.Map">
+		SELECT col_eval_content, col_eval_score, col_eval_date
+		FROM col_eval
+		WHERE col_num = #{col_num}
+	</select>
+	
 	<select id="checkEval" resultMap="result" parameterType="java.util.Map">
 		SELECT pro_num
 		FROM pro_eval
 		WHERE user_id = #{user_id} and pro_num = #{pro_num}
 	</select>
+	
+	<select id="checkColEval" resultMap="result" parameterType="java.util.Map">
+		SELECT col_num
+		FROM col_eval
+		WHERE user_id = #{user_id} and col_num = #{col_num}
+	</select>
 		
 	<insert id="insertEval">
 		INSERT INTO PRO_EVAL(pro_eval_content, pro_eval_score,user_id,pro_num,pro_eval_date)
-		VALUES(#{pro_eval_content},#{pro_eval_score},#{user_id},#{pro_num},sysdate)
+		VALUES(#{pro_eval_content ,jdbcType=VARCHAR},#{pro_eval_score},#{user_id},#{pro_num},sysdate)
 	</insert>
+	
+	<insert id="insertColEval">
+		INSERT INTO COL_EVAL(col_eval_content, col_eval_score, user_id, col_num, col_eval_date)
+		VALUES(#{col_eval_content ,jdbcType=VARCHAR}, #{col_eval_score},#{user_id},#{col_num},sysdate)
+	</insert>
+	
 	<update id="updateEval">
 		UPDATE pro_eval 
-		SET pro_eval_content = #{pro_eval_content}, pro_eval_score = #{pro_eval_score}, pro_eval_date = sysdate
+		SET pro_eval_content = #{pro_eval_content, jdbcType=VARCHAR}, pro_eval_score = #{pro_eval_score}, pro_eval_date = sysdate
 		WHERE pro_num = #{pro_num} and user_id = #{user_id}
+	</update>
+	
+	<update id="updateColEval">
+		UPDATE col_eval 
+		SET col_eval_content = #{col_eval_content, jdbcType=VARCHAR}, col_eval_score = #{col_eval_score}, col_eval_date = sysdate
+		WHERE col_num = #{col_num} and user_id = #{user_id}
 	</update>
 </mapper>

@@ -40,10 +40,6 @@
 	background-color: #f1f1f1;
 }
 
-.p_table a {
-	text-decoration: none;
-	color: black;
-}
 
 .star1 {
 	display: inline-block;
@@ -74,6 +70,14 @@
 	background-color: #3E60DB;
 	color: #fff;
 }
+.pro_title{
+	text-decoration: none;
+    color: black;
+    padding-left: 10px;
+}
+.pro_title:hover{
+	text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -91,8 +95,8 @@
 				<c:if test="${problem.ROWNUM >= page.startNum && problem.ROWNUM <= page.endNum}">
 					<tr>
 						<td></td>
-						<td>${problem.ROWNUM}</td>
-						<td style="text-align: left; padding-left: 25px;"><a href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
+						<td>${problem.PRO_NUM}</td>
+						<td style="text-align: left; padding-left: 25px;"><a class="pro_title" href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
 						<td>${problem.TAG_NAME}</td>
 						<td><img style="clip: rect(0px,${num}px,30px,0px);" class="star1" alt="" src="${contextPath}/resources/image/stars1.png"> <img class="star2" alt="" src="${contextPath}/resources/image/stars2.png"></td>
 					</tr>

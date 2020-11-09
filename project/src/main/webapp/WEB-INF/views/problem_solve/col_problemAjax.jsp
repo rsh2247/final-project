@@ -19,7 +19,7 @@
 							<div style="margin-left: 20px;">
 								<ul class="list">
 									<c:forEach var="ordList" items="${list.ordList}">
-										<li style="padding-bottom: 3px;"><label style="cursor: pointer;" for="${list.PRO_NUM}-${ordList.cho_num}"><div class="proNum">(${ordList.cho_num})</div>${ordList.cho_content}</label></li>
+										<li style="padding-bottom: 3px;"><label style="cursor: pointer;" for="${list.COL_LIST_NUM}-${ordList.cho_num}"><div class="proNum">(${ordList.cho_num})</div>${ordList.cho_content}</label></li>
 									</c:forEach>
 								</ul>
 							</div>
@@ -28,7 +28,7 @@
 				</c:if>
 			</c:forEach>
 		</ul>
-		<input type="hidden" id="col_num" name="col_num" value="${result.col_num}"> 
+		<input type="hidden" id="col_num" name="col_num" value="${result.COL_NUM}"> 
 		<input type="hidden" id="nextNum" value="${page.nowPage}"> 
 		<input type="hidden" id="prevNum" value="${page.nowPage-1}">
 		<div id="navibar">

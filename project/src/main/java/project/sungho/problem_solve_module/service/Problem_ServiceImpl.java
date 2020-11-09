@@ -57,6 +57,18 @@ public class Problem_ServiceImpl implements Problem_Service {
 		List<Map<String, Object>> list = problem_DAO.selectCollection(searchMap);
 		return list;
 	}
+	
+	@Override
+	public List<Map<String, Object>> selectPastCollection(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList("selectPastCollection",searchMap);
+		return list;
+	}
+	
+	@Override
+	public Map<String, Object> selectOneCol(Map<String, Object> searchMap) throws DataAccessException {
+		Map<String, Object> list = sqlSession.selectOne("pr.pro_collection.searchList", searchMap);
+		return list;
+	}
 
 	//collection_num 이용해서 각각 probelm의 choice 전부 불러옴.
 	@Override
@@ -207,5 +219,12 @@ public class Problem_ServiceImpl implements Problem_Service {
 		else sqlSession.update("updateEval",inputMap);
 		
 	}
-
+	
+	public void insertColEval(Map<String, Object> inputMap) throws DataAccessException {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		inputMap.put("user_id", user.getUsername());
+		if(sqlSession.selectOne("checkColEval", inputMap)==null) sqlSession.update("insertColEval",inputMap);
+		else sqlSession.update("updateColEval",inputMap);
+		
+	}
 }

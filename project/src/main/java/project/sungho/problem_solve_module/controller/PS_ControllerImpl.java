@@ -94,16 +94,26 @@ public class PS_ControllerImpl implements PS_Controller {
 
 	@Override
 	@RequestMapping(value = "problem_solve/userColselect_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView userColSelectPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView userColSelectPage(@RequestParam HashMap<String, Object> inputMap , HttpServletRequest request, HttpServletResponse response) throws Exception {
+		inputMap.put("col_tag", "창작");
+		List<Map<String, Object>> list = problem_Service.selectCollection(inputMap);
+		ModelAndView mav = new ModelAndView("problem_solve/col_listPage.tiles");
+		mav.addObject("list", list);
+		request.getSession().setAttribute("category", inputMap.get("category"));
+		return mav;
+	}
+	
+	@RequestMapping(value = "problem_solve/pastColselect_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView pastColselect_page(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String category = request.getParameter("category");
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("category", category);
-		List<Map<String, Object>> list = problem_Service.selectCollection(searchMap);
 		ModelAndView mav = new ModelAndView("problem_solve/col_listPage.tiles");
-		mav.addObject("list", list);
+		mav.addObject("list", problem_Service.selectPastCollection(searchMap));
 		request.getSession().setAttribute("category", category);
 		return mav;
 	}
+	
 
 	@Override
 	@RequestMapping(value = "problem_solve/collection_page.pro", method = { RequestMethod.GET, RequestMethod.POST })
@@ -111,7 +121,6 @@ public class PS_ControllerImpl implements PS_Controller {
 		String col_num = request.getParameter("number");
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("col_num", col_num);
-		
 		List<Map<String, Object>> list = problem_Service.selectCollection(searchMap);
 		ModelAndView mav = new ModelAndView("problem_solve/pro_collection_page.tiles");
 		mav.addObject("list", list);
@@ -128,19 +137,19 @@ public class PS_ControllerImpl implements PS_Controller {
 		ModelAndView mav = new ModelAndView("problem_solve/col_problemPage.tiles");
 		mav.addObject("page", page);
 		mav.addObject("list",list);
-		mav.addObject("result",paramMap);
+		mav.addObject("result",problem_Service.selectOneCol(paramMap));
 		return mav;
 	}
 	
 	@RequestMapping(value = "problem_solve/col_problemRefresh", method = { RequestMethod.POST })
 	public ModelAndView col_problemRefresh(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(paramMap);
 		List<Map<String, Object>> list = problem_Service.selectProByCol(paramMap);
+		System.out.println(list.size());
 		Paging page = new Paging(list.size(), 5, Integer.parseInt((String)paramMap.get("pageNum")),"reverse");
 		ModelAndView mav = new ModelAndView("problem_solve/col_problemAjax.tiles");
 		mav.addObject("list",list);
 		mav.addObject("page",page);
-		mav.addObject("result",paramMap);
+		mav.addObject("result",problem_Service.selectOneCol(paramMap));
 		return mav;
 	}
 	
@@ -148,11 +157,12 @@ public class PS_ControllerImpl implements PS_Controller {
 	@RequestMapping(value = "**/check_colAnswer.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView check_colAnswer(@RequestParam HashMap<String, Object> paramMap,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> searchMap = new HashMap<String,Object>(); searchMap.put("col_num", paramMap.get("col_num"));
-		List<Map<String, Object>> answerList = problem_Service.selectProByCol(searchMap);
 		
+		List<Map<String, Object>> answerList = problem_Service.selectProByCol(searchMap);
 		paramMap = (HashMap<String, Object>) problem_Service.insertUserColHistory(paramMap, answerList);
 		ModelAndView mav = new ModelAndView("problem_solve/col_answerPage.tiles");
 		mav.addObject("result", paramMap);
+		mav.addObject("col",problem_Service.selectOneCol(paramMap));
 		return mav;
 	}
 	
@@ -222,7 +232,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	@RequestMapping(value = "**/makeCol002.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView makeCol002(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		problem_Service.insertCollection(paramMap);
-		return null;
+		return new ModelAndView("redirect:colMake_mainPage");
 	}
 	
 	@RequestMapping(value = "problem_solve/proEval.pro", method = {RequestMethod.POST})
@@ -230,9 +240,20 @@ public class PS_ControllerImpl implements PS_Controller {
 		return new ModelAndView("problem_solve/pro_evaluate.tiles","result",paramMap);
 	}
 	
+	@RequestMapping(value = "problem_solve/colEval.pro", method = {RequestMethod.POST})
+	public ModelAndView colEval(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new ModelAndView("problem_solve/col_evaluate.tiles","result",paramMap);
+	}
+	
 	@RequestMapping(value = "problem_solve/evalConfirm.pro", method = {RequestMethod.POST})
 	public String proEvalConfirm(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		problem_Service.insertEval(paramMap);
+		return "redirect:list.pro?category="+paramMap.get("category");
+	}
+	
+	@RequestMapping(value = "problem_solve/colEvalConfirm.pro", method = {RequestMethod.POST})
+	public String colEvalConfirm(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		problem_Service.insertColEval(paramMap);
 		return "redirect:list.pro?category="+paramMap.get("category");
 	}
 	
