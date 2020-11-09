@@ -52,13 +52,14 @@
   <meta charset="UTF-8">
   <title>랭킹</title>
 </head>
-
-	<h1>PRACTICE EVERYDAY RANKING</h1>
-	<h2>SEARCHING USER</h2>
+	<div  style ="align: center; width: 1100px; margin:auto;">
+		<h1>PRACTICE EVERYDAY RANKING</h1>
+		<h2>SEARCHING USER</h2>
+	</div>	
 
 <body>
 
-	<div>
+	<div style ="align: center; width: 1100px; margin:auto;">
 		<br> <br>
 		<table class="score_table">
 			<thead>
@@ -94,6 +95,7 @@
 		</table>
 	</div>
     <br>
+<div  style ="align: center; width: 1100px; margin:auto;">    
     <table>
     	<div>
     		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1" >문제출제랭킹</a>
@@ -107,5 +109,6 @@
     		</form>
  		</div>
     </table>
+</div>    
 </body>
 </html>

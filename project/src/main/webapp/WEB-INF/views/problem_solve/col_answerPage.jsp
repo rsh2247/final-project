@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,7 +13,7 @@
 	border-collapse: collapse;
 }
 
-#answerTable td{
+#answerTable td {
 	padding: 20px 0 20px 0;
 }
 
@@ -25,7 +27,6 @@
 }
 
 .button:hover {
-	
 	color: #3E60DB;
 	background-color: #fff;
 }
@@ -37,8 +38,18 @@
 			<td colspan="2">점수 : ${result.score} / ${result.maxscore}</td>
 		</tr>
 		<tr>
-			<td><button class="button" onclick="location.href=''">오답확인하기</button>
-				<button class="button" onclick="location.href='userColselect_page.pro?category=${category}'">다른문제 풀러가기</button></td>
+			<td><button class="button" onclick="location.href='${contextPath}/userPage_col_correctsheet.user?number=${col.COL_NUM}&time=${result.col_solvedate}'">오답확인하기</button>
+				<button class="button"
+					onclick="location.href='userColselect_page.pro?category=${category}'">다른문제
+					풀러가기</button>
+				<form action="colEval.pro" method="post">
+					<button class="button">문제집 평가하기</button>
+					<input type="hidden" name="col_num" value="${col.COL_NUM}">
+					<input type="hidden" name="col_name" value="${col.COL_NAME}">
+					<input type="hidden" name="category_name" value="${col.CATEGORY_NAME}">
+					<input type="hidden" name="user_id" value="${col.USER_ID}">
+				</form></td>
+
 		</tr>
 	</table>
 </body>

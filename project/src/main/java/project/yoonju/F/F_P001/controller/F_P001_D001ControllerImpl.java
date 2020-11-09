@@ -36,13 +36,6 @@ import project.yoonju.F.F_P001.vo.F_P001_D001VO;
 import project.yoonju.F.F_P001.vo.F_P001_D001VO2;
 
 
-/*import com.myspring.pro30.board.service.H_p001_d001Service;
-import com.myspring.pro30.board.vo.H_p001_d001VO;
-import com.myspring.pro30.board.vo.ImageVO;
-import com.myspring.pro30.member.vo.MemberVO;*/
-
-
-
 @Controller("scoreController")
 public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	@Autowired
@@ -80,10 +73,19 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 		String viewName = "/F_P001/categoryScore.tiles";
 		System.out.println("뷰네임-------------" + viewName);
 		List<F_P001_D001VO> scoreList = scoreService.selectScorelist_categoryScore(score_category);
+		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");	//모든 유저 1 카테고리 접수 합계
+		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");	//모든 유저 2 카테고리 점수 합계
+		List<F_P001_D001VO> allScoreList = scoreService.allScoreList();	//모든 유저의 종합점수
+		
+
 		System.out.println("CON===============>>" + scoreList.size());
 		ModelAndView mav = new ModelAndView(viewName);
 		
 		mav.addObject("scoreList", scoreList);
+		mav.addObject("categoryList1",categoryList1);
+		mav.addObject("categoryList2",categoryList2);
+		mav.addObject("allScoreList", allScoreList);
+		
 		System.out.println(scoreList.toString());
 		return mav;
 	}
