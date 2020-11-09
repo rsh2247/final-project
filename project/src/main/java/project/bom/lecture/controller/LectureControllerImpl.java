@@ -6,19 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.bom.lecture.service.LectService;
+import project.bom.lecture.vo.ContentVO;
 import project.bumsik.payment_main.vo.Lecture_VO;
 import project.common.Pagination;
+import project.sungho.security.member.CustomUser; 
 
 @Controller
 public class LectureControllerImpl implements LectureController {
@@ -26,6 +29,8 @@ public class LectureControllerImpl implements LectureController {
 	private LectService lectService;
 	@Autowired
 	private Lecture_VO lecture_VO;
+	@Autowired
+	private ContentVO contentVO;
 	
 	@RequestMapping("lecture/main.do")
 	public String lectInit(Model model) {
@@ -118,41 +123,40 @@ public class LectureControllerImpl implements LectureController {
 //		String resultPath = "";
 //		HttpSession session = request.getSession(false);
 //		String user_id = (String)session.getAttribute("user_id");
-		String user_id = "student1";
+		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		Map<String,String> searchParam = new HashMap<>();
-		searchParam.put("student_id", user_id);
+		searchParam.put("student_id", userId);
 		List<Lecture_VO> resultList = new ArrayList<>();
 		resultList = lectService.getLectureList(searchParam);
 		model.addAttribute("lectureList",resultList);
 		return "lecture/mySubLectureList.tiles";
 	}
 	
-	
 	@RequestMapping("lecture/addLecture.do")
 	public String addLecture(HttpServletRequest request) {
 		// 세션에서 아이디 받아오기
-//		String resultPath = "";
+		String resultPath = "";
 //		HttpSession session = request.getSession(false);
 //		String user_id = (String)session.getAttribute("user_id");
+//		return resultPath;
+//		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 //		// 로그인 체크
-//		if(user_id == null || user_id.equals("")) {
+//		if(userId == null || userId.equals("")) {
 //			resultPath = "로그인페이지";
 //		}else {
 //			resultPath = "등록 양식 폼 페이지";
+//			return resultPath;
 //		}
-//		return resultPath;
 		return "lecture/addLectureForm.tiles";
 	}
-	
-	
 	
 	@RequestMapping("lecture/insertLecture.do")
 	public String insertLecture(MultipartHttpServletRequest mtfRequest, HttpServletRequest request, Lecture_VO vo) {
 		// 세션에서 아이디 받아오기
 //		HttpSession session = request.getSession(false);
 //		String user_id = (String)session.getAttribute("user_id");
-		String user_id = "test1";
-		vo.setUser_id(user_id);
+		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		vo.setUser_id(userId);
 		boolean check = true;
 		while(check) {
 			String lecture_id = lectService.makeRandomString().toString();
@@ -180,4 +184,18 @@ public class LectureControllerImpl implements LectureController {
 		return "redirect:main.do";
 	}
 	
+//	@RequestMapping("lecture/getLectureIndex.do")
+//	public String getLectureIndex(@RequestParam String lecture_id, Model model) {
+//		Map<String,String> searchParam = new HashMap<>();
+//		searchParam.put("lecture_id", lecture_id);
+//		Lecture_VO vo = lectService.getLecture(searchParam);
+//		model.addAttribute("lecture",vo);
+//		return "lecture/lectureIndex.tiles";
+//	}
+//	
+//	@RequestMapping("lecture/getLectureLink.do")
+//	public String getLectureLink(HttpServletRequest request, Model model, ContentVO contentVO) {
+//		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+//		return "lecture/lecturePlayer.tiles";
+//	}
 }

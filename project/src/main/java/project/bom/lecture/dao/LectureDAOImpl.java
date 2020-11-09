@@ -1,14 +1,13 @@
 package project.bom.lecture.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import project.bom.lecture.vo.ContentVO;
 import project.bumsik.payment_main.vo.Lecture_VO;
 
 
@@ -46,5 +45,10 @@ public class LectureDAOImpl implements LectureDAO {
 	@Override
 	public void insertLecture(Lecture_VO vo) {
 		sqlSession.insert("Lecture.insertLecture",vo);
+	}
+	
+	@Override
+	public List<ContentVO> getLectureIndex(Map<String,String> searchParam) {
+		return sqlSession.selectList("Lecture.getLectureIndex",searchParam);
 	}
 }

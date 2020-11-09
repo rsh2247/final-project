@@ -27,6 +27,7 @@
 <!-- jQeury -->
 <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" type="text/css"	/>
 <title>강의 메인 페이지</title>
 </head>
 <body>
@@ -61,7 +62,7 @@
 							</tr>
 							<tr>
 								<td class="lectureName" style="width:150px; height:auto;">
-									<h5>${list.lecture_name }</h5>
+									<p><a href="${contextPath }/lecture/getLecture.do?lecture_id=${list.lecture_id }">${list.lecture_name }</a></p>
 								</td>
 							</tr>
 							<tr>

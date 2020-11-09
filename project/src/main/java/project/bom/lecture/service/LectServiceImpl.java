@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.bom.lecture.dao.LectureDAO;
+import project.bom.lecture.vo.ContentVO;
 import project.bumsik.payment_main.vo.Lecture_VO;
 
 
@@ -51,7 +52,7 @@ public class LectServiceImpl implements LectService {
 		Random rnd = new Random();
 		StringBuffer buf = new StringBuffer();
 		for(int i=0;i<20;i++){
-		    // rnd.nextBoolean() 는 랜덤으로 true, false 를 리턴. true일 시 랜덤 한 소문자를, false 일 시 랜덤 한 숫자를 StringBuffer 에 append 한다.
+		    // rnd.nextBoolean() 는 랜덤으로 true, false 를 리턴. true일 시 랜덤한 소문자를, false 일 시 랜덤한 숫자를 StringBuffer 에 append 한다.
 		    if(rnd.nextBoolean()){
 		        buf.append((char)((int)(rnd.nextInt(26))+97));
 		    }else{
@@ -69,5 +70,10 @@ public class LectServiceImpl implements LectService {
 	@Override
 	public void insertLecture(Lecture_VO vo) {
 		lectureDAO.insertLecture(vo);
+	}
+	
+	@Override
+	public List<ContentVO> getLectureIndex(Map<String,String> searchParam) {
+		return lectureDAO.getLectureIndex(searchParam);
 	}
 }
