@@ -67,7 +67,7 @@
 		<![CDATA[
 		SELECT rownum, post_num, board_name, user_id, post_title, post_content, post_category, (select count(post_num) from post p1 where p1.post_parent = p2.post_num) as reply_num,
 		CASE 
-		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
+		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mi:ss')
 		ELSE to_char(post_date,'yyyy-mm-dd')
 		end as post_date 
 		FROM board b, post p2 
@@ -104,24 +104,24 @@
 	
 	<select id="selectArticle" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
-		SELECT rownum, post_num,p.board_num as board_num, board_name, user_id, post_title, post_content, post_category, 
+		SELECT rownum, post_num,p.board_num as board_num, board_name, p.user_id, post_title, post_content, post_category, user_image, user_nickname,
 		CASE 
 		WHEN to_char(post_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then to_char(post_date,'hh24:mm:ss')
 		ELSE to_char(post_date,'yyyy-mm-dd')
 		end as post_date 
-		FROM post p, board b
+		FROM post p, board b, user_table u
 		]]>
 		<where>
-		b.board_num = p.board_num and post_num = #{post_num} and post_parent is null
+		b.board_num = p.board_num and u.user_id = p.user_id and post_num = #{post_num} and post_parent is null
 		</where>
 	</select>
 	
 	<select id="selectReply" resultMap="result" parameterType="java.util.Map">
 		<![CDATA[
-		SELECT post_content, user_id, to_char(post_date,'yyyy-mm-dd hh24:mi:ss') as post_date
-		FROM post
+		SELECT post_content, p.user_id, to_char(post_date,'yyyy-mm-dd hh24:mi:ss') as post_date, user_nickname, user_image
+		FROM post p, user_table u
 		]]>
-		<where>post_parent = #{post_num}</where>
+		<where>u.user_id = p.user_id and post_parent = #{post_num}</where>
 		order by post_date
 	</select>
 	

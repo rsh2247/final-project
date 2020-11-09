@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.btn:nth-child(3) {
+.btn:nth-child(2) {
 	font-weight: bold;
 	color: #3E60DB;
 	border-bottom: 2px solid #3E60DB;

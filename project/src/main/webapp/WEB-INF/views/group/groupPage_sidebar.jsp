@@ -170,13 +170,24 @@
 
 .btn {
 	width: 100%;
-	height: 40px;
-	border: 1px solid #aaa;
+	line-height: 40px;
+	border: 2px solid #3E60DB;
+	margin-top: 20px;
+	color: #fff;
+	font-size: 16px;
+	background-color: #3E60DB;
 	cursor: pointer;
+	transition: all ease 300ms 0s;
 }
 
 .btn:hover {
-	
+	background-color: #2a4296;
+	border: 2px solid #2a4296;
+}
+.btn:active{
+	background-color: #fff;
+	border: 2px solid #3E60DB;
+	color: #3E60DB;
 }
 
 .infobtn {
@@ -244,7 +255,7 @@
 				<c:if test="${result.STATE eq 'manager'}">
 					<form action="managing.user" method="post">
 						<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
-						<button id="managebtn" class="btn">게시판 관리</button>
+						<button id="managebtn" class="btn">카페 관리</button>
 					</form>
 				</c:if>
 				<c:if test="${empty result.STATE}">

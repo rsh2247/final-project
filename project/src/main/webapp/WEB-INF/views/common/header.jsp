@@ -281,13 +281,14 @@ h3 {
 				<li><a href="${contextPath}/group/groupmain" class="link">그룹</a></li>
 				<li><a href="${contextPath}/F/F_P001/listScore.page" class="link">랭킹</a></li>
 				<li><a href="${contextPath}/calendar_main.cal" class="link">일정관리</a></li>
-
+				<!--  
 				<li><a href="#" class="link">게시판</a>
 					<ul class="two">
 						<li><a href="${contextPath}/H/H_P001/listArticles.page"
 							class="link">자유게시판</a></li>
 					</ul></li>
-				<li><a href="${contextPath}/orderInit.pay" class="link">강의</a></li>
+					-->
+				<li><a href="${contextPath}/lecture/main.do" class="link">강의</a></li>
 			</ul>
 		</nav>
 	</div>

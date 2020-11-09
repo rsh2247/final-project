@@ -73,9 +73,21 @@
 }
 #enroll {
 	width: 60px;
-	height: 30px;
+	line-height: 30px;
 	float: right;
+	border: 2px solid #3E60DB;
+	border-radius: 6px;
+	color:#3E60DB;
+	background-color: #fff;
+	cursor: pointer;
+	transition: all ease 250ms;
 }
+
+#enroll:hover {
+	background-color: #3E60DB;
+	color:#fff;
+}
+
 </style>
 </head>
 <body>

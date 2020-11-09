@@ -67,8 +67,15 @@
 }
 
 .proNum {
+	width: 20px;
+	line-height: 18px;
 	margin-right: 10px;
 	display: inline-block;
+	border: 1px solid #555;
+	border-radius: 20px;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
 }
 
 .pro_content {
@@ -165,7 +172,7 @@
 	padding-left: 5px;
 }
 #title2{
-	margin-top: 10px;
+	margin-top: 5px;
 	font-size: 26px;
 }
 #clockbox {
@@ -200,6 +207,13 @@
 .clockbtn:active {
 	color: #3e60db;
 	background-color: #fff;
+}
+.check{
+	width: 17px;
+	height: 17px;
+	display: none;
+	position: relative;
+	right: 25px;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -248,6 +262,17 @@ $(document).ready(function () {
 	function addZero(num) {
 		return (num < 10 ? '0'+num : ''+num)
 	}
+	$('input[class=panelRadio]').change(function () {
+	    var id = $(this).attr('id')+'check';
+	    var num = id.split('-')[0];
+	    for(var i=1; i<10; i++){
+			$('#'+num+'-'+i+'check').css('display','none');
+			$('#'+num+'-'+i+'check + span').css('right','0px');
+	    }
+	    $('#'+id).css('display','inline-block');
+	    $('#'+id+' + span').css('position','relative');
+	    $('#'+id+' + span').css('right','17px');
+	})
 	
 })
 
@@ -342,9 +367,8 @@ $(document).ready(function () {
 									<div style="margin-left: 20px;">
 										<ul class="list">
 											<c:forEach var="ordList" items="${list.ordList}">
-												<li style="padding-bottom: 3px;"><label
-													style="cursor: pointer;"
-													for="${list.COL_LIST_NUM}-${ordList.cho_num}"><div class="proNum">(${ordList.cho_num})</div>${ordList.cho_content}</label></li>
+												<li style="padding-bottom: 3px;"><label style="cursor: pointer;" for="${list.COL_LIST_NUM}-${ordList.cho_num}">
+												<span class="proNum">${ordList.cho_num}</span><img src="${contextPath}/resources/image/check.png" id="${list.COL_LIST_NUM}-${ordList.cho_num}check" class="check"><span>${ordList.cho_content}</span></label></li>
 											</c:forEach>
 										</ul>
 									</div>

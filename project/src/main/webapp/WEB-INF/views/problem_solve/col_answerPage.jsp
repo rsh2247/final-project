@@ -18,8 +18,9 @@
 }
 
 .button {
-	width: 200px;
+	width: 160px;
 	border: 2px solid #3E60DB;
+	border-radius: 50px;
 	color: #fff;
 	background-color: #3E60DB;
 	padding: 0.7em 0.5em 0.7em 0.5em;
@@ -42,7 +43,7 @@
 				<button class="button"
 					onclick="location.href='userColselect_page.pro?category=${category}'">다른문제
 					풀러가기</button>
-				<form action="colEval.pro" method="post">
+				<form action="colEval.pro" method="post" style="display: inline-block;">
 					<button class="button">문제집 평가하기</button>
 					<input type="hidden" name="col_num" value="${col.COL_NUM}">
 					<input type="hidden" name="col_name" value="${col.COL_NAME}">

@@ -40,7 +40,6 @@
 	background-color: #f1f1f1;
 }
 
-
 .star1 {
 	display: inline-block;
 	height: 25px;
@@ -70,12 +69,14 @@
 	background-color: #3E60DB;
 	color: #fff;
 }
-.pro_title{
+
+.pro_title {
 	text-decoration: none;
-    color: black;
-    padding-left: 10px;
+	color: black;
+	padding-left: 10px;
 }
-.pro_title:hover{
+
+.pro_title:hover {
 	text-decoration: underline;
 }
 </style>
@@ -103,16 +104,18 @@
 				</c:if>
 			</c:forEach>
 		</table>
-		<c:set var="pageNum" value="1" />
-		<c:forEach begin="1" end="${page.listNum}">
-			<c:if test="${pageNum == page.nowPage}">
-				<button class="pagebtn colorbtn" value="${pageNum}" onclick="location.href='${contextPath}/problem_solve/list.pro?category=${result.category}&pageNum=${pageNum}'">${pageNum}</button>
-			</c:if>
-			<c:if test="${pageNum != page.nowPage}">
-				<button class="pagebtn" value="${pageNum}" onclick="location.href='${contextPath}/problem_solve/list.pro?category=${result.category}&pageNum=${pageNum}'">${pageNum}</button>
-			</c:if>
-			<c:set var="pageNum" value="${pageNum + 1}" />
-		</c:forEach>
+		<div style="margin: 20px;">
+			<c:set var="pageNum" value="1" />
+			<c:forEach begin="1" end="${page.listNum}">
+				<c:if test="${pageNum == page.nowPage}">
+					<button class="pagebtn colorbtn" value="${pageNum}" onclick="location.href='${contextPath}/problem_solve/list.pro?category=${result.category}&pageNum=${pageNum}'">${pageNum}</button>
+				</c:if>
+				<c:if test="${pageNum != page.nowPage}">
+					<button class="pagebtn" value="${pageNum}" onclick="location.href='${contextPath}/problem_solve/list.pro?category=${result.category}&pageNum=${pageNum}'">${pageNum}</button>
+				</c:if>
+				<c:set var="pageNum" value="${pageNum + 1}" />
+			</c:forEach>
+		</div>
 	</div>
 </body>
 </html>

@@ -9,9 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="<c:url value="/resources/fonts/font-awesome.min.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/xeicon.min.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
+<!-- <link href="<c:url value="/resources/fonts/font-awesome.min.css" />" rel="stylesheet"> -->
+<!--<link href="<c:url value="/resources/css/xeicon.min.css" />" rel="stylesheet">-->
+<!--  <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">-->
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 <script src="https://kit.fontawesome.com/1299206db1.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
