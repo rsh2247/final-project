@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="containerC">
 
         <!-- 일자 클릭시 메뉴오픈 -->
         <div id="contextMenu" class="dropdown clearfix">
@@ -156,7 +156,7 @@
         </div>
         <!-- /.filter panel -->
     </div>
-    <!-- /.container -->
+    <!-- /.containerC -->
     
    <!-- .js -->
 	<script src="<c:url value="/resources/calendar/vendor/js/jquery.min.js" />"></script>

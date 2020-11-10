@@ -69,15 +69,15 @@ table.approved td {
 	</tr>
 	<tr>
 		<th scope="row">할인금액</th>
-		<td>${info.discount_point}</td>
+		<td>${info.discount_point} 원</td>
 	</tr>
 	<tr>
 		<th scope="row">주문금액</th>
-		<td>${info.order_price}</td>
+		<td>${info.order_price} 원</td>
 	</tr>
 	<tr>
 		<th scope="row">총 결제 금액</th>
-		<td>${info.pay_amount}</td>
+		<td>${info.pay_amount} 원</td>
 	</tr>
 </table>
 

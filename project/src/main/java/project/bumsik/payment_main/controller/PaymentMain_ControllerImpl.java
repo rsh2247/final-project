@@ -61,7 +61,7 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		Map<String, Object> orderMap = new HashMap<String,Object>();
 		orderMap.put("order_id", order_id);				//주문ID, order_num
 		orderMap.put("user_id", getUsername());			//유저ID, user
-		orderMap.put("lecture_id", "a01");				//임의 강의번호, lecture
+		orderMap.put("lecture_id", lecture_id);				//임의 강의번호, lecture
 		orderMap.put("order_price", order_price);		//order_price
 		orderMap.put("total_price", order_price);
 		paymentMain_Service.insertOrderInit(orderMap);	//초기 주문정보 
