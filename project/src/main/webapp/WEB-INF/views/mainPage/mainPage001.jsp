@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -75,7 +76,7 @@
 			<p id="title">${title}</p>
 			<hr
 				style="margin: 20px auto 20px auto; width: 70px; height: 4px; border: 0px solid; background-color: #ccc;">
-			<p id="titledesc">문제를 만들고 문제를 풀 수 있는 사이트입니다.</p>
+			<p id="titledesc"><spring:message code="site.main"/></p>
 		</div>
 		<div>
 			<!-- - <input type="text" id="search" name="search">-->

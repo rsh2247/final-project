@@ -21,7 +21,7 @@
 	<div class="contents">
 		<h2 class="title">
 			<img src="./resources/img/payment/tit_0102.gif" alt="수강신청"/> 
-			<span>Home &gt; 강의상세보기 &gt; <em> 수강신청</em></span>
+			<span>Home &gt; 강의  &gt; 강의상세보기 &gt; <em> 수강신청</em></span>
 		</h2>
 		<div class="payment_wrap">
 			<br />

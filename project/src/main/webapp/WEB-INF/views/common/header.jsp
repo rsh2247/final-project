@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -193,6 +194,17 @@ h3 {
 	height: 30px;
 	cursor: default;
 }
+/* us */
+.flag {
+	display: inline-block;
+	position: relative;
+	width: 16px;
+	height: 11px;
+	background: url('https://www.flag-sprites.com/img/flags.png') no-repeat;
+	margin-top: 14px;
+} 
+.flag.flag-us {background-position: 0 -154px}
+.flag.flag-kr{background-position:-80px -77px}
 </style>
 </head>
 <body>
@@ -200,9 +212,11 @@ h3 {
 		<div id="loginbox">
 			<sec:authorize access="isAnonymous()">
 				<div id='loginbar'>
+					<a href="${contextPath}/mainPage.main?lang=ko"><img class="flag flag-kr"/></a>
+					<a href="${contextPath}/mainPage.main?lang=en"><img class="flag flag-us"/></a>
 					<p class="login">
-						<a href="${contextPath}/user/loginPage.do">로그인</a> | <a
-							href="${contextPath}/user/signUp.do">회원가입</a>
+						<a href="${contextPath}/user/loginPage.do"><spring:message code="site.signin"/></a> | 
+						<a href="${contextPath}/user/signUp.do"><spring:message code="site.signup"/></a>
 					</p>
 				</div>
 			</sec:authorize>
@@ -213,7 +227,7 @@ h3 {
 						<p class="login">
 							<a href="${contextPath}/userPage_col.user"><sec:authentication
 									property="principal.username" /></a> | <a
-								href="${contextPath}/logout">로그아웃</a>
+								href="${contextPath}/logout"><spring:message code="site.signout"/></a>
 						</p>
 					</form>
 				</div>
@@ -223,11 +237,11 @@ h3 {
 			<img id="image" src="${contextPath}/resources/image/logo2.png"
 				onclick="location.href='${contextPath}/mainPage.main'" />
 			<ul class="one">
-				<li><a href="#" class="link">문제풀기</a>
+				<li><a href="#" class="link"><spring:message code="site.menu1"/></a>
 					<ul class="two">
-						<li><a href="#" class="link">공인어학시험</a>
+						<li><a href="#" class="link"><spring:message code="site.menu1_1"/></a>
 							<ul class="three" style="top: -2px;">
-								<li class="subtitle"><h3>영어</h3></li>
+								<li class="subtitle"><h3><spring:message code="site.menu1_1_1"/></h3></li>
 								<li><a
 									href="${contextPath}/problem_solve/c001_002.do?category=TOEIC"
 									class="link">TOEIC</a></li>
@@ -240,7 +254,7 @@ h3 {
 								<li><a href="" class="link"> </a></li>
 							</ul>
 							<ul class="three" style="left: 240px; top: -2px;">
-								<li class="subtitle"><h3>중국어</h3></li>
+								<li class="subtitle"><h3><spring:message code="site.menu1_1_2"/></h3></li>
 								<li><a
 									href="${contextPath}/problem_solve/c001_002.do?category=HSK"
 									class="link">HSK</a></li>
@@ -249,7 +263,7 @@ h3 {
 								<li><a href="" class="link"></a></li>
 							</ul>
 							<ul class="three" style="left: 360px; top: -2px;">
-								<li><h3>일본어</h3></li>
+								<li><h3><spring:message code="site.menu1_1_3"/></h3></li>
 								<li><a
 									href="${contextPath}/problem_solve/c001_002.do?category=JLPT"
 									class="link">JLPT</a></li>
@@ -257,30 +271,30 @@ h3 {
 								<li><a href="${contextPath}/pr/c001_002.do" class="link"></a></li>
 								<li><a href="${contextPath}/pr/c001_002.do" class="link">#</a></li>
 							</ul></li>
-						<li><a href="#" class="link">자격시험</a>
+						<li><a href="#" class="link"><spring:message code="site.menu1_2"/></a>
 							<ul class="three">
-								<li><h3>국가기술자격</h3></li>
-								<li><a href="#" class="link">기능사</a></li>
-								<li><a href="#" class="link">산업기사</a></li>
-								<li><a href="#" class="link">기사</a></li>
+								<li><h3><spring:message code="site.menu1_2_1"/></h3></li>
+								<li><a href="#" class="link"><spring:message code="site.menu1_2_2"/></a></li>
+								<li><a href="#" class="link"><spring:message code="site.menu1_2_3"/></a></li>
+								<li><a href="#" class="link"><spring:message code="site.menu1_2_4"/></a></li>
 							</ul>
 							<ul class="three" style="left: 240px;">
-								<li><h3>민간자격</h3></li>
-								<li><a href="#" class="link">한국사능력검정시험</a></li>
+								<li><h3><spring:message code="site.menu1_2_5"/></h3></li>
+								<li><a href="#" class="link"><spring:message code="site.menu1_2_6"/></a></li>
 								<li><a href="#" class="link"></a></li>
 								<li><a href="#" class="link"></a></li>
 							</ul></li>
 					</ul></li>
-				<li><a href="#" class="link">문제만들기</a>
+				<li><a href="#" class="link"><spring:message code="site.menu2"/></a>
 					<ul class="two">
 						<li><a href="${contextPath}/problem_make/proMake_mainPage.do"
-							class="link">문제만들기</a></li>
+							class="link"><spring:message code="site.menu2_1"/></a></li>
 						<li><a href="${contextPath}/problem_make/colMake_mainPage.do"
-							class="link">문제집만들기</a></li>
+							class="link"><spring:message code="site.menu2_2"/></a></li>
 					</ul></li>
-				<li><a href="${contextPath}/group/groupmain" class="link">그룹</a></li>
-				<li><a href="${contextPath}/F/F_P001/listScore.page" class="link">랭킹</a></li>
-				<li><a href="${contextPath}/calendar_main.cal" class="link">일정관리</a></li>
+				<li><a href="${contextPath}/group/groupmain" class="link"><spring:message code="site.menu3"/></a></li>
+				<li><a href="${contextPath}/F/F_P001/listScore.page" class="link"><spring:message code="site.menu4"/></a></li>
+				<li><a href="${contextPath}/calendar_main.cal" class="link"><spring:message code="site.menu5"/></a></li>
 				<!--  
 				<li><a href="#" class="link">게시판</a>
 					<ul class="two">
@@ -288,7 +302,7 @@ h3 {
 							class="link">자유게시판</a></li>
 					</ul></li>
 					-->
-				<li><a href="${contextPath}/lecture/main.do" class="link">강의</a></li>
+				<li><a href="${contextPath}/lecture/main.do" class="link"><spring:message code="site.menu6"/></a></li>
 			</ul>
 		</nav>
 	</div>

@@ -35,7 +35,7 @@
 		]]>
 	</select>
 	
-	<select id="getLectureList" resultMap="Lecture.lectureResult" parameterType="java.util.Map">
+	<select id="getLectureList" resultMap="lectureResult" parameterType="java.util.Map">
 		<![CDATA[
 		SELECT RESULT.LECTURE_ID, RESULT.LECTURE_CATEGORY, RESULT.LECTURE_NAME, RESULT.USER_ID, RESULT.LECTURE_TUITION, RESULT.LECTURE_DETAIL, RESULT.LECTURE_THUMBNAIL, DECODE(LECTURE_SCORE,NULL,'0',LECTURE_SCORE)AS LECTURE_SCORE, STUDENTCOUNT
 		FROM

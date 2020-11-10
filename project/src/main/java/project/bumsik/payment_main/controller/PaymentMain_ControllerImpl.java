@@ -199,9 +199,13 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		resultMap2 = changeToLowerMapKey(resultMap2);
 		
 		ModelAndView mav = new ModelAndView("payment/paymentSuccess.tiles");
-		
 		mav.addObject("info",resultMap2);
-		System.out.println("mainctr: "+mav);
+
+		/* 결제 성공시에 수강생 등록 */
+		
+		
+		
+		
 		return mav;
 	}
 	

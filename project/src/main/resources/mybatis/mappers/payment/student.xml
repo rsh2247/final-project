@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="student">
+	<resultMap id="student_Result01" type="java.util.HashMap">
+		<result property="lecture_id" column="lecture_id"  />
+		<result property="user_id" column="user_id" />
+		<result property="stu_evalscore" column="stu_evalscore" />
+		<result property="stu_evalcontent" column="stu_evalcontent" />
+	</resultMap>
+
+	<select id="searchStudent" resultMap="student_Result01" parameterType="java.util.Map"> 
+     <![CDATA[
+		SELECT lecture_id, user_id, stu_evalscore, stu_evalcontent
+        FROM  student
+        WHERE user_id = #{user_id}
+    ]]>
+	</select>
+	
+	<insert id="insertStudent" parameterType="java.util.Map">
+	 <![CDATA[	
+        INSERT INTO student(lecture_id, user_id, stu_evalscore, stu_evalcontent) 
+		VALUES(#{lecture_id}, #{user_id}, #{stu_evalscore}, #{stu_evalcontent})
+	]]>
+	</insert>
+		
+	<update id="updateStudent" parameterType="java.util.Map">
+	<![CDATA[		
+        UPDATE student
+		SET  lecture_id = #{lecture_id}
+		   , user_id = #{user_id}
+		   , stu_evalscore = #{stu_evalscore}
+		   , stu_evalcontent = #{stu_evalcontent}
+	]]>
+	</update>
+	
+</mapper>

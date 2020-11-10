@@ -9,7 +9,7 @@
 
 </style>
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link href="<c:url value="/resources/lecture/bootstrap.min.(modify).css" />" rel="stylesheet">
 
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -35,7 +35,7 @@
   			<th>평가점수</th>
   			<th>수강생수</th>
   		</tr>
-  		<c:forEach var="list" items="${lectureList }">
+  		<c:forEach var="list" items="${lectureList}">
   			<tr>
   				<td></td>
   				<td>${list.lecture_category }</td>

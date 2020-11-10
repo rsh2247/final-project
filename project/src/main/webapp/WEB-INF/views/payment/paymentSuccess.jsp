@@ -43,7 +43,7 @@ table.approved td {
    function closeIt()
   {		
 		event.returnValue = "창을 닫겠습니까?";
-		var url="${contextPath}/lecture/main.do";
+		var url="${contextPath}/lecture/mySubLecture.do";
     	opener.location.href = url; 	
   }
    
