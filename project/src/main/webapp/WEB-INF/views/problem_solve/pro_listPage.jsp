@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -8,9 +9,30 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-    $(document)
-	    .ready(function() {
-	    })
+	$(document).ready(function() {
+		$('.evalscorelist').click(function() {
+			$('#evalbox').css('display', 'block')
+			var input = {};
+			$.ajax(
+				{
+					type:"POST",
+					url:"null",
+					data: {},
+					success : function (data) {
+						console.log(data);
+					},
+					error: function () {
+						
+					}
+				}	
+			)
+		})
+
+			$('#evalbox').click(function(e) {
+				if (e.target == this) $(this).css('display', 'none');
+				})
+
+			})
 </script>
 <style type="text/css">
 .menu {
@@ -79,9 +101,37 @@
 .pro_title:hover {
 	text-decoration: underline;
 }
+.evalscorelist{
+	cursor: pointer;
+}
+#evalbox {
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	position: fixed;
+	z-index: 1;
+	background-color: #55555555;
+	display: none;
+}
+
+#eval {
+	width: 900px;
+	height: 650px;
+	margin: 150px auto 0 auto;
+	background-color: #ccc;
+}
 </style>
 </head>
 <body>
+	<div id="evalbox">
+		<div id="eval">
+			<ul id="evallist">
+				<li>
+					<div></div>
+				</li>
+			</ul>
+		</div>
+	</div>
 	<div class="menu">
 		<table class="p_table">
 			<tr>
@@ -93,13 +143,18 @@
 			</tr>
 			<c:forEach var="problem" items="${list}">
 				<c:set var="num" value="${problem.SCORE*12.2}" />
-				<c:if test="${problem.ROWNUM >= page.startNum && problem.ROWNUM <= page.endNum}">
+				<c:if
+					test="${problem.ROWNUM >= page.startNum && problem.ROWNUM <= page.endNum}">
 					<tr>
 						<td></td>
 						<td>${problem.PRO_NUM}</td>
-						<td style="text-align: left; padding-left: 25px;"><a class="pro_title" href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
+						<td style="text-align: left; padding-left: 25px;"><a
+							class="pro_title"
+							href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
 						<td>${problem.TAG_NAME}</td>
-						<td><img style="clip: rect(0px,${num}px,30px,0px);" class="star1" alt="" src="${contextPath}/resources/image/stars1.png"> <img class="star2" alt="" src="${contextPath}/resources/image/stars2.png"></td>
+						<td><span class="evalscorelist"> 
+						<img style="clip: rect(0px,${num}px,30px,0px);" class="star1" alt="" src="${contextPath}/resources/image/stars1.png"> 
+						<img class="star2" alt="" src="${contextPath}/resources/image/stars2.png"></span></td>
 					</tr>
 				</c:if>
 			</c:forEach>
@@ -117,5 +172,6 @@
 			</c:forEach>
 		</div>
 	</div>
+
 </body>
 </html>
