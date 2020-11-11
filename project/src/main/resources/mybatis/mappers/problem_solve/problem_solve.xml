@@ -34,11 +34,11 @@
 		FROM
 		]]>
         (
-        SELECT p.pro_num as pro_num,pro_name,pro_content,pro_answer,tag_name,p.user_id as user_id, avg(pro_eval_score) over(partition by e.pro_num) as score
+        SELECT distinct p.pro_num as pro_num,pro_name,pro_content,pro_answer,tag_name,p.user_id as user_id, avg(pro_eval_score) over(partition by e.pro_num) as score
 		from pro_eval e
 		full outer join problem p
 		on e.pro_num = p.pro_num
-		WHERE p.category_name = 'TOEIC'
+		WHERE p.category_name = #{category}
         order by pro_num asc
         ) x
         order by rownum desc
@@ -84,7 +84,7 @@
 			FROM
 			]]>
 	        (
-		    SELECT c.col_num as col_num,col_name,c.user_id as user_id, avg(col_eval_score) over(partition by e.col_num) as score
+		    SELECT distinct c.col_num as col_num,col_name,c.user_id as user_id, avg(col_eval_score) over(partition by e.col_num) as score
 			from col_eval e
 			full outer join pro_collection c
 			on e.col_num = c.col_num
@@ -137,13 +137,13 @@
 	</select>
 	
 	<select id="selectEval" resultMap="result" parameterType="java.util.Map">
-		SELECT pro_eval_content, pro_eval_score, pro_eval_date
+		SELECT pro_eval_content, pro_eval_score, to_char(pro_eval_date,'yyyy-mm-dd') as pro_eval_date, user_id
 		FROM pro_eval
 		WHERE pro_num = #{pro_num}
 	</select>
 	
 	<select id="selectColEval" resultMap="result" parameterType="java.util.Map">
-		SELECT col_eval_content, col_eval_score, col_eval_date
+		SELECT col_eval_content, col_eval_score, to_char(col_eval_date,'yyyy-mm-dd') as col_eval_date, user_id
 		FROM col_eval
 		WHERE col_num = #{col_num}
 	</select>

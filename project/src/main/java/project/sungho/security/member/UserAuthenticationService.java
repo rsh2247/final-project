@@ -75,5 +75,9 @@ public class UserAuthenticationService implements UserDetailsService {
 	public void refresh() {
 		
 	}
+	
+	public List<Map<String,Object>> selectWholeUser(Map<String,Object> inputMap) {
+		return sqlSession.selectList("selectWholeUser",inputMap);
+	}
 
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -7,33 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('.evalscorelist').click(function() {
-			$('#evalbox').css('display', 'block')
-			var input = {};
-			$.ajax(
-				{
-					type:"POST",
-					url:"null",
-					data: {},
-					success : function (data) {
-						console.log(data);
-					},
-					error: function () {
-						
-					}
-				}	
-			)
-		})
-
-			$('#evalbox').click(function(e) {
-				if (e.target == this) $(this).css('display', 'none');
-				})
-
-			})
-</script>
 <style type="text/css">
 .menu {
 	margin: 50px auto 0 auto;
@@ -101,9 +73,16 @@
 .pro_title:hover {
 	text-decoration: underline;
 }
-.evalscorelist{
+
+.evalscorelist {
 	cursor: pointer;
 }
+
+.inline {
+	display: inline-block;
+	width: 400px;
+}
+
 #evalbox {
 	width: 100%;
 	height: 100%;
@@ -116,20 +95,147 @@
 
 #eval {
 	width: 900px;
-	height: 650px;
-	margin: 150px auto 0 auto;
-	background-color: #ccc;
+	min-height: 100px;
+	max-height: 800px;
+	margin: 100px auto 0 auto;
+	padding-bottom: 15px;
+	background-color: #fff;
+	overflow: scroll;
+	overflow-x:hidden;
+}
+
+#evallist {
+	list-style: none;
+}
+
+#evaltitle {
+	width: 850px;
+	height: 60px;
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0 auto;
+	border-bottom: 2px solid #ddd;
+	padding: 15px 0 0 0.5em;
+	text-align: left;
+}
+
+.evalli {
+	width: 850px;
+	margin: 15px auto 15px auto;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	text-align: left;
+}
+
+.evallisttitle {
+	width: 800px;
+	height: 60px;
+	margin: 10px auto -1px auto;
+	border-bottom: 1px solid #ddd;
+}
+
+.evalid {
+	font-size: 20px;
+}
+
+.evaldate {
+	font-size: 14px;
+	color: #999;
+}
+
+.evalcontent {
+	width: 800px;
+	min-height: 50px;
+	margin: 15px auto 10px auto;
+	padding-bottom: 15px;
+}
+.instar{
+    width: 122px;
+	height: 25px;
+	background-size: cover;
+    display: flex;
+    position: relative;
+    top: 25px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document)
+	    .ready(
+		    function() {
+			$('.evalscorelist')
+				.click(
+					function() {
+					    $('#evalbox').css('display',
+						    'block')
+					    var val = $(this).children("input")
+						    .val();
+					    var input = {
+						"pro_num" : val
+					    };
+					    $('#evallist').children().remove();
+					    $('#evaltitle').empty();
+					    $
+						    .ajax({
+							type : "post",
+							url : "evallist.pro",
+							data : input,
+							success : function(data) {
+							    var title = "title"
+							    $('#evaltitle')
+								    .append(
+									    title);
+							    for ( var i in data) {
+								var content = data[i].PRO_EVAL_CONTENT;
+								var li = '<li class="evalli"><div class="evallisttitle">'
+									+ '<span class="inline"><p class="inline evalid">'
+									+ data[i].USER_ID
+									+ '</p><p class="inline evaldate">'
+									+ data[i].PRO_EVAL_DATE
+									+ '</p></span>'
+									+ '<span class="inline">'
+									+ '<span class="instar" style="background-image:url(${contextPath}/resources/image/stars1.png);'
+									+ 'width:'+data[i].PRO_EVAL_SCORE*12.2+'px"></span>'
+									+ '<img class="star2" alt="" src="${contextPath}/resources/image/stars2.png"></span>'
+									+ '</div>'
+								if (content != undefined)
+								    li += '<div class="evalcontent">'
+									    + content;
+								li += "</div></li>"
+								$("#evallist")
+									.append(
+										li);
+							    }
+							    if (data.length == 0) {
+								var li = '<li style="margin:15px 0 10px 0">아직 평가가 등록되지 않았습니다.</li>';
+								$("#evallist")
+									.append(
+										li);
+							    }
+							},
+							error : function() {
+
+							}
+						    })
+					})
+
+			$('#evalbox').click(function(e) {
+			    if (e.target == this)
+				$(this).css('display', 'none');
+			})
+
+		    })
+		    
+</script>
 </head>
 <body>
 	<div id="evalbox">
 		<div id="eval">
+			<div id="evaltitle" style="background-image: url('');"></div>
+			<div >
 			<ul id="evallist">
-				<li>
-					<div></div>
-				</li>
 			</ul>
+			</div>
 		</div>
 	</div>
 	<div class="menu">
@@ -143,18 +249,15 @@
 			</tr>
 			<c:forEach var="problem" items="${list}">
 				<c:set var="num" value="${problem.SCORE*12.2}" />
-				<c:if
-					test="${problem.ROWNUM >= page.startNum && problem.ROWNUM <= page.endNum}">
+				<c:if test="${problem.ROWNUM >= page.startNum && problem.ROWNUM <= page.endNum}">
 					<tr>
 						<td></td>
 						<td>${problem.PRO_NUM}</td>
-						<td style="text-align: left; padding-left: 25px;"><a
-							class="pro_title"
-							href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
+						<td style="text-align: left; padding-left: 25px;"><a class="pro_title" href="problem_page.pro?pro_num=${problem.PRO_NUM}">${problem.PRO_NAME}</a></td>
 						<td>${problem.TAG_NAME}</td>
-						<td><span class="evalscorelist"> 
-						<img style="clip: rect(0px,${num}px,30px,0px);" class="star1" alt="" src="${contextPath}/resources/image/stars1.png"> 
-						<img class="star2" alt="" src="${contextPath}/resources/image/stars2.png"></span></td>
+						<td><span class="evalscorelist"> <input type="hidden" value="${problem.PRO_NUM}"> <img style="clip: rect(0px,${num}px,30px,0px);" class="star1" alt="" src="${contextPath}/resources/image/stars1.png"> <img class="star2" alt=""
+								src="${contextPath}/resources/image/stars2.png"
+							></span></td>
 					</tr>
 				</c:if>
 			</c:forEach>
@@ -172,6 +275,5 @@
 			</c:forEach>
 		</div>
 	</div>
-
 </body>
 </html>
