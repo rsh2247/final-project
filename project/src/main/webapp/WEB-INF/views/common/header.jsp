@@ -232,6 +232,7 @@ h3 {
 					</form>
 				</div>
 			</sec:authorize>
+			<button onclick="location.href='${contextPath}/managerPage'">관리자</button>
 		</div>
 		<nav id="navi">
 			<img id="image" src="${contextPath}/resources/image/logo2.png"

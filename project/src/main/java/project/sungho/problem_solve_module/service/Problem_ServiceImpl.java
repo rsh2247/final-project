@@ -205,11 +205,12 @@ public class Problem_ServiceImpl implements Problem_Service {
 		problem_DAO.insertUserAnswer(inputMap);
 	}
 	
-	public List<Map<String, Object>> selectEval(List<Map<String, Object>> list) throws DataAccessException{
-		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
-		for(Map map : list) {
-		}
-		return list;
+	public List<Map<String, Object>> selectEval(Map<String, Object> inputMap) throws DataAccessException {
+		return sqlSession.selectList("selectEval", inputMap);
+	}
+	
+	public List<Map<String, Object>> selectColEval(Map<String, Object> inputMap) throws DataAccessException {
+		return sqlSession.selectList("selectColEval", inputMap);
 	}
 	
 	public void insertEval(Map<String, Object> inputMap) throws DataAccessException {
@@ -225,6 +226,5 @@ public class Problem_ServiceImpl implements Problem_Service {
 		inputMap.put("user_id", user.getUsername());
 		if(sqlSession.selectOne("checkColEval", inputMap)==null) sqlSession.update("insertColEval",inputMap);
 		else sqlSession.update("updateColEval",inputMap);
-		
 	}
 }

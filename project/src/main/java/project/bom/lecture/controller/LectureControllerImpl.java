@@ -44,16 +44,16 @@ public class LectureControllerImpl implements LectureController {
 			lectService.lectureTumbnailEncoder(resultList.get(i));
 		}
 		for(int i=0; i<resultList.size(); i++) {
-			System.out.println("===========================================");
-			System.out.println("========> 강좌 아이디 : " + resultList.get(i).getLecture_id());
-			System.out.println("========> 강좌 카테고리 : " + resultList.get(i).getLecture_category());
-			System.out.println("========> 강좌 설명 : " + resultList.get(i).getLecture_detail());
-			System.out.println("========> 강좌 이름 : " + resultList.get(i).getLecture_name());
-			System.out.println("========> 강좌 점수 : " + resultList.get(i).getLecture_score());
-			System.out.println("========> 강좌 가격 : " + resultList.get(i).getLecture_tuition());
-			System.out.println("========> 강좌 수강생수 : " + resultList.get(i).getStudentCount());
-			System.out.println("========> 강좌 강사명 : " + resultList.get(i).getUser_id());
-			System.out.println("===========================================");
+//			System.out.println("===========================================");
+//			System.out.println("========> 강좌 아이디 : " + resultList.get(i).getLecture_id());
+//			System.out.println("========> 강좌 카테고리 : " + resultList.get(i).getLecture_category());
+//			System.out.println("========> 강좌 설명 : " + resultList.get(i).getLecture_detail());
+//			System.out.println("========> 강좌 이름 : " + resultList.get(i).getLecture_name());
+//			System.out.println("========> 강좌 점수 : " + resultList.get(i).getLecture_score());
+//			System.out.println("========> 강좌 가격 : " + resultList.get(i).getLecture_tuition());
+//			System.out.println("========> 강좌 수강생수 : " + resultList.get(i).getStudentCount());
+//			System.out.println("========> 강좌 강사명 : " + resultList.get(i).getUser_id());
+//			System.out.println("===========================================");
 		}
 		model.addAttribute("lectureList",resultList);
 		return "lecture/lectInit.tiles";
@@ -125,7 +125,6 @@ public class LectureControllerImpl implements LectureController {
 		searchParam.put("student_id", userId);
 		List<Lecture_VO> resultList = new ArrayList<>();
 		resultList = lectService.getLectureList(searchParam);
-		System.out.println("resultList : "+resultList);
 		model.addAttribute("lectureList",resultList);
 		return "lecture/mySubLectureList.tiles";
 	}

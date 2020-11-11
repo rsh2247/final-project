@@ -255,5 +255,15 @@ public class PS_ControllerImpl implements PS_Controller {
 		return "redirect:list.pro?category="+paramMap.get("category");
 	}
 	
-
+	@ResponseBody
+	@RequestMapping(value = "problem_solve/evallist.pro", method = {RequestMethod.POST})
+	public List<Map<String,Object>> evallist(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return problem_Service.selectEval(paramMap);
+	}
+	@ResponseBody
+	@RequestMapping(value = "problem_solve/colevallist.pro", method = {RequestMethod.POST})
+	public List<Map<String,Object>> colEvallist(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println(paramMap);
+		return problem_Service.selectColEval(paramMap);
+	}
 }
