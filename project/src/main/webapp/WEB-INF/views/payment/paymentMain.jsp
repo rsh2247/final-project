@@ -21,7 +21,7 @@
 	<div class="contents">
 		<h2 class="title">
 			<img src="./resources/img/payment/tit_0102.gif" alt="수강신청"/> 
-			<span>Home &gt; 강의상세보기 &gt; <em> 수강신청</em></span>
+			<span>Home &gt; 강의  &gt; 강의상세보기 &gt; <em> 수강신청</em></span>
 		</h2>
 		<div class="payment_wrap">
 			<br />
@@ -49,12 +49,6 @@
 					</tr>
 				</tbody>
 			</table>
-			<%-- 			
-			<p class="total_price" style="color:#5573C9;">
-				<span style="font-size: 8pt; position: inherit; right: 170px;">*이벤트 상품은 포인트 사용이 불가합니다.</span>
-				<span>총 주문금액 : <em>${lectlist[0].lecture_tuition}원</em></span>
-			</p>
-			 --%>
 			<!-- // 주문내역 끝 -->
 			<!-- 할인/결제금액 -->
 			<div class="sale_pay" style="display: block">
@@ -69,21 +63,22 @@
 					</dt>
 					<dd>
 						<ul>
-							<li class="total_order" id="total_order_total"><em>${orderlist[0].order_price}</em>원
+							<li class="total_order" id="total_order_total">
+								<em>${orderlist[0].order_price}</em>원
 							</li>
-							<li class="sale_price" id="sale_price_total"><em>0</em>원
+							<li class="sale_price" id="sale_price_total">
+								<em>0</em>원
 							</li>
-							<li class="total_price" id="total_price_total"><em>${orderlist[0].order_price}</em>원
+							<li class="total_price" id="total_price_total">
+								<em>${orderlist[0].order_price}</em>원
 							</li>
 						</ul>
 					</dd>
 				</dl>
 				<div class="total_order">
-					<!-- <h3 style="text-align:left;"><img src="/img/payment/tit_010201.gif" alt="포인트/쿠폰할인"/></h3> -->
 					<h3 style="text-align: left;">포인트</h3>
 					<p class="point_coupon">
 						<span>현재 보유포인트 : <em>${pointlist[0].point_rest}P</em></span>
-						<!-- <span>교재 마일리지 : <em>0 P</em></span><span>보유쿠폰 : <em>0장</em></span> -->
 					</p>
 
 					<table class="board_list" id="lec_board_list2">
@@ -100,30 +95,31 @@
 							<td class="title">
 								${lectlist[0].item_name}</td>
 
-					 			<td colspan="2" id="pt${orderlist[0].order_id}"><input type="text" class="dispt" name="dispt" id="dispt${orderlist[0].order_id}"
+					 			<td colspan="2" id="pt${orderlist[0].order_id}">
+					 			<input type="text" class="dispt" name="dispt" id="dispt${orderlist[0].order_id}"
 								onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false; "
 								style="ime-mode: disabled;" onkeyup="point_check(${orderlist[0].order_id});" />
-								<strong> P </strong><a href="javascript:point_apply(${orderlist[0].order_id});"><img src="./resources/img/button/apply.gif" alt="적용" /></a>
+								<strong> P </strong><a href="javascript:point_apply(${orderlist[0].order_id});">
+								<img src="./resources/img/button/apply.gif" alt="적용" /></a>
 								</td>
 						</tr>
 					</table>
 
 					<ul class="text" style="padding: 17px 0 24px 35px;">
 						<li
-							style="list-style-type: circle; text-align: left; color: #939292; line-height: 16px; font-size: 11px;">
+							style="list-style-type: circle; text-align: left; 
+									color: #939292; line-height: 16px; font-size: 11px;">
 							포인트와 쿠폰 할인은 한 개의 강의에 동시에 사용하실 수 없습니다.</li>
 						<li
-							style="list-style-type: circle; text-align: left; color: #939292; line-height: 16px; font-size: 11px;">
+							style="list-style-type: circle; text-align: left; 
+									color: #939292; line-height: 16px; font-size: 11px;">
 							구매시 사용한 쿠폰과 포인트는 결제 취소 후 재사용이 불가능합니다.</li>
 					</ul>
 				</div>
 				<div class="total_price">
-					<!-- dl태그  용어설명목록(definition list)-->
-					<dl class="total_sale">
-						<!-- dt태그  용어의 제목(definition term)-->
-						<!-- dd태그  용어설명(definition description) 자동들여쓰기-->
-						<dt>총 할인내역</dt>
-						<dd>
+					<dl class="total_sale"> <!-- dl태그  용어설명목록(definition list)-->
+						<dt>총 할인내역</dt> 	<!-- dt태그  용어의 제목(definition term)-->
+						<dd>				<!-- dd태그  용어설명(definition description) 자동들여쓰기-->
 							포인트<span id="ptsale">0 P</span>
 						</dd>
 						<dd>
@@ -168,7 +164,6 @@
 				</div>
 				<!-- // 결제수단 끝 -->
 
-				<!-- 회원가입시 개인정보 위탁동의를 체크하지 않았을 경우 노출 (#개인정보위탁동의) -->
 				<h3 class="title">
 					최소 시스템 사양 및 필수 소프트웨어 [<a href="#;" class="check_btn">자세히 보기▼</a>]
 				</h3>
@@ -233,7 +228,7 @@
 						</tbody>
 					</table>
 				</div>
-				<!-- end type-pay -->
+				
 				<h3 class="title">취소/환불안내</h3>
 				<p style="color: #cc0000;">
 					<br />[미성년자 계약의 취소]<br /> 미성년자인 회원이 법정대리인의 동의없이 이용계약을 체결한 경우에 회원
@@ -248,7 +243,6 @@
 							<col width="*">
 						</colgroup>
 						<thead>
-
 							<tr>
 								<th scope="col" class="empty"></th>
 								<th scope="col">구분</th>
@@ -274,7 +268,6 @@
 								<td>환불액 = 결제금액 - 학습수수료<br> - 위약금(결제금액의 10%)
 								</td>
 							</tr>
-
 							<tr>
 								<td colspan="3">
 									※ 학습 수수료 공제 시 강의 플레이 시간이 아닌 강의를 클릭(오픈)한 기준으로 수강한 강의 수가 산정됩니다.
@@ -284,7 +277,7 @@
 						</tbody>
 					</table>
 				</div>
-				<!-- end type_pay -->
+				
 				<ul class="notice">
 					<li>- 할인상품의 경우 학습수수료는 이미 이용한 강좌의 '할인 전 정가'를 기준으로 계산하여 공제합니다.</li>
 					<li>- 모바일, 다운로드 서비스 및 기타 제공된 혜택상품을 사용하였을 경우 환불금액에서 공제됩니다.</li>
@@ -342,12 +335,9 @@
 					<img src="./resources/img/button/pay.gif" alt="결제하기"/></a>
 					<a href="javascript:history.go(-1);">
 					<img src="./resources/img/button/cancel02.gif" alt="취소"/></a></p>
-
 			</div>
 		</div>
 	</div>
-	
 </div>
-
 </body>
 </html>

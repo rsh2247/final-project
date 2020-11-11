@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -75,7 +76,56 @@
 	font-size: xx-large;
 	margin-left: 20px;
 }
+.radiobtn{
+	display: none;
+}
+.radiobtn:checked + span .check{
+	display: inline-block;
+}
+.radiobtn:checked + .textbtn{
+	position: relative;
+	left: -17px;
+}
+.numbtn{
+	width: 20px;
+	line-height: 18px;
+	border: 1px solid #555;
+	border-radius: 20px;
+	color: #555;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.check{
+	width: 17px;
+	height: 17px;
+	display: none;
+	position: relative;
+    left: 20px;
+}
 </style>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#submitBox').click(function () {
+		var num = $('input[name=answer]');
+		var pass = false;
+		for(var i in num){
+		    if(num[i].checked == true){
+				pass = true;
+		    }
+		}
+		if(pass){
+		    document.getElementById('submit').submit();
+		}else{
+		    alert('정답을 입력해주세요.');
+		}
+    })
+})
+</script>
 </head>
 <body>
 	<div id="contentbox">
@@ -101,13 +151,14 @@
 				</c:if>
 			</c:forEach>
 		</table>
-		<form action="check_answer.pro" method="post" style="margin-bottom: 100px;">
+		<form action="check_answer.pro" method="post" style="margin-bottom: 100px;" id="submit">
 			<c:forEach var="problem" items="${list}">
 				<c:if test="${problem.TAG_ISCHOICE ne 'N'}">
 					<div style="text-align: left; width: 1000px; margin-left: 60px;">
 						<ul class="example">
 							<c:forEach var="example" items="${list2}">
-								<li><label><input type="radio" value="${example.CHO_NUM}" name="answer"> ${example.CHO_NUM} ${example.CHO_CONTENT}</label></li>
+								<li><label style="cursor: pointer;"><input type="radio" class="radiobtn" value="${example.CHO_NUM}" name="answer">
+								<span class="textbtn"><img class="check" alt="" src="${contextPath}/resources/image/check.png"><span class="numbtn">${example.CHO_NUM}</span> ${example.CHO_CONTENT}</span></label></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -117,7 +168,7 @@
 				</c:if>
 				<input type="hidden" name="proNum" value="${problem.PRO_NUM}">
 			</c:forEach>
-			<input id="submitBox" type="submit" value="확인">
+			<input id="submitBox" type="button" value="확인">
 		</form>
 	</div>
 </body>

@@ -3,15 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <link href="<c:url value="/resources/fonts/font-awesome.min.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/xeicon.min.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 <script src="https://kit.fontawesome.com/1299206db1.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -75,15 +76,15 @@
 			<p id="title">${title}</p>
 			<hr
 				style="margin: 20px auto 20px auto; width: 70px; height: 4px; border: 0px solid; background-color: #ccc;">
-			<p id="titledesc">문제를 만들고 문제를 풀 수 있는 사이트입니다.</p>
+			<p id="titledesc"><spring:message code="site.main"/></p>
 		</div>
 		<div>
 			<!-- - <input type="text" id="search" name="search">-->
 			<button id="startbtn">시작</button>
-		</div>
-		
-			
+		</div>		
 	</div>
+	
+<%-- 	<jsp:forward page="/mainPage/groupRank.main"/> --%>
 	<div id="contentbox">
 		<div id="contentinnerbox">
 		
@@ -106,9 +107,7 @@
 						      <i class="far fa-file-alt" aria-hidden="true"></i>
 						    </a></td>
 						  <td class="main_board_text" style="width:90%">
-							<a href="javascript:pageMove('problem_solve/c001_003.pro?category=TOEIC')">공인 어학시험 TOEIC</a> </td>
-							<!-- <a href="${contextPath}">공인 어학시험 TOEIC</a> </td> -->
-							<!-- <a href="https://quz.co.kr/?pid=2&amp;bid=1&amp;subid=v&amp;n=11163&amp;nt=1">2020년 추석연휴에 따른 교재배송 안내</a> </td> -->
+							<a href="javascript:pageMove('problem_solve/list.pro?category=TOEIC&pageNum=1')">공인 어학시험 TOEIC</a> </td>
 						</tr>
 						<tr>
 						  <td class="text-center" style="width:10%">
@@ -116,7 +115,7 @@
 						      <i class="far fa-file-alt" aria-hidden="true"></i>
 						    </a></td>
 						  <td class="main_board_text" style="width:90%">
-						  	<a href="javascript:pageMove('problem_solve/c001_003.pro?category=TOEFL')">공인 어학시험 TOEFL</a> </td>
+						  	<a href="javascript:pageMove('problem_solve/list.pro?category=TOEFL&pageNum=1')">공인 어학시험 TOEFL</a> </td>
 						</tr>
 						<tr>
 						  <td class="text-center" style="width:10%">
@@ -124,7 +123,7 @@
 						      <i class="far fa-file-alt" aria-hidden="true"></i>
 						    </a></td>
 						  <td class="main_board_text" style="width:90%">
-						  	<a href="javascript:pageMove('problem_solve/c001_003.pro?category=TEPS')">공인 어학시험 TEPS</a> </td>
+						  	<a href="javascript:pageMove('problem_solve/list.pro?category=TEPS&pageNum=1')">공인 어학시험 TEPS</a> </td>
 						</tr>
 						<tr>
 						  <td class="text-center" style="width:10%">
@@ -132,7 +131,7 @@
 						      <i class="far fa-file-alt" aria-hidden="true"></i>
 						    </a></td>
 						  <td class="main_board_text" style="width:90%">
-							<a href="javascript:pageMove('problem_solve/c001_003.pro?category=HSK')">공인 어학시험 HSK</a> </td>
+							<a href="javascript:pageMove('problem_solve/list.pro?category=HSK&pageNum=1')">공인 어학시험 HSK</a> </td>
 						</tr>
 						<tr>
 						  <td class="text-center" style="width:10%">
@@ -140,68 +139,40 @@
 						      <i class="far fa-file-alt" aria-hidden="true"></i>
 						    </a></td>
 						  <td class="main_board_text" style="width:90%">
-						  	<a href="javascript:pageMove('problem_solve/c001_003.pro?category=JLPT')">공인 어학 시험 JLPT</a> </td>
+						  	<a href="javascript:pageMove('problem_solve/list.pro?category=JLPT&pageNum=1')">공인 어학 시험 JLPT</a> </td>
 						</tr>
 						</tbody>
 					</table>
 				<hr>			
-				</div>
-					<div class="col-md-6 col-sm-6 col-xs-12">
+				</div> <!-- 문제풀이 끝 -->
+				
+				<!-- 강의 -->
+				<div class="col-md-6 col-sm-6 col-xs-12">
 					<div class="col-xs-10 text-left">
-						<span style="font-weight:bold;"><i class="far fa-calendar"></i>강의</span>
+						<span style="font-weight:bold;"><i class="xi-announce"></i>강의!</span>
 					</div>
 					<div class="text-right col-xs-2">
-					<a href=""><i class="fas fa-plus"></i></a>&nbsp;
+					<a href="${contextPath}/lecture/main.do"><i class="fas fa-plus"></i></a>&nbsp;
 					</div>
 					<div class="clearfix"></div>
-					 <table class="table">
+					<table class="table">
 						<tbody>
-						<tr>
-						  <td class="text-center" style="width:10%">
+						<c:forEach items="${lectureList}" var="list" begin="0" end="4" varStatus="status">
+						<tr style="border-bottom: 1px solid #ccc; height: 30px;">
+							<td class="text-center" style="width:10%">
 						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
-						      <i class="far fa-calendar" aria-hidden="true"></i>
+						      <i class="far fa-file-alt" aria-hidden="true"></i>
 						    </a></td>
 						  <td class="main_board_text" style="width:90%">
-							<a href="">2020년 추석연휴에 따른 교재배송 안내</a></td>
+							<a href="${contextPath}/lecture/getLecture.do?lecture_id=${list.lecture_id}">${list.lecture_name}</a> </td>
 						</tr>
-						<tr>
-						  <td class="text-center" style="width:10%">
-						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
-						      <i class="far fa-calendar" aria-hidden="true"></i>
-						    </a></td>
-						  <td class="main_board_text" style="width:90%">
-							<a href="">9월 카드사 무이자 할부 이벤트 안내</a></td>
-						</tr>
-						<tr>
-						  <td class="text-center" style="width:10%">
-						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
-						      <i class="far fa-calendar" aria-hidden="true"></i>
-						    </a></td>
-						  <td class="main_board_text" style="width:90%">
-							<a href="">2020년 국가기술자격시험 3회, 4회 시행계획 변경 및 수시 5회…</a></td>
-						</tr>
-						<tr>
-						  <td class="text-center" style="width:10%">
-						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
-						     <i class="far fa-calendar" aria-hidden="true"></i>
-						    </a></td>
-						  <td class="main_board_text" style="width:90%">
-							<a href="">택배없는날  관련 배송안내</a></td>
-						</tr>
-						<tr>
-						  <td class="text-center" style="width:10%">
-						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="결제관련" data-original-title="" title="">
-						      <i class="fa fa-krw" aria-hidden="true"></i>
-						    </a></td>
-						  <td class="main_board_text" style="width:90%">
-							<a href="">8월 카드사 무이자 할부 이벤트 안내</a></td>
-						</tr>
+						</c:forEach>
 						</tbody>
 					</table>
 				<hr>			
-				</div>
+				</div><!-- 강의끝 -->
 				
-				<!-- 3 -->
+				<!-- 그룹랭킹 -->
 				<div class="col-md-6 col-sm-6 col-xs-12">
 					<div class="col-xs-10 text-left">
 						<span style="font-weight:bold;"><i class="xi-announce"></i>그룹랭킹!</span>
@@ -211,8 +182,7 @@
 					</div>
 					<div class="clearfix"></div>
 					 <table class="table">
-						<tbody>
-					
+						<tbody>				
 					<c:forEach items="${groupList}" var="list" begin="0" end="4" varStatus="status">
 						<tr style="border-bottom: 1px solid #ccc; height: 30px;">
 							<td class="text-center" style="width:10%">
@@ -235,59 +205,31 @@
 						<span style="font-weight:bold;"><i class="xi-announce"></i>유저랭킹!</span>
 					</div>
 					<div class="text-right col-xs-2">
-					<a href=""><i class="fas fa-plus"></i></a>&nbsp;
+					<a href="${contextPath}/F/F_P001/listScore.page"><i class="fas fa-plus"></i></a>&nbsp;
 					</div>
 					<div class="clearfix"></div>
 					 <table class="table">
 						<tbody>
-						<tr>
-						  <td class="text-center" style="width:10%">
+					
+					<c:forEach items="${scoreList}" var="list" begin="0" end="4" varStatus="status">
+						<tr style="border-bottom: 1px solid #ccc; height: 30px;">
+							<td class="text-center" style="width:10%">
 						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
 						      <i class="far fa-file-alt" aria-hidden="true"></i>
 						    </a></td>
 						  <td class="main_board_text" style="width:90%">
-							<a href="">2020년 추석연휴에 따른 교재배송 안내</a> </td>
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${list.user_id}">${list.user_id}유저님  ${list.score_totalPoint}점 ${status.count} 위 입니다.</a> </td>
 						</tr>
-						<tr>
-						  <td class="text-center" style="width:10%">
-						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
-						      <i class="far fa-file-alt" aria-hidden="true"></i>
-						    </a></td>
-						  <td class="main_board_text" style="width:90%">
-							<a href="">9월 카드사 무이자 할부 이벤트 안내</a> </td>
-						</tr>
-						<tr>
-						  <td class="text-center" style="width:10%">
-						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
-						      <i class="far fa-file-alt" aria-hidden="true"></i>
-						    </a></td>
-						  <td class="main_board_text" style="width:90%">
-							<a href="">2020년 국가기술자격시험 3회, 4회 시행계획 변경 및 수시 5회…</a> </td>
-						</tr>
-						<tr>
-						  <td class="text-center" style="width:10%">
-						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="일반분야." data-original-title="" title="">
-						      <i class="far fa-file-alt" aria-hidden="true"></i>
-						    </a></td>
-						  <td class="main_board_text" style="width:90%">
-							<a href="">택배없는날  관련 배송안내</a> </td>
-						</tr>
-						<tr>
-						  <td class="text-center" style="width:10%">
-						    <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="결제관련" data-original-title="" title="">
-						      <i class="fa fa-krw" aria-hidden="true"></i>
-						    </a></td>
-						  <td class="main_board_text" style="width:90%">
-							<a href="">8월 카드사 무이자 할부 이벤트 안내</a> </td>
-						</tr>
+					</c:forEach>
+
 						</tbody>
 					</table>
 				<hr>			
-				</div> <!-- 강의 끝 -->
+				</div> <!-- 유저랭킹 끝 -->
 			</div>
 		
 		</section>
-		<div class="row" style="height:10px;background-color:#eee"></div>
+		<!-- <div class="row" style="height:10px;background-color:#eee"></div> -->
 		
 		</div>
 	</div>

@@ -98,4 +98,13 @@
 		<task:scheduler id="scheduler" pool-size="10" /> <task:executor id="executor" 
 		keep-alive="5" pool-size="10-20" queue-capacity="10" rejection-policy="ABORT" 
 		/> -->
+		
+	<!-- 이 설정의 의미는 /i18n.do?lang=ko, /i18n.do?lang=en 등으로 요청을 보내면 컨트롤러 앞단에서 요청을 가로채서 언어를 변경하는 역할을 수행합니다. -->
+	<interceptors> 
+		<beans:bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"> 
+			<beans:property name="paramName" value="lang" /> 
+		</beans:bean>
+	</interceptors>
+
+		
 </beans:beans>

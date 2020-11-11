@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8" />
    <meta http-equiv="X-UA-Compatible" content="IE=chrome">
-    <title>FullCalendar</title>
+    <title>일 정 관 리 !</title>
    
    <link rel="shortcut icon" href="/resources/image/favicon.ico">
    <!-- .css -->
@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="containerC">
 
         <!-- 일자 클릭시 메뉴오픈 -->
         <div id="contextMenu" class="dropdown clearfix">
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <label for="calendar_view">등록자별</label>
+                    <label for="calendar_view">일정별</label>
                     <div class="input-group">
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="${data.username}"
                                 checked>개인 일정</label>
@@ -156,7 +156,7 @@
         </div>
         <!-- /.filter panel -->
     </div>
-    <!-- /.container -->
+    <!-- /.containerC -->
     
    <!-- .js -->
 	<script src="<c:url value="/resources/calendar/vendor/js/jquery.min.js" />"></script>

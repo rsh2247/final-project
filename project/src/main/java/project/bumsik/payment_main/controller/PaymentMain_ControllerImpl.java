@@ -38,14 +38,13 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 	@Autowired
 	private PaymentPoint_Service paymentPoint_Service;
 
-	
-	
 	@Override  /*초기 강의 신청시 호출*/
 	@RequestMapping(value="/orderInit.pay", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView order_amount(@RequestParam(value="lecture_id",required = false) String lecture_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView order_amount(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("mapping: order / order_amount 진입");
 		ModelAndView mav = new ModelAndView("payment/paymentMain.tiles");
-		
+		String lecture_id = request.getParameter("lecture_id");
+		System.out.println("lecture_id : "+lecture_id);
 		/* 주문번호 생성 */
 	    String wdate = getDate("date");
 		int order_key = paymentMain_Service.seq_order_id();
@@ -53,7 +52,7 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		
 		//강의 정보 조회, 수강료(주문금액)
 		Map<String, Object> lectMap = new HashMap<String,Object>();
-		lectMap.put("lecture_id", "a01");
+		lectMap.put("lecture_id", lecture_id);
 		List<Map<String, Object>> lectlist = paymentMain_Service.order_lecture(lectMap); 	//강의 정보 조회 list
 		int order_price = ((BigDecimal)lectlist.get(0).get("lecture_tuition")).intValue();	//수강료, order_price
 		mav.addObject("lectlist",lectlist);
@@ -62,7 +61,7 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		Map<String, Object> orderMap = new HashMap<String,Object>();
 		orderMap.put("order_id", order_id);				//주문ID, order_num
 		orderMap.put("user_id", getUsername());			//유저ID, user
-		orderMap.put("lecture_id", "a01");				//임의 강의번호, lecture
+		orderMap.put("lecture_id", lecture_id);				//임의 강의번호, lecture
 		orderMap.put("order_price", order_price);		//order_price
 		orderMap.put("total_price", order_price);
 		paymentMain_Service.insertOrderInit(orderMap);	//초기 주문정보 
@@ -200,9 +199,13 @@ public class PaymentMain_ControllerImpl implements PaymentMain_Controller{
 		resultMap2 = changeToLowerMapKey(resultMap2);
 		
 		ModelAndView mav = new ModelAndView("payment/paymentSuccess.tiles");
-		
 		mav.addObject("info",resultMap2);
-		System.out.println("mainctr: "+mav);
+
+		/* 결제 성공시에 수강생 등록 */
+		
+		
+		
+		
 		return mav;
 	}
 	

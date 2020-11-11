@@ -10,14 +10,14 @@
 		align:right;
 	}
 	div.popularLecture{
-		align:left;
+		/* align:left; */
 	}
 	
 
 </style>
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+<link href="<c:url value="/resources/lecture/bootstrap.min.(modify).css" />" rel="stylesheet">
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
@@ -74,10 +74,10 @@
 					</div>
 				</c:forEach>
 		</div>
-		<hr>
 		<div class="untilted">
 			
 		</div>
+		<hr>
 	</div>
 	<!-- 나중에 쓸 이미지 등록 코드 -->
 <%-- 	<form enctype="multipart/form-data" method="post" action="${contextPath }/lecture/updateThumbnail.do"> --%>

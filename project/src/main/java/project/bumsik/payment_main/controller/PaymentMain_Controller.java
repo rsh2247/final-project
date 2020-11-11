@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface PaymentMain_Controller {
 
-	public ModelAndView order_amount(String l_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView order_amount(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public List<Map<String, Object>> orderinfo(String no,int tp,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public List<Map<String, Object>> discount_cancel(String no, String dc, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView paymentSuccess(String order_id, String type, HttpServletRequest request, HttpServletResponse response) throws Exception;

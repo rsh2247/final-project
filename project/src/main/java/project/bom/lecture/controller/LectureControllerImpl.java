@@ -119,15 +119,13 @@ public class LectureControllerImpl implements LectureController {
 	
 	@RequestMapping("lecture/mySubLecture.do")
 	public String mySubLecture(HttpServletRequest request, Model model) {
-		// 세션에서 아이디 받아오기
-//		String resultPath = "";
-//		HttpSession session = request.getSession(false);
-//		String user_id = (String)session.getAttribute("user_id");
 		String userId = ((CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		System.out.println("userID : "+userId);
 		Map<String,String> searchParam = new HashMap<>();
 		searchParam.put("student_id", userId);
 		List<Lecture_VO> resultList = new ArrayList<>();
 		resultList = lectService.getLectureList(searchParam);
+		System.out.println("resultList : "+resultList);
 		model.addAttribute("lectureList",resultList);
 		return "lecture/mySubLectureList.tiles";
 	}

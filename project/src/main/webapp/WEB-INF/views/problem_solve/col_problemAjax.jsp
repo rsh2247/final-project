@@ -19,7 +19,9 @@
 							<div style="margin-left: 20px;">
 								<ul class="list">
 									<c:forEach var="ordList" items="${list.ordList}">
-										<li style="padding-bottom: 3px;"><label style="cursor: pointer;" for="${list.COL_LIST_NUM}-${ordList.cho_num}"><div class="proNum">(${ordList.cho_num})</div>${ordList.cho_content}</label></li>
+										<li style="padding-bottom: 3px;"><label style="cursor: pointer;" for="${list.COL_LIST_NUM}-${ordList.cho_num}"> <span class="proNum">${ordList.cho_num}</span><img src="${contextPath}/resources/image/check.png" id="${list.COL_LIST_NUM}-${ordList.cho_num}check"
+												class="check"
+											><span>${ordList.cho_content}</span></label></li>
 									</c:forEach>
 								</ul>
 							</div>
@@ -28,9 +30,7 @@
 				</c:if>
 			</c:forEach>
 		</ul>
-		<input type="hidden" id="col_num" name="col_num" value="${result.COL_NUM}"> 
-		<input type="hidden" id="nextNum" value="${page.nowPage}"> 
-		<input type="hidden" id="prevNum" value="${page.nowPage-1}">
+		<input type="hidden" id="col_num" name="col_num" value="${result.COL_NUM}"> <input type="hidden" id="nextNum" value="${page.nowPage}"> <input type="hidden" id="prevNum" value="${page.nowPage-1}">
 		<div id="navibar">
 			<c:if test="${page.nowPage != 1}">
 				<button class="arrow" onclick="arrow(-1)" style="background-image: url('${contextPath}/resources/image/left.png');"></button>

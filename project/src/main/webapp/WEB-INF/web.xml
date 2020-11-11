@@ -17,6 +17,7 @@
 			/WEB-INF/spring/root-context.xml
 			/WEB-INF/spring/security-context-backup.xml
 			/WEB-INF/spring/email-context.xml
+			/WEB-INF/spring/message-context.xml
 		</param-value>
 	</context-param>
 

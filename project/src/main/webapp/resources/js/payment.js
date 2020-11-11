@@ -15,7 +15,6 @@ $(function () {
     });
 });
 
-
 //매개변수 no 주문번호, tp = total_price
 var point_check = function (no) {
 
@@ -31,7 +30,6 @@ var point_check = function (no) {
         success: function(data, textStatus){
 			list = data;
 			usepoint = list[0].point_rest;
-			console.log(usepoint);
         },
         error: function(data, textStatus){
             alert("error");
@@ -77,8 +75,6 @@ var point_apply = function (no) {
         dataType: "json",
         data: {no: no, tp: tp},
         success: function (data) {
-        	
-        	console.log(data);
             if (data[0].point_over == '0') {
                 alert('강의가격보다 포인트 사용금액이 큽니다. 다시 확인해주세요.');
                 location.reload();
@@ -103,10 +99,8 @@ var point_apply = function (no) {
     
 }
 
-/*할인 취소*/
+/*할인 취소, no = 주문번호*/
 var discount_cancel = function (no, type) {
-	console.log(no);
-	console.log(type);
     $.ajax({
         url: getContextPath()+"/discount_cancel",
         type: "POST",
@@ -126,17 +120,16 @@ var discount_cancel = function (no, type) {
 
 // 약관, 결제 방법등 체크박스 선택
 var trade_select = function (no) {
-
     var paynote_chk = $("#paynote_chk").val();
 
-    if(!$("#check_refund").is(':checked') || !$("#check_payment").is(':checked') || (!$("#check_useguide").is(':checked') && paynote_chk) || !$("#check_contents").is(':checked')){
+    if(!$("#check_refund").is(':checked') || !$("#check_payment").is(':checked') 
+		|| (!$("#check_useguide").is(':checked') && paynote_chk) 
+		|| !$("#check_contents").is(':checked')){
         alert("위 내용을 확인하셨을 경우 체크박스를 클릭해 주세요.");
         $("#check_contents").focus();
         return;
     }     
-
     var send = new Array();
-
     var method = $("input[name=trademethod]:checked").val();
     // 결제 방법이 선택되지 않았을 때
     if (!method) {
@@ -144,16 +137,12 @@ var trade_select = function (no) {
         $("input[name=trademethod]").eq(0).focus();
         return;
     }
-
     payment(no);	//체크 다 됬으면 주문번호(no) 전송하여 결재
-    
-    
 }
 
-// 결제하기
+// 결제하기, no = 주문번호
 var payment = function(no){
-	console.log(no);
-	console.log(total_price);
+	//method : 결제 방식(point,kakao)
 	var method = $("input[name=trademethod]:checked").val();
 
     if(!$("#check_contents").is(':checked')){
@@ -161,48 +150,41 @@ var payment = function(no){
         $("#check_contents").focus();
         return;
     }
-
+	
     if(confirm('입력하신 결제 정보로 주문을 하시겠습니까?')){
         if(method == 'kakao'){
         	if(total_price==0){
-        		alert('총 결제 금액이 0원 입니다. 포인트 결제를 선택해 주세요.');
-        		$("input[name=trademethod]").attr("checked",false)
-                $("input[name=trademethod]").eq(0).focus();
-        		if(method == 'point') {
-        			console.log(method);
-        			console.log(no);
+        		alert('총 결제 금액이 0원 입니다. 포인트 결제를 선택해 주세요.');	
+        		$("input[name=trademethod]").attr("checked",false)	//포인트로 전액 결제시 결제 방식을 kakao로 선택했을 때
+                $("input[name=trademethod]").eq(0).focus();			//결제 방식 선택 쪽으로 이동~
+        		if(method == 'point') {								//포인트가 선택 됬다면 팝업 띄우고 주문번호와 action 전송
         			postPopUp(no,"/insertPoint");
         		}
         	}else{
         		postPopUp(no,"/kakaoPay");        		
         	}
-    	//	window.close();
+
         }else if(method == 'point'){
-        	if(total_price!=0){				//결제할 금액이 남았으면
+        	if(total_price!=0){				
         		alert('총 결제 금액이 남았습니다. 다른 결제 방법 선택해 주세요.');
-        		$("input[name=trademethod]").attr("checked",false)
-                $("input[name=trademethod]").eq(0).focus();
-        		if(method == 'kakao') postPopUp(no,"/kakaoPay");
+        		$("input[name=trademethod]").attr("checked",false)	//포인트 적용후 결제금액이 남았을 떄
+                $("input[name=trademethod]").eq(0).focus();			//결제 방식 선택 쪽으로 이동~
+        		if(method == 'kakao') postPopUp(no,"/kakaoPay");	//kakao가 선택 됬다면 팝업 띄우고 주문번호와 action 전송
 
         	}else if(total_price == 0){
         		postPopUp(no,"/insertPoint");	//포인트로 전액 결제
-        		var url=getContextPath()+"/mainPage/mainPage001.do";
-        		location.replace(url);
+        	/*	var url=getContextPath()+"/mainPage/mainPage001.do";	//결제 완료후 페이지 이동
+        		location.replace(url);*/
         	}
-        }else if(method == ''){
-        	
         }
     }
-    
 }
 
-//결제창 popUp 
+//결제창 popUp, no = 주문번호
 function postPopUp(no, action) {
-	console.log(no);
-	console.log(action);
 	var option = "width = 500, height = 500, top = 100, left = 100, location = yes";
 	
-	var form = document.createElement("form");
+	var form = document.createElement("form");	//form을 생성해서 action 수행
 	form.setAttribute("method","post");
 	form.setAttribute("action",getContextPath()+action);
 	document.body.appendChild(form);
@@ -214,9 +196,7 @@ function postPopUp(no, action) {
 	insert.setAttribute("value",no);
 	form.appendChild(insert);
 	
-	console.log(insert.getAttribute("value"));
-	
-	window.open('','new_popup', option);
+	window.open('','new_popup', option);		//popUp 띄움
 	form.setAttribute("target",'new_popup');
 	
 	form.submit();
