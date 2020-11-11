@@ -22,39 +22,44 @@ public class F_P001_D001ServiceImpl  implements F_P001_D001Service{
 	@Autowired
 	F_P001_D001DAO scoreDAO;
 	
-	public List<F_P001_D001VO> allScoreList() throws Exception{
-		List<F_P001_D001VO> scoreList =  scoreDAO.selectAllScoreList();
-        return scoreList;
+	public List<Map<String, Object>> allScoreList(Map<String, Object> map) throws Exception{
+		List<Map<String, Object>> allScoreList =  scoreDAO.selectAllScoreList(map);
+        return allScoreList;
 	}
 
-	public List<F_P001_D001VO> selectScorelist_categoryScore(String score_category) throws Exception{
-		List<F_P001_D001VO> scoreList =  scoreDAO.selectScorelist_categoryScore(score_category);
+	public List<Map<String, Object>> selectScorelist_categoryScore(Map<String, Object> map) throws Exception{
+		List<Map<String, Object>> scoreList =  scoreDAO.selectScorelist_categoryScore(map);
         return scoreList;	
 	}
 	
-	public List<F_P001_D001VO> viewUser_Score(String user_id) throws Exception{
-		List<F_P001_D001VO> scoreList =  scoreDAO.viewUser_score(user_id);
+	public List<Map<String, Object>> viewUser_Score(Map<String, Object> map) throws Exception{
+		List<Map<String, Object>> scoreList =  scoreDAO.viewUser_score(map);
         return scoreList;
 	}
 	
-	public List<F_P001_D001VO> categoryInfo1(String score_category) throws DataAccessException{
-		List<F_P001_D001VO> scoreList =  scoreDAO.categoryInfo1(score_category);
+	public List<Map<String, Object>> categoryInfo1(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList =  scoreDAO.categoryInfo1(map);
 		return scoreList;
 	}
 	
-	public List<F_P001_D001VO> categoryInfo2(String score_category) throws DataAccessException{
-		List<F_P001_D001VO> scoreList =  scoreDAO.categoryInfo2(score_category);
+	public List<Map<String, Object>> categoryInfo2(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList =  scoreDAO.categoryInfo2(map);
 		return scoreList;
 	}
 	
-	public List<F_P001_D001VO> searchUser(String user_id) throws Exception{
-		List<F_P001_D001VO> scoreList = scoreDAO.searchUser(user_id);
+	public List<Map<String, Object>> searchUser(Map<String, Object> map) throws Exception{
+		List<Map<String, Object>> scoreList = scoreDAO.searchUser(map);
 		return scoreList;
 	}
 	
-	public List<F_P001_D001VO> selectUserInfo(String user_id) throws DataAccessException{
-		List<F_P001_D001VO> scoreList = scoreDAO.selectUserInfo(user_id);
+	public List<Map<String, Object>> selectUserInfo(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList = scoreDAO.selectUserInfo(map);
 		return scoreList;
+	}
+	
+	public List<Map<String, Object>> listSubject() throws DataAccessException{
+		List<Map<String, Object>> listSubject = scoreDAO.listSubject();
+		return listSubject;
 	}
 	
 }

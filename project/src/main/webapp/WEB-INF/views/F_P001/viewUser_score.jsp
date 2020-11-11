@@ -43,36 +43,35 @@
 			<li class="ranking-highest__item ranking-highest__item--big">
 				<c:forEach
 					var="score" items="${scoreList}" begin="0" end="0">
-					<div class="ranking-highest__rank">1</div>
 					<div class="ranking-highest__icon">
-					<img src="${contextPath}/resources/image/${score.user_image}"
+					<img src="${contextPath}/resources/image/${score.USER_IMAGE}"
 						 class="ranking-highest__image">
-						<h3 align= "center">${score.user_id}</h3>
+						<h3 align= "center">${score.USER_ID}</h3>
 					</div>
 					<div>
 						<table>
 							<thead>
 								<tr>
 								<c:forEach var = "userInfo" items = "${userInfo}">
-									<c:if test = "${score.user_id eq userInfo.user_id}">
-										<th>가  입  일: </th><td> &nbsp; &nbsp;${userInfo.user_signdate}</td>
+									<c:if test = "${score.USER_ID eq userInfo.USER_ID}">
+										<th>가  입  일: </th><td>&nbsp;&nbsp;  <fmt:formatDate pattern="yyyy-MM-dd" value="${userInfo.USER_SIGNDATE}"/></td>
 									</c:if>
 								</c:forEach>		
 								</tr>
 								<tr>
-									<th>종 합 점 수: </th><td> &nbsp; &nbsp;${score.score_totalPoint}</td>
+									<th>종 합 점 수: </th><td> &nbsp; &nbsp;${score.SCORE_TOTALPOINT}</td>
 								</tr>
 								<tr>
 								<c:forEach var="category1" items="${categoryList1}">
-									<c:if test="${score.user_id eq category1.user_id}">
-										<th>문제출제점수: </th><td> &nbsp; &nbsp;${category1.score_totalPoint}</td>
+									<c:if test="${score.USER_ID eq category1.USER_ID}">
+										<th>문제출제점수: </th><td> &nbsp; &nbsp;${category1.SCORE_TOTALPOINT}</td>
 									</c:if>
 								</c:forEach>
 								</tr>
 								<tr>
 								<c:forEach var="category2" items="${categoryList2}">
-									<c:if test="${score.user_id eq category2.user_id}">
-										<th>문제풀이점수: </th><td> &nbsp; &nbsp;${category2.score_totalPoint}</td>
+									<c:if test="${score.USER_ID eq category2.USER_ID}">
+										<th>문제풀이점수: </th><td> &nbsp; &nbsp;${category2.SCORE_TOTALPOINT}</td>
 									</c:if>
 								</c:forEach>		
 								</tr>
@@ -102,9 +101,9 @@
 					<c:forEach var="list1" items="${categoryInfo1}" varStatus="scoreNum">
 						<tr align="center">
 							<td class="score_cell">${scoreNum.count}</td>	
-							<td class="score_cell">${list1.score_content}</td>
-							<td class="score_cell">${list1.score_point}</td>
-							<td class="score_cell">${list1.score_date}</td>
+							<td class="score_cell">${list1.SCORE_CONTENT}</td>
+							<td class="score_cell">${list1.SCORE_POINT}</td>
+							<td class="score_cell"><fmt:formatDate pattern="yyyy-MM-dd" value="${list1.SCORE_DATE}"/></td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -129,9 +128,9 @@
 					<c:forEach var="list2" items="${categoryInfo2 }" varStatus="scoreNum">
 						<tr align="center">
 							<td class="score_cell">${scoreNum.count}</td>
-							<td class="score_cell">${list.score_content}</td>
-							<td class="score_cell">${list2.score_point}</td>
-							<td class="score_cell">${list2.score_date}</td>
+							<td class="score_cell">${list.SCORE_CONTENT}</td>
+							<td class="score_cell">${list2.SCORE_POINT}</td>
+							<td class="score_cell"><fmt:formatDate pattern="yyyy-MM-dd" value="${list2.SCORE_DATE}"/></td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -139,16 +138,24 @@
 		</table>
 		</div>
     <br>
-	<div  style ="align: center; width: 1100px; margin:auto;">
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1" >문제출제랭킹</a>
-    		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2" >문제풀이랭킹</a>
+<div style ="align: center; width: 1100px; margin:auto;"><br>
+	<c:forEach var="score" items="${scoreList}" begin = "0" end="0">
+    <table>
+    	<div>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/listScore.page?category_id=${score.CATEGORY_ID}" >전체랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2&category_id=${score.CATEGORY_ID}" >문제풀이랭킹</a>
+    	</div>
     	<div id = "search">
-    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page">
-    			<input name = "searchUser" type = "text" style="width:200px;" placeholder = "유저 아이디를 입력하세요." onKeyUp = "user_idSearch()" />
+    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page?">
+    			<input type="hidden" id="gameToken" name="category_id" value="${score.CATEGORY_ID}">
+    			
+    			<input name = "searchUser" type = "text" style="width: 200px;" placeholder = "유저 아이디를 입력하세요." />
     			<input type = "submit" name = "search" value = "검 색" />
     		</form>
  		</div>
- 	</div>	
+    </table>
+    </c:forEach>
+</div>    
 </body>
 </html>

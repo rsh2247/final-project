@@ -20,50 +20,54 @@ public class F_P001_D001DAOImpl implements F_P001_D001DAO {
 
 	
 	@Override
-	public List<F_P001_D001VO> selectAllScoreList() throws DataAccessException {
-		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.selectAllScoreList");
-		return scoreList;
+	public List<Map<String, Object>> selectAllScoreList(Map<String, Object> map) throws DataAccessException {
+		List<Map<String, Object>> allScoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.selectAllScoreList", map);
+		return allScoreList;
 	}
 
 	@Override
-	public List<F_P001_D001VO> selectScorelist_categoryScore(String score_category) throws DataAccessException{
-		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.selectScorelist_categoryScore", score_category);
+	public List<Map<String, Object>> selectScorelist_categoryScore(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.selectScorelist_categoryScore", map);
 		return scoreList;
 	}
 	
 
 	@Override
-	public List<F_P001_D001VO> viewUser_score(String user_id) throws DataAccessException{
-		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.viewUser_score", user_id);
+	public List<Map<String, Object>> viewUser_score(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.viewUser_score", map);
 		return scoreList;
 	}
 	
 	
 	@Override
-	public List<F_P001_D001VO> categoryInfo1(String score_category) throws DataAccessException{
-		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.categoryInfo1", score_category);
+	public List<Map<String, Object>> categoryInfo1(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.categoryInfo1", map);
 		return scoreList;
 	}
 	
 	@Override
-	public List<F_P001_D001VO> categoryInfo2(String score_category) throws DataAccessException{
-		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.categoryInfo2", score_category);
-		return scoreList;
-	}
-	
-	
-	@Override
-	public List<F_P001_D001VO> searchUser(String user_id) throws DataAccessException{
-		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.searchUser", user_id);
+	public List<Map<String, Object>> categoryInfo2(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.categoryInfo2", map);
 		return scoreList;
 	}
 	
 	
 	@Override
-	public List<F_P001_D001VO> selectUserInfo(String user_id) throws DataAccessException{
-		List<F_P001_D001VO> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.selectUserInfo", user_id);
+	public List<Map<String, Object>> searchUser(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.searchUser", map);
 		return scoreList;
 	}
 	
 	
+	@Override
+	public List<Map<String, Object>> selectUserInfo(Map<String, Object> map) throws DataAccessException{
+		List<Map<String, Object>> scoreList = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.selectUserInfo", map);
+		return scoreList;
+	}
+	
+	@Override
+	public List<Map<String, Object>> listSubject() throws DataAccessException{
+		List<Map<String, Object>> listSubject = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.listSubject");
+		return listSubject;
+	}
 }

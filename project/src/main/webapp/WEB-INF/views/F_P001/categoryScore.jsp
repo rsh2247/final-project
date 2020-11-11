@@ -40,27 +40,27 @@
 					var="score" items="${scoreList}" begin="0" end="0">
 					<div class="ranking-highest__rank">1</div>
 					<div class="ranking-highest__icon">
-						<img src="${contextPath}/resources/image/${score.user_image}"
+						<img src="${contextPath}/resources/image/${score.USER_IMAGE}"
 						 	 class="ranking-highest__image">
 					</div>
 					<div>
 						<table>
 							<thead>
 								<tr>
-									<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">
-									<h3>${score.user_id}</h3>
+									<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}&category_id=${score.CATEGORY_ID}">
+									<h3>${score.USER_ID}</h3>
 									</a>
 								</tr>
 								<c:forEach var="category1" items="${categoryList1}">
-									<c:if test="${score.user_id eq category1.user_id}">
-										<th>문제출제점수: </th><td> &nbsp; &nbsp;${category1.score_totalPoint}</td>
+									<c:if test="${score.USER_ID eq category1.USER_ID}">
+										<th>문제출제점수: </th><td> &nbsp; &nbsp;${category1.SCORE_TOTALPOINT}</td>
 									</c:if>
 								</c:forEach>
 								</tr>
 								<tr>
 								<c:forEach var="category2" items="${categoryList2}">
-									<c:if test="${score.user_id eq category2.user_id}">
-										<th>문제풀이점수: </th><td> &nbsp; &nbsp;${category2.score_totalPoint}</td>
+									<c:if test="${score.USER_ID eq category2.USER_ID}">
+										<th>문제풀이점수: </th><td> &nbsp; &nbsp;${category2.SCORE_TOTALPOINT}</td>
 									</c:if>
 								</c:forEach>		
 								</tr>
@@ -76,28 +76,28 @@
 		<c:forEach var="score" items="${scoreList}" begin="1" end="1">
 			<div class="ranking-highest__rank">2</div>
 			<div class="ranking-highest__icon" >
-				<img src="${contextPath}/resources/image/${score.user_image}"  class="ranking-highest__image"
+				<img src="${contextPath}/resources/image/${score.USER_IMAGE}"  class="ranking-highest__image"
 				 	onerror="this.src='//opgg-static.akamaized.net/images/profile_icons/profileIcondefault.jpg';" >
 			</div>
 			<div class="ranking-highest-champions">
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}&category_id=${score.CATEGORY_ID}">&nbsp;${score.USER_ID}</a>
 						</tr>
 						<tr>
 							<c:forEach var="category1" items="${categoryList1}">
-								<c:if test="${score.user_id eq category1.user_id}">
+								<c:if test="${score.USER_ID eq category1.USER_ID}">
 									<th>문제출제점수: </th>
-										<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--blue">&nbsp;${category1.score_totalPoint}</td>
+										<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--blue">&nbsp;${category1.SCORE_TOTALPOINT}</td>
 								</c:if>
 							</c:forEach>
 						</tr>
 						<tr>					
 						<c:forEach var="category2" items="${categoryList2}">
-							<c:if test="${score.user_id eq category2.user_id}">
+							<c:if test="${score.USER_ID eq category2.USER_ID}">
 								<th>문제풀이점수: </th>
-									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.score_totalPoint}</td>
+									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.SCORE_TOTALPOINT}</td>
 							</c:if>
 						</c:forEach>
 						</tr>
@@ -112,28 +112,28 @@
 			items="${scoreList}" begin="2" end="2">
 			<div class="ranking-highest__rank">3</div>
 			<div class="ranking-highest__icon" >
-				<img src="${contextPath}/resources/image/${score.user_image}"  class="ranking-highest__image"
+				<img src="${contextPath}/resources/image/${score.USER_IMAGE}"  class="ranking-highest__image"
 				 	onerror="this.src='//opgg-static.akamaized.net/images/profile_icons/profileIcondefault.jpg';" >
 			</div>
 			<div class="ranking-highest-champions">
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a> <!-- 유저 아이디 -->
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}&category_id=${score.CATEGORY_ID}">&nbsp;${score.USER_ID}</a> <!-- 유저 아이디 -->
 						</tr>
 						<tr>
 							<c:forEach var="category1" items="${categoryList1}">
-								<c:if test="${score.user_id eq category1.user_id}">
+								<c:if test="${score.USER_ID eq category1.USER_ID}">
 									<th>문제출제점수: </th>
-										<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--blue">&nbsp;${category1.score_totalPoint}</td>
+										<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--blue">&nbsp;${category1.SCORE_TOTALPOINT}</td>
 								</c:if>
 							</c:forEach>
 						</tr>
 						<tr>					
 						<c:forEach var="category2" items="${categoryList2}">
-							<c:if test="${score.user_id eq category2.user_id}">
+							<c:if test="${score.USER_ID eq category2.USER_ID}">
 								<th>문제풀이점수: </th>
-									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.score_totalPoint}</td>
+									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.SCORE_TOTALPOINT}</td>
 							</c:if>
 						</c:forEach>
 						</tr>
@@ -148,28 +148,28 @@
 			items="${scoreList}" begin="3" end="3">
 			<div class="ranking-highest__rank">4</div>
 			<div class="ranking-highest__icon" >
-				<img src="${contextPath}/resources/image/${score.user_image}"  class="ranking-highest__image"
+				<img src="${contextPath}/resources/image/${score.USER_IMAGE}"  class="ranking-highest__image"
 				 	onerror="this.src='//opgg-static.akamaized.net/images/profile_icons/profileIcondefault.jpg';" >
 			</div>
 			<div class="ranking-highest-champions">
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}&category_id=${score.CATEGORY_ID}">&nbsp;${score.USER_ID}</a>
 						</tr>
 						<tr>
 							<c:forEach var="category1" items="${categoryList1}">
-								<c:if test="${score.user_id eq category1.user_id}">
+								<c:if test="${score.USER_ID eq category1.USER_ID}">
 									<th>문제출제점수: </th>
-										<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--blue">&nbsp;${category1.score_totalPoint}</td>
+										<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--blue">&nbsp;${category1.SCORE_TOTALPOINT}</td>
 								</c:if>
 							</c:forEach>
 						</tr>
 						<tr>					
 						<c:forEach var="category2" items="${categoryList2}">
-							<c:if test="${score.user_id eq category2.user_id}">
+							<c:if test="${score.USER_ID eq category2.USER_ID}">
 								<th>문제풀이점수: </th>
-									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.score_totalPoint}</td>
+									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.SCORE_TOTALPOINT}</td>
 							</c:if>
 						</c:forEach>
 						</tr>
@@ -184,28 +184,28 @@
 			items="${scoreList}" begin="4" end="4">
 			<div class="ranking-highest__rank">5</div>
 			<div class="ranking-highest__icon" >
-				<img src="${contextPath}/resources/image/${score.user_image}"  class="ranking-highest__image"
+				<img src="${contextPath}/resources/image/${score.USER_IMAGE}"  class="ranking-highest__image"
 				 	onerror="this.src='//opgg-static.akamaized.net/images/profile_icons/profileIcondefault.jpg';" >
 			</div>
 			<div class="ranking-highest-champions">
 				<div class="ranking-highest-champion">
 					<table>
 						<tr>
-							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id}">&nbsp;${score.user_id}</a>
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}&category_id=${score.CATEGORY_ID}">&nbsp;${score.USER_ID}</a>
 						</tr>
 						<tr>
 							<c:forEach var="category1" items="${categoryList1}">
-								<c:if test="${score.user_id eq category1.user_id}">
+								<c:if test="${score.USER_ID eq category1.USER_ID}">
 									<th>문제출제점수: </th>
-										<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--blue">&nbsp;${category1.score_totalPoint}</td>
+										<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--blue">&nbsp;${category1.SCORE_TOTALPOINT}</td>
 								</c:if>
 							</c:forEach>
 						</tr>
 						<tr>					
 						<c:forEach var="category2" items="${categoryList2}">
-							<c:if test="${score.user_id eq category2.user_id}">
+							<c:if test="${score.USER_ID eq category2.USER_ID}">
 								<th>문제풀이점수: </th>
-									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.score_totalPoint}</td>
+									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.SCORE_TOTALPOINT}</td>
 							</c:if>
 						</c:forEach>
 						</tr>
@@ -240,11 +240,11 @@
 		<c:when test="${scoreList !=null }" >
 	    		<c:forEach  var="score" items="${scoreList }" varStatus="scoreNum"  begin= "5">
    	  			<tr align="center">
-					<td class= "score_cell">${score.score_rank}</td>
-					<td class= "score_cell">${score.user_id }</td>
-					<td class= "score_cell">${score.score_totalPoint}</td>
+					<td class= "score_cell">${score.SCORE_RANK}</td>
+					<td class= "score_cell">${score.USER_ID }</td>
+					<td class= "score_cell">${score.SCORE_TOTALPOINT}</td>
 					<td class= "score_cell">
-						<a href= "${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id }">보기</a>
+						<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}&category_id=${score.CATEGORY_ID}">보기</a>
 					</td>
 				</tr>
    				</c:forEach>
@@ -253,19 +253,23 @@
 	</table>
 </div>
 <div style ="align: center; width: 1100px; margin:auto;"><br>
+	<c:forEach var="score" items="${scoreList}" begin = "0" end="0">
     <table>
     	<div>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1" >문제출제랭킹</a>
-    		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2" >문제풀이랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/listScore.page?category_id=${score.CATEGORY_ID}" >전체랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2&category_id=${score.CATEGORY_ID}" >문제풀이랭킹</a>
     	</div>
     	<div id = "search">
-    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page">
-    			<input name = "searchUser" type = "text" style="width:200px;" placeholder = "유저 아이디를 입력하세요." onKeyUp = "user_idSearch()" />
+    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page?">
+    			<input type="hidden" id="gameToken" name="category_id" value="${score.CATEGORY_ID}">
+    			
+    			<input name = "searchUser" type = "text" style="width: 200px;" placeholder = "유저 아이디를 입력하세요." />
     			<input type = "submit" name = "search" value = "검 색" />
     		</form>
  		</div>
     </table>
+    </c:forEach>
 </div>    
 
 </body>

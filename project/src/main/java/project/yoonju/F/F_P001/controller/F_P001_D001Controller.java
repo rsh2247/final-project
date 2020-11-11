@@ -13,9 +13,16 @@ import project.yoonju.F.F_P001.vo.F_P001_D001VO;
 
 
 public interface F_P001_D001Controller {
-	public ModelAndView listScore(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView categoryScore(@RequestParam("score_category") String score_category, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView viewUser_score(@RequestParam("user_id") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView searchUser(@RequestParam("user_id") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView listScore(@RequestParam("category_id") String category_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	public ModelAndView categoryScore(@RequestParam("score_category") String score_category, 
+									  @RequestParam("category_id") String category_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	public ModelAndView viewUser_score(@RequestParam("user_id") String user_id, 
+			   						   @RequestParam("category_id") String category_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	public ModelAndView searchUser(@RequestParam("user_id") String user_id, 
+								   @RequestParam("category_id") String category_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	public ModelAndView listSubject(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

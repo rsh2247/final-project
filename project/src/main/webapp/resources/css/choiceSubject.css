@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+.global-menu { position: relative; width: 100%; }
+.global-menu * { line-height: normal; font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Dotum', '돋움', 'Gulim', '굴림', '굴림체', Sans-Serif; letter-spacing: -.8px; }
+.global-menu .inner { width: 1100px; margin: 0 auto; *zoom: 1; }
+.global-menu .inner:before,
+.global-menu .inner:after { content: ''; display: table; }
+.global-menu .inner:after { clear: both; }
+.global-menu .section { padding: 22px 0; border-top: 1px solid #907628;  *zoom: 1; }
+.global-menu .section:before,
+.global-menu .section:after { content: ''; display: table; }
+.global-menu .section:after { clear: both; }
+.global-menu .section:first-child { margin-top: 0; border-top-width: 0; }
+.global-menu a { color: inherit; }
+.global-menu .flag { display: inline-block; min-height: 18px; line-height: 1; vertical-align: -2px; font-size: 0; background-repeat: no-repeat; background-position: 0 0; }
+.global-menu .flag em { position: absolute; display: inline-block; overflow: hidden; clip: rect(0 0 0 0); width: 0px; height: 0px; margin: -1px; padding: 0; word-break: keep-all; white-space: nowrap; color: transparent; border: 0; text-indent: -9999px; }
+.global-menu .flag.flag-ebs { width: 47px; height: 18px; background-image: url('//img.eduwill.net/Img2/globalMain/gItem/icon/ico_ebs.png'); }
+.global-menu .flag.flag-open { width: 64px; height: 18px; background-image: url('//img.eduwill.net/Img2/globalMain/gItem/icon/flag_grandOpen_v2.png'); }
+.global-menu .flag.flag-soon { width: 54px; height: 21px; background-image: url('//img.eduwill.net/Img2/globalMain/gItem/icon/flag_open_none.png'); }
+.global-menu .flag.flag-dokhan { width: 54px; height: 18px; background-image: url('//img.eduwill.net/Img2/globalMain/gItem/icon/flag_dokhan.png'); }
+.global-menu .menu-title { float: left; width: 15%; }
+.global-menu h2.title { margin: 0; line-height: 1; font-size: 24px; font-weight: 700; color: #0c0c0c; }
+.global-menu h2.title a { line-height: 1; }
+.global-menu h2.title .super { position: relative; top: -5px; display: inline-block; line-height: 1; }
+.global-menu h3.title { margin: 18px 0 0 10px; font-size: 18px; font-weight: 700; color: #d73706; }
+.global-menu .menu-list { float: left; width: 85%; font-size: 0; }
+.global-menu .menu-list .list { margin-top: 20px; border-top-width: 1px; border-top-style: solid; border-top-color: #fff;; }
+.global-menu .menu-list .list:first-child { margin-top: 0; border-top-width: 0; }
+.global-menu .menu-list .list:first-child h3.title { margin-top: 0; }
+.global-menu .menu-list .list ul { margin-top: -14px; *zoom: 1; }
+.global-menu .menu-list .list h3.title + ul { margin-top: -8px; }
+.global-menu .menu-list .list ul + ul { display: block; margin-top: 0; }
+.global-menu .menu-list .list ul:before,
+.global-menu .menu-list .list ul:after { content: ''; display: table; }
+.global-menu .menu-list .list ul:after { clear: both; }
+.global-menu .menu-list .list li { float: left; width: 20%; margin-top: 14px; line-height: 1.5; }
+.global-menu .menu-list .list a { position: relative; display: block; padding-left: 10px; font-size: 16px; font-weight: 600; color: #0c0c0c; }
+.global-menu .menu-list .list span { position: relative; z-index: 0; display: inline-block; }
+.global-menu .menu-list .list span:before { content: ''; position: absolute; bottom: 2px; right: 0; left: 0; z-index: -1; display: none; border-bottom: 5px solid #f26520; }
+
+.global-menu .menu-popular { background-color: #fff; }
+.global-menu .menu-popular .section { padding: 29px 0; }
+.global-menu .menu-popular h2.title { line-height: 1.2; color: #d73706; }
+.global-menu .menu-popular .menu-list .list a { font-size: 20px; }
+.global-menu .menu-popular .menu-list .list em { display: inline-block; margin-right: 2px; font-size: 18px; font-weight: 600; }
+.global-menu .menu-popular .menu-list .list a:hover span:before { display: block; }
+
+.global-menu .menu-item { background-color: #fff;; }
+.global-menu .menu-item .menu-list .list a:hover { font-weight: 500; color: #fff; background-color:#5573C9; }
+
+.global-menu .menu-offline { background-color: #21242b; }
+.global-menu .menu-offline .section { padding: 30px 0; }
+.global-menu .menu-offline:last-child .section { padding-bottom: 60px; }
+.global-menu .menu-offline h2.title { color: #d73706; }
+.global-menu .menu-offline .flag { position: absolute; bottom: -20px; left: 0; }
+.global-menu .menu-offline .menu-list { margin-right: -10px; padding-left: 10px; }
+.global-menu .menu-offline .menu-list .list { display: inline-block; margin-top: 0; border-top: 0; margin-right: 30px; }
+.global-menu .menu-offline .menu-list .list:first-child { margin-top: 0; }
+.global-menu .menu-offline .menu-list .list li { width: auto !important; margin-top: 10px; margin-right: 30px; }
+.global-menu .menu-offline .menu-list .list li:last-child { margin-right: 0; }
+.global-menu .menu-offline .menu-list .list a { padding-left: 0; font-weight: 500; color: #fff; }
+.global-menu .menu-offline .menu-list .list a:hover { color: #fff; }
+.global-menu .menu-offline + .menu-offline .section { border-top-width: 1px; border-top-color: rgba(0, 0, 0, 0.38); }
+
+.global-menu .menu-academy h3.title { margin: 40px 0 0 0; }
+.global-menu .menu-academy .menu-list { margin-top: -40px; }
+.global-menu .menu-academy .menu-list .list.land { display: block; }
+.global-menu .menu-academy .menu-list .list.land h3.title + ul { margin-top: -24px; }
+.global-menu .menu-academy .menu-list .list.land li { width: auto; margin-top: 26px; }
+.global-menu .menu-academy .menu-list .list.gov { width: 100% !important; }
+.global-menu .menu-academy .menu-list .list.gov h3.title { margin-top: 39px; }
+.global-menu .menu-academy .menu-list .list.gov li { width: auto; }
+.global-menu .menu-academy .menu-list .list.cop { width: auto; margin-right: 131px; }
+.global-menu .menu-academy .menu-list .list.cop li {width: auto;}
+.global-menu .menu-academy .menu-list .list.fire { width: auto; }
+.global-menu .menu-academy .menu-list .list.fire li {width: auto;}
+.global-menu .menu-academy .menu-list .list.house { width: auto; margin-right: 146px; }
+.global-menu .menu-academy .menu-list .list.house li { width: auto; }
+.global-menu .menu-academy .menu-list .list.energy,
+.global-menu .menu-academy .menu-list .list.public { width: auto; }
+
+.global-menu .menu-education .menu-list .list ul { margin-top: -11px; }

@@ -80,13 +80,13 @@
 				<c:when test="${scoreList !=null }">
 					<c:forEach var="score" items="${scoreList }" varStatus="scoreNum">
 						<tr align="center">
-							<td class="score_cell">${score.score_rank}</td>
+							<td class="score_cell">${score.SCORE_RANK}</td>
 							<!-- 카운트 -->
-							<td class="score_cell">${score.user_id}</td>
+							<td class="score_cell">${score.USER_ID}</td>
 							<!-- 유저 아이디 -->
-							<td class="score_cell">${score.score_totalPoint}</td>
-							<td class="score_cell"><a
-								href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.user_id }">보기</a>
+							<td class="score_cell">${score.SCORE_TOTALPOINT}</td>
+							<td class="score_cell">
+							<a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}&category_id=${score.CATEGORY_ID}">보기</a>
 							</td>
 						</tr>
 					</c:forEach>
@@ -95,20 +95,24 @@
 		</table>
 	</div>
     <br>
-<div  style ="align: center; width: 1100px; margin:auto;">    
+<div style ="align: center; width: 1100px; margin:auto;"><br>
+	<c:forEach var="score" items="${scoreList}" begin = "0" end="0">
     <table>
     	<div>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1" >문제출제랭킹</a>
-    		<a href = "${contextPath}/F/F_P001/listScore.page" >전체랭킹</a>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2" >문제풀이랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/listScore.page?category_id=${score.CATEGORY_ID}" >전체랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2&category_id=${score.CATEGORY_ID}" >문제풀이랭킹</a>
     	</div>
     	<div id = "search">
-    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page">
-    			<input name = "searchUser" type = "text" style="width:200px;" placeholder = "유저 아이디를 입력하세요." onKeyUp = "user_idSearch()" />
+    		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page?">
+    			<input type="hidden" id="gameToken" name="category_id" value="${score.CATEGORY_ID}">
+    			
+    			<input name = "searchUser" type = "text" style="width: 200px;" placeholder = "유저 아이디를 입력하세요." />
     			<input type = "submit" name = "search" value = "검 색" />
     		</form>
  		</div>
     </table>
-</div>    
+    </c:forEach>
+</div>     
 </body>
 </html>

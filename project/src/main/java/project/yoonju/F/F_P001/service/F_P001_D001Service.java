@@ -9,12 +9,13 @@ import project.yoonju.F.F_P001.vo.F_P001_D001VO;
 import project.yoonju.F.F_P001.vo.F_P001_D001VO2;
 
 public interface F_P001_D001Service {
-	public List<F_P001_D001VO> allScoreList() throws Exception;
-	public List<F_P001_D001VO> selectScorelist_categoryScore(String score_category) throws Exception;
-	public List<F_P001_D001VO> viewUser_Score(String user_id) throws Exception;
-	public List<F_P001_D001VO> categoryInfo1(String score_category) throws DataAccessException;
-	public List<F_P001_D001VO> categoryInfo2(String score_category) throws DataAccessException;
-	public List<F_P001_D001VO> searchUser(String user_id) throws Exception;
-	public List<F_P001_D001VO> selectUserInfo(String user_id) throws DataAccessException;
+	public List<Map<String, Object>> allScoreList(Map<String, Object> map) throws Exception;
+	public List<Map<String, Object>> selectScorelist_categoryScore(Map<String, Object> map) throws Exception;
+	public List<Map<String, Object>> viewUser_Score(Map<String, Object> map) throws Exception;
+	public List<Map<String, Object>> categoryInfo1(Map<String, Object> map) throws DataAccessException;
+	public List<Map<String, Object>> categoryInfo2(Map<String, Object> map) throws DataAccessException;
+	public List<Map<String, Object>> searchUser(Map<String, Object> map) throws Exception;
+	public List<Map<String, Object>> selectUserInfo(Map<String, Object> map) throws DataAccessException;
+	public List<Map<String, Object>> listSubject() throws DataAccessException;
 }
 

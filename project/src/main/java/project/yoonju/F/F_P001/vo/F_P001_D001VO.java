@@ -20,7 +20,16 @@ public class F_P001_D001VO {
 	String user_email;		//이메일
 	String user_image;		//유저 사진
 	Date user_signdate;		//유저 가입일
-
+	
+	String category_id;	//과목번호
+	String category_name; //과목이름
+	
+	public String getCategory_id() {
+		return category_id;
+	}
+	public void setcCategory_id(String category_id) {
+		this.category_id = category_id;
+	}
 	public String getUser_email() {
 		return user_email;
 	}
@@ -81,4 +90,13 @@ public class F_P001_D001VO {
 	public void setScore_category(String score_category) {
 		this.score_category = score_category;
 	}
+	
+	@Override
+	public String toString() {
+		return "F_P001_D001VO [score_content=" + score_content + ", score_date=" + score_date + ", score_point="
+				+ score_point + ", user_id=" + user_id + ", score_category=" + score_category + ", score_rank="
+				+ score_rank + ", score_totalPoint=" + score_totalPoint + ", user_email=" + user_email + ", user_image="
+				+ user_image + ", user_signdate=" + user_signdate + ", category_id=" + category_id + ", category_name="
+				+ category_name + "]";
+	}	
 }

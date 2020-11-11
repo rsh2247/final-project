@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,45 +45,96 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	F_P001_D001VO f_p001_d001vo;
 
 	@Override
-	@RequestMapping(value = "F/F_P001/listScore.page", method = { RequestMethod.GET, RequestMethod.POST })				//전체랭킹 보기
-	public ModelAndView listScore(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = "/F_P001/listScore.tiles";
+	@RequestMapping(value = "F/F_P001/choiceScore.page", method = { RequestMethod.GET, RequestMethod.POST })				//전체랭킹 보기
+	public ModelAndView listSubject(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = "/F_P001/choiceScore.tiles";
 		
-		List<F_P001_D001VO> scoreList = scoreService.allScoreList();
-		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");
-		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");
-
-		System.out.println("CTRL===============>>" + scoreList.size());
+		List<Map<String, Object>> listSubject = scoreService.listSubject();
+		
 		ModelAndView mav = new ModelAndView(viewName);
+
+		mav.addObject("listSubject", listSubject);
+		
+		System.out.println(listSubject.toString());
+
+		return mav;
+	}
+
+	
+	@Override
+	@RequestMapping(value = "F/F_P001/listScore.page", method = { RequestMethod.GET, RequestMethod.POST })				//전체랭킹 보기
+	public ModelAndView listScore(@RequestParam("category_id") String category_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("카테고리아이디------->" + category_id);
+		
+		String viewName = "/F_P001/listScore.tiles";		
+		ModelAndView mav = new ModelAndView(viewName);
+		
+		Map<String, Object> map = new HashMap <String, Object>();
+
+		map.put("category_id", category_id);
+		List<Map<String, Object>> scoreList = scoreService.allScoreList(map);
+		System.out.println("scoreList===============>>" + scoreList);
+		
+		map.put("score_category", "1");
+		List<Map<String, Object>> categoryList1 = scoreService.selectScorelist_categoryScore(map);
+		System.out.println("categoryList1===============>>" + categoryList1);
+		
+		map.put("score_category", "2");
+		List<Map<String, Object>> categoryList2 = scoreService.selectScorelist_categoryScore(map);
+		System.out.println("categoryList2===============>>" + categoryList2);
+
 		mav.addObject("categoryList1",categoryList1);
 		mav.addObject("categoryList2",categoryList2);
 		mav.addObject("scoreList", scoreList);
-		
-		System.out.println(scoreList.toString());
+
 
 		return mav;
 	}
 
 	@Override
 	@RequestMapping(value = "F/F_P001/categoryScore.page", method = { RequestMethod.GET, RequestMethod.POST })				//카테고리별랭킹 보기
-	public ModelAndView categoryScore(@RequestParam("score_category") String score_category, HttpServletRequest request, 
-			HttpServletResponse response) throws Exception {
+	public ModelAndView categoryScore(@RequestParam("score_category") String score_category, 
+									  @RequestParam("category_id") String category_id,
+									  HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String viewName = "/F_P001/categoryScore.tiles";
+		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("score_category : "+score_category);
+		System.out.println("category_id : "+category_id);
+		
+		
+/*		List<F_P001_D001VO> allScoreList = scoreService.allScoreList(category_id);
+		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1", category_id);
+		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2", category_id);
+		List<F_P001_D001VO> scoreList = scoreService.selectScorelist_categoryScore(score_category); */
+		
+		Map<String, Object> map = new HashMap <String, Object>();
 
-		List<F_P001_D001VO> scoreList = scoreService.selectScorelist_categoryScore(score_category);
-		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");
-		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");
-		List<F_P001_D001VO> allScoreList = scoreService.allScoreList();
+		map.put("score_category", "1");
+		map.put("category_id", category_id);
+		List<Map<String, Object>> categoryList1 = scoreService.selectScorelist_categoryScore(map);
+		System.out.println("categoryList1===============>>" + categoryList1);
+		map.put("score_category", "2");
+		List<Map<String, Object>> categoryList2 = scoreService.selectScorelist_categoryScore(map);
+		System.out.println("categoryList2===============>>" + categoryList2);
+		
+		List<Map<String, Object>> allScoreList = scoreService.allScoreList(map);
+		System.out.println("allScoreList=============>>" + allScoreList);
+		map.put("score_category", score_category);
+		List<Map<String, Object>> scoreList = scoreService.selectScorelist_categoryScore(map);
+		System.out.println("scoreList=============>" + scoreList);
+		
+		System.out.println("");
 		
 		System.out.println("CTRL===============>>" + scoreList.size());
+		System.out.println("스코어리스트에 담긴 것--------->>" + scoreList);
+
 		
-		ModelAndView mav = new ModelAndView(viewName);
 		
-		mav.addObject("scoreList", scoreList);
 		mav.addObject("categoryList1",categoryList1);
 		mav.addObject("categoryList2",categoryList2);
 		mav.addObject("allScoreList", allScoreList);
+		mav.addObject("scoreList", scoreList);
 		
 		System.out.println(scoreList.toString());
 		return mav;
@@ -91,20 +143,42 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	
 	@Override
 	@RequestMapping(value = "F/F_P001/viewUser_score.page", method = {RequestMethod.GET, RequestMethod.POST})	//유저정보 보기
-	public ModelAndView viewUser_score(@RequestParam("user_id") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView viewUser_score(@RequestParam("user_id") String user_id, 
+									   @RequestParam("category_id") String category_id, 
+									   HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		String viewName = "/F_P001/viewUser_score.tiles";
+		ModelAndView mav = new ModelAndView(viewName);
 
-		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1");
-		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2");
-		List<F_P001_D001VO> categoryInfo1 = scoreService.categoryInfo1(user_id);
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		map.put("category_id", category_id);	
+		map.put("score_category", "1");
+		List<Map<String, Object>> categoryList1 = scoreService.selectScorelist_categoryScore(map);
+		
+		map.put("score_category", "2");
+		List<Map<String, Object>> categoryList2 = scoreService.selectScorelist_categoryScore(map);
+		
+		map.put("user_id", user_id);
+		List<Map<String, Object>> userInfo = scoreService.selectUserInfo(map);
+		
+		map.put("user_id", user_id);
+		List<Map<String, Object>> categoryInfo1 = scoreService.categoryInfo1(map);
+		
+		map.put("user_id", user_id);
+		List<Map<String, Object>> categoryInfo2 = scoreService.categoryInfo2(map);
+		
+		map.put("category_id", category_id);
+		map.put("user_id", user_id);
+		List<Map<String, Object>> scoreList = scoreService.viewUser_Score(map); 
+		
+/*		List<F_P001_D001VO> categoryInfo1 = scoreService.categoryInfo1(user_id);
 		List<F_P001_D001VO> categoryInfo2 = scoreService.categoryInfo2(user_id);
 		List<F_P001_D001VO> scoreList = scoreService.viewUser_Score(user_id);
-		List<F_P001_D001VO> userInfo = scoreService.selectUserInfo(user_id);
+		List<F_P001_D001VO> userInfo = scoreService.selectUserInfo(user_id); */
 		
 		System.out.println("CTRL===============>>" + scoreList.size());
 
-		ModelAndView mav = new ModelAndView(viewName);
 		
 		mav.addObject("scoreList", scoreList);
 		mav.addObject("categoryList1",categoryList1);
@@ -120,13 +194,37 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	
 	@Override
 	@RequestMapping(value = "F/F_P001/searchUser.page", method = {RequestMethod.GET})		//유져 검색
-	public ModelAndView searchUser(@RequestParam("searchUser") String user_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView searchUser(@RequestParam("searchUser") String user_id, 
+								   @RequestParam("category_id") String category_id, 
+								   HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName ="/F_P001/searchUser.tiles";
-		List<F_P001_D001VO> scoreList = scoreService.searchUser(user_id);
-		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("여기는 오느냐");
+		ModelAndView mav = new ModelAndView(viewName);	
+		Map<String, Object> map = new HashMap <String, Object>();
+		
+		
+		map.put("user_id", user_id);
+		map.put("category_id", category_id);
+		List<Map<String, Object>> scoreList = scoreService.searchUser(map);
+		
 		mav.addObject("scoreList", scoreList);
 
 		return mav;
 		
 	}
+	
+	//소문자로
+		public Map<String, Object> changeToLowerMapKey(Map<String, Object> origin){
+			   Map<String, Object> temp = new HashMap<String, Object>();  
+			   Set<String> set = origin.keySet();
+			   Iterator<String> e = set.iterator();
+
+			   while(e.hasNext()){
+			     String key = e.next();
+			     Object value = (Object) origin.get(key);
+			     temp.put(key.toLowerCase(), value);
+			   }
+			  origin = null;
+			  return temp;
+		}
 }
