@@ -46,8 +46,8 @@ public class MainPageControllerImpl implements MainPageController{
 		List<Map<String, Object>> groupList = mainPageService.mainGroupRank(); 
 		mav.addObject("groupList",groupList);
 		
-		List<F_P001_D001VO> scoreList = scoreService.allScoreList();
-		mav.addObject("scoreList",scoreList);
+		List<Map<String, Object>> allUserScore = scoreService.allRoundUserScore();
+		mav.addObject("scoreList",allUserScore);
 		
 		Map<String,String> searchParam = new HashMap<>();
 		List<Lecture_VO> lectureList = lectService.getLectureList(searchParam);

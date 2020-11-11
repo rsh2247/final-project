@@ -46,15 +46,19 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 
 	@Override
 	@RequestMapping(value = "F/F_P001/choiceScore.page", method = { RequestMethod.GET, RequestMethod.POST })				//전체랭킹 보기
-	public ModelAndView listSubject(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView listSubject(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = "/F_P001/choiceScore.tiles";
-		
+				
+		List<Map<String, Object>> allUserScore = scoreService.allRoundUserScore();
+
 		List<Map<String, Object>> listSubject = scoreService.listSubject();
-		
+
 		ModelAndView mav = new ModelAndView(viewName);
 
 		mav.addObject("listSubject", listSubject);
-		
+		mav.addObject("allUserScore", allUserScore);
+		System.out.println("listSubject==============>>" + listSubject);
+		System.out.println("allUserScore==============>>" + allUserScore);
 		System.out.println(listSubject.toString());
 
 		return mav;
@@ -144,14 +148,15 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 	@Override
 	@RequestMapping(value = "F/F_P001/viewUser_score.page", method = {RequestMethod.GET, RequestMethod.POST})	//유저정보 보기
 	public ModelAndView viewUser_score(@RequestParam("user_id") String user_id, 
-									   @RequestParam("category_id") String category_id, 
+									   @RequestParam(value = "category_id", required = false) String category_id, 
 									   HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		String viewName = "/F_P001/viewUser_score.tiles";
 		ModelAndView mav = new ModelAndView(viewName);
 
 		Map<String, Object> map = new HashMap <String, Object>();
-		
+		System.out.println("category_id: "+category_id);
+		if(category_id.equals(null)) category_id = "null";
 		map.put("category_id", category_id);	
 		map.put("score_category", "1");
 		List<Map<String, Object>> categoryList1 = scoreService.selectScorelist_categoryScore(map);

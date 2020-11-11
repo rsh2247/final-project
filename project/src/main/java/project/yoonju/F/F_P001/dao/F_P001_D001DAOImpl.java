@@ -18,6 +18,12 @@ public class F_P001_D001DAOImpl implements F_P001_D001DAO {
 	@Autowired
 	private SqlSession sqlSession;
 
+	@Override
+	public List<Map<String, Object>> allRoundUserScore() throws DataAccessException{
+		List<Map<String, Object>> allUserScore = sqlSession.selectList("yoonju.F.F_P001.F_P001_D001DAO.allRoundUserScore");
+		return allUserScore;
+	}
+	
 	
 	@Override
 	public List<Map<String, Object>> selectAllScoreList(Map<String, Object> map) throws DataAccessException {

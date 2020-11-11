@@ -22,6 +22,11 @@ public class F_P001_D001ServiceImpl  implements F_P001_D001Service{
 	@Autowired
 	F_P001_D001DAO scoreDAO;
 	
+	public List<Map<String, Object>> allRoundUserScore() throws DataAccessException{
+		List<Map<String, Object>> allUserScore = scoreDAO.allRoundUserScore();
+		return allUserScore;
+	}
+	
 	public List<Map<String, Object>> allScoreList(Map<String, Object> map) throws Exception{
 		List<Map<String, Object>> allScoreList =  scoreDAO.selectAllScoreList(map);
         return allScoreList;

@@ -9,6 +9,7 @@ import project.yoonju.F.F_P001.vo.F_P001_D001VO;
 import project.yoonju.F.F_P001.vo.F_P001_D001VO2;
 
 public interface F_P001_D001Service {
+	public List<Map<String, Object>> allRoundUserScore() throws DataAccessException;
 	public List<Map<String, Object>> allScoreList(Map<String, Object> map) throws Exception;
 	public List<Map<String, Object>> selectScorelist_categoryScore(Map<String, Object> map) throws Exception;
 	public List<Map<String, Object>> viewUser_Score(Map<String, Object> map) throws Exception;

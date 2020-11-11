@@ -11,19 +11,165 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+</script>
+<meta charset="UTF-8">
+
+<style>
+.score_table {margin:auto; align: center; width:70%;table-layout:fixed; paddding-left:50px; background-color:#ededed;border:solid 1px #cdd2d2;}
+.score_header{height:41px;padding:0;border-bottom:1px solid #cdd2d2;background:#f2f2f2;line-height:17px;font-size:14px;text-align:center;color:#444b4b;font-weight:normal;}
+.score_cell{border-bottom:1px solid #cdd2d2;height:54px;line-height:16px;font-family:Helvetica,AppleSDGothic,"Apple SD Gothic Neo",AppleGothic,Arial,Tahoma;font-size:14px;}
+.score_highest_list{text-align:center;margin-bottom:20px;}
+.score_highest_box{position:relative;display:inline-block;padding:14px 18px;border:2px solid #bdbbbb;width:220px;background:#fff;box-sizing:border-box;text-align:left;margin-top:30px;margin-left:30px;}.ranking-highest__item a{text-decoration:none;}
+.score_highest_box_big{display:block;width:800px;margin:0 auto;padding:35px 40px;border-width:5px;}
+.score_highest_box_big+score_highest_box{margin:0;}
+.score_highest_box:after{visibility:hidden;display:block;font-size:0;content:"";clear:both;height:0;}
+.score_highest_rank{width:30px;background:#bdbbbb;padding:3px 0;line-height:24px;font-family:Helvetica,AppleSDGothic,"Apple SD Gothic Neo",AppleGothic,Arial,Tahoma;font-size:21px;text-align:center;color:#fff;}.ranking-highest__item .ranking-highest__rank{position:absolute;top:0;left:0;margin-top:-2px;margin-left:-2px;}
+.highest-rank{border-radius: 100px; }
+</style>
 
 <meta charset="UTF-8">
 
 <link href="<c:url value="/resources/css/choiceSubject.css" />" rel="stylesheet" type = "text/css">
-
+<link href="<c:url value="/resources/css/rankScore.css" />" rel="stylesheet">
   <title>과목선택</title>
 </head>
 	<div  style ="align: center; width: 1100px; margin:auto; color:#5573C9;">
 		<h1>PRACTICE EVERYDAY RANKING</h1>
-		<h2>CHOICE SUBJECT</h2>
+		<br>
+		<br>
+		<h2>ALLROUND USER SCORE</h2>
 	</div>	
 	<br>
 <body>
+<div style ="align: center; width: 1100px; margin:auto;">
+		<ul class="score_highest_list">
+			<li class="ranking-highest__item ranking-highest__item--big"> <!-- 1위 정보 -->
+				<c:forEach
+					var="score" items="${allUserScore}" begin="0" end="0">
+					<div class="ranking-highest__rank">1</div>
+					<div class="ranking-highest__icon">
+						<img src="${contextPath}/resources/image/${score.USER_IMAGE}"
+						 	 class="ranking-highest__image">
+					</div>
+					<div>
+						<table>
+							<thead>
+								<tr>
+									<%-- <a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}"> --%>
+									<h3>${score.USER_ID}</h3>
+									</a>
+								</tr>
+								<tr>
+									<th>종 합 점 수: </th><td class="ranking-highest-champion__winratio--red"> &nbsp; &nbsp;${score.SCORE_TOTALPOINT}</td>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</c:forEach>
+			</li>
+		</ul>
+	</div>
+<div style ="width: 1100px; margin:auto;">
+	<li class="ranking-highest__item"> <!-- 2위 정보 -->
+		<c:forEach var="score" items="${allUserScore}" begin="1" end="1">
+			<div class="ranking-highest__rank">2</div>
+			<div class="ranking-highest__icon" >
+				<img src="${contextPath}/resources/image/${score.USER_IMAGE}"  class="ranking-highest__image"
+				 	onerror="this.src='//opgg-static.akamaized.net/images/profile_icons/profileIcondefault.jpg';" >
+			</div>
+			<div class="ranking-highest-champions">
+				<div class="ranking-highest-champion">
+					<table>
+						<tr>
+							<%-- <a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}">--%>&nbsp;${score.USER_ID}</a> <!-- 유저 아이디 -->
+						</tr>
+						<tr>
+							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
+							<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--red">&nbsp;${score.SCORE_TOTALPOINT}</td>
+						</tr>					
+					</table>
+				</div>
+			</div>
+		</c:forEach>
+	</li>
+
+	<li class="ranking-highest__item"> <!-- 3위 정보 -->
+		<c:forEach var="score"
+			items="${allUserScore}" begin="2" end="2">
+			<div class="ranking-highest__rank">3</div>
+			<div class="ranking-highest__icon" >
+				<img src="${contextPath}/resources/image/${score.USER_IMAGE}"  class="ranking-highest__image"
+				 	onerror="this.src='//opgg-static.akamaized.net/images/profile_icons/profileIcondefault.jpg';" >
+			</div>
+			<div class="ranking-highest-champions">
+				<div class="ranking-highest-champion">
+					<table>
+						<tr>
+							<%-- <a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}">--%>&nbsp;${score.USER_ID}</a><!-- 유저 아이디 -->
+						</tr>
+						<tr>
+							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
+							<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--red">&nbsp;${score.SCORE_TOTALPOINT}</td>
+						</tr>
+					</table>	
+				</div>
+			</div>
+		</c:forEach>
+	</li>
+
+	<li class="ranking-highest__item"> <!-- 4위 정보 -->
+		<c:forEach var="score"
+			items="${allUserScore}" begin="3" end="3">
+			<div class="ranking-highest__rank">4</div>
+			<div class="ranking-highest__icon" >
+				<img src="${contextPath}/resources/image/${score.USER_IMAGE}"  class="ranking-highest__image"
+				 	onerror="this.src='//opgg-static.akamaized.net/images/profile_icons/profileIcondefault.jpg';" >
+			</div>
+			<div class="ranking-highest-champions">
+				<div class="ranking-highest-champion">
+					<table>
+						<tr>
+							<%-- <a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}">--%>&nbsp;${score.USER_ID}</a> <!-- 유저 아이디 -->
+						</tr>
+						<tr>
+							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
+							<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--red">&nbsp;${score.SCORE_TOTALPOINT}</td>
+						</tr>
+					</table>	
+				</div>
+			</div>
+		</c:forEach>
+	</li>
+
+	<li class="ranking-highest__item"> <!-- 5위 정보 -->
+		<c:forEach var="score"
+			items="${allUserScore}" begin="4" end="4">
+			<div class="ranking-highest__rank">5</div>
+			<div class="ranking-highest__icon" >
+				<img src="${contextPath}/resources/image/${score.USER_IMAGE}"  class="ranking-highest__image"
+				 	onerror="this.src='//opgg-static.akamaized.net/images/profile_icons/profileIcondefault.jpg';" >
+			</div>
+			<div class="ranking-highest-champions">
+				<div class="ranking-highest-champion">
+					<table>
+						<tr>
+							<%-- <a href="${contextPath}/F/F_P001/viewUser_score.page?user_id=${score.USER_ID}"> --%>&nbsp;${score.USER_ID}</a> <!-- 유저 아이디 -->
+						</tr>
+						<tr>
+							<th>종&nbsp;합&nbsp;점&nbsp;수: </th>
+							<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--red">&nbsp;${score.SCORE_TOTALPOINT}</td>
+						</tr>
+					</table>	
+				</div>
+			</div>
+		</c:forEach>
+	</li>
+</div>	
+
+	<div  style ="align: center; width: 1100px; margin:auto; color:#5573C9;">
+		<br><br><br><br>
+		<h2>CHOICE SUBJECT</h2></div>
 <div style ="align: center; width: 1100px; margin:auto;" >
 	<div class="global-menu" >
 		<div class="menu-popular">

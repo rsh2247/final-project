@@ -28,7 +28,23 @@
   ]]>
   </select>
   
-  
+  <select id = "allRoundUserScore"   resultType = "java.util.Map">
+  <![CDATA[
+	  SELECT user_id, user_image, score_totalPoint,  RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
+	  FROM(
+     	   SELECT  a.user_id, u.user_image, (
+                                             SELECT  SUM(score_point) AS score_totalPoint
+                                             FROM     score
+                                             WHERE user_id = a.user_id
+                                             GROUP BY user_id
+                                             ) as score_totalPoint
+	  	   FROM  user_table u, (SELECT user_id, sum(score_point) AS score_totalPoint
+                                FROM score s
+                                GROUP BY user_id
+                                ) a
+      WHERE u.user_id = a.user_id)
+  ]]>
+  </select>
   
 
   <select id="selectAllScoreList" resultType="java.util.Map"   >		<!-- 종합순위 -->

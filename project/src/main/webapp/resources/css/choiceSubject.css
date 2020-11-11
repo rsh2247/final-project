@@ -39,7 +39,7 @@
 .global-menu .menu-list .list span:before { content: ''; position: absolute; bottom: 2px; right: 0; left: 0; z-index: -1; display: none; border-bottom: 5px solid #f26520; }
 
 .global-menu .menu-popular { background-color: #fff; }
-.global-menu .menu-popular .section { padding: 29px 0; }
+.global-menu .menu-popular .section { padding: 12px 0; }
 .global-menu .menu-popular h2.title { line-height: 1.2; color: #d73706; }
 .global-menu .menu-popular .menu-list .list a { font-size: 20px; }
 .global-menu .menu-popular .menu-list .list em { display: inline-block; margin-right: 2px; font-size: 18px; font-weight: 600; }
