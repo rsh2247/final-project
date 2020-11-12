@@ -22,12 +22,14 @@ public interface Problem_Service {
 	 public List<Map<String, String>> selectTag(Map<String, Object> searchMap) throws DataAccessException;
 	 
 	 public Map<String,Object> insertUserColHistory(Map<String, Object> inputMap,List<Map<String,Object>> answerList) throws DataAccessException;
-	 public void insertProblem(Map<String, String> paramMap) throws DataAccessException;
+	 public void insertProblem(Map<String, Object> paramMap) throws DataAccessException;
 	 public void insertCollection(Map<String, Object> inputMap) throws DataAccessException;
 	 public void insertUserAnswer(Map<String, Object> inputMap) throws DataAccessException;
 	 
-	 public List<Map<String, Object>> selectEval(List<Map<String, Object>> list) throws DataAccessException;
+	 public List<Map<String, Object>> selectEval(Map<String, Object> inputMap) throws DataAccessException;
+	 public List<Map<String, Object>> selectColEval(Map<String, Object> inputMap) throws DataAccessException;
 	 public void insertEval(Map<String, Object> inputMap) throws DataAccessException;
 	 public void insertColEval(Map<String, Object> inputMap) throws DataAccessException;
 	 public Map<String, Object> selectOneCol(Map<String, Object> searchMap) throws DataAccessException;
+	List<Map<String, Object>> selectWholeCollection(Map<String, Object> searchMap) throws DataAccessException;
 }

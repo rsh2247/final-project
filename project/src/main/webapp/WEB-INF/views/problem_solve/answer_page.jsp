@@ -84,10 +84,10 @@
 				</p>
 				<input type="hidden" name="pro_num" value="${problem.PRO_NUM}">
 				<input type="hidden" name="pro_name" value="${problem.PRO_NAME}">
-				<input type="hidden" name="category_name"
-					value="${problem.CATEGORY_NAME}"> <input type="hidden"
-					name="user_id" value="${problem.USER_ID}"> <input
-					type="hidden" name="tag_name" value="${problem.TAG_NAME}">
+				<input type="hidden" name="category_name" value="${problem.CATEGORY_NAME}"> 
+				<input type="hidden" name="category_id" value="${problem.CATEGORY_ID}"> 
+				<input type="hidden" name="user_id" value="${problem.USER_ID}"> 
+				<input type="hidden" name="tag_name" value="${problem.TAG_NAME}">
 			</form>
 		</c:if>
 		<c:if test="${correct eq 'false'}">

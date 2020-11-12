@@ -124,6 +124,8 @@
 				<input type="hidden" name="col_eval_score" id="score" value="1">
 				<input type="hidden" name="col_num" value="${result.col_num}">
 				<input type="hidden" name="category" value="${result.category_name}">
+				<input type="hidden" name="category_id" value="${result.category_id}">
+				<input type="hidden" name="user_id" value="${result.user_id}">
 				<button id="confirmbtn">확인</button>
 			</div>
 		</form>

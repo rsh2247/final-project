@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="score">
+	<resultMap id="result" type="java.util.HashMap">
+	</resultMap>
+
+	<insert id="insertScore" parameterType="java.util.Map">
+	INSERT INTO SCORE(score_point, score_date, user_id, category_id, score_content, pro_num, col_num, SCORE_EVAL_USER_ID)
+	VALUES(#{score_point}, sysdate, #{user_id}, #{category_id}, #{score_content}, #{pro_num, jdbcType=VARCHAR}, #{col_num, jdbcType=VARCHAR}, #{score_eval_user_id, jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateProScore">
+	UPDATE SCORE 
+	SET score_point = #{score_point}, score_date = sysdate
+	WHERE pro_num = #{pro_num} and score_eval_user_id = #{score_eval_user_id}
+	</update>
+	
+	<update id="updateColScore">
+	UPDATE SCORE 
+	SET score_point = #{score_point}, score_date = sysdate
+	WHERE col_num = #{col_num} and score_eval_user_id = #{score_eval_user_id}
+	</update>
+	
+	<select id="checkProScore" resultMap="result" parameterType="java.util.Map">
+	SELECT score_point
+	FROM score
+	WHERE score_eval_user_id = #{score_eval_user_id} and pro_num = #{pro_num}
+	</select>
+	
+	<select id="checkColScore" resultMap="result" parameterType="java.util.Map">
+	SELECT score_point
+	FROM score
+	WHERE score_eval_user_id = #{score_eval_user_id} and col_num = #{col_num}
+	</select>
+	
+</mapper>

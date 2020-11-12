@@ -24,6 +24,7 @@ import project.sungho.mainController.MainControllerImpl;
 import project.sungho.paging.Paging;
 import project.sungho.pro_collection_module.service.ProCollection_Service;
 import project.sungho.problem_solve_module.service.Problem_Service;
+import project.sungho.score.Score_Service;
 import project.sungho.security.member.CustomUser;
 
 @Controller
@@ -34,6 +35,8 @@ public class PS_ControllerImpl implements PS_Controller {
 	Problem_Service problem_Service;
 	@Autowired
 	ProCollection_Service proCollection_Service;
+	@Autowired
+	Score_Service score_Service;
 	
 	@Override
 	@RequestMapping(value = "problem_solve/list.pro", method = { RequestMethod.GET, RequestMethod.POST })
@@ -198,12 +201,13 @@ public class PS_ControllerImpl implements PS_Controller {
 	
 	//문제 데이터 insert
 	@RequestMapping(value = "**/makePro002.pro", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView makePro002(@RequestParam HashMap<String, String> paramMap) throws Exception {
-		String tag = paramMap.get("tag");
+	public ModelAndView makePro002(@RequestParam HashMap<String, Object> paramMap) throws Exception {
+		String tag = (String) paramMap.get("tag");
 		paramMap.put("tag_id", tag.split("/")[0]);
 		paramMap.put("tag_name", tag.split("/")[1]);
 		paramMap.put("tag_ischoice", tag.split("/")[2]);
 		problem_Service.insertProblem(paramMap);
+		score_Service.makeProScore(paramMap);
 
 		ModelAndView mav = new ModelAndView("problem_make/proMake_002Page.tiles");
 		return mav;
@@ -230,6 +234,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	@RequestMapping(value = "**/makeCol002.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView makeCol002(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		problem_Service.insertCollection(paramMap);
+		score_Service.makeColScore(paramMap);
 		return new ModelAndView("redirect:colMake_mainPage");
 	}
 	
@@ -245,15 +250,26 @@ public class PS_ControllerImpl implements PS_Controller {
 	
 	@RequestMapping(value = "problem_solve/evalConfirm.pro", method = {RequestMethod.POST})
 	public String proEvalConfirm(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		score_Service.evalProScore(paramMap);
 		problem_Service.insertEval(paramMap);
 		return "redirect:list.pro?category="+paramMap.get("category");
 	}
 	
 	@RequestMapping(value = "problem_solve/colEvalConfirm.pro", method = {RequestMethod.POST})
 	public String colEvalConfirm(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		score_Service.evalColScore(paramMap);
 		problem_Service.insertColEval(paramMap);
 		return "redirect:list.pro?category="+paramMap.get("category");
 	}
 	
-
+	@ResponseBody
+	@RequestMapping(value = "problem_solve/evallist.pro", method = {RequestMethod.POST})
+	public List<Map<String,Object>> evallist(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return problem_Service.selectEval(paramMap);
+	}
+	@ResponseBody
+	@RequestMapping(value = "problem_solve/colevallist.pro", method = {RequestMethod.POST})
+	public List<Map<String,Object>> colEvallist(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return problem_Service.selectColEval(paramMap);
+	}
 }
