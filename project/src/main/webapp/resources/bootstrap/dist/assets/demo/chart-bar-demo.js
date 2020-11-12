@@ -12,7 +12,7 @@ var myLineChart = new Chart(ctx, {
       label: "문제 수",
       backgroundColor: "rgba(2,117,216,1)",
       borderColor: "rgba(2,117,216,1)",
-      data: [4, 25, 57, 125, 178, 215],
+      data: [4, 25, 57, 125, 178],
     }],
   },
   options: {

@@ -15,7 +15,7 @@
 	</insert>
 	
 	<select id="selectWholeUser" resultMap="result" parameterType="java.util.Map">
-		SELECT user_id, DECODE(user_type,'ROLE_USER','사용자','ROLE_MANAGER','관리자') as user_type, user_email, user_enable, user_nickname, user_phone, to_char(user_signdate,'yyyy-mm-dd') as user_signdate
+		SELECT user_id, DECODE(user_type,'ROLE_USER','사용자','ROLE_MANAGER','관리자') as user_type, user_email, user_image, user_enable, user_nickname, user_phone, to_char(user_signdate,'yyyy-mm-dd') as user_signdate
 		FROM user_table
 	</select>
 

@@ -57,7 +57,11 @@ public class Problem_ServiceImpl implements Problem_Service {
 		List<Map<String, Object>> list = problem_DAO.selectCollection(searchMap);
 		return list;
 	}
-	
+	@Override
+	public List<Map<String, Object>> selectWholeCollection(Map<String, Object> searchMap) throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList("selectWholeCollection");
+		return list;
+	}
 	@Override
 	public List<Map<String, Object>> selectPastCollection(Map<String, Object> searchMap) throws DataAccessException {
 		List<Map<String, Object>> list = sqlSession.selectList("selectPastCollection",searchMap);
@@ -160,15 +164,15 @@ public class Problem_ServiceImpl implements Problem_Service {
 	}
 
 	@Override
-	public void insertProblem(Map<String, String> inputMap) throws DataAccessException {
+	public void insertProblem(Map<String, Object> inputMap) throws DataAccessException {
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		inputMap.put("user_id", user.getUsername());
 		problem_DAO.insertProblem(inputMap);
 		Map<String, String> choiceMap = new HashMap<String, String>();
-		choiceMap.put("pro_num", inputMap.get("pro_num"));
+		choiceMap.put("pro_num", (String) inputMap.get("pro_num"));
 		for (int i = 1; i < 10; i++) {
 			if (inputMap.get("choice" + i) != null) {
-				choiceMap.put("cho_content", inputMap.get("choice" + i));
+				choiceMap.put("cho_content", (String) inputMap.get("choice" + i));
 				choiceMap.put("cho_num", i + "");
 				problem_DAO.insertChoice(choiceMap);
 			}

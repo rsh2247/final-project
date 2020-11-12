@@ -220,7 +220,7 @@ h3 {
 					</p>
 				</div>
 			</sec:authorize>
-			<sec:authorize access="hasAnyRole('ROLE_USER')">
+			<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_MANAGER')">
 				<div id='loginbar'>
 					<form id="logoutForm" action="/logout.logout" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -232,7 +232,7 @@ h3 {
 					</form>
 				</div>
 			</sec:authorize>
-			<button onclick="location.href='${contextPath}/managerPage'">관리자</button>
+			<button onclick="location.href='${contextPath}/manager/mainPage'">관리자</button>
 		</div>
 		<nav id="navi">
 			<img id="image" src="${contextPath}/resources/image/logo2.png"
@@ -304,8 +304,9 @@ h3 {
 						<li><a href="${contextPath}/H/H_P001/listArticles.page"
 							class="link">자유게시판</a></li>
 					</ul></li>
-					-->
+					
 				<li><a href="${contextPath}/lecture/main.do" class="link"><spring:message code="site.menu6"/></a></li>
+			-->
 			</ul>
 		</nav>
 	</div>

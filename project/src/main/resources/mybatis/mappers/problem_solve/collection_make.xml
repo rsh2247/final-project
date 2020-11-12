@@ -19,8 +19,8 @@
 			end as col_num
 			from pro_collection
 		</selectKey>
-		INSERT INTO pro_collection(col_num,user_id,col_name,col_tag,category_id,category_name,col_maxscore) 
-		values(#{col_num}, #{user_id}, #{col_name}, #{col_tag}, #{categoryId}, #{categoryName}, #{maxscore})
+		INSERT INTO pro_collection(col_num,user_id,col_name,col_tag,category_id,category_name,col_maxscore,col_date) 
+		values(#{col_num}, #{user_id}, #{col_name}, #{col_tag}, #{categoryId}, #{categoryName}, #{maxscore}, sysdate)
 	</insert>
 	
 	<insert id="insertColList">

@@ -75,8 +75,12 @@
 			</if>
 		</where>
 	</select>
-
-
+	
+	<select id="selectWholeCollection" resultMap="result" parameterType="java.util.Map">
+		SELECT col_num,user_id,col_name,col_tag,category_name,to_char(col_date,'yyyy-mm-dd hh24:mi:ss') as col_date
+		FROM pro_collection
+	</select>
+	
 	<select id="selectCollection" resultMap="result"
 		parameterType="java.util.Map"> 
 	     <![CDATA[
@@ -84,7 +88,7 @@
 			FROM
 			]]>
 	        (
-		    SELECT distinct c.col_num as col_num,col_name,c.user_id as user_id, avg(col_eval_score) over(partition by e.col_num) as score
+		    SELECT distinct c.col_num as col_num,col_tag,col_name,c.user_id as user_id, avg(col_eval_score) over(partition by e.col_num) as score
 			from col_eval e
 			full outer join pro_collection c
 			on e.col_num = c.col_num

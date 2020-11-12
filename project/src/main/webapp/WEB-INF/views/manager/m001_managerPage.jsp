@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -16,20 +18,20 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="managerPage">관리자메뉴2</a>
+		<a class="navbar-brand" href="mainPage">관리자페이지 </a>
 		<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
 			<i class="fas fa-bars"></i>
 		</button>
 		<!-- Navbar Search-->
 		<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-			<div class="input-group">
+			<!--  <div class="input-group">
 				<input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
 				<div class="input-group-append">
 					<button class="btn btn-primary" type="button">
 						<i class="fas fa-search"></i>
 					</button>
 				</div>
-			</div>
+			</div>-->
 		</form>
 		<!-- Navbar-->
 		<ul class="navbar-nav ml-auto ml-md-0">
@@ -47,82 +49,67 @@
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">MAIN</div>
-						<a class="nav-link" href="managerPage">
+						<a class="nav-link" href="mainPage">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 메인페이지
 						</a>
-						<div class="sb-sidenav-menu-heading">Interface</div>
+						<div class="sb-sidenav-menu-heading">Managing</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
-								<i class="fas fa-columns"></i>
-							</div> Layouts
+								<i class="fas fa-book-open"></i>
+							</div> 문제
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
 						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="layout-static.html">Static Navigation</a> <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+								<a class="nav-link" href="problem">문제관리</a> <a class="nav-link" href="collection">문제집관리</a>
 							</nav>
 						</div>
-						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayout2" aria-expanded="false" aria-controls="collapsePages">
 							<div class="sb-nav-link-icon">
-								<i class="fas fa-book-open"></i>
-							</div> Pages
+								<i class="fas fa-columns"></i>
+							</div> 그룹
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
-						<div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth"> Authentication
-									<div class="sb-sidenav-collapse-arrow">
-										<i class="fas fa-angle-down"></i>
-									</div>
-								</a>
-								<div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="login.html">Login</a> <a class="nav-link" href="register.html">Register</a> <a class="nav-link" href="password.html">Forgot Password</a>
-									</nav>
-								</div>
-								<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError"> Error
-									<div class="sb-sidenav-collapse-arrow">
-										<i class="fas fa-angle-down"></i>
-									</div>
-								</a>
-								<div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="401.html">401 Page</a> <a class="nav-link" href="404.html">404 Page</a> <a class="nav-link" href="500.html">500 Page</a>
-									</nav>
-								</div>
+						<div class="collapse" id="collapseLayout2" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" href="group">그룹 / 그룹게시판</a> <a class="nav-link" href="post">게시글</a>
 							</nav>
 						</div>
-						<div class="sb-sidenav-menu-heading">Addons</div>
-						<a class="nav-link" href="charts.html">
+						
+						<a class="nav-link collapsed" href="user" >
 							<div class="sb-nav-link-icon">
-								<i class="fas fa-chart-area"></i>
-							</div> Charts
-						</a> <a class="nav-link" href="tables.html">
+								<i class="fas fa-columns"></i>
+							</div> 유저
+						</a>
+						
+						<a class="nav-link collapsed" href="calendar" >
 							<div class="sb-nav-link-icon">
-								<i class="fas fa-table"></i>
-							</div> Tables
+								<i class="fas fa-columns"></i>
+							</div> 일정관리
 						</a>
 					</div>
 				</div>
+				<sec:authorize access="hasAnyRole('ROLE_MANAGER')">
 				<div class="sb-sidenav-footer">
 					<div class="small">Logged in as:</div>
-					Start Bootstrap
+					<sec:authentication property="principal.username"/>
 				</div>
+				</sec:authorize>
 			</nav>
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid">
-					<h1 class="mt-4">관리자페이지</h1>
+					<h1 class="mt-4" style="padding-bottom: 15px;">관리자페이지</h1>
 					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active">Dashboard</li>
-					</ol>
+						<li class="breadcrumb-item active">Information</li>
+					</ol><!-- 
 					<div class="row">
 						<div class="col-xl-3 col-md-6">
 							<div class="card bg-primary text-white mb-4">
@@ -169,11 +156,13 @@
 							</div>
 						</div>
 					</div>
+					
+					-->
 					<div class="row">
 						<div class="col-xl-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-chart-area mr-1"></i> Area Chart Example
+									<i class="fas fa-chart-area mr-1"></i> 일일 접속자 수
 								</div>
 								<div class="card-body">
 									<canvas id="myAreaChart" width="100%" height="40"></canvas>
@@ -183,7 +172,7 @@
 						<div class="col-xl-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-chart-bar mr-1"></i> Bar Chart Example
+									<i class="fas fa-chart-bar mr-1"></i> 전체 문제 수
 								</div>
 								<div class="card-body">
 									<canvas id="myBarChart" width="100%" height="40"></canvas>
@@ -253,15 +242,54 @@
 	<script src="${contextPath}/resources/bootstrap/dist/js/scripts.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 	<script src="${contextPath}/resources/bootstrap/dist/assets/demo/chart-area-demo.js"></script>
-	<script src="${contextPath}/resources/bootstrap/dist/assets/demo/chart-bar-demo.js"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 	<script src="${contextPath}/resources/bootstrap/dist/assets/demo/datatables-demo.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function () {
-	    $('#dataTable_previous a').text('이전');
-		$('#dataTable_next a').text('다음');
-		console.log("${userlist[0]}");
+	    var num1 = "${proSize}";
+		
+		var ctx = document.getElementById("myBarChart");
+		var myLineChart = new Chart(ctx, {
+		  type: 'bar',
+		  data: {
+		    labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월" , "11월" , "12월"],
+		    datasets: [{
+		      label: "문제 수",
+		      backgroundColor: "rgba(2,117,216,1)",
+		      borderColor: "rgba(2,117,216,1)",
+		      data: [4, 25, 57, 125, num1],
+		    }],
+		  },
+		  options: {
+		    scales: {
+		      xAxes: [{
+		        time: {
+		          unit: 'month'
+		        },
+		        gridLines: {
+		          display: false
+		        },
+		        ticks: {
+		          maxTicksLimit: 6
+		        }
+		      }],
+		      yAxes: [{
+		        ticks: {
+		          min: 0,
+		          max: 500,
+		          maxTicksLimit: 5
+		        },
+		        gridLines: {
+		          display: true
+		        }
+		      }],
+		    },
+		    legend: {
+		      display: false
+		    }
+		  }
+		});
 	})
 	</script>
 </body>
