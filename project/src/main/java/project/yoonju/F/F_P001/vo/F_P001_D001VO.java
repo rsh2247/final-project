@@ -9,21 +9,45 @@ import org.springframework.stereotype.Component;
 @Component
 public class F_P001_D001VO {
 
+	//score 테이블
 	String score_content;	// 내역
 	Date score_date;		// 시각
 	String score_point;		// 점수
 	String user_id;			// 아이디
-	String score_category;	// 분류
+	String score_category;	// 분류 ---------->사용하지 않음
 	String score_rank;		// 순위
 	String score_totalPoint;// 합계 점수
 	
+	//user_table 테이블
 	String user_email;		//이메일
 	String user_image;		//유저 사진
 	Date user_signdate;		//유저 가입일
 	
-	String category_id;	//과목번호
-	String category_name; //과목이름
+	//problem 테이블
+	String category_id;		//과목번호
+	String category_name; 	//과목이름
+	String pro_name;		//문제제목
+	String pro_num;			//문제번호
 	
+	
+	public String getPro_num() {
+		return pro_num;
+	}
+	public void setPro_num(String pro_num) {
+		this.pro_num = pro_num;
+	}
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+	public String getPro_name() {
+		return pro_name;
+	}
+	public void setPro_name(String pro_name) {
+		this.pro_name = pro_name;
+	}
 	public String getCategory_id() {
 		return category_id;
 	}
@@ -84,19 +108,20 @@ public class F_P001_D001VO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	public String getScore_category() {
+/*	public String getScore_category() {
 		return score_category;
 	}
 	public void setScore_category(String score_category) {
 		this.score_category = score_category;
-	}
-	
+	} */
 	@Override
 	public String toString() {
 		return "F_P001_D001VO [score_content=" + score_content + ", score_date=" + score_date + ", score_point="
 				+ score_point + ", user_id=" + user_id + ", score_category=" + score_category + ", score_rank="
 				+ score_rank + ", score_totalPoint=" + score_totalPoint + ", user_email=" + user_email + ", user_image="
 				+ user_image + ", user_signdate=" + user_signdate + ", category_id=" + category_id + ", category_name="
-				+ category_name + "]";
-	}	
+				+ category_name + ", pro_name=" + pro_name + ", pro_num=" + pro_num + "]";
+	}
+
+	
 }

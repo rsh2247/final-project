@@ -91,6 +91,7 @@
 		<table class="score_table">
 				<tr>
 					<th class="score_header">구분</th>
+					<th class="score_header">문제번호</th>
 					<th class="score_header">문제내역</th>
 					<th class="score_header">획득점수</th>
 					<th class="score_header">획득날짜</th>
@@ -100,8 +101,9 @@
 				<c:when test="${categoryInfo1 !=null }">
 					<c:forEach var="list1" items="${categoryInfo1}" varStatus="scoreNum">
 						<tr align="center">
-							<td class="score_cell">${scoreNum.count}</td>	
-							<td class="score_cell">${list1.SCORE_CONTENT}</td>
+							<td class="score_cell">${scoreNum.count}</td>
+							<td class="score_cell">${list1.PRO_NUM}</td>	
+							<td class="score_cell">${list1.PRO_NAME}</td>
 							<td class="score_cell">${list1.SCORE_POINT}</td>
 							<td class="score_cell"><fmt:formatDate pattern="yyyy-MM-dd" value="${list1.SCORE_DATE}"/></td>
 						</tr>
@@ -114,10 +116,11 @@
 
 	<div style ="align: center; width: 1100px; margin:auto;">
 		<br> <br>
-		<h3>문제풀이정보</h3>
+		<h3>문제집정보</h3>
 		<table class="score_table">	
 				<tr>
 					<th class="score_header">구분</th>
+					<th class="score_header">문제번호</th>
 					<th class="score_header">문제내역</th>
 					<th class="score_header">획득점수</th>
 					<th class="score_header">획득날짜</th>
@@ -125,10 +128,11 @@
 
 			<c:choose>
 				<c:when test="${categoryInfo2 !=null }">
-					<c:forEach var="list2" items="${categoryInfo2 }" varStatus="scoreNum">
+					<c:forEach var="list2" items="${categoryInfo2}" varStatus="scoreNum">
 						<tr align="center">
 							<td class="score_cell">${scoreNum.count}</td>
-							<td class="score_cell">${list.SCORE_CONTENT}</td>
+							<td class="score_cell">${list2.PRO_NUM}</td>	
+							<td class="score_cell">${list2.PRO_NAME}</td>
 							<td class="score_cell">${list2.SCORE_POINT}</td>
 							<td class="score_cell"><fmt:formatDate pattern="yyyy-MM-dd" value="${list2.SCORE_DATE}"/></td>
 						</tr>
@@ -142,9 +146,9 @@
 	<c:forEach var="score" items="${scoreList}" begin = "0" end="0">
     <table>
     	<div>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_content=문제출제&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
     		<a href ="${contextPath}/F/F_P001/listScore.page?category_id=${score.CATEGORY_ID}" >전체랭킹</a>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2&category_id=${score.CATEGORY_ID}" >문제풀이랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_content=문제집&category_id=${score.CATEGORY_ID}" >문제집랭킹</a>
     	</div>
     	<div id = "search">
     		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page?">

@@ -15,7 +15,7 @@ import project.yoonju.F.F_P001.vo.F_P001_D001VO;
 public interface F_P001_D001Controller {
 	public ModelAndView listScore(@RequestParam("category_id") String category_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-	public ModelAndView categoryScore(@RequestParam("score_category") String score_category, 
+	public ModelAndView categoryScore(@RequestParam("score_content") String score_content, 
 									  @RequestParam("category_id") String category_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	public ModelAndView viewUser_score(@RequestParam("user_id") String user_id, 

@@ -60,7 +60,7 @@
 								<tr>
 								<c:forEach var="category2" items="${categoryList2}">
 									<c:if test="${score.USER_ID eq category2.USER_ID}">
-										<th>문제풀이점수: </th><td> &nbsp; &nbsp;${category2.SCORE_TOTALPOINT}</td>
+										<th>문제집점수: </th><td> &nbsp; &nbsp;${category2.SCORE_TOTALPOINT}</td>
 									</c:if>
 								</c:forEach>		
 								</tr>
@@ -96,7 +96,7 @@
 						<tr>					
 						<c:forEach var="category2" items="${categoryList2}">
 							<c:if test="${score.USER_ID eq category2.USER_ID}">
-								<th>문제풀이점수: </th>
+								<th>문제집점수: </th>
 									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.SCORE_TOTALPOINT}</td>
 							</c:if>
 						</c:forEach>
@@ -132,7 +132,7 @@
 						<tr>					
 						<c:forEach var="category2" items="${categoryList2}">
 							<c:if test="${score.USER_ID eq category2.USER_ID}">
-								<th>문제풀이점수: </th>
+								<th>문제집점수: </th>
 									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.SCORE_TOTALPOINT}</td>
 							</c:if>
 						</c:forEach>
@@ -168,7 +168,7 @@
 						<tr>					
 						<c:forEach var="category2" items="${categoryList2}">
 							<c:if test="${score.USER_ID eq category2.USER_ID}">
-								<th>문제풀이점수: </th>
+								<th>문제집점수: </th>
 									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.SCORE_TOTALPOINT}</td>
 							</c:if>
 						</c:forEach>
@@ -204,7 +204,7 @@
 						<tr>					
 						<c:forEach var="category2" items="${categoryList2}">
 							<c:if test="${score.USER_ID eq category2.USER_ID}">
-								<th>문제풀이점수: </th>
+								<th>문제집점수: </th>
 									<td class="ranking-highest-champion__winratio ranking-highest-champion__winratio--green">&nbsp;${category2.SCORE_TOTALPOINT}</td>
 							</c:if>
 						</c:forEach>
@@ -256,9 +256,9 @@
 	<c:forEach var="score" items="${scoreList}" begin = "0" end="0">
     <table>
     	<div>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_content=문제출제&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
     		<a href ="${contextPath}/F/F_P001/listScore.page?category_id=${score.CATEGORY_ID}" >전체랭킹</a>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2&category_id=${score.CATEGORY_ID}" >문제풀이랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_content=문제집&category_id=${score.CATEGORY_ID}" >문제집랭킹</a>
     	</div>
     	<div id = "search">
     		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page?">

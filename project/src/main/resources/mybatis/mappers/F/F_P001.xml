@@ -19,8 +19,11 @@
     <result property="user_signdate" column = "user_signdate"/>
 	<result property="category_id" column = "category_id"/>
 	<result property="category_name" column = "category_name" />
-	
+	<result property="pro_name" column = "pro_name" />
+	<result property="pro_num" column = "pro_num" />
   </resultMap> 
+  
+  
   <select id = "listSubject" resultType = "java.util.Map" >
   <![CDATA[
 	  SELECT  category_id, category_name
@@ -30,9 +33,9 @@
   
   <select id = "allRoundUserScore"   resultType = "java.util.Map">
   <![CDATA[
-	  SELECT user_id, user_image, score_totalPoint,  RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
+	  SELECT user_id, user_signdate, user_image, score_totalPoint,  RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
 	  FROM(
-     	   SELECT  a.user_id, u.user_image, (
+     	   SELECT  a.user_id, u.user_signdate, u.user_image, (
                                              SELECT  SUM(score_point) AS score_totalPoint
                                              FROM     score
                                              WHERE user_id = a.user_id
@@ -72,14 +75,14 @@
   
    <select id = "selectScorelist_categoryScore" resultType = "java.util.Map">	<!-- 카테고리 순위 (문제출제)  -->
   	<![CDATA[
-     SELECT category_id, score_category, user_id, user_image, score_totalPoint,  RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
+     SELECT category_id, score_content, user_id, user_image, score_totalPoint,  RANK() OVER(ORDER BY score_totalPoint DESC) AS score_rank
 	  FROM(
-      		SELECT  a.category_id, a.user_id, a.score_category , u.user_image, a.score_totalPoint
+      		SELECT  a.category_id, a.user_id, a.score_content , u.user_image, a.score_totalPoint
 	  		FROM  user_table u,(
-                 				SELECT category_id, score_category, user_id, sum(score_point) AS score_totalPoint
+                 				SELECT category_id, score_content, user_id, sum(score_point) AS score_totalPoint
                   				FROM score s
-                  				GROUP BY category_id, user_id, score_category
-                                HAVING score_category = #{score_category}
+                  				GROUP BY category_id, user_id, score_content
+                                HAVING score_content = #{score_content}
                   				) a
       WHERE u.user_id = a.user_id
       AND category_id = #{category_id}
@@ -88,32 +91,26 @@
   </select>
   
   
-  <select id = "categoryInfo1" resultType = "java.util.Map" > <!-- 1번 카테고리 정보 -->
+  <select id = "categoryInfo1" resultType = "java.util.Map" > <!-- 문제출제 내역 정보 -->
   	<![CDATA[
-		SELECT user_id, score_point, score_content, score_category, score_date
-		FROM   (
-        	    SELECT  user_id, score_point, score_content, score_category, score_date
-         	   	FROM	score
-          	  	WHERE	user_id = #{user_id}
-          	  	AND		category_id = #{category_id}
-           		)
-		WHERE score_category = 1
-		ORDER BY score_date DESC
+		 SELECT s.user_id, pro_name, p.pro_num, s.score_point, s.score_content, s.score_date
+		 FROM score s, problem p
+		 WHERE p.pro_num = s.pro_num 
+		 AND s.user_id = #{user_id} 
+		 AND s.score_content = '문제출제'
+		 ORDER BY s.score_date DESC
   	]]>
   </select>
   
   
-    <select id = "categoryInfo2" resultType = "java.util.Map" > <!-- 2번 카테고리 정보 -->
+    <select id = "categoryInfo2" resultType = "java.util.Map" > <!-- 문제집 내역 정보 -->
   	<![CDATA[
-		SELECT user_id, score_point, score_content, score_category, score_date
-		FROM   (
-        	    SELECT  user_id, score_point, score_content, score_category, score_date
-         	    FROM	score
-          	    WHERE	user_id = #{user_id}
-          	    AND		category_id = #{category_id}
-           		)
-		WHERE score_category = 2
-		ORDER BY score_date DESC
+		 SELECT s.user_id, pro_name, p.pro_num, s.score_point, s.score_content, s.score_date
+		 FROM score s, problem p
+		 WHERE p.pro_num = s.pro_num 
+		 AND s.user_id = #{user_id} 
+		 AND s.score_content = '문제집'
+		 ORDER BY s.score_date DESC
   	]]>
   </select>
   

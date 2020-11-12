@@ -79,11 +79,11 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 		List<Map<String, Object>> scoreList = scoreService.allScoreList(map);
 		System.out.println("scoreList===============>>" + scoreList);
 		
-		map.put("score_category", "1");
+		map.put("score_content", "문제출제");
 		List<Map<String, Object>> categoryList1 = scoreService.selectScorelist_categoryScore(map);
 		System.out.println("categoryList1===============>>" + categoryList1);
 		
-		map.put("score_category", "2");
+		map.put("score_content", "문제집");
 		List<Map<String, Object>> categoryList2 = scoreService.selectScorelist_categoryScore(map);
 		System.out.println("categoryList2===============>>" + categoryList2);
 
@@ -97,34 +97,29 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 
 	@Override
 	@RequestMapping(value = "F/F_P001/categoryScore.page", method = { RequestMethod.GET, RequestMethod.POST })				//카테고리별랭킹 보기
-	public ModelAndView categoryScore(@RequestParam("score_category") String score_category, 
+	public ModelAndView categoryScore(@RequestParam("score_content") String score_content, 
 									  @RequestParam("category_id") String category_id,
 									  HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String viewName = "/F_P001/categoryScore.tiles";
 		ModelAndView mav = new ModelAndView(viewName);
-		System.out.println("score_category : "+score_category);
+		System.out.println("score_content : "+score_content);
 		System.out.println("category_id : "+category_id);
 		
 		
-/*		List<F_P001_D001VO> allScoreList = scoreService.allScoreList(category_id);
-		List<F_P001_D001VO> categoryList1 = scoreService.selectScorelist_categoryScore("1", category_id);
-		List<F_P001_D001VO> categoryList2 = scoreService.selectScorelist_categoryScore("2", category_id);
-		List<F_P001_D001VO> scoreList = scoreService.selectScorelist_categoryScore(score_category); */
-		
 		Map<String, Object> map = new HashMap <String, Object>();
 
-		map.put("score_category", "1");
+		map.put("score_content", "문제출제");
 		map.put("category_id", category_id);
 		List<Map<String, Object>> categoryList1 = scoreService.selectScorelist_categoryScore(map);
 		System.out.println("categoryList1===============>>" + categoryList1);
-		map.put("score_category", "2");
+		map.put("score_content", "문제집");
 		List<Map<String, Object>> categoryList2 = scoreService.selectScorelist_categoryScore(map);
 		System.out.println("categoryList2===============>>" + categoryList2);
 		
 		List<Map<String, Object>> allScoreList = scoreService.allScoreList(map);
 		System.out.println("allScoreList=============>>" + allScoreList);
-		map.put("score_category", score_category);
+		map.put("score_content", score_content);
 		List<Map<String, Object>> scoreList = scoreService.selectScorelist_categoryScore(map);
 		System.out.println("scoreList=============>" + scoreList);
 		
@@ -156,31 +151,31 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 
 		Map<String, Object> map = new HashMap <String, Object>();
 		System.out.println("category_id: "+category_id);
-		if(category_id.equals(null)) category_id = "null";
+
 		map.put("category_id", category_id);	
-		map.put("score_category", "1");
+		map.put("score_content", "문제출제");
 		List<Map<String, Object>> categoryList1 = scoreService.selectScorelist_categoryScore(map);
 		
-		map.put("score_category", "2");
+		map.put("score_content", "문제집");
 		List<Map<String, Object>> categoryList2 = scoreService.selectScorelist_categoryScore(map);
 		
 		map.put("user_id", user_id);
 		List<Map<String, Object>> userInfo = scoreService.selectUserInfo(map);
 		
+
 		map.put("user_id", user_id);
 		List<Map<String, Object>> categoryInfo1 = scoreService.categoryInfo1(map);
 		
 		map.put("user_id", user_id);
 		List<Map<String, Object>> categoryInfo2 = scoreService.categoryInfo2(map);
 		
+		
+		
 		map.put("category_id", category_id);
 		map.put("user_id", user_id);
 		List<Map<String, Object>> scoreList = scoreService.viewUser_Score(map); 
 		
-/*		List<F_P001_D001VO> categoryInfo1 = scoreService.categoryInfo1(user_id);
-		List<F_P001_D001VO> categoryInfo2 = scoreService.categoryInfo2(user_id);
-		List<F_P001_D001VO> scoreList = scoreService.viewUser_Score(user_id);
-		List<F_P001_D001VO> userInfo = scoreService.selectUserInfo(user_id); */
+
 		
 		System.out.println("CTRL===============>>" + scoreList.size());
 
@@ -192,7 +187,8 @@ public class F_P001_D001ControllerImpl implements F_P001_D001Controller {
 		mav.addObject("categoryInfo2", categoryInfo2);
 		mav.addObject("userInfo", userInfo);
 
-		System.out.println(scoreList.toString());
+		System.out.println(categoryInfo1.toString());
+		System.out.println(categoryInfo2.toString());
 		return mav;
 	}
 	

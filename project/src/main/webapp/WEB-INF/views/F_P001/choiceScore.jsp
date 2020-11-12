@@ -189,7 +189,7 @@
 					<div class="menu-list">
 						<div class="list">
 							<ul>
-								<li><a href="${contextPath}/F/F_P001/listScore.page?category_id=1"><span>TOEIC</span></a></li>
+								<li><a href="${contextPath}/F/F_P001/listScore.page?category_id=1001"><span>TOEIC</span></a></li>
 								<li class=""><a href="${contextPath}/F/F_P001/listScore.page?category_id=2"><span>TOEFL</span></a></li>
 								<li><a href="//gov.eduwill.net/Common/Product/goods/auto/index.asp?masterSeq=NzYyOQ=="><span>TEPS</span></a></li>
 								<li class=""><a href="//seven.eduwill.net"><span>HSK</span></a></li>

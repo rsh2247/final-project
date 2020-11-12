@@ -99,9 +99,9 @@
 	<c:forEach var="score" items="${scoreList}" begin = "0" end="0">
     <table>
     	<div>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=1&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_content=문제출제&category_id=${score.CATEGORY_ID}" >문제출제랭킹</a>
     		<a href ="${contextPath}/F/F_P001/listScore.page?category_id=${score.CATEGORY_ID}" >전체랭킹</a>
-    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_category=2&category_id=${score.CATEGORY_ID}" >문제풀이랭킹</a>
+    		<a href ="${contextPath}/F/F_P001/categoryScore.page?score_content=문제집&category_id=${score.CATEGORY_ID}" >문제집랭킹</a>
     	</div>
     	<div id = "search">
     		<form name = "frmSearch" action = "${contextPath}/F/F_P001/searchUser.page?">
