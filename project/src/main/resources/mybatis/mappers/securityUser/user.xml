@@ -5,13 +5,13 @@
 	</resultMap>
 
 	<insert id="insertUser" parameterType="java.util.Map">
-		INSERT INTO user_table (user_id,user_pw,user_type,user_email,user_phone,user_nickname,user_signdate,user_enable,user_authkey)
-		VALUES(#{id},#{pw},'ROLE_USER',#{email},'test_phonenum',#{nickName},SYSTIMESTAMP,0,#{authkey})
+		INSERT INTO user_table (user_id,user_pw,user_type,user_email,user_phone,user_nickname,user_signdate,user_enable,user_authkey,user_image)
+		VALUES(#{id},#{pw},'ROLE_USER',#{email},'test_phonenum',#{nickName},SYSTIMESTAMP,0,#{authkey},'noimage.png')
 	</insert>
 	
 	<insert id="insertKakaoUser" parameterType="java.util.Map">
-		INSERT INTO user_table (user_id,user_pw, user_type,user_enable,user_signdate)
-		VALUES(#{id},#{pw},'ROLE_USER',1,SYSTIMESTAMP)
+		INSERT INTO user_table (user_id,user_pw, user_type,user_enable,user_signdate,user_image)
+		VALUES(#{id},#{pw},'ROLE_USER',1,SYSTIMESTAMP,'noimage.png')
 	</insert>
 	
 	<select id="selectWholeUser" resultMap="result" parameterType="java.util.Map">

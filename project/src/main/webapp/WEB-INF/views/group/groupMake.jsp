@@ -79,6 +79,7 @@
 						</div></li>
 				</ul>
 				<input type="hidden" name="g_list_state" value="manager">
+				<input type="hidden" name="group_icon" value="noimagecafe.png">
 				<button>확인</button>
 			</form>
 		</div>

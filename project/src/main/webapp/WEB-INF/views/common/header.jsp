@@ -212,8 +212,8 @@ h3 {
 		<div id="loginbox">
 			<sec:authorize access="isAnonymous()">
 				<div id='loginbar'>
-					<a href="${contextPath}/mainPage.main?lang=ko"><img class="flag flag-kr"/></a>
-					<a href="${contextPath}/mainPage.main?lang=en"><img class="flag flag-us"/></a>
+					<a href="${contextPath}/mainPage.main?lang=ko"><img class="flag flag-kr" style="background:url('${contextPath}/resources/image/flags.png') no-repeat -80px -77px;"/></a>
+					<a href="${contextPath}/mainPage.main?lang=en"><img class="flag flag-us" style="background:url('${contextPath}/resources/image/flags.png') no-repeat 0 -154px;"/></a>
 					<p class="login">
 						<a href="${contextPath}/user/loginPage.do"><spring:message code="site.signin"/></a> | 
 						<a href="${contextPath}/user/signUp.do"><spring:message code="site.signup"/></a>
@@ -224,6 +224,8 @@ h3 {
 				<div id='loginbar'>
 					<form id="logoutForm" action="/logout.logout" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<a href="${contextPath}/mainPage.main?lang=ko"><img class="flag flag-kr" style="background:url('${contextPath}/resources/image/flags.png') no-repeat -80px -77px;"/></a>
+						<a href="${contextPath}/mainPage.main?lang=en"><img class="flag flag-us" style="background:url('${contextPath}/resources/image/flags.png') no-repeat 0 -154px;"/></a>
 						<p class="login">
 						<sec:authorize access="hasAnyRole('ROLE_MANAGER')"><a href='${contextPath}/manager/mainPage'>관리자페이지</a> | </sec:authorize>
 							<a href="${contextPath}/userPage_col.user"><sec:authentication

@@ -17,9 +17,9 @@
 			FROM group_table
 		</selectKey>
 		INSERT INTO group_table(group_num, group_name, group_leader,
-		group_category, group_date, group_desc, group_joinmanner)
+		group_category, group_icon, group_date, group_desc, group_joinmanner)
 		VALUES
-		(#{group_num}, #{group_name}, #{user_id}, #{group_category}, sysdate,
+		(#{group_num}, #{group_name}, #{user_id}, #{group_category}, #{group_icon} , sysdate,
 		#{group_desc}, #{manner})
 	</insert>
 
@@ -52,6 +52,7 @@
 		where l.group_num =
 		t.group_num and g_list_state in ('user','manager')) MEMBER_COUNT
 		from group_table t
+		order by GROUP_DATE desc
 	</select>
 
 	<select id="selectOneGroup" resultMap="result"
