@@ -32,7 +32,7 @@
 }
 
 #loginbox {
-	width: 1200px;
+	width: 1100px;
 	height: 45px;
 	margin: 0 auto;
 }
@@ -82,7 +82,7 @@
 }
 
 #navi {
-	width: 1200px;
+	width: 1100px;
 	height: 30px; /* 메인 메뉴의 높이 */
 	display: inline-block;
 	margin: 0 auto 0 auto;
@@ -108,8 +108,8 @@
 
 .one {
 	float: left;
-	width: 900px;
-	float: left;
+	width: 700px;
+	margin-left: 30px;
 }
 
 .one>li {
@@ -225,6 +225,7 @@ h3 {
 					<form id="logoutForm" action="/logout.logout" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<p class="login">
+						<sec:authorize access="hasAnyRole('ROLE_MANAGER')"><a href='${contextPath}/manager/mainPage'>관리자페이지</a> | </sec:authorize>
 							<a href="${contextPath}/userPage_col.user"><sec:authentication
 									property="principal.username" /></a> | <a
 								href="${contextPath}/logout"><spring:message code="site.signout"/></a>
@@ -232,13 +233,12 @@ h3 {
 					</form>
 				</div>
 			</sec:authorize>
-			<button onclick="location.href='${contextPath}/manager/mainPage'">관리자</button>
 		</div>
 		<nav id="navi">
 			<img id="image" src="${contextPath}/resources/image/logo2.png"
 				onclick="location.href='${contextPath}/mainPage.main'" />
 			<ul class="one">
-				<li><a href="#" class="link"><spring:message code="site.menu1"/></a>
+				<li><a href="${contextPath}/problem_solve/mainPage" class="link"><spring:message code="site.menu1"/></a>
 					<ul class="two">
 						<li><a href="#" class="link"><spring:message code="site.menu1_1"/></a>
 							<ul class="three" style="top: -2px;">
@@ -286,13 +286,8 @@ h3 {
 								<li><a href="#" class="link"></a></li>
 							</ul></li>
 					</ul></li>
-				<li><a href="#" class="link"><spring:message code="site.menu2"/></a>
-					<ul class="two">
-						<li><a href="${contextPath}/problem_make/proMake_mainPage.do"
-							class="link"><spring:message code="site.menu2_1"/></a></li>
-						<li><a href="${contextPath}/problem_make/colMake_mainPage.do"
-							class="link"><spring:message code="site.menu2_2"/></a></li>
-					</ul></li>
+				<li><a href="${contextPath}/problem_make/proMake_mainPage.do" class="link"><spring:message code="site.menu2"/></a>
+					</li>
 
 				<li><a href="${contextPath}/group/groupmain" class="link"><spring:message code="site.menu3"/></a></li>
 				<li><a href="${contextPath}/F/F_P001/choiceScore.page" class="link"><spring:message code="site.menu4"/></a></li>

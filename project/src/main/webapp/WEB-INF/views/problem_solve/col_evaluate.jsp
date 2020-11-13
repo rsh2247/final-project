@@ -119,7 +119,7 @@
 					</div>
 				</div>
 				<div id="textbox">
-					<textarea id="editor" name="pro_eval_content"></textarea>
+					<textarea id="editor" name="col_eval_content"></textarea>
 				</div>
 				<input type="hidden" name="col_eval_score" id="score" value="1">
 				<input type="hidden" name="col_num" value="${result.col_num}">

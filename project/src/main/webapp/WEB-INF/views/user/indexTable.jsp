@@ -62,9 +62,6 @@
 			<td><a href="userGroup.user">그룹목록</a></td>
 		</tr>
 		<tr>
-			<td><a>수강중인 강의목록</a></td>
-		</tr>
-		<tr>
 			<td><a href="userPage_modify.user">정보수정</a></td>
 		</tr>
 		<tr>

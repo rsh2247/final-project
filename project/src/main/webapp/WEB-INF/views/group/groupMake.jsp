@@ -70,8 +70,9 @@
 						<div class="listbox">
 							<label class="radiolabel"><input type="radio" name="manner" class="radio" value="free"> 가입 신청시 바로 가입가능</label> <label class="radiolabel"><input type="radio" name="manner" class="radio" value="need"> 가입 신청후 승인 필요</label>
 						</div></li>
+						<!--  
 					<li><div class="namebox">그룹 아이콘</div>
-						<div class="listbox">aaa</div></li>
+						<div class="listbox"> </div></li>-->
 					<li><div class="namebox">그룹설명</div>
 						<div class="listbox">
 							<input type="text" name="group_desc" class="inputbox">

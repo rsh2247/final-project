@@ -26,16 +26,16 @@
 			    a : 23,
 			    b : '기사'
 			} ];
-			$('#cate1').on('change', function() {
-			    category1 = document.getElementById('cate1').value;
-
+			$('.category1').on('change', function() {
+			    category1 = $(this).val();
+			    var input = $(this);
 			    $.ajax({
 				type : "post",
 				url : "ajax/makeProAjax001.pro",
 				data : "string=" + category1,
 				success : function(data, textStatus) {
 				    list = data;
-				    changeForm();
+				    changeForm(input);
 				},
 				error : function(data, textSatus) {
 				    alert("에러가 발생");
@@ -67,30 +67,27 @@
 
 			})
 
-			function changeForm() {
-			    $('#cate2').empty();
-			    $('#cate3').empty();
+			function changeForm(input) {
+				var cate2 = input.next();
+				var cate3 = input.next().next();
+			    cate2.empty();
+			    cate3.empty();
 
 			    if (category1 == 10) {
-				document.getElementById('cate2').setAttribute(
-					'disabled', 'disabled');
-				document.getElementById('cate3')
-					.removeAttribute('disabled');
+			    	cate2.attr('disabled','disabled');
+			    	cate3.removeAttr('disabled');
 				for (var i = 0; i < list.length; i++) {
 				    var option = $('<option value='+list[i].CATEGORY_ID+'/'+list[i].CATEGORY_NAME+'>'
 					    + list[i].CATEGORY_NAME
 					    + '</option>')
-				    $('#cate3').append(option);
+				    cate3.append(option);
 				}
 			    } else if (category1 == 20) {
-				document.getElementById('cate3').setAttribute(
-					'disabled', 'disabled');
-				document.getElementById('cate2')
-					.removeAttribute('disabled');
+			    	cate3.attr('disabled','disabled');
+			    	cate2.removeAttr('disabled');
 				for (var i = 0; i < preset.length; i++) {
-				    var option = $('<option value='+preset[i].a+'>'
-					    + preset[i].b + '</option>')
-				    $('#cate2').append(option);
+				    var option = $('<option value='+preset[i].a+'>' + preset[i].b + '</option>')
+				    cate2.append(option);
 				}
 			    }
 			}
@@ -110,6 +107,9 @@
     function submit() {
 	$('#form').submit();
     }
+    function submit2() {
+    	$('#form2').submit();
+    }
 </script>
 <style type="text/css">
 #maincontent {
@@ -118,23 +118,25 @@
 	margin: 50px auto 0 auto;
 	margin: 50px auto 0 auto;
 }
-
-#maintitle {
-	width: 90%;
+#mainbox{
+	padding: 40px 20px 40px 20px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+}
+.maintitle {
+	width: 95%;
 	height: 40px;
 	border-bottom: 1px solid #d4d4d4;
 	text-align: left;
 	padding-left: 10px;
-	margin-left: 5%;
-	margin-bottom: 25px;
+	margin: 0 auto 35px auto;
 	font-size: 21px;
 	color: #333;
-	margin-bottom: 25px;
 }
 
-#contentitem {
-	width: 90%;
-	margin: 0 auto 0 auto;
+.contentitem {
+	width: 95%;
+	margin: 0 auto 50px auto;
 }
 
 #list {
@@ -168,6 +170,7 @@
 	width: 200px;
 	height: 40px;
 	cursor: pointer;
+	margin: 0 10px 0 10px;
 	border: 2px solid #3E60DB;
 }
 
@@ -182,22 +185,46 @@
 </head>
 <body>
 	<div id="maincontent">
-		<div id="maintitle">문제 만들기</div>
-		<div id="contentitem">
+	<div id="mainbox">
+		<div class="maintitle">문제 만들기</div>
+		<div class="contentitem">
 			<form action="makePro001.pro" method="post" id="form">
 				<ul id="list">
-					<li><select name="category" id="cate1" class="dropbox">
-							<option>분류선택</option>
-							<option value="10">어학시험</option>
-							<option value="20">국가자격시험</option>
-					</select></li>
-					<li><select name="category2" id="cate2" disabled="disabled" class="dropbox">
-					</select></li>
-					<li><select name="category3" id="cate3" disabled="disabled" class="dropbox">
-					</select></li>
+					<li>
+					<select name="category" id="cate1" class="dropbox category1">
+					<option>분류선택</option>
+					<option value="10">어학시험</option>
+					<option value="20">국가자격시험</option>
+					</select>
+					<select name="category2" id="cate2" disabled="disabled" class="dropbox">
+					</select>
+					<select name="category3" id="cate3" disabled="disabled" class="dropbox">
+					</select>
+					</li>
 				</ul>
 			</form>
 			<button id="checkbutton" onclick="submit()">확인</button>
+		</div>
+		
+		<div class="maintitle">문제집 만들기</div>
+		<div class="contentitem">
+			<form action="makeCol001.pro" id="form2">
+				<ul id="list">
+					<li>
+					<select name="category" id="cate1" class="dropbox category1">
+					<option>분류선택</option>
+					<option value="10">어학시험</option>
+					<option value="20">국가자격시험</option>
+					</select>
+					<select name="category2" id="cate2" disabled="disabled" class="dropbox">
+					</select>
+					<select name="category3" id="cate3" disabled="disabled" class="dropbox">
+					</select>
+					</li>
+				</ul>
+			</form>
+			<button id="checkbutton" onclick="submit2()">확인</button>
+		</div>
 		</div>
 	</div>
 </body>

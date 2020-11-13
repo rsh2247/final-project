@@ -38,6 +38,14 @@ public class PS_ControllerImpl implements PS_Controller {
 	@Autowired
 	Score_Service score_Service;
 	
+	@RequestMapping(value = "problem_solve/mainPage", method = { RequestMethod.GET})
+	public ModelAndView proMainPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		ModelAndView mav = new ModelAndView("problem_solve/c001_002.tiles");
+		mav.addObject("categorylist", "");
+		return mav;
+	}
+	
 	@Override
 	@RequestMapping(value = "problem_solve/list.pro", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView searchCategory(@RequestParam HashMap<String, Object> inputMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -235,7 +243,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	public ModelAndView makeCol002(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		problem_Service.insertCollection(paramMap);
 		score_Service.makeColScore(paramMap);
-		return new ModelAndView("redirect:colMake_mainPage");
+		return new ModelAndView("redirect:proMake_mainPage");
 	}
 	
 	@RequestMapping(value = "problem_solve/proEval.pro", method = {RequestMethod.POST})

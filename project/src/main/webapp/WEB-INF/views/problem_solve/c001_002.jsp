@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,8 +43,10 @@
 #title {
 	width: 100%;
 	font-size: 2rem;
-	font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
 }
 
 #bar_001 {
@@ -58,16 +61,16 @@
 	background-color: #3E60DB;
 }
 
-.vertical_bar{
+.vertical_bar {
 	width: 2px;
 	height: 50px;
-	display:inline-block;
-	position:relative;
-	top:25px;
+	display: inline-block;
+	position: relative;
+	top: 25px;
 	border: 0px;
 	margin: 5px 0 auto 0;
 	background-color: #ccddff;
-	user-select:none;
+	user-select: none;
 }
 
 .btnName {
@@ -76,11 +79,19 @@
 }
 
 .desc {
-	font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue', 'Helvetica',
-		'Arial', sans-serif !important;
+	font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK KR',
+		'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue',
+		'Helvetica', 'Arial', sans-serif !important;
 	font-size: 12px;
 	color: #b3cdff;
 	margin-top: 5px;
+}
+#foot{
+	width: 1100px;
+	height: 400px;
+	margin: 50px auto 50px auto;
+	border: 1px solid #ddd;
+	border-radius: 10px;
 }
 </style>
 </head>
@@ -93,17 +104,20 @@
 		<div id="listbox">
 			<ul>
 				<li>
-					<button class="btn" onclick="location.href='list.pro?category=${category}&pageNum=1'">
+					<button class="btn"
+						onclick="location.href='list.pro?category=${category}&pageNum=1'">
 						<p class="btnName">커스텀 문제</p>
 						<p class="desc">사이트 회원들이 만든 문제들입니다.</p>
 					</button>
 					<hr class="vertical_bar"></hr>
-					<button class="btn" onclick="location.href='userColselect_page.pro?category=${category}'">
+					<button class="btn"
+						onclick="location.href='userColselect_page.pro?category=${category}'">
 						<p class="btnName">커스텀 문제집</p>
 						<p class="desc">회원들이 만든 문제들로 만든 문제집입니다.</p>
 					</button>
 					<hr class="vertical_bar"></hr>
-					<button class="btn" onclick="location.href='pastColselect_page.pro?category=${category}'">
+					<button class="btn"
+						onclick="location.href='pastColselect_page.pro?category=${category}'">
 						<p class="btnName">기출 문제집</p>
 						<p class="desc">회원들이 만든 문제들로 만든 문제집입니다.</p>
 					</button>
@@ -114,6 +128,8 @@
 					</button>
 				</li>
 			</ul>
+		</div>
+		<div id="foot">
 		</div>
 	</div>
 </body>

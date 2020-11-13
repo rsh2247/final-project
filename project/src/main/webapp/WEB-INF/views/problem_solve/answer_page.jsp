@@ -63,8 +63,10 @@
 
 #comment {
 	visibility: hidden;
-	width: 600px;
-	min-height: 300px;
+	width: 650px;
+	min-height: 100px;
+	padding: 15px 10px 15px 10px;
+	margin: 50px auto 0 auto;
 	border: 1px solid #eee;
 	border-radius: 10px;
 }
@@ -99,7 +101,7 @@
 			<label for="commentbox">
 				<button class="ansbutton" onclick="hideout()">정답확인</button>
 			</label>
-			<div id="comment" style="margin-top: 50px">${problem.PRO_COMMENT}</div>
+			<div id="comment">${problem.PRO_COMMENT}</div>
 		</c:if>
 	</div>
 </body>

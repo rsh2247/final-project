@@ -11,27 +11,29 @@
 	
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/user/loginPage.do"
-			access="hasRole('ROLE_USER')" />
+			access="hasAnyRole('ROLE_USER','ROLE_MANAGER')" />
 		<intercept-url pattern="/problem_solve/*.pro"
-			access="hasRole('ROLE_USER')" />
+			access="hasAnyRole('ROLE_USER','ROLE_MANAGER')" />
 		<intercept-url pattern="/problem_make/*.pro"
-			access="hasRole('ROLE_USER')" />
+			access="hasAnyRole('ROLE_USER','ROLE_MANAGER')" />
 		<intercept-url pattern="/group/*.user"
-			access="hasRole('ROLE_USER')" />
+			access="hasAnyRole('ROLE_USER','ROLE_MANAGER')" />
 		<intercept-url pattern="/cafe/*.user"
-			access="hasRole('ROLE_USER')" />
+			access="hasAnyRole('ROLE_USER','ROLE_MANAGER')" />
 		<intercept-url pattern="/orderInit.pay"
-			access="hasRole('ROLE_USER')" />
+			access="hasAnyRole('ROLE_USER','ROLE_MANAGER')" />
 		<intercept-url pattern="/calendar_main.cal"
-			access="hasRole('ROLE_USER')" />	
+			access="hasAnyRole('ROLE_USER','ROLE_MANAGER')" />
 		<intercept-url pattern="/*.user"
-			access="hasRole('ROLE_USER')" />
+			access="hasAnyRole('ROLE_USER','ROLE_MANAGER')" />
 		<intercept-url pattern="/lecture/mySubLecture.do"
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/lecture/addLecture.do"
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/lecture/insertLecture.do"
-			access="hasRole('ROLE_USER')" />	
+			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/manager/**"
+			access="hasRole('ROLE_MANAGER')" />	
 		<csrf disabled="true" />
 
 		<form-login login-page="/loginPage.login"

@@ -166,12 +166,12 @@
 		
 	<insert id="insertEval">
 		INSERT INTO PRO_EVAL(pro_eval_content, pro_eval_score,user_id,pro_num,pro_eval_date)
-		VALUES(#{pro_eval_content ,jdbcType=VARCHAR},#{pro_eval_score},#{user_id},#{pro_num},sysdate)
+		VALUES(#{pro_eval_content,jdbcType=VARCHAR},#{pro_eval_score},#{user_id},#{pro_num},sysdate)
 	</insert>
 	
 	<insert id="insertColEval">
 		INSERT INTO COL_EVAL(col_eval_content, col_eval_score, user_id, col_num, col_eval_date)
-		VALUES(#{col_eval_content ,jdbcType=VARCHAR}, #{col_eval_score},#{user_id},#{col_num},sysdate)
+		VALUES(#{col_eval_content,jdbcType=VARCHAR}, #{col_eval_score},#{user_id},#{col_num},sysdate)
 	</insert>
 	
 	<update id="updateEval">
