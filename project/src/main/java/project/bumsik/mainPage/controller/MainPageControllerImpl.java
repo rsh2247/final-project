@@ -51,7 +51,6 @@ public class MainPageControllerImpl implements MainPageController{
 		
 		Map<String,String> searchParam = new HashMap<>();
 		List<Lecture_VO> lectureList = lectService.getLectureList(searchParam);
-		System.out.println("resultList : "+lectureList);
 		mav.addObject("lectureList",lectureList);
 		
 

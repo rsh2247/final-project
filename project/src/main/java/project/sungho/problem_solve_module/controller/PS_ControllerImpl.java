@@ -39,10 +39,11 @@ public class PS_ControllerImpl implements PS_Controller {
 	Score_Service score_Service;
 	
 	@RequestMapping(value = "problem_solve/mainPage", method = { RequestMethod.GET})
-	public ModelAndView proMainPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView proMainPage(@RequestParam Map<String,Object> inputMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		ModelAndView mav = new ModelAndView("problem_solve/c001_002.tiles");
-		mav.addObject("categorylist", "");
+		mav.addObject("categorylist", problem_Service.selectCategory(inputMap));
+		System.out.println(problem_Service.selectCategory(inputMap));
 		return mav;
 	}
 	
@@ -54,6 +55,7 @@ public class PS_ControllerImpl implements PS_Controller {
 			if(!inputMap.containsKey("pageNum")) inputMap.put("pageNum", (String)"1");
 			Paging page = new Paging(list.size(), 10, Integer.parseInt((String)inputMap.get("pageNum")));
 			ModelAndView mav = new ModelAndView("problem_solve/pro_listPage.tiles");
+			
 			mav.addObject("list", list);
 			mav.addObject("page", page);
 			mav.addObject("result", inputMap);

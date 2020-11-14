@@ -185,4 +185,7 @@
 		SET col_eval_content = #{col_eval_content, jdbcType=VARCHAR}, col_eval_score = #{col_eval_score}, col_eval_date = sysdate
 		WHERE col_num = #{col_num} and user_id = #{user_id}
 	</update>
+	
+	<select id="selectCategory"></select>
+	
 </mapper>

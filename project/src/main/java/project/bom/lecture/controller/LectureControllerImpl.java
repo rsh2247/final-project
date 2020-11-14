@@ -157,7 +157,6 @@ public class LectureControllerImpl implements LectureController {
 		boolean check = true;
 		while(check) {
 			String lecture_id = lectService.makeRandomString().toString();
-			System.out.println(lecture_id);
 			if(lectService.checkOverlapLectureId(lecture_id) == 1) {
 				continue;
 			}else {

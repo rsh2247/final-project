@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +88,8 @@
 	color: #b3cdff;
 	margin-top: 5px;
 }
-#foot{
+
+#foot {
 	width: 1100px;
 	height: 400px;
 	margin: 50px auto 50px auto;
@@ -130,6 +133,18 @@
 			</ul>
 		</div>
 		<div id="foot">
+			<div class="section">
+				<div class="subtitle">공인어학시험</div>
+				<div class="category_list">
+					<ul>
+						<c:forEach var="list" items="${categorylist}">
+							<li>
+							<div>${list.CATEGORY_ID}</div>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
