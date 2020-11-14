@@ -212,8 +212,8 @@ h3 {
 		<div id="loginbox">
 			<sec:authorize access="isAnonymous()">
 				<div id='loginbar'>
-					<a href="${contextPath}/mainPage.main?lang=ko"><img class="flag flag-kr"/></a>
-					<a href="${contextPath}/mainPage.main?lang=en"><img class="flag flag-us"/></a>
+					<a href="${contextPath}/mainPage.main?lang=ko"><img class="flag flag-kr" style="background: url('${contextPath}/resources/image/flags.png') -80px -77px;"/></a>
+					<a href="${contextPath}/mainPage.main?lang=en"><img class="flag flag-us" style="background: url('${contextPath}/resources/image/flags.png') 0 -154px;"/></a>
 					<p class="login">
 						<a href="${contextPath}/user/loginPage.do"><spring:message code="site.signin"/></a> | 
 						<a href="${contextPath}/user/signUp.do"><spring:message code="site.signup"/></a>
