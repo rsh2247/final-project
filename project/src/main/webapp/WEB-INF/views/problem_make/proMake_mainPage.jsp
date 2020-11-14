@@ -130,12 +130,12 @@
 
 .maintitle {
 	width: 95%;
-	height: 40px;
 	border-bottom: 1px solid #d4d4d4;
 	text-align: left;
-	padding-left: 10px;
+	padding: 0 20px 20px 20px;
 	margin: 0 auto 35px auto;
-	font-size: 21px;
+	font-size: 24px;
+	font-weight:bold;
 	color: #333;
 }
 

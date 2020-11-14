@@ -240,7 +240,7 @@
 			</div>
 		</c:if>
 		<c:if test="${empty param.category}">
-			<div id="top">
+			<div id="top">	
 				<div class="bigtitlebox">
 					<div class="bigtitle">문제 풀기</div>
 				</div>
