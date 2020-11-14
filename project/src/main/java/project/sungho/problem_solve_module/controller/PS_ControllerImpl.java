@@ -42,6 +42,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	public ModelAndView proMainPage(@RequestParam Map<String,Object> inputMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("problem_solve/c001_002.tiles");
 		mav.addObject("categorylist", problem_Service.selectCategory(new HashMap<String,Object>()));
+		mav.addObject("problemlist", problem_Service.selectRecentProblem());
 		return mav;
 	}
 	

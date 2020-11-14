@@ -28,7 +28,7 @@
         width: 100%;
         min-height: 1000px;
         margin:auto;
-        margin-bottom: 100px;
+        padding-bottom: 100px;
         float: left;
       }
       #contentbox{

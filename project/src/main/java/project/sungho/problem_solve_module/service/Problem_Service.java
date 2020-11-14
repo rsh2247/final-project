@@ -13,6 +13,7 @@ public interface Problem_Service {
 	 public List<Map<String, Object>> searchListCategory(Map<String, Object> searchMap) throws DataAccessException;
 	 public List<Map<String, Object>> searchProblem(Map<String, Object> searchMap) throws DataAccessException;
 	 public List<Map<String, Object>> searchExample(Map<String, Object> searchMap) throws DataAccessException;
+	 public List<Map<String, Object>> selectRecentProblem() throws DataAccessException;
 	 public List<Map<String, Object>> selectCollection(Map<String, Object> searchMap) throws DataAccessException;
 	 public List<Map<String, Object>> selectPastCollection(Map<String, Object> searchMap) throws DataAccessException;
 	 

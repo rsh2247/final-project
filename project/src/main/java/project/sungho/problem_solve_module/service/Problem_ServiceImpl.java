@@ -45,7 +45,12 @@ public class Problem_ServiceImpl implements Problem_Service {
 		List<Map<String, Object>> list = problem_DAO.searchProblem(searchMap);
 		return list;
 	}
-
+	
+	@Override
+	public List<Map<String, Object>> selectRecentProblem() throws DataAccessException {
+		List<Map<String, Object>> list = sqlSession.selectList("selectRecentProblem");
+		return list;
+	}
 	@Override
 	public List searchExample(Map<String, Object> searchMap) throws DataAccessException {
 		List<Map<String, Object>> list = problem_DAO.searchExample(searchMap);

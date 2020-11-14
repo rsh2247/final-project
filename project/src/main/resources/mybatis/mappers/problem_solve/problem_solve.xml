@@ -63,6 +63,19 @@
 		</where>
 		
 	</select>
+	
+	<select id="selectRecentProblem" resultMap="result" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT *
+		FROM(
+		]]>
+		SELECT pro_num, pro_name, user_id,category_name,category_id,tag_name
+		FROM problem)
+		<where>
+			<![CDATA[rownum <=5]]>
+		</where>
+		
+	</select>
 
 	<select id="searchExample" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
