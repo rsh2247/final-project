@@ -37,7 +37,7 @@
 		<csrf disabled="true" />
 
 		<form-login login-page="/loginPage.login"
-			default-target-url="/mainPage/mainPage001.do"
+			default-target-url="/mainPage.main"
 			username-parameter="id" password-parameter="pw"
 			authentication-failure-url="/loginPage.login" />
 			
@@ -46,7 +46,7 @@
 		<access-denied-handler
 			error-page="/access_error.login" />
 
-		<logout logout-success-url="/mainPage/mainPage001.do" />
+		<logout logout-success-url="/mainPage.main" />
 		
 	</http>
 	

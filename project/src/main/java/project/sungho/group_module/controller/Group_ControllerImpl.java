@@ -60,7 +60,7 @@ public class Group_ControllerImpl {
 	public ModelAndView make_newGroup(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		group_Service.insertGroup(paramMap);
-		ModelAndView mav = new ModelAndView("group/groupWholeList.tiles");
+		ModelAndView mav = new ModelAndView("redirect:groupmain");
 		return mav;
 	}
 
