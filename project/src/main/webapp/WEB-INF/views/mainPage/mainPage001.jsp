@@ -21,8 +21,10 @@
 		var images = [ "woman-working-office.jpg," ];
 		$('#startbtn').click(function() {
 			$("#wholebox").fadeOut(1000);
-			$("#contentbox").css('display', 'flex');
-			$("#contentbox").fadeIn("slow");
+			$("#contentbox").fadeIn(1000,function(){
+				$("#contentbox").css('display', 'flex');
+			});
+			
 		})
 
 		$('.dropdown-toggle').click(function() {
@@ -87,7 +89,6 @@
 <%-- 	<jsp:forward page="/mainPage/groupRank.main"/> --%>
 	<div id="contentbox">
 		<div id="contentinnerbox">
-		
 		<div class="row" style="height:10px;background-color:#eee"></div>
 		<section class="whiteSection">
 			<div class="row">

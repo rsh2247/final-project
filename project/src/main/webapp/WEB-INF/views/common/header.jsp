@@ -241,53 +241,8 @@ h3 {
 				onclick="location.href='${contextPath}/mainPage.main'" />
 			<ul class="one">
 				<li><a href="${contextPath}/problem_solve/mainPage" class="link"><spring:message code="site.menu1"/></a>
-					<ul class="two">
-						<li><a href="#" class="link"><spring:message code="site.menu1_1"/></a>
-							<ul class="three" style="top: -2px;">
-								<li class="subtitle"><h3><spring:message code="site.menu1_1_1"/></h3></li>
-								<li><a
-									href="${contextPath}/problem_solve/c001_002.do?category=TOEIC"
-									class="link">TOEIC</a></li>
-								<li><a
-									href="${contextPath}/problem_solve/c001_002.do?category=TOEFL"
-									class="link">TOEFL</a></li>
-								<li><a
-									href="${contextPath}/problem_solve/c001_002.do?category=TEPS"
-									class="link">TEPS</a></li>
-								<li><a href="" class="link"> </a></li>
-							</ul>
-							<ul class="three" style="left: 240px; top: -2px;">
-								<li class="subtitle"><h3><spring:message code="site.menu1_1_2"/></h3></li>
-								<li><a
-									href="${contextPath}/problem_solve/c001_002.do?category=HSK"
-									class="link">HSK</a></li>
-								<li><a href="" class="link"></a></li>
-								<li><a href="" class="link"></a></li>
-								<li><a href="" class="link"></a></li>
-							</ul>
-							<ul class="three" style="left: 360px; top: -2px;">
-								<li><h3><spring:message code="site.menu1_1_3"/></h3></li>
-								<li><a
-									href="${contextPath}/problem_solve/c001_002.do?category=JLPT"
-									class="link">JLPT</a></li>
-								<li><a href="" class="link"></a></li>
-								<li><a href="${contextPath}/pr/c001_002.do" class="link"></a></li>
-								<li><a href="${contextPath}/pr/c001_002.do" class="link">#</a></li>
-							</ul></li>
-						<li><a href="#" class="link"><spring:message code="site.menu1_2"/></a>
-							<ul class="three">
-								<li><h3><spring:message code="site.menu1_2_1"/></h3></li>
-								<li><a href="#" class="link"><spring:message code="site.menu1_2_2"/></a></li>
-								<li><a href="#" class="link"><spring:message code="site.menu1_2_3"/></a></li>
-								<li><a href="#" class="link"><spring:message code="site.menu1_2_4"/></a></li>
-							</ul>
-							<ul class="three" style="left: 240px;">
-								<li><h3><spring:message code="site.menu1_2_5"/></h3></li>
-								<li><a href="#" class="link"><spring:message code="site.menu1_2_6"/></a></li>
-								<li><a href="#" class="link"></a></li>
-								<li><a href="#" class="link"></a></li>
-							</ul></li>
-					</ul></li>
+					
+				
 				<li><a href="${contextPath}/problem_make/proMake_mainPage.do" class="link"><spring:message code="site.menu2"/></a>
 					</li>
 

@@ -186,6 +186,5 @@
 		WHERE col_num = #{col_num} and user_id = #{user_id}
 	</update>
 	
-	<select id="selectCategory"></select>
 	
 </mapper>

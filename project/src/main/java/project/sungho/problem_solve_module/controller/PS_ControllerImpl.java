@@ -40,10 +40,8 @@ public class PS_ControllerImpl implements PS_Controller {
 	
 	@RequestMapping(value = "problem_solve/mainPage", method = { RequestMethod.GET})
 	public ModelAndView proMainPage(@RequestParam Map<String,Object> inputMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		ModelAndView mav = new ModelAndView("problem_solve/c001_002.tiles");
-		mav.addObject("categorylist", problem_Service.selectCategory(inputMap));
-		System.out.println(problem_Service.selectCategory(inputMap));
+		mav.addObject("categorylist", problem_Service.selectCategory(new HashMap<String,Object>()));
 		return mav;
 	}
 	

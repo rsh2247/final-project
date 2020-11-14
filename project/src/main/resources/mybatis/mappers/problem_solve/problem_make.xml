@@ -18,7 +18,7 @@
 				substr(category_id,0,2) = #{category}
 			</if>
 		</where>
-		order by category_name asc
+		order by category_id asc
 	</select>
 
 	<select id="selectTag" resultMap="result"
