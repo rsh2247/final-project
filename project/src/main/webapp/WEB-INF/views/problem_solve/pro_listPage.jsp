@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 .menu {
-	margin: 50px auto 0 auto;
+	margin: 100px auto 0 auto;
 	width: 1100px;
 }
 
@@ -16,22 +16,20 @@
 	border-collapse: collapse;
 	border: 0px solid black;
 	margin: auto;
+	border-radius: 5px;
 }
 
 .p_table th {
 	height: 50px;
 	font-size: 18px;
-	color: #eee;
-	background-color: #3E60DB;
+	color: #fff;
+	background-color: #5976e0;
 }
 
 .p_table td {
 	height: 35px;
 	padding: 2px 0 2px 0;
-}
-
-.p_table tr:nth-child(2n) {
-	background-color: #f1f1f1;
+	border-bottom: 1px solid #ddd;
 }
 
 .star1 {
@@ -51,15 +49,21 @@
 }
 
 .pagebtn {
-	width: 30px;
-	line-height: 26px;
-	border: 1px solid #ccc;
+	width: 35px;
+	line-height: 35px;
+	border: 0px solid #ccc;
+	border-radius: 20px;
 	background-color: #fff;
+	font-size:16px;
 	cursor: pointer;
+	transition: all ease 300ms;
+}
+.pagebtn:hover{
+	background-color: #5976e0;
+	color: #fff;
 }
 
 .colorbtn {
-	border: 1px solid #3E60DB;
 	background-color: #3E60DB;
 	color: #fff;
 }
@@ -217,13 +221,24 @@
 
 							}
 						    })
+						    
+						    
 					})
 
 			$('#evalbox').click(function(e) {
 			    if (e.target == this)
 				$(this).css('display', 'none');
 			})
-
+			$('#maxPage').on('change',function () {
+				$(this).parent().submit();
+			})
+			var maxPages = $('#maxPage').children();
+			for(var i=0; i<maxPages.length; i++){
+				if($(maxPages[i]).val() == '${result.maxPage}'){
+					console.log($(maxPages[i]).val())
+					$(maxPages[i]).attr('selected','selected');
+				}
+			}
 		    })
 		    
 </script>
@@ -239,6 +254,20 @@
 		</div>
 	</div>
 	<div class="menu">
+		<div style="height: 52px;border-bottom: 2px solid #ccc; margin:0 auto 30px auto; width: 1000px;  text-align: left; ">
+			<div style="line-height: 50px;padding: 0 15px 0 15px;border-bottom: 2px solid #3E60DB;color:#3E60DB; display:inline-block; font-size: 24px;">${result.category}</div>
+			<div style="display: inline-block; float: right;">
+			<form action="list.pro">
+				<select id="maxPage" name="maxPage" style="height: 42px;padding:0 10px 0 10px; top:10px;position:relative;border:0px; border-bottom: 2px solid #ccc;">
+				<option value="10">10개씩 보기</option>
+				<option value="15">15개씩 보기</option>
+				<option value="20">20개씩 보기</option>
+				</select>
+				<input type="hidden" name="category" value="${result.category}">
+				<input type="hidden" name="category" value="${result.pageNum}">
+			</form>
+			</div>
+		</div>	
 		<table class="p_table">
 			<tr>
 				<th width="20px"></th>
@@ -266,10 +295,10 @@
 			<c:set var="pageNum" value="1" />
 			<c:forEach begin="1" end="${page.listNum}">
 				<c:if test="${pageNum == page.nowPage}">
-					<button class="pagebtn colorbtn" value="${pageNum}" onclick="location.href='${contextPath}/problem_solve/list.pro?category=${result.category}&pageNum=${pageNum}'">${pageNum}</button>
+					<button class="pagebtn colorbtn" value="${pageNum}" onclick="location.href='${contextPath}/problem_solve/list.pro?category=${result.category}&maxPage=${result.maxPage}&pageNum=${pageNum}'">${pageNum}</button>
 				</c:if>
 				<c:if test="${pageNum != page.nowPage}">
-					<button class="pagebtn" value="${pageNum}" onclick="location.href='${contextPath}/problem_solve/list.pro?category=${result.category}&pageNum=${pageNum}'">${pageNum}</button>
+					<button class="pagebtn" value="${pageNum}" onclick="location.href='${contextPath}/problem_solve/list.pro?category=${result.category}&maxPage=${result.maxPage}&pageNum=${pageNum}'">${pageNum}</button>
 				</c:if>
 				<c:set var="pageNum" value="${pageNum + 1}" />
 			</c:forEach>

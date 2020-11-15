@@ -245,9 +245,6 @@
 					<div class="bigtitle">문제 풀기</div>
 				</div>
 				<div>
-					<c:forEach items="${problemlist}" var="list">
-			${list.PRO_NUM}
-			</c:forEach>
 				</div>
 			</div>
 		</c:if>

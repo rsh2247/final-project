@@ -52,7 +52,8 @@ public class PS_ControllerImpl implements PS_Controller {
 		try {
 			List<Map<String, Object>> list = problem_Service.searchListCategory(inputMap);
 			if(!inputMap.containsKey("pageNum")) inputMap.put("pageNum", (String)"1");
-			Paging page = new Paging(list.size(), 10, Integer.parseInt((String)inputMap.get("pageNum")));
+			if(!inputMap.containsKey("maxPage")) inputMap.put("maxPage", (String)"10");
+			Paging page = new Paging(list.size(), Integer.parseInt((String)inputMap.get("maxPage")), Integer.parseInt((String)inputMap.get("pageNum")));
 			ModelAndView mav = new ModelAndView("problem_solve/pro_listPage.tiles");
 			
 			mav.addObject("list", list);
