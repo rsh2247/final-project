@@ -50,6 +50,16 @@
 	padding-left: 10px;
 	color: #555;
 }
+#submitbtn{
+	width: 90px;
+    line-height: 30px;
+    border: 2px solid #3E60DB;
+    border-radius: 30px;
+    margin: 20px 10px  0 0;
+    background-color: #3E60DB;
+    color: #fff;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -80,7 +90,7 @@
 				</ul>
 				<input type="hidden" name="g_list_state" value="manager">
 				<input type="hidden" name="group_icon" value="noimagecafe.png">
-				<button>확인</button>
+				<button id="submitbtn">확인</button>
 			</form>
 		</div>
 	</div>

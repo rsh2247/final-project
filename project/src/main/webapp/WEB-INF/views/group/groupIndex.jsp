@@ -11,7 +11,9 @@
 <style type="text/css">
 #index {
 	width: 100%;
+	height:60px;
 	text-align: left;
+	border-bottom: 2px solid #eee;
 }
 
 #contentbox {
@@ -23,7 +25,7 @@
 	width: 100px;
 	height: 60px;
 	border: 0px;
-	border-bottom : 2px solid #fff;
+	border-bottom : 2px solid #eee;
 	background-color: #fff;
 	cursor: pointer;
 	font-family: Inter, "Noto Sans KR", "Noto Sans JP", "Malgun Gothic", "맑은 고딕", sans-serif;
@@ -45,13 +47,11 @@
 .btn:hover {
 	background-color: #f7f8f9;
 }
-</style>
+</style>	
 </head>
 <body>
 	<div id="index">
-		<button class="btn" onclick="location.href='groupmain'">전체 그룹</button>
-		<button class="btn" onclick="location.href='mygroup.user'">내 그룹</button>
-		<button class="btn" onclick="location.href='groupmaking.user'">그룹 만들기</button>
+		<button class="btn" onclick="location.href='groupmain'">전체 그룹</button><button class="btn" onclick="location.href='mygroup.user'">내 그룹</button><button class="btn" onclick="location.href='groupmaking.user'">그룹 만들기</button>
 	</div>
 </body>
 </html>

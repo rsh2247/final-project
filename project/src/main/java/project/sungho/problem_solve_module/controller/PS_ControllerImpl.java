@@ -150,7 +150,7 @@ public class PS_ControllerImpl implements PS_Controller {
 		
 		List<Map<String, Object>> list = problem_Service.selectProByCol(paramMap);
 		if(!paramMap.containsKey("pageNum")) paramMap.put("pageNum", (String)"1");
-		if(!paramMap.containsKey("maxPage")) paramMap.put("maxPage", (String)"10");
+		if(!paramMap.containsKey("maxPage")) paramMap.put("maxPage", (String)"5");
 		Paging page = new Paging(list.size(), Integer.parseInt((String)paramMap.get("maxPage")), Integer.parseInt((String)paramMap.get("pageNum")),"reverse");
 		ModelAndView mav = new ModelAndView("problem_solve/col_problemPage.tiles");
 		mav.addObject("page", page);
