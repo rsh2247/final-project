@@ -110,9 +110,13 @@ public class PS_ControllerImpl implements PS_Controller {
 	public ModelAndView userColSelectPage(@RequestParam HashMap<String, Object> inputMap , HttpServletRequest request, HttpServletResponse response) throws Exception {
 		inputMap.put("col_tag", "창작");
 		List<Map<String, Object>> list = problem_Service.selectCollection(inputMap);
+		if(!inputMap.containsKey("pageNum")) inputMap.put("pageNum", (String)"1");
+		if(!inputMap.containsKey("maxPage")) inputMap.put("maxPage", (String)"10");
+		Paging page = new Paging(list.size(), Integer.parseInt((String)inputMap.get("maxPage")), Integer.parseInt((String)inputMap.get("pageNum")));
 		ModelAndView mav = new ModelAndView("problem_solve/col_listPage.tiles");
 		mav.addObject("list", list);
-		request.getSession().setAttribute("category", inputMap.get("category"));
+		mav.addObject("page", page);
+		mav.addObject("result", inputMap);
 		return mav;
 	}
 	
@@ -120,6 +124,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	public ModelAndView pastColselect_page(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String category = request.getParameter("category");
 		Map<String, Object> searchMap = new HashMap<String, Object>();
+		
 		searchMap.put("category", category);
 		ModelAndView mav = new ModelAndView("problem_solve/col_listPage.tiles");
 		mav.addObject("list", problem_Service.selectPastCollection(searchMap));
@@ -145,7 +150,8 @@ public class PS_ControllerImpl implements PS_Controller {
 		
 		List<Map<String, Object>> list = problem_Service.selectProByCol(paramMap);
 		if(!paramMap.containsKey("pageNum")) paramMap.put("pageNum", (String)"1");
-		Paging page = new Paging(list.size(), 5, Integer.parseInt((String)paramMap.get("pageNum")),"reverse");
+		if(!paramMap.containsKey("maxPage")) paramMap.put("maxPage", (String)"10");
+		Paging page = new Paging(list.size(), Integer.parseInt((String)paramMap.get("maxPage")), Integer.parseInt((String)paramMap.get("pageNum")),"reverse");
 		ModelAndView mav = new ModelAndView("problem_solve/col_problemPage.tiles");
 		mav.addObject("page", page);
 		mav.addObject("list",list);
