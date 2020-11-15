@@ -216,7 +216,7 @@ public class PS_ControllerImpl implements PS_Controller {
 	}
 	
 	//문제 데이터 insert
-	@RequestMapping(value = "**/makePro002.pro", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "**/makePro002.pro", method = {RequestMethod.POST })
 	public ModelAndView makePro002(@RequestParam HashMap<String, Object> paramMap) throws Exception {
 		String tag = (String) paramMap.get("tag");
 		paramMap.put("tag_id", tag.split("/")[0]);
@@ -224,8 +224,8 @@ public class PS_ControllerImpl implements PS_Controller {
 		paramMap.put("tag_ischoice", tag.split("/")[2]);
 		problem_Service.insertProblem(paramMap);
 		score_Service.makeProScore(paramMap);
-
-		ModelAndView mav = new ModelAndView("problem_make/proMake_002Page.tiles");
+		ModelAndView mav = new ModelAndView("problem_make/proMake_mainPage.tiles");
+		mav.addObject("result", 1);
 		return mav;
 	}
 	
@@ -251,7 +251,9 @@ public class PS_ControllerImpl implements PS_Controller {
 	public ModelAndView makeCol002(@RequestParam HashMap<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		problem_Service.insertCollection(paramMap);
 		score_Service.makeColScore(paramMap);
-		return new ModelAndView("redirect:proMake_mainPage");
+		ModelAndView mav = new ModelAndView("problem_make/proMake_mainPage.tiles");
+		mav.addObject("result", 2);
+		return mav;
 	}
 	
 	@RequestMapping(value = "problem_solve/proEval.pro", method = {RequestMethod.POST})

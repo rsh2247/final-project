@@ -251,7 +251,7 @@
 				<input type="hidden" name="group_num" value="${result.GROUP_NUM}">
 				<button id="writebtn" class="btn">카페 글쓰기</button>
 			</form>
-			<sec:authorize access="hasAnyRole('ROLE_USER')">
+			<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_MANAGER')">
 				<c:if test="${result.STATE eq 'manager'}">
 					<form action="managing.user" method="post">
 						<input type="hidden" name="group_num" value="${result.GROUP_NUM}">

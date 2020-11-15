@@ -44,7 +44,6 @@
 
 #answer {
 	list-style: none;
-	margin-bottom: 10px;
 }
 
 #selectNum{
@@ -57,7 +56,7 @@
 }
 
 #answer input {
-	width: 200px;
+	width: 250px;
 	line-height: 30px;
 	border: 1px solid #ccc;
 	padding-left: 10px;
@@ -147,7 +146,7 @@
 				$('#example').append(option);
 			    }
 			    if (choiceNum > 1) {
-				var answer = $('<li colspan="5"><select id="selectNum" name="answer"></select></li>');
+				var answer = $('<select id="selectNum" name="answer"></select>');
 				$('#answer').append(answer);
 				
 				for (var i = 0; i < choiceNum; i++) {
@@ -157,7 +156,7 @@
 				}
 				
 			    } else {
-				var answer = $('<li>정답 : <input type="text" name="answer"></li>');
+				var answer = $('<li><input type="text" name="answer" placeholder="정답을 입력해주세요." style="margin: 15px 0 27px 0;"></li>');
 				$('#answer').append(answer);
 			    }
 			}
@@ -184,7 +183,7 @@
 					<li style="margin: 10px 0 10px 0;"></li>
 					<li><textarea id="editor" name="content"></textarea></li>
 					<li style="margin: 15px 0 15px 0; display: inline-block;"><ul id="example"></ul></li>
-					<li style="display: inline-block;"><ul id="answer"></ul></li>
+					<li style="display: inline-block;"><div id="answer"></div></li>
 					<li><input type="text" name="comment" id="comment" placeholder="해설을 입력해주세요."></li>
 					<li><input type="hidden" value="${categoryId}" name="categoryId"> <input type="hidden" value="${categoryName}" name="categoryName"> <input id="submitinput" type="submit" value="확인"></li>
 				</ul>

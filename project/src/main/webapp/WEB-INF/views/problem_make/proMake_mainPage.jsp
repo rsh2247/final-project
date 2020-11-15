@@ -106,6 +106,12 @@
 								$('#cate3').append(option);
 							}
 						}
+						$('#submitbtn').click(function () {
+							$('#finishbox').css('display','none');
+						})
+						if('${result}'== 1){
+							$('#finishbox').css('display','block');
+						}
 
 					})
 	function submit() {
@@ -211,9 +217,47 @@
 	width: 100%;
 	height: 100px;
 }
+#finishbox{
+	position: fixed;
+	width: 100%;
+	height: 1080px;
+	bottom: 0px;
+	z-index:2;
+	background-color: #00000069;
+}
+#finish{
+	width: 400px;
+	border: 1px solid #ccc;
+	margin: 30% auto 0 auto;
+	padding:20px 0 20px 0;
+	background-color: #fff;
+	box-shadow: 3px 3px #00000024;
+}
+#submitbtn{
+	width: 90px;
+    line-height: 30px;
+    border: 2px solid #3E60DB;
+    border-radius: 30px;
+    margin: 30px 0  0 0;
+    background-color: #3E60DB;
+    color: #fff;
+    cursor: pointer;
+}
+
 </style>
 </head>
 <body>
+<div id="finishbox" style="display: none;">
+	<div id="finish">
+	<c:if test="${result == 1}">
+	<div style="font-size: 18px;">문제 등록이 완료되었습니다.</div>
+	</c:if>
+	<c:if test="${result == 2}">
+	<div style="font-size: 18px;">문제집 등록이 완료되었습니다.</div>
+	</c:if>
+	<button id="submitbtn">확인</button>
+	</div>
+</div>
 	<div id="maincontent">
 		<div id="top">
 			<div class="bigtitlebox">

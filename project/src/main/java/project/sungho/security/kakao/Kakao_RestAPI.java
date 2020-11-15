@@ -38,7 +38,7 @@ public class Kakao_RestAPI {
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	private final static String K_CLIENT_ID = "edb8a69b7aa8a6cb6bf4e8f43c8e43a9";
-	private final static String K_REDIRECT_URI = "http://localhost:8090/devFw/kakaoLogin";
+	private final static String K_REDIRECT_URI = "http://pracaticeeveryday.ga/devFw/kakaoLogin";
 	private final static String K_SECRET_KEY = "nYRkaKITTsj526O9LZatardtmPRSks6m";
 
 	public String getAuthorizationUrl(HttpSession session) {
