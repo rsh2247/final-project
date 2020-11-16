@@ -57,7 +57,13 @@
 	border-radius: 50px;
 	display: inline-block;
 }
-
+#index tr:nth-child(4) td {
+	background-color: #3E60DB;
+	border: 1px solid #3E60DB;
+}
+#index tr:nth-child(4) a {
+	color: #fff;
+}
 #innerbox {
 	text-align: left;
 }
@@ -77,16 +83,29 @@
 .itemname {
 	display: inline-block;
 	width: 160px;
-	height: 30px;
+	line-height: 30px;
 	border-right: 1px solid #ddd;
 }
 
 .item {
 	display: inline-block;
 	padding-left: 20px;
-	height: 30px;
+	line-height: 30px;
 }
-
+.changebtn{
+	color: #3e60db;
+	background-color: #fff;
+	width: 90px;
+	line-height: 30px;
+	font-weight: bold;
+	border-radius: 20px;
+	border: 2px solid #3e60db;
+	cursor: pointer;
+}
+.changebtn:hover{
+	color: #fff;
+	background-color: #3e60db;
+}
 #submitbtn {
 	width: 100px;
 	line-height: 35px;
@@ -112,18 +131,16 @@
 					<ul id="itemlist">
 						<li><div class="itemname">아이디</div>
 							<div class="item">${user.username}</div></li>
-						<li><div class="itemname">비밀번호 변경</div></li>
+						<li><div class="itemname">비밀번호</div><div class="item"><button class="changebtn">변경하기</button></div></li>
 						<li><div class="itemname">이메일</div>
-							<div class="item">${user.email}</div></li>
-						<li><div class="itemname">핸드폰 번호</div>
-							<div class="item">null</div></li>
+							<div class="item">${user.email}</div><div class="item"><button class="changebtn">변경하기</button></div></li>
 						<li style="height: 155px;"><div class="itemname"
 								style="height: 100px; position: relative; top: -80px">프로필이미지</div>
 							<div class="item">
 								<img alt="" src="${contextPath}/resources/image/${user.image}"
 									id="profileimage">
 							</div>
-							<button id="imgbtn" type="button">업로드</button></li>
+							<button id="imgbtn" type="button" class="changebtn">업로드</button></li>
 						<li style="border-bottom: 0px;">
 							<button id="submitbtn">확인</button>
 						</li>

@@ -57,7 +57,7 @@
 					<div id="titlebox">${post.POST_TITLE}</div>
 					<div style="display: inline-block;"> <img id="postimage" src="${contextPath}/resources/image/${post.USER_IMAGE}"> </div>
 					<div style="display: inline-block; position: relative; vertical-align: top;top:8px; left: 3px;">${post.USER_ID} </div>
-					<div style="display: inline-block; position: relative; right: 140px; bottom: 15px;color:#aaa; font-size: 14px">${post.POST_DATE}</div>
+					<div style="display: inline-block; position: relative; right: 30px; bottom: 15px;color:#aaa; font-size: 14px">${post.POST_DATE}</div>
 					</div>
 					<div id="maincontent">${post.POST_CONTENT}</div>
 					<div style="border-bottom: 1px solid #eee; margin: 10px 0 10px;"></div>

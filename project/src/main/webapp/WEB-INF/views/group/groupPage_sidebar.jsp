@@ -227,8 +227,8 @@
 				<img id="userimgProfile" alt="" src="${contextPath}/resources/image/${result.GROUP_ICON}">
 			</div>
 			<ul style="text-align: left;">
-				<li>매니저 ${result.GROUP_LEADER}</li>
-				<li>since
+				<li>매니저 <div style="display: inline-block; font-size: 12px;">${result.GROUP_LEADER}</div></li>
+				<li style="color: #555;">since
 					<h6 style="display: inline-block;">${result.GROUP_DATE}</h6>
 				</li>
 			</ul>
@@ -238,14 +238,14 @@
 				<img id="userimgProfile" alt="" src="${contextPath}/resources/image/${userinfo.image}">
 			</div>
 			<ul style="text-align: left;">
-				<li><p style="font-size: small;">${user.USER_ID}</p></li>
-				<li>${user.STATE}</li>
+				<li><p >${user.USER_ID}</p></li>
+				<li><p style="font-size: small;">${user.STATE}</p></li>
 				<li><p style="font-size: small; color: #555;">가입 ${user.G_LIST_JOINDATE}</p></li>
 			</ul>
 		</div>
 		<div id="cafeinfo">
 			<ul>
-				<li>카페인원수</li>
+				<li></li>
 			</ul>
 			<form action="write.user" method="post">
 				<input type="hidden" name="group_num" value="${result.GROUP_NUM}">

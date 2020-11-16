@@ -109,7 +109,7 @@
 						$('#submitbtn').click(function () {
 							$('#finishbox').css('display','none');
 						})
-						if('${result}'== 1){
+						if('${result}'== 1 || '${result}'== 2){
 							$('#finishbox').css('display','block');
 						}
 

@@ -20,30 +20,36 @@
 	margin: auto;
 }
 
-.p_table th {
-	height: 50px;
-	font-size: 18px;
-	color:#eee;
-	background-color: #3E60DB;
+#colhistory {
+	width: 95%;
+	border-collapse: collapse;
+	margin-left: 10px;
 }
 
-.p_table td {
+#colhistory th {
+	padding: 10px 0 10px 0;
+}
+
+.tablerow td {
 	height: 35px;
-	padding: 2px 0 2px 0;
-	
+	border-bottom: 1px solid #ccc;
 }
 
-.p_table tr:nth-child(2n){
-	background-color: #f1f1f1;
+.tablerow a {
+	text-decoration: none;
+	color: black;
+}
+
+.tablerow a:hover {
+	color: #3E60DB
 }
 .category{
 	display: inline-block;
-	width: 60px;
-	margin-left: 10px;
+	font-size: 14px;
 }
 .tag{
 	display: inline-block;
-	padding-left: 10px;
+	font-size: 14px;
 }
 </style>
 </head>
@@ -53,19 +59,19 @@
 		<div id="mainbox">
 			<div id="maintitle">문제오답</div>
 			<div id="maincontent">
-				<table class="p_table">
-					<tr>
-						<th width="20px"></th>
-						<th width="100px">문제 번호</th>
-						<th width="500px">문제명</th>
+				<table id="colhistory">
+					<tr style="border-bottom: 2px solid #3E60DB;">
+						<th width="80px">문제번호</th>
+						<th width="400px">문제명</th>
+						<th width="180px">제작자</th>
 						<th width="200px">정보</th>
 					</tr>
 					<c:forEach var="problem" items="${problem}">
-						<tr>
-							<td></td>
+						<tr class="tablerow">
 							<td>${problem.PRO_NUM}</td>
 							<td style="text-align: left; padding-left: 25px;">${problem.PRO_NAME}</td>
-							<td style="text-align: left;"><div class="category">${problem.CATEGORY_NAME}</div>|
+							<td style="text-align: left; padding-left: 25px;"><div style="font-size: 15px;">${problem.USER_ID}</div></td>
+							<td style="text-align: left; text-align: center;"><div class="category">${problem.CATEGORY_NAME}</div> |
 							<div class="tag">${problem.TAG_NAME}</div></td>
 						</tr>
 					</c:forEach>
