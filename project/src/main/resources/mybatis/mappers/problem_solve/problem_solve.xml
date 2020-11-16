@@ -50,7 +50,6 @@
 		WHERE p.pro_num = h.pro_num and h.user_id = #{user_id} 
 		order by history_date DESC
 	</select>
-
 	<select id="searchProblem" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
          select *
@@ -76,7 +75,7 @@
 		</where>
 		
 	</select>
-
+	
 	<select id="searchExample" resultMap="result" parameterType="java.util.Map"> 
       <![CDATA[
          select *

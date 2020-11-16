@@ -238,7 +238,7 @@ h3 {
 		</div>
 		<nav id="navi">
 			<img id="image" src="${contextPath}/resources/image/logo2.png"
-				onclick="location.href='${contextPath}/mainPage.main'" />
+				onclick="location.href='${contextPath}/main'" />
 			<ul class="one">
 				<li><a href="${contextPath}/problem_solve/mainPage" class="link"><spring:message code="site.menu1"/></a>
 					

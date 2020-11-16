@@ -141,7 +141,6 @@ ul, li {
 
 #contentbox {
 	height: 892px;
-	background-color: #eee;
 	text-align: left;
 	display: none;
 }
@@ -232,7 +231,6 @@ a{
 
 .row {
 	width: 100%;
-	top: 200px;
 	left: 40px;
 	padding-top: 15px;
 	position: relative;
